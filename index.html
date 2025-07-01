@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyAI | AI Insights &amp; Tools</title>
+  <title>MyAI | AI Insights & Tools</title>
   <meta name="description" content="MyAI is your friendly hub for practical AI tutorials, news digests, and honest tool reviews – learn how to leverage artificial intelligence to boost creativity and productivity.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,10 +38,14 @@
     nav a { text-decoration:none; color:var(--text); font-weight:600; }
     nav a:hover { color:var(--primary); }
     .hero {
-      padding:4rem 2rem;
+      padding:2.5rem 1rem;
       text-align:center;
       background:linear-gradient(135deg,var(--primary),#34d399);
       color:#fff;
+      min-height:45vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
     .hero h2 { font-size:2.5rem; margin-bottom:.75rem; }
     .hero p { font-size:1.125rem; max-width:600px; margin:0 auto 1.5rem; }
@@ -63,8 +67,8 @@
       color:var(--muted);
     }
   </style>
-  <!-- Google AdSense placeholder -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID" crossorigin="anonymous"></script>
+  <!-- Google AdSense: place this exactly once in <head> on every page -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8231924120348302" crossorigin="anonymous"></script>
 </head>
 <body>
   <header>
@@ -82,10 +86,10 @@
   <section class="hero">
     <h2>Welcome to MyAI</h2>
     <p>Actionable guides, experiments, and resources to empower creators &amp; solopreneurs with the latest in artificial intelligence.</p>
-    <!-- Example responsive AdSense ad -->
+    <!-- Responsive Ad unit (will load once AdSense account is approved) -->
     <ins class="adsbygoogle"
          style="display:block"
-         data-ad-client="YOUR-ADSENSE-CLIENT-ID"
+         data-ad-client="ca-pub-8231924120348302"
          data-ad-slot="1234567890"
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
@@ -99,4 +103,16 @@
     </div>
     <div class="card">
       <h3>Top 10 Free AI Tools for Marketers (2025)</h3>
-      <p>We review the most helpful no-code tools that save you hours every week. <a href="#">Read more →<
+      <p>We review the most helpful no-code tools that save you hours every week. <a href="#">Read more →</a></p>
+    </div>
+    <div class="card">
+      <h3>Prompt Engineering Cheat-Sheet</h3>
+      <p>Copy-paste formulas to get consistently better answers from any LLM. <a href="#">Read more →</a></p>
+    </div>
+  </main>
+
+  <footer id="about">
+    <p>© 2025 MyAI. All rights reserved.</p>
+  </footer>
+</body>
+</html>
