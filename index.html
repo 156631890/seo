@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>MyIdea Blog</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyAI | AI Insights &amp; Tools</title>
+  <meta name="description" content="MyAI is your friendly hub for practical AI tutorials, news digests, and honest tool reviews – learn how to leverage artificial intelligence to boost creativity and productivity.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f8fafc;
-      --primary: #2563eb;
+      --primary: #10b981; /* emerald */
       --text: #0f172a;
       --muted: #6b7280;
     }
@@ -33,42 +36,52 @@
     header h1 { font-size:1.5rem; color:var(--primary); }
     nav ul { list-style:none; display:flex; gap:1rem; }
     nav a { text-decoration:none; color:var(--text); font-weight:600; }
+    nav a:hover { color:var(--primary); }
     .hero {
       padding:4rem 2rem;
       text-align:center;
-      background:linear-gradient(135deg,var(--primary),#3b82f6);
+      background:linear-gradient(135deg,var(--primary),#34d399);
       color:#fff;
     }
-    .hero h2 { font-size:2rem; margin-bottom:.5rem; }
-    .section { max-width:800px; margin:3rem auto; padding:0 2rem; }
+    .hero h2 { font-size:2.5rem; margin-bottom:.75rem; }
+    .hero p { font-size:1.125rem; max-width:600px; margin:0 auto 1.5rem; }
+    .section { max-width:900px; margin:3rem auto; padding:0 2rem; }
     .card {
       background:#fff;
       padding:1.5rem;
-      border-radius:.5rem;
+      border-radius:.75rem;
       box-shadow:0 2px 8px rgba(0,0,0,.05);
       margin-bottom:1.5rem;
+      transition:transform .2s ease;
     }
+    .card:hover { transform:translateY(-4px); }
     .card h3 { font-size:1.25rem; margin-bottom:.5rem; color:var(--primary); }
-    footer { text-align:center; padding:2rem; color:var(--muted); }
+    .card p { margin-bottom:.25rem; }
+    footer {
+      text-align:center;
+      padding:2rem; 
+      color:var(--muted);
+    }
   </style>
   <!-- Google AdSense placeholder -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID" crossorigin="anonymous"></script>
 </head>
 <body>
   <header>
-    <h1>MyIdea Blog</h1>
+    <h1>MyAI</h1>
     <nav>
       <ul>
         <li><a href="#">Home</a></li>
-        <li><a href="#articles">Articles</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#articles">Tutorials</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#about">About</a></li>
       </ul>
     </nav>
   </header>
 
   <section class="hero">
-    <h2>Welcome to MyIdea</h2>
-    <p>Your daily dose of insightful content about [Topic].</p>
+    <h2>Welcome to MyAI</h2>
+    <p>Actionable guides, experiments, and resources to empower creators &amp; solopreneurs with the latest in artificial intelligence.</p>
     <!-- Example responsive AdSense ad -->
     <ins class="adsbygoogle"
          style="display:block"
@@ -81,17 +94,9 @@
 
   <main class="section" id="articles">
     <div class="card">
-      <h3>First Post Title</h3>
-      <p>Short excerpt from your first amazing post. <a href="#">Read more →</a></p>
+      <h3>Beginner's Guide to GPT-4o</h3>
+      <p>An easy-to-follow walkthrough of OpenAI's flagship model capabilities, pricing, and best prompts. <a href="#">Read more →</a></p>
     </div>
     <div class="card">
-      <h3>Second Post Title</h3>
-      <p>Short excerpt from your second post. <a href="#">Read more →</a></p>
-    </div>
-  </main>
-
-  <footer id="contact">
-    <p>© 2025 MyIdea. All rights reserved.</p>
-  </footer>
-</body>
-</html>
+      <h3>Top 10 Free AI Tools for Marketers (2025)</h3>
+      <p>We review the most helpful no-code tools that save you hours every week. <a href="#">Read more →<
