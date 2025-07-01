@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>MyIdea Blog</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --primary: #2563eb;
+      --text: #0f172a;
+      --muted: #6b7280;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    header {
+      background:#fff;
+      padding:1rem 2rem;
+      box-shadow:0 2px 4px rgba(0,0,0,.05);
+      position:sticky;
+      top:0;
+      z-index:10;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    header h1 { font-size:1.5rem; color:var(--primary); }
+    nav ul { list-style:none; display:flex; gap:1rem; }
+    nav a { text-decoration:none; color:var(--text); font-weight:600; }
+    .hero {
+      padding:4rem 2rem;
+      text-align:center;
+      background:linear-gradient(135deg,var(--primary),#3b82f6);
+      color:#fff;
+    }
+    .hero h2 { font-size:2rem; margin-bottom:.5rem; }
+    .section { max-width:800px; margin:3rem auto; padding:0 2rem; }
+    .card {
+      background:#fff;
+      padding:1.5rem;
+      border-radius:.5rem;
+      box-shadow:0 2px 8px rgba(0,0,0,.05);
+      margin-bottom:1.5rem;
+    }
+    .card h3 { font-size:1.25rem; margin-bottom:.5rem; color:var(--primary); }
+    footer { text-align:center; padding:2rem; color:var(--muted); }
+  </style>
+  <!-- Google AdSense placeholder -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h1>MyIdea Blog</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#articles">Articles</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Welcome to MyIdea</h2>
+    <p>Your daily dose of insightful content about [Topic].</p>
+    <!-- Example responsive AdSense ad -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="YOUR-ADSENSE-CLIENT-ID"
+         data-ad-slot="1234567890"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </section>
+
+  <main class="section" id="articles">
+    <div class="card">
+      <h3>First Post Title</h3>
+      <p>Short excerpt from your first amazing post. <a href="#">Read more →</a></p>
+    </div>
+    <div class="card">
+      <h3>Second Post Title</h3>
+      <p>Short excerpt from your second post. <a href="#">Read more →</a></p>
+    </div>
+  </main>
+
+  <footer id="contact">
+    <p>© 2025 MyIdea. All rights reserved.</p>
+  </footer>
+</body>
+</html>
