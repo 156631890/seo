@@ -42,3 +42,15 @@
   .cc-allow { background: #000000 !important; color: #ffffff !important; }
   .cc-window .cc-btn:hover { opacity: .9 !important; }
 </style>
+<script defer>
+  /* Auto-highlight current nav link */
+  window.addEventListener('DOMContentLoaded', () => {
+    const current = location.pathname.replace(/index\.html$/, '') || '/';
+    document.querySelectorAll('.site-nav a').forEach(a => {
+      if (a.getAttribute('href') === current || a.href === location.href.split('#')[0]) {
+        a.classList.add('active');            // CSS 高亮
+        a.setAttribute('aria-current','page'); // 无障碍
+      }
+    });
+  });
+</script>
