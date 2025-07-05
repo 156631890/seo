@@ -25,29 +25,45 @@
 </script>
 
 <style>
-  /* 横幅背景 */
-  :root .cc-window.cc-banner,
-  :root .cc-window.cc-top {
-    background: #1d9bf0 !important;    /* 换成你的主色 */
-    padding: 12px 8px !important;
+  /* =======================
+     Cookie Banner 视觉覆盖
+     ======================= */
+
+  /* 横幅整体：背景、文字大小、内边距 */
+  :root .cc-window.cc-banner {
+    background: #1d9bf0 !important;   /* ← 换成你的主色 */
+    color: #ffffff !important;
     font-size: 14px !important;
+    padding: 12px 8px !important;
+    z-index: 9999 !important;         /* 避免被别的浮窗遮挡 */
   }
 
-  /* 按钮统一圆角 + 内边距 */
+  /* 文案与按钮之间的间距 */
+  :root .cc-window .cc-message {
+    margin-right: 16px !important;
+  }
+
+  /* 所有按钮统一圆角 + 内边距 */
   :root .cc-window .cc-btn {
     border-radius: 6px !important;
-    padding: 6px 12px !important;
+    padding: 6px 14px !important;
+    font-weight: 600 !important;
   }
 
-  /* 拒绝按钮（第一个） */
-  :root .cc-window .cc-btn:nth-child(1) {
-    background: #fff !important;
+  /* “Decline” 按钮：白底 + 主色文字 */
+  :root .cc-window .cc-deny {
+    background: #ffffff !important;
     color: #1d9bf0 !important;
   }
 
-  /* 允许按钮（第二个） */
-  :root .cc-window .cc-btn:nth-child(2) {
-    background: #000 !important;
-    color: #fff !important;
+  /* “Allow cookies” 按钮：深色背景 + 白字 */
+  :root .cc-window .cc-allow {
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  /* 鼠标悬停效果（可选） */
+  :root .cc-window .cc-btn:hover {
+    opacity: .9 !important;
   }
 </style>
