@@ -3,71 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyAI | AI Insights & Tools</title>
-  <meta name="description" content="MyAI is your friendly hub for practical AI tutorials, news digests, and honest tool reviews – learn how to leverage artificial intelligence to boost creativity and productivity.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>MyAI | Actionable AI Guides & Tools</title>
+  <meta name="description" content="MyAI publishes weekly AI tutorials, prompt engineering recipes, and honest tool reviews to help creators and solopreneurs work smarter in any language."/>
+  <!-- Canonical & hreflang -->
+  <link rel="canonical" href="https://www.aiblogs.tech/"/>
+  <link rel="alternate" hreflang="en" href="https://www.aiblogs.tech/"/>
+  <link rel="alternate" hreflang="x-default" href="https://www.aiblogs.tech/"/>
+  <!-- Open Graph -->
+  <meta property="og:title" content="MyAI | Actionable AI Guides & Tools"/>
+  <meta property="og:description" content="Actionable guides, experiments, and resources to empower creators & solopreneurs with the latest in artificial intelligence."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.aiblogs.tech/"/>
+  <meta property="og:image" content="/og-cover.jpg"/>
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="MyAI | Actionable AI Guides & Tools"/>
+  <meta name="twitter:description" content="Actionable guides, experiments, and resources to empower creators & solopreneurs with the latest in artificial intelligence."/>
+  <meta name="twitter:image" content="/og-cover.jpg"/>
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.png" type="image/png"/>
+  <!-- Schema -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"MyAI","url":"https://www.aiblogs.tech/","potentialAction":{"@type":"SearchAction","target":"https://www.aiblogs.tech/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #f8fafc;
-      --primary: #10b981; /* emerald */
-      --text: #0f172a;
-      --muted: #6b7280;
-    }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body {
-      font-family:'Inter',sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.6;
-    }
-    header {
-      background:#fff;
-      padding:1rem 2rem;
-      box-shadow:0 2px 4px rgba(0,0,0,.05);
-      position:sticky;
-      top:0;
-      z-index:10;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    header h1 { font-size:1.5rem; color:var(--primary); }
-    nav ul { list-style:none; display:flex; gap:1rem; }
-    nav a { text-decoration:none; color:var(--text); font-weight:600; }
-    nav a:hover { color:var(--primary); }
-    .hero {
-      padding:2.5rem 1rem;
-      text-align:center;
-      background:linear-gradient(135deg,var(--primary),#34d399);
-      color:#fff;
-      min-height:45vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-    .hero h2 { font-size:2.5rem; margin-bottom:.75rem; }
-    .hero p { font-size:1.125rem; max-width:600px; margin:0 auto 1.5rem; }
-    .section { max-width:900px; margin:3rem auto; padding:0 2rem; }
-    .card {
-      background:#fff;
-      padding:1.5rem;
-      border-radius:.75rem;
-      box-shadow:0 2px 8px rgba(0,0,0,.05);
-      margin-bottom:1.5rem;
-      transition:transform .2s ease;
-    }
-    .card:hover { transform:translateY(-4px); }
-    .card h3 { font-size:1.25rem; margin-bottom:.5rem; color:var(--primary); }
-    .card p { margin-bottom:.25rem; }
-    footer {
-      text-align:center;
-      padding:2rem; 
-      color:var(--muted);
-    }
+    :root{--bg:#f8fafc;--primary:#10b981;--text:#0f172a;--muted:#6b7280;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    header{background:#fff;padding:1rem 2rem;box-shadow:0 2px 4px rgba(0,0,0,.05);position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center}
+    header h1{font-size:1.5rem;color:var(--primary)}
+    nav ul{list-style:none;display:flex;gap:1rem}
+    nav a{text-decoration:none;color:var(--text);font-weight:600}
+    nav a:hover{color:var(--primary)}
+    .hero{padding:3rem 1rem;text-align:center;background:linear-gradient(135deg,var(--primary),#34d399);color:#fff;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+    .hero h2{font-size:2.25rem}
+    .hero p{font-size:1.125rem;max-width:640px}
+    .subscribe{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem}
+    .subscribe input{padding:.6rem 1rem;border-radius:.375rem;border:none;min-width:240px}
+    .subscribe button{padding:.6rem 1.25rem;border:none;border-radius:.375rem;background:#fff;color:var(--primary);font-weight:600;cursor:pointer}
+    .subscribe button:hover{background:#f1f5f9}
+    .section{max-width:960px;margin:3rem auto;padding:0 1.5rem}
+    .card{background:#fff;padding:1.5rem;border-radius:.75rem;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:1.5rem;transition:transform .2s ease}
+    .card:hover{transform:translateY(-4px)}
+    .card h3{font-size:1.25rem;margin-bottom:.5rem;color:var(--primary)}
+    footer{text-align:center;padding:2rem;color:var(--muted)}
+    footer a{color:var(--muted);text-decoration:none}
   </style>
-  <!-- Google AdSense: place this exactly once in <head> on every page -->
+  <!-- AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8231924120348302" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -75,44 +57,45 @@
     <h1>MyAI</h1>
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="#articles">Tutorials</a></li>
-        <li><a href="#tools">Tools</a></li>
+        <li><a href="/tools.html">Tools</a></li>
         <li><a href="#about">About</a></li>
       </ul>
     </nav>
   </header>
 
   <section class="hero">
-    <h2>Welcome to MyAI</h2>
-    <p>Actionable guides, experiments, and resources to empower creators &amp; solopreneurs with the latest in artificial intelligence.</p>
-    <!-- Responsive Ad unit (will load once AdSense account is approved) -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-8231924120348302"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <h2>Actionable AI Guides Every Week</h2>
+    <p>Join 2 000+ makers getting fresh prompts, tool reviews &amp; cheatsheets straight to their inbox.</p>
+    <!-- Email subscription (Formspree) -->
+    <form class="subscribe" action="https://formspree.io/f/yourFormID" method="POST">
+      <input type="email" name="email" placeholder="Your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+    <!-- Hero Ad -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8231924120348302" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
   </section>
 
   <main class="section" id="articles">
     <div class="card">
-      <h3>Beginner's Guide to GPT-4o</h3>
-      <p>An easy-to-follow walkthrough of OpenAI's flagship model capabilities, pricing, and best prompts. <a href="#">Read more →</a></p>
+      <h3><a href="/posts/gpt4o-guide.html">Beginner's Guide to GPT-4o</a></h3>
+      <p>Walkthrough of OpenAI's flagship model capabilities, pricing &amp; best prompts.</p>
     </div>
     <div class="card">
-      <h3>Top 10 Free AI Tools for Marketers (2025)</h3>
-      <p>We review the most helpful no-code tools that save you hours every week. <a href="#">Read more →</a></p>
+      <h3><a href="/posts/top10-free-ai-tools.html">Top 10 Free AI Tools for Marketers (2025)</a></h3>
+      <p>No‑code tools that shave hours off your weekly tasks.</p>
     </div>
     <div class="card">
-      <h3>Prompt Engineering Cheat-Sheet</h3>
-      <p>Copy-paste formulas to get consistently better answers from any LLM. <a href="#">Read more →</a></p>
+      <h3><a href="/posts/prompt-cheatsheet.html">Prompt Engineering Cheat‑Sheet</a></h3>
+      <p>Copy‑paste formulas for consistently better answers from any LLM.</p>
     </div>
   </main>
 
   <footer id="about">
-    <p>© 2025 MyAI. All rights reserved.</p>
+    <p>© 2025 MyAI · <a href="/sitemap.xml">Sitemap</a> · <a href="/robots.txt">Robots</a></p>
   </footer>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
 </body>
 </html>
