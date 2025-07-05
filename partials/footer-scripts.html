@@ -23,3 +23,26 @@
 
   /* 其他站点级脚本，如事件埋点、外链统计，可继续写在此处 —— 同样 defer */
 </script>
+
+<style>
+  /* Cookie Banner 视觉微调 */
+  .cc-window.cc-banner {
+    background: #1d9bf0;           /* 这里替换成你的主色 */
+    font-size: 14px;
+    padding: 12px 8px;
+  }
+  .cc-window .cc-message { margin-right: 12px; }
+  .cc-window .cc-btn {
+    border-radius: 6px;
+    padding: 6px 12px;
+  }
+  /* Decline 按钮 */
+  .cc-window .cc-btn:first-child {
+    background:#fff;color:#1d9bf0;
+  }
+  /* Allow 按钮 */
+  .cc-window .cc-btn:last-child  {
+    background:#000;color:#fff;
+  }
+</style>
+
