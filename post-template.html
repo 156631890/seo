@@ -31,17 +31,20 @@
     .nav-footer a{flex:1;text-decoration:none;color:var(--brand);font-weight:600;font-size:.9rem;text-align:center;padding:.6rem 0;border:1px solid transparent;border-radius:6px}
     .nav-footer a:hover{background:var(--brand);color:#fff}
   </style>
+<link rel="stylesheet" href="/partials/site-style.css">
+<link rel="stylesheet" href="/partials/site-style.css">
 </head>
 <body>
 
-<header>
-  <h1 class="title">[[POST-TITLE]]</h1>
-  <div class="meta">
-    <span>By [[AUTHOR]]</span> ·
-    <span>8 min read</span> ·
-    <span>Published [[YYYY-MM-DD]]</span>
-  </div>
-</header>
+<header class="main-header">
+  <div class="logo"><a href="/">MyAI</a></div>
+  <details class="nav-toggle"><summary>☰</summary><nav class="site-nav">
+  <a href="/">Home</a><a href="/#articles">Tutorials</a><a href="/tools.html">Tools</a><a href="/#about">About</a>
+  </nav></details>
+  <nav class="site-nav desktop">
+  <a href="/">Home</a><a href="/#articles">Tutorials</a><a href="/tools.html">Tools</a><a href="/#about">About</a>
+  </nav>
+  </header>
 
 <article>
   <div class="content">
