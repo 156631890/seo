@@ -1,0 +1,25 @@
+<!-- partials/footer-scripts.html -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+
+<script defer>
+  /* Cookie Banner */
+  window.addEventListener("load", function () {
+    window.cookieconsent.initialise({
+      palette: { popup:{background:"#000"}, button:{background:"#1d9bf0"} },
+      theme: "classic",
+      position: "bottom",
+      type: "opt-in",
+      content: {
+        message: "We use cookies to improve your experience.",
+        dismiss: "Accept",
+        deny: "Decline",
+        link: "Privacy Policy",
+        href: "/privacy-policy.html"
+      }
+    });
+  });
+
+  /* 其他站点级脚本，如事件埋点、外链统计，可继续写在此处 —— 同样 defer */
+</script>
