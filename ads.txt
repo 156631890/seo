@@ -1,7 +1,1 @@
-# ① ads.txt
-echo "google.com, pub-xxxxxxxxxxxxxxxx, DIRECT, f08c47fec0942fa0" > public/ads.txt
-
-# ② 隐私政策等静态页
-mkdir -p pages/legal && cp path/to/privacy-policy.md pages/legal/privacy-policy.mdx
-# 你可用 Markdown + MDX，保持和现有文章一样的布局模板
-# ③ 重新部署
+echo "google.com, pub-xxxxxxxxxxxxxxxx, DIRECT, f08c47fec0942fa0" 
