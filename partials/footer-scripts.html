@@ -25,24 +25,29 @@
 </script>
 
 <style>
-  /* Cookie Banner 视觉微调 */
-  .cc-window.cc-banner {
-    background: #1d9bf0;           /* 这里替换成你的主色 */
-    font-size: 14px;
-    padding: 12px 8px;
+  /* 横幅背景 */
+  :root .cc-window.cc-banner,
+  :root .cc-window.cc-top {
+    background: #1d9bf0 !important;    /* 换成你的主色 */
+    padding: 12px 8px !important;
+    font-size: 14px !important;
   }
-  .cc-window .cc-message { margin-right: 12px; }
-  .cc-window .cc-btn {
-    border-radius: 6px;
-    padding: 6px 12px;
+
+  /* 按钮统一圆角 + 内边距 */
+  :root .cc-window .cc-btn {
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
   }
-  /* Decline 按钮 */
-  .cc-window .cc-btn:first-child {
-    background:#fff;color:#1d9bf0;
+
+  /* 拒绝按钮（第一个） */
+  :root .cc-window .cc-btn:nth-child(1) {
+    background: #fff !important;
+    color: #1d9bf0 !important;
   }
-  /* Allow 按钮 */
-  .cc-window .cc-btn:last-child  {
-    background:#000;color:#fff;
+
+  /* 允许按钮（第二个） */
+  :root .cc-window .cc-btn:nth-child(2) {
+    background: #000 !important;
+    color: #fff !important;
   }
 </style>
-
