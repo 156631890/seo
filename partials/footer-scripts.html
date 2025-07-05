@@ -1,16 +1,15 @@
 <!-- partials/footer-scripts.html -->
-<link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-<script defer src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.css" />
+<script defer src="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.js"></script>
 
 <script defer>
   /* Cookie Banner */
   window.addEventListener("load", function () {
     window.cookieconsent.initialise({
-      palette: { popup:{background:"#000"}, button:{background:"#1d9bf0"} },
       theme: "classic",
       position: "bottom",
       type: "opt-in",
+      palette: { button: { background: "#1d9bf0" } },
       content: {
         message: "We use cookies to improve your experience.",
         dismiss: "Accept",
@@ -21,49 +20,25 @@
     });
   });
 
-  /* 其他站点级脚本，如事件埋点、外链统计，可继续写在此处 —— 同样 defer */
+  /* Site‑wide scripts (analytics, outbound tracking, etc.) may follow here */
 </script>
 
 <style>
-  /* =======================
-     Cookie Banner 视觉覆盖
-     ======================= */
-
-  /* 横幅整体：背景、文字大小、内边距 */
-  :root .cc-window.cc-banner {
-    background: #1d9bf0 !important;   /* ← 换成你的主色 */
+  /* ===== Cookie Banner brand styling ===== */
+  .cc-window.cc-banner {
+    background: #1d9bf0 !important; /* brand blue */
     color: #ffffff !important;
     font-size: 14px !important;
     padding: 12px 8px !important;
-    z-index: 9999 !important;         /* 避免被别的浮窗遮挡 */
+    z-index: 9999 !important;
   }
-
-  /* 文案与按钮之间的间距 */
-  :root .cc-window .cc-message {
-    margin-right: 16px !important;
-  }
-
-  /* 所有按钮统一圆角 + 内边距 */
-  :root .cc-window .cc-btn {
+  .cc-window .cc-message { margin-right: 16px !important; }
+  .cc-window .cc-btn {
     border-radius: 6px !important;
     padding: 6px 14px !important;
     font-weight: 600 !important;
   }
-
-  /* “Decline” 按钮：白底 + 主色文字 */
-  :root .cc-window .cc-deny {
-    background: #ffffff !important;
-    color: #1d9bf0 !important;
-  }
-
-  /* “Allow cookies” 按钮：深色背景 + 白字 */
-  :root .cc-window .cc-allow {
-    background: #000000 !important;
-    color: #ffffff !important;
-  }
-
-  /* 鼠标悬停效果（可选） */
-  :root .cc-window .cc-btn:hover {
-    opacity: .9 !important;
-  }
+  .cc-deny  { background: #ffffff !important; color: #1d9bf0 !important; }
+  .cc-allow { background: #000000 !important; color: #ffffff !important; }
+  .cc-window .cc-btn:hover { opacity: .9 !important; }
 </style>
