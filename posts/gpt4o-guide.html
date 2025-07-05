@@ -2,33 +2,11 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GPT-4o Beginner’s Guide | MyAI</title>
 <meta name="description" content="A practical primer to get real work done with GPT-4o — pricing, strengths, and sample prompts.">
-<link rel="canonical" href="https://www.aiblogs.tech/posts/gpt4o-guide.html">
 <link rel="icon" href="/favicon.png" type="image/png">
-
-<!-- 全局字体与基础样式，与首页保持一致 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  :root{--bg:#f8fafc;--primary:#10b981;--text:#0f172a;--muted:#6b7280;}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:1.5rem}
-  h1{font-size:2rem;margin-bottom:.75rem}
-  .meta{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
-  .meta span+span::before{content:' • ';margin:0 .3rem}
-  p{margin:.9rem 0}
-  em{color:var(--muted)}
-  /* subscribe box */
-  .subscribe{border:2px solid var(--primary);border-radius:10px;padding:1.25rem;margin:2rem 0;text-align:center}
-  .subscribe input{padding:.6rem 1rem;border:1px solid #ddd;border-radius:6px;min-width:240px}
-  .subscribe button{margin-top:.7rem;padding:.6rem 1.2rem;border:none;border-radius:6px;background:var(--primary);color:#fff;font-weight:600;cursor:pointer}
-  /* nav footer */
-  .nav{display:flex;justify-content:space-between;gap:1rem;margin-top:2.5rem}
-  .nav a{flex:1;text-align:center;padding:.6rem 0;border:1px solid var(--primary);border-radius:6px;text-decoration:none;color:var(--primary);font-weight:600}
-  .nav a:hover{background:var(--primary);color:#fff}
-</style>
+<style>:root{--bg:#f8fafc;--primary:#10b981;--text:#0f172a;--muted:#6b7280;}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:1.5rem}h1{font-size:2rem;margin-bottom:.75rem}.meta{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}.meta span+span::before{content:' • ';margin:0 .3rem}p{margin:.9rem 0}em{color:var(--muted)}.subscribe{border:2px solid var(--primary);border-radius:10px;padding:1.25rem;margin:2rem 0;text-align:center}.subscribe input{padding:.6rem 1rem;border:1px solid #ddd;border-radius:6px;min-width:240px}.subscribe button{margin-top:.7rem;padding:.6rem 1.2rem;border:none;border-radius:6px;background:var(--primary);color:#fff;font-weight:600;cursor:pointer}.nav{display:flex;justify-content:space-between;gap:1rem;margin-top:2.5rem}.nav a{flex:1;text-align:center;padding:.6rem 0;border:1px solid var(--primary);border-radius:6px;text-decoration:none;color:var(--primary);font-weight:600}.nav a:hover{background:var(--primary);color:#fff}</style>
 
-<!-- Cookie Consent 资产 -->
 <link rel="stylesheet" href="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.css">
 <script defer src="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.js"></script>
 <script defer>
@@ -38,27 +16,39 @@ window.addEventListener('load',()=>{window.cookieconsent.initialise({
   content:{message:'We use cookies to improve your experience.',dismiss:'Accept',deny:'Decline',link:'Privacy Policy',href:'/privacy-policy.html'}
 });});
 </script>
-<style>
-.cc-window.cc-banner{background:#1d9bf0!important;color:#fff!important;padding:12px 8px!important;font-size:14px!important;z-index:9999!important}
-.cc-window .cc-message{margin-right:16px!important}.cc-window .cc-btn{border-radius:6px!important;padding:6px 14px!important;font-weight:600!important}
-.cc-deny{background:#fff!important;color:#1d9bf0!important}.cc-allow{background:#000!important;color:#fff!important}
-</style>
+<style>.cc-window.cc-banner{background:#1d9bf0!important;color:#fff!important;padding:12px 8px!important;font-size:14px!important;z-index:9999!important}.cc-window .cc-message{margin-right:16px!important}.cc-window .cc-btn{border-radius:6px!important;padding:6px 14px!important;font-weight:600!important}.cc-deny{background:#fff!important;color:#1d9bf0!important}.cc-allow{background:#000!important;color:#fff!important}</style>
 </head><body>
 
 <h1>GPT-4o Beginner’s Guide</h1>
-<div class="meta"><span>By MyAI</span><span>4&nbsp;min read</span><span>Published 2025-07-05</span></div>
+<div class="meta"><span>By MyAI</span><span>4 min read</span><span>Published 2025-07-05</span></div>
 
-<p><em>Full article coming soon — stay tuned!</em></p>
+<p><em>Full article coming soon — stay tuned!</em></p>
 
 <div class="subscribe">
   <p><strong>抢先领取《AI Prompt 速查表》</strong></p>
-  <input type="email" placeholder="输入 Email">
-  <br>
-  <button>立即订阅</button>
+
+  <!-- 替换 yourFormID 为你的 Formspree ID -->
+  <form action="https://formspree.io/f/yourFormID" method="POST" class="ajax-form">
+    <input type="email" name="email" placeholder="输入 Email" required><br>
+    <button type="submit">立即订阅</button>
+  </form>
 </div>
 
 <div class="nav">
   <a href="/blog/">← Back to Blog</a>
   <a href="/posts/top10-free-ai-tools.html">Next →</a>
 </div>
+
+<!-- AJAX 成功提示脚本，复用到所有文章页 -->
+<script>
+document.querySelectorAll('.ajax-form').forEach(form=>{
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+    form.innerHTML=res.ok
+      ? \"<p style='margin-top:.8rem;color:#10b981;font-weight:600'>🎉 Thanks! Check your inbox.</p>\"
+      : \"<p style='margin-top:.8rem;color:red'>Oops, something went wrong.</p>\";
+  });
+});
+</script>
 </body></html>

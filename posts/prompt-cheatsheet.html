@@ -1,13 +1,13 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ultimate Prompt Cheat-Sheet | MyAI</title>
-<meta name="description" content="A living reference of reusable prompts for writers, coders, and entrepreneurs.">
-<link rel="canonical" href="https://www.aiblogs.tech/posts/prompt-cheatsheet.html">
+<meta name="description" content="A living reference of reusable prompts for writers, coders and entrepreneurs.">
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>:root{--bg:#f8fafc;--primary:#10b981;--text:#0f172a;--muted:#6b7280;}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:1.5rem}h1{font-size:2rem;margin-bottom:.75rem}.meta{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}.meta span+span::before{content:' • ';margin:0 .3rem}p{margin:.9rem 0}em{color:var(--muted)}.subscribe{border:2px solid var(--primary);border-radius:10px;padding:1.25rem;margin:2rem 0;text-align:center}.subscribe input{padding:.6rem 1rem;border:1px solid #ddd;border-radius:6px;min-width:240px}.subscribe button{margin-top:.7rem;padding:.6rem 1.2rem;border:none;border-radius:6px;background:var(--primary);color:#fff;font-weight:600;cursor:pointer}.nav{display:flex;justify-content:space-between;gap:1rem;margin-top:2.5rem}.nav a{flex:1;text-align:center;padding:.6rem 0;border:1px solid var(--primary);border-radius:6px;text-decoration:none;color:var(--primary);font-weight:600}.nav a:hover{background:var(--primary);color:#fff}</style>
 <link rel="stylesheet" href="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.css"><script defer src="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.js"></script><script defer>window.addEventListener('load',()=>{window.cookieconsent.initialise({theme:'classic',position:'bottom',type:'opt-in',palette:{button:{background:'#1d9bf0'}},content:{message:'We use cookies to improve your experience.',dismiss:'Accept',deny:'Decline',link:'Privacy Policy',href:'/privacy-policy.html'}});});</script><style>.cc-window.cc-banner{background:#1d9bf0!important;color:#fff!important;padding:12px 8px!important;font-size:14px!important;z-index:9999!important}.cc-window .cc-message{margin-right:16px!important}.cc-window .cc-btn{border-radius:6px!important;padding:6px 14px!important;font-weight:600!important}.cc-deny{background:#fff!important;color:#1d9bf0!important}.cc-allow{background:#000!important;color:#fff!important}</style></head><body>
+
 <h1>Ultimate Prompt Cheat-Sheet</h1>
 <div class="meta"><span>By MyAI</span><span>5 min read</span><span>Published 2025-07-05</span></div>
 
@@ -15,12 +15,24 @@
 
 <div class="subscribe">
   <p><strong>先订阅，发布即通知！</strong></p>
-  <input type="email" placeholder="Email">
-  <br><button>Notify Me</button>
+  <form action="https://formspree.io/f/yourFormID" method="POST" class="ajax-form">
+    <input type="email" name="email" placeholder="Email" required><br>
+    <button type="submit">Notify Me</button>
+  </form>
 </div>
 
 <div class="nav">
   <a href="/posts/top10-free-ai-tools.html">← Previous</a>
   <a href="/blog/">Back to Blog →</a>
 </div>
+
+<script>
+document.querySelectorAll('.ajax-form').forEach(form=>{
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+    form.innerHTML=res.ok?\"<p style='margin-top:.8rem;color:#10b981;font-weight:600'>🎉 Thanks! Check your inbox.</p>\":\"<p style='margin-top:.8rem;color:red'>Oops, something went wrong.</p>\";
+  });
+});
+</script>
 </body></html>
