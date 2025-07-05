@@ -1,3 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyAI | Actionable AI Guides &amp; Tools</title>
+  <meta name="description" content="MyAI publishes weekly AI tutorials, prompt engineering recipes, and honest tool reviews to help creators and solopreneurs work smarter in any language.">
+
+  <!-- Canonical & hreflang -->
+  <link rel="canonical" href="https://www.aiblogs.tech/">
+  <link rel="alternate" hreflang="en" href="https://www.aiblogs.tech/">
+  <link rel="alternate" hreflang="x-default" href="https://www.aiblogs.tech/">
+
+  <!-- Open Graph / Twitter 可按需补充 -->
+
+  <link rel="icon" href="/favicon.png" type="image/png">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- ===== 全站样式 ===== -->
+  <style>
+    :root{
+      --bg:#f8fafc;
+      --primary:#10b981;  /* 主色，控制渐变起点与链接高亮 */
+      --text:#0f172a;
+      --muted:#6b7280;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    /* -- 顶部导航 -- */
+    header{
+      background:#fff;
+      padding:1rem 2rem;
+      box-shadow:0 2px 4px rgba(0,0,0,.05);
+      position:sticky;top:0;z-index:10;
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    header h1{font-size:1.5rem;color:var(--primary)}
+    nav ul{list-style:none;display:flex;gap:1rem}
+    nav a{text-decoration:none;color:var(--text);font-weight:600}
+    nav a:hover{color:var(--primary)}
+
+    /* -- Hero -- */
+    .hero{
+      padding:3rem 1rem;
+      text-align:center;
+      background:linear-gradient(135deg,var(--primary),#34d399);
+      color:#fff;
+      display:flex;flex-direction:column;align-items:center;gap:1.5rem
+    }
+    .hero h2{font-size:2.25rem}
+    .hero p{font-size:1.125rem;max-width:640px}
+
+    .subscribe{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+    .subscribe input{
+      padding:.6rem 1rem;border-radius:.375rem;border:none;min-width:240px
+    }
+    .subscribe button{
+      padding:.6rem 1.25rem;border:none;border-radius:.375rem;
+      background:#fff;color:var(--primary);font-weight:600;cursor:pointer
+    }
+    .subscribe button:hover{background:#f1f5f9}
+
+    /* -- 文章卡片 -- */
+    .section{max-width:960px;margin:3rem auto;padding:0 1.5rem}
+    .card{
+      background:#fff;padding:1.5rem;border-radius:.75rem;
+      box-shadow:0 2px 8px rgba(0,0,0,.05);
+      margin-bottom:1.5rem;
+      transition:transform .2s ease
+    }
+    .card:hover{transform:translateY(-4px)}
+    .card h3{font-size:1.25rem;margin-bottom:.5rem}
+    .card a{text-decoration:none;color:var(--primary)}
+    .card a:hover{opacity:.8}
+
+    /* -- 底部 -- */
+    footer{text-align:center;padding:2rem;color:var(--muted)}
+    footer a{color:var(--muted);text-decoration:none}
+  </style>
+
+  <!-- Google AdSense（如不需要可删除）-->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8231924120348302" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- ========= 导航 ========= -->
+  <header>
+    <h1>MyAI</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="#articles">Tutorials</a></li>
+        <li><a href="/tools.html">Tools</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
   <!-- =========  HERO  ========= -->
   <section class="hero">
     <h2>Actionable AI Guides Every Week</h2>
@@ -24,12 +130,65 @@
       <h3><a href="/posts/gpt4o-guide.html">Beginner&#39;s Guide to GPT-4o</a></h3>
       <p>Walkthrough of OpenAI&#39;s flagship model capabilities, pricing &amp; best prompts.</p>
     </div>
+
     <div class="card">
       <h3><a href="/posts/top10-free-ai-tools.html">Top 10 Free AI Tools for Marketers (2025)</a></h3>
       <p>No-code tools that shave hours off your weekly tasks.</p>
     </div>
+
     <div class="card">
       <h3><a href="/posts/prompt-cheatsheet.html">Prompt Engineering Cheat-Sheet</a></h3>
       <p>Copy-paste formulas for consistently better answers from any LLM.</p>
     </div>
   </main>
+
+  <!-- =========  FOOTER ========= -->
+  <footer id="about">
+    <p>© 2025 MyAI · <a href="/sitemap.xml">Sitemap</a> · <a href="/robots.txt">Robots</a></p>
+  </footer>
+
+  <!-- 站点 polyfill 示例 -->
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
+
+  <!-- ===== Cookie Banner 资产 ===== -->
+  <link rel="stylesheet" href="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.css">
+  <script defer src="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.js"></script>
+
+  <script defer>
+    window.addEventListener('load', () => {
+      window.cookieconsent.initialise({
+        theme: 'classic',
+        position: 'bottom',
+        type: 'opt-in',
+        palette: { button:{ background:'#1d9bf0' } }, // 仅按钮留蓝色
+        content: {
+          message: 'We use cookies to improve your experience.',
+          dismiss: 'Accept',
+          deny: 'Decline',
+          link: 'Privacy Policy',
+          href: '/privacy-policy.html'
+        }
+      });
+    });
+  </script>
+
+  <style>
+    /* --- Cookie Banner 品牌配色覆盖 --- */
+    .cc-window.cc-banner{
+      background:#1d9bf0 !important;
+      color:#fff !important;
+      padding:12px 8px !important;
+      font-size:14px !important;
+      z-index:9999 !important;
+    }
+    .cc-window .cc-message{margin-right:16px !important;}
+    .cc-window .cc-btn{
+      border-radius:6px !important;
+      padding:6px 14px !important;
+      font-weight:600 !important;
+    }
+    .cc-deny{background:#fff !important;color:#1d9bf0 !important;}
+    .cc-allow{background:#000 !important;color:#fff !important;}
+  </style>
+</body>
+</html>
