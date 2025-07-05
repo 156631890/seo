@@ -57,5 +57,26 @@
   <footer style="text-align:center;padding:2rem 0;font-size:.8rem;color:var(--c2)">
     © 2025 MyAI | Some outbound links are affiliate links—if you buy we may earn a small commission.
   </footer>
-</body>
+</bo<link rel="stylesheet"
+      href="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.css" />
+<script defer src="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.js"></script>
+
+<script defer>
+  window.addEventListener("load", () => {
+    window.cookieconsent.initialise({
+      palette: { popup:{background:"#000"}, button:{background:"#1d9bf0"} },
+      theme: "classic",
+      position: "bottom",
+      type: "opt-in",
+      content: {
+        message: "We use cookies to improve your experience.",
+        dismiss: "Accept",
+        deny: "Decline",
+        link: "Privacy Policy",
+        href: "/privacy-policy.html"
+      }
+    });
+  });
+</script>
+dy>
 </html>

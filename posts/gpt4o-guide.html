@@ -16,4 +16,25 @@
 </div>
 <div class="nav-footer">
   <a href="/blog/">← 返回目录</a><a href="#">Next →</a>
-</div></article></body></html>
+</div></article></<link rel="stylesheet"
+      href="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.css" />
+<script defer src="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.js"></script>
+
+<script defer>
+  window.addEventListener("load", () => {
+    window.cookieconsent.initialise({
+      palette: { popup:{background:"#000"}, button:{background:"#1d9bf0"} },
+      theme: "classic",
+      position: "bottom",
+      type: "opt-in",
+      content: {
+        message: "We use cookies to improve your experience.",
+        dismiss: "Accept",
+        deny: "Decline",
+        link: "Privacy Policy",
+        href: "/privacy-policy.html"
+      }
+    });
+  });
+</script>
+></html>
