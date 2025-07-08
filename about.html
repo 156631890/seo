@@ -3,109 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About • MyAI</title>
+  <title>About | MyAI</title>
+  <meta name="description" content="Mission, team, and contact info for MyAI.">
   <link rel="stylesheet" href="/partials/site-style.css">
+  <link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
 </head>
 <body>
-  <!-- ================= NAV ================= -->
-  <header class="main-header">
-    <div class="logo"><a href="/">MyAI</a></div>
-    <nav class="site-nav desktop">
-      <a href="/">Home</a>
-      <a href="/#articles">Tutorials</a>
-      <a href="/tools.html">Tools</a>
-      <a href="/about.html">About</a>
-    </nav>
-  </header>
 
-  <!-- ================= MAIN ================= -->
-  <main class="container">
-    <h1>About MyAI</h1>
-    <p>MyAI is run by <strong>Yang</strong>, a builder who tests AI tools, writes actionable prompts and shares no‑fluff automation guides for creators, makers and solopreneurs.</p>
+<!-- 同上：若�?SSI 支持就粘 header.html 全文 -->
+<!--#include virtual="/partials/header.html" -->
 
-    <!-- Trending tutorials -->
-    <h2>🔥 Trending Tutorials</h2>
-    <ul>
-      <li><a href="/posts/chatgpt-beginner-prompts.html">10 Prompts to Instantly Level Up Your ChatGPT</a></li>
-      <li><a href="/posts/ai-automation-guide.html">How to Build Your First AI Automation — No Code</a></li>
-      <li><a href="/posts/gpt4o-guide.html">Beginner's Guide to GPT‑4o</a></li>
-    </ul>
+<section class="hero" style="background:linear-gradient(135deg,var(--primary),#34d399)">
+  <h2>About MyAI</h2>
+  <p>Helping 2�?00+ creators turn AI into a real-world advantage.</p>
+</section>
 
-    <!-- Popular AI tools (10 cards) -->
-    <h2>🛠 Popular AI Tools & Websites</h2>
+<main class="section">
+  <h3>Our Mission</h3>
+  <p>We publish actionable guides, prompt libraries, and unbiased tool reviews so that solo founders and makers can get real work done with minimal fluff.</p>
 
-    <div class="card">
-      <h3>ChatGPT Writer</h3>
-      <p>An AI‑powered e‑mail & copy assistant that writes in 25+ languages.</p>
-      <a class="cta-btn" href="https://chatgptwriter.ai/" target="_blank" rel="noopener">Try it now</a>
-    </div>
+  <h3>Meet the Team</h3>
+  <p><strong>Yang Li</strong> �?Editor-in-chief, ex-Growth @ SaaS unicorn<br>
+     <strong>Anna K.</strong> �?Prompt engineer &amp; resident designer</p>
 
-    <div class="card">
-      <h3>Midjourney</h3>
-      <p>Create stunning visuals from simple text prompts in minutes.</p>
-      <a class="cta-btn" href="https://www.midjourney.com/" target="_blank" rel="noopener">Create visuals</a>
-    </div>
+  <h3>Contact</h3>
+  <p>Email: hi@aiblogs.tech<br>
+     Twitter / X: <a href="https://twitter.com/your_handle">@your_handle</a></p>
+</main>
 
-    <div class="card">
-      <h3>Gemini Pro 1.5</h3>
-      <p>Google’s long‑context model with advanced reasoning, available via AI Studio.</p>
-      <a class="cta-btn" href="https://aistudio.google.com/" target="_blank" rel="noopener">Try on AI Studio</a>
-    </div>
+<footer>
+  <p>© 2025 MyAI · <a href="/privacy-policy.html">Privacy</a></p>
+</footer>
 
-    <div class="card">
-      <h3>Notion AI</h3>
-      <p>Draft, translate and summarise directly inside your Notion workspace.</p>
-      <a class="cta-btn" href="https://www.notion.so/product/ai" target="_blank" rel="noopener">Explore Notion AI</a>
-    </div>
-
-    <div class="card">
-      <h3>Zapier</h3>
-      <p>Connect 5,000+ apps and trigger ChatGPT or Gemini workflows without code.</p>
-      <a class="cta-btn" href="https://zapier.com/" target="_blank" rel="noopener">Automate now</a>
-    </div>
-
-    <div class="card">
-      <h3>Canva Magic Design</h3>
-      <p>Generate on‑brand designs & social posts with one prompt.</p>
-      <a class="cta-btn" href="https://www.canva.com/magic-design/" target="_blank" rel="noopener">Try in Canva</a>
-    </div>
-
-    <div class="card">
-      <h3>Mixo AI</h3>
-      <p>Launch a landing page in 30 seconds—just enter your product idea.</p>
-      <a class="cta-btn" href="https://mixo.io/" target="_blank" rel="noopener">Launch landing page</a>
-    </div>
-
-    <div class="card">
-      <h3>Durable AI Website Builder</h3>
-      <p>Generate an entire business site, copy & images included, in 60 seconds.</p>
-      <a class="cta-btn" href="https://durable.co/" target="_blank" rel="noopener">Generate a site</a>
-    </div>
-
-    <div class="card">
-      <h3>Poe by Quora</h3>
-      <p>Chat with multiple models (GPT‑4o, Claude, Gemini) in one place.</p>
-      <a class="cta-btn" href="https://poe.com/" target="_blank" rel="noopener">Start chatting</a>
-    </div>
-
-    <div class="card">
-      <h3>Replit AI</h3>
-      <p>Code‑generation & autocompletion inside a cloud IDE—perfect for quick scripts.</p>
-      <a class="cta-btn" href="https://replit.com/ai" target="_blank" rel="noopener">Code with AI</a>
-    </div>
-
-    <!-- Subscribe CTA -->
-    <h2>💌 Stay in the loop</h2>
-    <p>Join 2,000+ makers getting fresh prompts, reviews & cheatsheets every week.</p>
-    <form class="subscribe" action="https://formspree.io/f/yourFormID" method="POST">
-      <input type="email" name="email" placeholder="Your email" required>
-      <button type="submit">Subscribe</button>
-    </form>
-  </main>
-
-  <!-- ================= FOOTER ================= -->
-  <footer>
-    <p>© 2025 MyAI • Built with ❤️ and caffeine.</p>
-  </footer>
+<script src="/partials/footer-scripts.html" defer></script>
 </body>
 </html>
+
