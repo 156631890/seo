@@ -206,5 +206,22 @@
     .cc-deny { background: #fff !important; color: #1d9bf0 !important; }
     .cc-allow { background: #000 !important; color: #fff !important; }
   </style>
+  <script>
+(async () => {
+  const container = document.querySelector("#articles");
+  const res = await fetch("/posts/index.json");
+  const list = await res.json();
+  container.innerHTML = "";                      // 清空硬编码内容
+  list.slice(0, 6).forEach(p => {                // 最多显示 6 篇
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <h3><a href="${p.url}">${p.title}</a></h3>
+      <p>${p.desc}</p>`;
+    container.appendChild(card);
+  });
+})();
+</script>
+
 </body>
 </html>
