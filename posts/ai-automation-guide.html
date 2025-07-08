@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Build Your First AI Automation — No Coding Required</title>
+  <meta name="description" content="A beginner-friendly guide to building useful AI automations with prompts, scripts, and one-click deployment.">
+  <link rel="canonical" href="https://www.aiblogs.tech/posts/ai-automation-guide.html">
+  <link rel="stylesheet" href="/partials/site-style.css">
+</head>
+<body>
+  <header class="main-header">
+    <div class="logo"><a href="/">MyAI</a></div>
+    <nav class="site-nav desktop">
+      <a href="/">Home</a>
+      <a href="/#articles">Tutorials</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/#about">About</a>
+    </nav>
+  </header>
+
+  <main class="section">
+    <h1>How to Build Your First AI Automation — No Coding Required</h1>
+    <p><em>This guide is for AI beginners who want to get useful stuff done — without writing a single line of code.</em></p>
+
+    <h2>🔍 What is an AI Automation?</h2>
+    <p>Think of AI automation as a tiny assistant that runs on a schedule or trigger. It uses ChatGPT (or other models) to do boring tasks for you — like summarizing emails, rewriting text, or responding to feedback. And yes, you can build it with zero technical background.</p>
+
+    <h2>📌 Example Use Case: Summarize Customer Reviews</h2>
+    <p>Imagine you receive dozens of product reviews per day. With a short script, you can auto-summarize these into key takeaways:</p>
+
+    <pre><code>"Summarize this product review with pros, cons, and suggestions: {{review_text}}"</code></pre>
+
+    <p>We'll now build an automation that does this using Google Sheets + OpenAI + free automation tools.</p>
+
+    <h2>⚙️ Step-by-Step: Create Your Automation</h2>
+
+    <ol>
+      <li><strong>Prepare Google Sheet</strong> with columns: A = Review, B = Summary</li>
+      <li><strong>Use this script</strong> with <a href="https://www.make.com" target="_blank">Make.com</a> or <a href="https://zapier.com" target="_blank">Zapier</a></li>
+    </ol>
+
+    <pre><code>// pseudo-code automation
+When new row added to Sheet:
+→ Send A1 content to OpenAI API with prompt template
+→ Receive response
+→ Paste result into B1</code></pre>
+
+    <p>You can use tools like <a href="https://replit.com" target="_blank">Replit</a> for testing, or deploy directly with a template below.</p>
+
+    <h2>🚀 One-Click Deployment (Demo)</h2>
+    <p>Try this hosted version on Replit:</p>
+    <p><a href="https://replit.com/@yourusername/review-summarizer" target="_blank" class="cta-button">Launch Review Summarizer</a></p>
+
+    <h2>✅ Ready-Made Prompts for Automation</h2>
+    <ul>
+      <li><strong>Summarize support tickets</strong> → "Summarize this complaint in 3 bullet points."
+      <li><strong>Translate + clean feedback</strong> → "Translate to English and summarize tone."
+      <li><strong>Rewrite emails</strong> → "Make this message more polite and professional."
+    </ul>
+
+    <h2>📥 Get More Prompts + Templates</h2>
+    <p>Subscribe below to get our free library of prompts, workflows, and ready-to-run scripts.</p>
+
+    <form class="subscribe" action="https://formspree.io/f/yourFormID" method="POST">
+      <input type="email" name="email" placeholder="Your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2025 MyAI · <a href="/">Back to Home</a></p>
+  </footer>
+</body>
+</html>
