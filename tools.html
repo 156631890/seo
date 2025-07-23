@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,288 +8,74 @@
   <link rel="stylesheet" href="/partials/site-style.css">
   <style>
     /* ===== AI工具页面样式 ===== */
-    .tools-header {
-      text-align: center;
-      margin: 2rem 0 3rem;
-    }
-
-    .tools-header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .tools-header p {
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
+    .tools-header { text-align: center; margin: 2rem 0 3rem; }
+    .tools-header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .tools-header p { font-size: 1.1rem; color: var(--muted); max-width: 600px; margin: 0 auto; }
+    
     /* 搜索和筛选区域 */
-    .search-filters {
-      background: #f8fafc;
-      border-radius: var(--radius);
-      padding: 2rem;
-      margin-bottom: 3rem;
-    }
-
-    .search-box {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .search-input {
-      flex: 1;
-      min-width: 300px;
-      padding: 0.75rem;
-      border: 1px solid #e2e8f0;
-      border-radius: var(--radius);
-    }
-
-    .search-btn {
-      padding: 0.75rem 1.5rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-    }
-
-    .filter-tabs {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .filter-tab {
-      padding: 0.5rem 1rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 20px;
-      background: white;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .filter-tab:hover,
-    .filter-tab.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
+    .search-filters { background: #f8fafc; border-radius: var(--radius); padding: 2rem; margin-bottom: 3rem; }
+    .search-box { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 300px; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: var(--radius); }
+    .search-btn { padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: var(--radius); cursor: pointer; }
+    
+    .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-tab { padding: 0.5rem 1rem; border: 1px solid #e2e8f0; border-radius: 20px; background: white; cursor: pointer; transition: all 0.2s; }
+    .filter-tab:hover, .filter-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+    
     /* 统计信息 */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .stat-card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 2rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: white; padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: bold; color: var(--primary); }
+    .stat-label { color: var(--muted); font-size: 0.9rem; }
+    
     /* 工具卡片 */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .tool-card {
-      background: white;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: transform 0.2s;
-    }
-
-    .tool-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .tool-header {
-      padding: 1.5rem 1.5rem 1rem;
-    }
-
-    .tool-title {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .tool-title h3 {
-      margin: 0;
-      font-size: 1.25rem;
-    }
-
-    .tool-category {
-      font-size: 0.8rem;
-      color: var(--primary);
-      background: #e0f2fe;
-      padding: 0.25rem 0.5rem;
-      border-radius: 12px;
-    }
-
-    .tool-description {
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    .tool-meta {
-      padding: 0 1.5rem;
-    }
-
-    .tool-rating {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .stars {
-      color: #fbbf24;
-    }
-
-    .rating-text {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .tool-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .tag {
-      font-size: 0.8rem;
-      background: #f1f5f9;
-      color: #475569;
-      padding: 0.25rem 0.5rem;
-      border-radius: 12px;
-    }
-
-    .tool-pricing {
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    .tool-actions {
-      padding: 1.5rem;
-      border-top: 1px solid #f1f5f9;
-    }
-
-    .tool-btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background: var(--primary);
-      color: white;
-      text-decoration: none;
-      border-radius: var(--radius);
-      transition: background 0.2s;
-    }
-
-    .tool-btn:hover {
-      background: #2563eb;
-    }
-
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .tool-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.2s; }
+    .tool-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    
+    .tool-header { padding: 1.5rem 1.5rem 1rem; }
+    .tool-title { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .tool-title h3 { margin: 0; font-size: 1.25rem; }
+    .tool-category { font-size: 0.8rem; color: var(--primary); background: #e0f2fe; padding: 0.25rem 0.5rem; border-radius: 12px; }
+    .tool-description { color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
+    
+    .tool-meta { padding: 0 1.5rem; }
+    .tool-rating { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .stars { color: #fbbf24; }
+    .rating-text { font-size: 0.9rem; color: var(--muted); }
+    
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .tag { font-size: 0.8rem; background: #f1f5f9; color: #475569; padding: 0.25rem 0.5rem; border-radius: 12px; }
+    
+    .tool-pricing { font-weight: 600; color: var(--primary); margin-bottom: 1rem; }
+    
+    .tool-actions { padding: 1.5rem; border-top: 1px solid #f1f5f9; }
+    .tool-btn { display: inline-block; padding: 0.75rem 1.5rem; background: var(--primary); color: white; text-decoration: none; border-radius: var(--radius); transition: background 0.2s; }
+    .tool-btn:hover { background: #2563eb; }
+    
     /* 标签页 */
-    .tab-nav {
-      display: flex;
-      border-bottom: 2px solid #f1f5f9;
-      margin-bottom: 2rem;
-    }
-
-    .tab-btn {
-      padding: 1rem 1.5rem;
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-size: 1rem;
-      color: var(--muted);
-      border-bottom: 2px solid transparent;
-    }
-
-    .tab-btn.active {
-      color: var(--primary);
-      border-bottom-color: var(--primary);
-    }
-
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
+    .tab-nav { display: flex; border-bottom: 2px solid #f1f5f9; margin-bottom: 2rem; }
+    .tab-btn { padding: 1rem 1.5rem; border: none; background: none; cursor: pointer; font-size: 1rem; color: var(--muted); border-bottom: 2px solid transparent; }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+    
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    
     /* 模型对比表格 */
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-
-    .comparison-table th,
-    .comparison-table td {
-      padding: 1rem;
-      text-align: left;
-      border-bottom: 1px solid #f1f5f9;
-    }
-
-    .comparison-table th {
-      background: #f8fafc;
-      font-weight: 600;
-    }
-
+    .comparison-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid #f1f5f9; }
+    .comparison-table th { background: #f8fafc; font-weight: 600; }
+    
     /* 响应式设计 */
     @media (max-width: 768px) {
-      .tools-header h1 {
-        font-size: 2rem;
-      }
-
-      .search-box {
-        flex-direction: column;
-      }
-
-      .search-input {
-        min-width: auto;
-      }
-
-      .tools-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .tools-header h1 { font-size: 2rem; }
+      .search-box { flex-direction: column; }
+      .search-input { min-width: auto; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
-
 <body>
   <!-- =========  NAV  ========= -->
   <header class="main-header">
@@ -317,7 +102,7 @@
         <input type="text" id="searchInput" class="search-input" placeholder="搜索工具名称、功能或标签...">
         <button class="search-btn" id="searchButton">搜索</button>
       </div>
-
+      
       <div class="filter-tabs" id="categoryFilters">
         <div class="filter-tab active" data-category="all">全部</div>
         <!-- 分类标签将通过JavaScript动态生成 -->
@@ -331,10 +116,10 @@
 
     <!-- ===== 标签页导航 ===== -->
     <div class="tab-nav">
-      <button class="tab-btn active" onclick="showTab('tools')">🛠️ AI工具</button>
-      <button class="tab-btn" onclick="showTab('models')">🧠 AI模型</button>
-      <button class="tab-btn" onclick="showTab('agents')">🤖 AI Agent</button>
-      <button class="tab-btn" onclick="showTab('compare')">⚖️ 模型对比</button>
+      <button class="tab-btn active" data-tab="tools">🛠️ AI工具</button>
+      <button class="tab-btn" data-tab="models">🧠 AI模型</button>
+      <button class="tab-btn" data-tab="agents">🤖 AI Agent</button>
+      <button class="tab-btn" data-tab="compare">⚖️ 模型对比</button>
     </div>
 
     <!-- ===== AI工具标签页 ===== -->
@@ -368,8 +153,7 @@
     </div>
 
     <!-- ===== 订阅区域 ===== -->
-    <section
-      style="background:#ecfdf5; border-radius:var(--radius); padding:2.5rem 1.5rem; text-align:center; margin-top:4rem;">
+    <section style="background:#ecfdf5; border-radius:var(--radius); padding:2.5rem 1.5rem; text-align:center; margin-top:4rem;">
       <h2>💌 获取最新AI工具资讯</h2>
       <p>订阅我们的newsletter，第一时间了解最新的AI工具和使用技巧</p>
       <form class="subscribe" action="https://formspree.io/f/yourFormID" method="POST" style="margin-top:1rem;">
@@ -385,535 +169,7 @@
   </footer>
 
   <!-- 引入数据库和脚本 -->
-  <script src="/ai-tools-database.js"></script>
-  <script>
-    // 添加调试信息
-    console.log('页面加载中...');
-
-    // 检查数据库是否正确加载
-    window.addEventListener('error', function (e) {
-      console.error('脚本加载错误:', e.message);
-      document.getElementById('toolsGrid').innerHTML = '<div style="color:red;padding:20px;">加载数据库出错，请检查控制台</div>';
-    });
-    // 页面初始化
-    document.addEventListener('DOMContentLoaded', function () {
-      console.log('DOM加载完成，开始初始化页面');
-      
-      // 显示调试信息
-      const debugInfo = document.getElementById('debug-info');
-      
-      // 检查数据库是否正确加载
-      if (typeof aiToolsDatabase === 'undefined' || typeof aiToolsManager === 'undefined') {
-        console.error('数据库未正确加载');
-        debugInfo.innerHTML = '<span style="color:red">数据库加载失败，请检查控制台</span>';
-        document.getElementById('toolsGrid').innerHTML = '<div style="color:red;padding:20px;">数据库未正确加载，请检查网络连接</div>';
-        return;
-      }
-      
-      // 显示数据库信息
-      debugInfo.innerHTML = `数据库加载成功: ${aiToolsDatabase.tools.length}个工具, ${aiToolsDatabase.models.length}个模型, ${aiToolsDatabase.agents.length}个Agent`;
-
-      // 检查数据库是否正确加载
-      if (typeof window.aiToolsDatabase === 'undefined' || typeof window.aiToolsManager === 'undefined') {
-        console.error('数据库未正确加载');
-        document.getElementById('toolsGrid').innerHTML = '<div style="color:red;padding:20px;">数据库未正确加载，请检查网络连接</div>';
-        return;
-      }
-
-      console.log('数据库加载成功，工具数量:', window.aiToolsDatabase.tools.length);
-      console.log('模型数量:', window.aiToolsDatabase.models.length);
-      console.log('Agent数量:', window.aiToolsDatabase.agents.length);
-
-      try {
-        initializePage();
-        console.log('页面初始化完成');
-      } catch (error) {
-        console.error('页面初始化出错:', error);
-        document.getElementById('toolsGrid').innerHTML = '<div style="color:red;padding:20px;">页面初始化出错: ' + error.message + '</div>';
-      }
-    });
-
-    let currentCategory = 'all';
-    let currentTab = 'tools';
-
-    function initializePage() {
-      console.log('开始初始化页面组件');
-      generateCategoryFilters();
-      generateStats();
-      renderTools();
-      renderModels();
-      renderAgents();
-      generateModelComparison();
-    }
-
-    // 生成分类筛选器
-    function generateCategoryFilters() {
-      console.log('生成分类筛选器');
-      const filtersContainer = document.getElementById('categoryFilters');
-
-      if (!filtersContainer) {
-        console.error('找不到分类筛选器容器');
-        return;
-      }
-
-      try {
-        const categories = window.aiToolsDatabase.categories;
-        console.log('分类数量:', Object.keys(categories).length);
-
-        Object.keys(categories).forEach(catKey => {
-          const category = categories[catKey];
-          const filterTab = document.createElement('div');
-          filterTab.className = 'filter-tab';
-          filterTab.setAttribute('data-category', catKey);
-          filterTab.innerHTML = `${category.icon} ${category.name}`;
-          filterTab.onclick = () => filterByCategory(catKey);
-          filtersContainer.appendChild(filterTab);
-        });
-      } catch (error) {
-        console.error('生成分类筛选器出错:', error);
-        filtersContainer.innerHTML += '<div style="color:red;padding:10px;">加载分类失败</div>';
-      }
-    }
-
-    // 生成统计信息
-    function generateStats() {
-      console.log('生成统计信息');
-      const statsContainer = document.getElementById('statsGrid');
-
-      if (!statsContainer) {
-        console.error('找不到统计信息容器');
-        return;
-      }
-
-      try {
-        let totalTools = 0;
-        let totalModels = 0;
-        let totalAgents = 0;
-        let totalCategories = 0;
-
-        if (window.aiToolsDatabase) {
-          totalTools = window.aiToolsDatabase.tools ? window.aiToolsDatabase.tools.length : 0;
-          totalModels = window.aiToolsDatabase.models ? window.aiToolsDatabase.models.length : 0;
-          totalAgents = window.aiToolsDatabase.agents ? window.aiToolsDatabase.agents.length : 0;
-          totalCategories = window.aiToolsDatabase.categories ? Object.keys(window.aiToolsDatabase.categories).length : 0;
-        }
-
-        console.log('统计数据:', { totalTools, totalModels, totalAgents, totalCategories });
-
-        statsContainer.innerHTML = `
-          <div class="stat-card">
-            <div class="stat-number">${totalTools}</div>
-            <div class="stat-label">AI工具</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">${totalModels}</div>
-            <div class="stat-label">AI模型</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">${totalAgents}</div>
-            <div class="stat-label">AI Agent</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">${totalCategories}</div>
-            <div class="stat-label">分类</div>
-          </div>
-        `;
-      } catch (error) {
-        console.error('生成统计信息出错:', error);
-        statsContainer.innerHTML = '<div style="color:red;padding:20px;">加载统计信息失败</div>';
-      }
-    }
-    }
-
-    // 渲染工具卡片
-    function renderTools(tools = null) {
-      console.log('渲染工具卡片');
-      const toolsContainer = document.getElementById('toolsGrid');
-
-      if (!toolsContainer) {
-        console.error('找不到工具容器元素');
-        return;
-      }
-
-      try {
-        const toolsToRender = tools || window.aiToolsDatabase.tools;
-        console.log('要渲染的工具数量:', toolsToRender.length);
-
-        if (toolsToRender.length === 0) {
-          toolsContainer.innerHTML = '<div style="padding:20px;text-align:center;">没有找到匹配的工具</div>';
-          return;
-        }
-
-        toolsContainer.innerHTML = toolsToRender.map(tool => {
-          try {
-            const categoryName = window.aiToolsDatabase.categories[tool.category] ?
-              window.aiToolsDatabase.categories[tool.category].name : tool.category;
-
-            return `
-              <div class="tool-card">
-                <div class="tool-header">
-                  <div class="tool-title">
-                    <h3>${tool.name}</h3>
-                    <span class="tool-category">${categoryName}</span>
-                  </div>
-                  <p class="tool-description">${tool.description}</p>
-                </div>
-                
-                <div class="tool-meta">
-                  <div class="tool-rating">
-                    <span class="stars">${'★'.repeat(Math.floor(tool.rating))}${'☆'.repeat(5 - Math.floor(tool.rating))}</span>
-                    <span class="rating-text">${tool.rating} (${tool.users || '用户数未知'})</span>
-                  </div>
-                  
-                  <div class="tool-tags">
-                    ${tool.tags ? tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
-                  </div>
-                  
-                  <div class="tool-pricing">${tool.pricing}</div>
-                </div>
-                
-                <div class="tool-actions">
-                  <a href="${tool.url}" target="_blank" class="tool-btn">立即使用</a>
-                </div>
-              </div>
-            `;
-          } catch (error) {
-            console.error('渲染工具卡片出错:', error, tool);
-            return `<div class="tool-card"><div class="tool-header"><h3>渲染错误</h3></div></div>`;
-          }
-        }).join('');
-      } catch (error) {
-        console.error('渲染工具列表出错:', error);
-        toolsContainer.innerHTML = '<div style="color:red;padding:20px;">渲染工具列表出错: ' + error.message + '</div>';
-      }
-    }
-    }
-
-    // 渲染模型卡片
-    function renderModels() {
-      console.log('渲染模型卡片');
-      const modelsContainer = document.getElementById('modelsGrid');
-
-      if (!modelsContainer) {
-        console.error('找不到模型容器元素');
-        return;
-      }
-
-      try {
-        const models = window.aiToolsDatabase.models;
-        console.log('要渲染的模型数量:', models.length);
-
-        if (models.length === 0) {
-          modelsContainer.innerHTML = '<div style="padding:20px;text-align:center;">没有找到模型数据</div>';
-          return;
-        }
-
-        modelsContainer.innerHTML = models.map(model => {
-          try {
-            return `
-              <div class="tool-card">
-                <div class="tool-header">
-                  <div class="tool-title">
-                    <h3>${model.name}</h3>
-                    <span class="tool-category">${model.provider}</span>
-                  </div>
-                  <p class="tool-description">${model.description}</p>
-                </div>
-                
-                <div class="tool-meta">
-                  <div class="tool-rating">
-                    <span class="stars">${'★'.repeat(Math.floor(model.rating))}${'☆'.repeat(5 - Math.floor(model.rating))}</span>
-                    <span class="rating-text">${model.rating}</span>
-                  </div>
-                  
-                  <div class="tool-tags">
-                    ${model.features ? model.features.map(feature => `<span class="tag">${feature}</span>`).join('') : ''}
-                  </div>
-                  
-                  <div class="tool-pricing">${model.pricing}</div>
-                </div>
-                
-                <div class="tool-actions">
-                  <a href="${model.url}" target="_blank" class="tool-btn">了解更多</a>
-                </div>
-              </div>
-            `;
-          } catch (error) {
-            console.error('渲染模型卡片出错:', error, model);
-            return `<div class="tool-card"><div class="tool-header"><h3>渲染错误</h3></div></div>`;
-          }
-        }).join('');
-      } catch (error) {
-        console.error('渲染模型列表出错:', error);
-        modelsContainer.innerHTML = '<div style="color:red;padding:20px;">渲染模型列表出错: ' + error.message + '</div>';
-      }
-    }
-    }
-
-    // 渲染Agent卡片
-    function renderAgents() {
-      console.log('渲染Agent卡片');
-      const agentsContainer = document.getElementById('agentsGrid');
-
-      if (!agentsContainer) {
-        console.error('找不到Agent容器元素');
-        return;
-      }
-
-      try {
-        const agents = window.aiToolsDatabase.agents;
-        console.log('要渲染的Agent数量:', agents.length);
-
-        if (agents.length === 0) {
-          agentsContainer.innerHTML = '<div style="padding:20px;text-align:center;">没有找到Agent数据</div>';
-          return;
-        }
-
-        agentsContainer.innerHTML = agents.map(agent => {
-          try {
-            return `
-              <div class="tool-card">
-                <div class="tool-header">
-                  <div class="tool-title">
-                    <h3>${agent.name}</h3>
-                    <span class="tool-category">${agent.complexity}</span>
-                  </div>
-                  <p class="tool-description">${agent.description}</p>
-                </div>
-                
-                <div class="tool-meta">
-                  <div class="tool-rating">
-                    <span class="stars">${'★'.repeat(Math.floor(agent.rating))}${'☆'.repeat(5 - Math.floor(agent.rating))}</span>
-                    <span class="rating-text">${agent.rating}</span>
-                  </div>
-                  
-                  <div class="tool-tags">
-                    ${agent.tags ? agent.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
-                  </div>
-                  
-                  <div class="tool-pricing">用例: ${agent.useCase}</div>
-                </div>
-                
-                <div class="tool-actions">
-                  <a href="${agent.github}" target="_blank" class="tool-btn">查看GitHub</a>
-                </div>
-              </div>
-            `;
-          } catch (error) {
-            console.error('渲染Agent卡片出错:', error, agent);
-            return `<div class="tool-card"><div class="tool-header"><h3>渲染错误</h3></div></div>`;
-          }
-        }).join('');
-      } catch (error) {
-        console.error('渲染Agent列表出错:', error);
-        agentsContainer.innerHTML = '<div style="color:red;padding:20px;">渲染Agent列表出错: ' + error.message + '</div>';
-      }
-    }
-    }
-
-    // 生成模型对比
-    function generateModelComparison() {
-      const comparisonContainer = document.getElementById('modelComparison');
-      const models = aiToolsDatabase.models;
-
-      comparisonContainer.innerHTML = `
-        <table class="comparison-table">
-          <thead>
-            <tr>
-              <th>模型</th>
-              <th>提供商</th>
-              <th>类型</th>
-              <th>主要功能</th>
-              <th>定价</th>
-              <th>评分</th>
-              <th>优势</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${models.map(model => `
-              <tr>
-                <td><strong>${model.name}</strong></td>
-                <td>${model.provider}</td>
-                <td>${model.type}</td>
-                <td>${model.features.slice(0, 2).join(', ')}</td>
-                <td>${model.pricing}</td>
-                <td>${model.rating}</td>
-                <td>${model.strengths.slice(0, 2).join(', ')}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      `;
-    }
-
-    // 标签页切换
-    function showTab(tabName) {
-      console.log('切换标签页:', tabName);
-
-      try {
-        // 隐藏所有标签页内容
-        document.querySelectorAll('.tab-content').forEach(tab => {
-          tab.classList.remove('active');
-        });
-
-        // 移除所有按钮的active状态
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-          btn.classList.remove('active');
-        });
-
-        // 显示选中的标签页
-        const tabContent = document.getElementById(tabName + '-tab');
-        if (tabContent) {
-          tabContent.classList.add('active');
-        } else {
-          console.error('找不到标签页内容:', tabName + '-tab');
-        }
-
-        // 更新按钮状态
-        const clickedButton = event.target;
-        if (clickedButton) {
-          clickedButton.classList.add('active');
-        }
-
-        currentTab = tabName;
-
-        // 如果切换到模型或Agent标签页，确保内容已经渲染
-        if (tabName === 'models' && document.getElementById('modelsGrid').children.length === 0) {
-          renderModels();
-        } else if (tabName === 'agents' && document.getElementById('agentsGrid').children.length === 0) {
-          renderAgents();
-        } else if (tabName === 'compare' && document.getElementById('modelComparison').children.length === 0) {
-          generateModelComparison();
-        }
-      } catch (error) {
-        console.error('切换标签页出错:', error);
-      }
-    }
-
-    // 分类筛选
-    function filterByCategory(category) {
-      console.log('筛选分类:', category);
-      currentCategory = category;
-
-      try {
-        // 更新筛选按钮状态
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-          tab.classList.remove('active');
-        });
-
-        const activeTab = document.querySelector(`[data-category="${category}"]`);
-        if (activeTab) {
-          activeTab.classList.add('active');
-        } else {
-          console.warn('找不到对应的分类标签:', category);
-        }
-
-        // 筛选工具
-        if (currentTab === 'tools') {
-          console.log('筛选工具列表');
-          const filteredTools = category === 'all'
-            ? window.aiToolsDatabase.tools
-            : window.aiToolsDatabase.tools.filter(tool => tool.category === category);
-
-          console.log('筛选后的工具数量:', filteredTools.length);
-          renderTools(filteredTools);
-        }
-      } catch (error) {
-        console.error('分类筛选出错:', error);
-      }
-    }
-
-    // 搜索功能
-    function searchTools() {
-      try {
-        // 获取搜索框的值
-        const searchInput = document.getElementById('searchInput');
-        if (!searchInput) {
-          console.error('找不到搜索输入框');
-          return;
-        }
-        
-        const query = searchInput.value;
-        console.log('搜索查询:', query, '当前分类:', currentCategory);
-        
-        // 显示调试信息
-        const debugInfo = document.getElementById('debug-info');
-        if (debugInfo) {
-          debugInfo.innerHTML += `<br>正在搜索: "${query}"`;
-        }
-
-        // 检查aiToolsManager是否存在
-        if (typeof aiToolsManager === 'undefined') {
-          console.error('aiToolsManager未定义，尝试使用window.aiToolsManager');
-          if (typeof window.aiToolsManager === 'undefined') {
-            console.error('window.aiToolsManager也未定义');
-            alert('搜索功能不可用，请刷新页面重试');
-            return;
-          }
-        }
-        
-        // 使用正确的aiToolsManager对象
-        const manager = typeof aiToolsManager !== 'undefined' ? aiToolsManager : window.aiToolsManager;
-
-        let results = [];
-
-        if (currentTab === 'tools') {
-          results = manager.searchTools(query, currentCategory === 'all' ? null : currentCategory);
-          console.log('搜索结果数量:', results.length);
-          renderTools(results);
-        } else if (currentTab === 'models') {
-          results = manager.searchModels(query);
-          console.log('模型搜索结果数量:', results.length);
-          renderModels(results);
-        } else if (currentTab === 'agents') {
-          results = manager.searchAgents(query);
-          console.log('Agent搜索结果数量:', results.length);
-          renderAgents(results);
-        }
-        
-        // 更新调试信息
-        if (debugInfo) {
-          debugInfo.innerHTML += `，找到 ${results.length} 个结果`;
-        }
-      } catch (error) {
-        console.error('搜索出错:', error);
-        alert('搜索出错: ' + error.message);
-      }
-    }
-
-    // 绑定搜索事件
-    function bindSearchEvents() {
-      // 搜索按钮点击事件
-      const searchButton = document.getElementById('searchButton');
-      if (searchButton) {
-        searchButton.addEventListener('click', function() {
-          console.log('搜索按钮被点击');
-          searchTools();
-        });
-      } else {
-        console.error('找不到搜索按钮');
-      }
-      
-      // 回车搜索
-      const searchInput = document.getElementById('searchInput');
-      if (searchInput) {
-        searchInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            console.log('按下回车键');
-            searchTools();
-          }
-        });
-      } else {
-        console.error('找不到搜索输入框');
-      }
-    }
-    
-    // 在页面加载完成后绑定搜索事件
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('绑定搜索事件');
-      bindSearchEvents();
-    });
-  </script>
+  <script src="/js/ai-tools-loader.js"></script>
+  <script src="/js/tools-page.js"></script>
 </body>
-
 </html>

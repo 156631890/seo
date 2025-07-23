@@ -719,9 +719,19 @@ class AIToolsManager {
 }
 
 // 导出数据库和管理器
-window.aiToolsDatabase = aiToolsDatabase;
-window.aiToolsManager = new AIToolsManager(aiToolsDatabase);
-
-// 为了兼容性，也导出到全局变量
-var aiToolsDatabase = window.aiToolsDatabase;
-var aiToolsManager = window.aiToolsManager;
+(function() {
+  // 先创建管理器实例
+  const manager = new AIToolsManager(aiToolsDatabase);
+  
+  // 导出到window对象
+  window.aiToolsDatabase = aiToolsDatabase;
+  window.aiToolsManager = manager;
+  
+  // 也导出为全局变量，但避免重复声明
+  if (typeof aiToolsDatabase === 'undefined') {
+    window.aiToolsDatabase = aiToolsDatabase;
+  }
+  if (typeof aiToolsManager === 'undefined') {
+    window.aiToolsManager = manager;
+  }
+})();

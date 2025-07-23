@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyAI | Actionable AI Guides & Tools for Creators</title>
-  <meta name="description" content="MyAI publishes weekly AI tutorials, prompt engineering recipes, and honest tool reviews to help creators and solopreneurs work smarter with AI technology.">
+  <title>MyAI | AI教程与工具合集</title>
+  <meta name="description" content="MyAI提供AI教程、提示工程技巧和工具评测，帮助创作者和企业家更好地使用AI技术提升工作效率。">
   <meta name="keywords" content="AI tutorials,ChatGPT prompts,AI tools,prompt engineering,artificial intelligence,machine learning,AI guides">
   <link rel="canonical" href="https://www.aiblogs.tech/">
   <link rel="alternate" hreflang="en" href="https://www.aiblogs.tech/">
@@ -578,26 +578,11 @@
 })();
 </script>
 
->>>>>>> f20c279d896a10250cee9d6bc3a7c3abcb15a869
+  <!-- 引入脚本 -->
+  <script src="/js/ai-tools-loader.js"></script>
+  <script src="/js/index.js"></script>
 </body>
-</html><s
-cript src="/ai-tools-database.js"></script>
-<script>
-  // 页面加载完成后初始化
-  document.addEventListener('DOMContentLoaded', function() {
-    // 渲染推荐工具
-    renderRecommendedTools();
-  });
-
-  // 渲染推荐工具
-  function renderRecommendedTools() {
-    const toolsGrid = document.getElementById('tools-grid');
-    if (!toolsGrid) return;
-    
-    // 获取推荐工具
-    const recommendedTools = window.aiToolsManager.getRecommendedTools(3);
-    
-    toolsGrid.innerHTML = recommendedTools.map(tool => `
+</html>
       <article class="card">
         <h3><a href="/tool-detail.html?id=${tool.id}&type=tool">${tool.name}</a></h3>
         <p>${tool.description}</p>
