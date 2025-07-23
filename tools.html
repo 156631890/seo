@@ -315,7 +315,7 @@
     <div class="search-filters">
       <div class="search-box">
         <input type="text" id="searchInput" class="search-input" placeholder="搜索工具名称、功能或标签...">
-        <button class="search-btn" onclick="searchTools()">搜索</button>
+        <button class="search-btn" id="searchButton">搜索</button>
       </div>
 
       <div class="filter-tabs" id="categoryFilters">
@@ -403,7 +403,7 @@
       const debugInfo = document.getElementById('debug-info');
       
       // 检查数据库是否正确加载
-      if (typeof window.aiToolsDatabase === 'undefined' || typeof window.aiToolsManager === 'undefined') {
+      if (typeof aiToolsDatabase === 'undefined' || typeof aiToolsManager === 'undefined') {
         console.error('数据库未正确加载');
         debugInfo.innerHTML = '<span style="color:red">数据库加载失败，请检查控制台</span>';
         document.getElementById('toolsGrid').innerHTML = '<div style="color:red;padding:20px;">数据库未正确加载，请检查网络连接</div>';
@@ -411,7 +411,7 @@
       }
       
       // 显示数据库信息
-      debugInfo.innerHTML = `数据库加载成功: ${window.aiToolsDatabase.tools.length}个工具, ${window.aiToolsDatabase.models.length}个模型, ${window.aiToolsDatabase.agents.length}个Agent`;
+      debugInfo.innerHTML = `数据库加载成功: ${aiToolsDatabase.tools.length}个工具, ${aiToolsDatabase.models.length}个模型, ${aiToolsDatabase.agents.length}个Agent`;
 
       // 检查数据库是否正确加载
       if (typeof window.aiToolsDatabase === 'undefined' || typeof window.aiToolsManager === 'undefined') {
@@ -826,39 +826,92 @@
     // 搜索功能
     function searchTools() {
       try {
-        const query = document.getElementById('searchInput').value;
-        console.log('搜索查询:', query, '当前分类:', currentCategory);
-
-        if (!window.aiToolsManager) {
-          console.error('aiToolsManager未定义');
+        // 获取搜索框的值
+        const searchInput = document.getElementById('searchInput');
+        if (!searchInput) {
+          console.error('找不到搜索输入框');
           return;
         }
+        
+        const query = searchInput.value;
+        console.log('搜索查询:', query, '当前分类:', currentCategory);
+        
+        // 显示调试信息
+        const debugInfo = document.getElementById('debug-info');
+        if (debugInfo) {
+          debugInfo.innerHTML += `<br>正在搜索: "${query}"`;
+        }
+
+        // 检查aiToolsManager是否存在
+        if (typeof aiToolsManager === 'undefined') {
+          console.error('aiToolsManager未定义，尝试使用window.aiToolsManager');
+          if (typeof window.aiToolsManager === 'undefined') {
+            console.error('window.aiToolsManager也未定义');
+            alert('搜索功能不可用，请刷新页面重试');
+            return;
+          }
+        }
+        
+        // 使用正确的aiToolsManager对象
+        const manager = typeof aiToolsManager !== 'undefined' ? aiToolsManager : window.aiToolsManager;
 
         let results = [];
 
         if (currentTab === 'tools') {
-          results = window.aiToolsManager.searchTools(query, currentCategory === 'all' ? null : currentCategory);
+          results = manager.searchTools(query, currentCategory === 'all' ? null : currentCategory);
           console.log('搜索结果数量:', results.length);
           renderTools(results);
         } else if (currentTab === 'models') {
-          results = window.aiToolsManager.searchModels(query);
+          results = manager.searchModels(query);
           console.log('模型搜索结果数量:', results.length);
           renderModels(results);
         } else if (currentTab === 'agents') {
-          results = window.aiToolsManager.searchAgents(query);
+          results = manager.searchAgents(query);
           console.log('Agent搜索结果数量:', results.length);
           renderAgents(results);
         }
+        
+        // 更新调试信息
+        if (debugInfo) {
+          debugInfo.innerHTML += `，找到 ${results.length} 个结果`;
+        }
       } catch (error) {
         console.error('搜索出错:', error);
+        alert('搜索出错: ' + error.message);
       }
     }
 
-    // 回车搜索
-    document.getElementById('searchInput').addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') {
-        searchTools();
+    // 绑定搜索事件
+    function bindSearchEvents() {
+      // 搜索按钮点击事件
+      const searchButton = document.getElementById('searchButton');
+      if (searchButton) {
+        searchButton.addEventListener('click', function() {
+          console.log('搜索按钮被点击');
+          searchTools();
+        });
+      } else {
+        console.error('找不到搜索按钮');
       }
+      
+      // 回车搜索
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            console.log('按下回车键');
+            searchTools();
+          }
+        });
+      } else {
+        console.error('找不到搜索输入框');
+      }
+    }
+    
+    // 在页面加载完成后绑定搜索事件
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('绑定搜索事件');
+      bindSearchEvents();
     });
   </script>
 </body>
