@@ -1,114 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Common meta/header will be injected by fix-site.js -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Tools Library | MyAI</title>
-  <link rel="stylesheet" href="/partials/site-style.css" />
-  <!-- Page‑specific lightweight styles -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About • MyAI</title>
+  <link rel="stylesheet" href="/partials/site-style.css">
   <style>
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-    .page-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-    }
-    .page-lead {
-      color: #666;
-      margin-bottom: 2rem;
-    }
-    .tool-grid {
-      display: grid;
-      gap: 1.5rem;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-    .tool-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .tool-card h3 {
-      margin-top: 0;
-      font-size: 1.25rem;
-    }
-    .tool-card p {
-      flex: 1 1 auto;
-      margin: 0.75rem 0 1.25rem;
-      color: #555;
-      line-height: 1.55;
-    }
-    .tool-card a.btn {
-      display: inline-block;
-      padding: 0.6rem 1.25rem;
-      border: none;
-      border-radius: 8px;
-      background: #0d6efd;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background 0.2s ease;
-    }
-    .tool-card a.btn:hover {
-      background: #0b5ed7;
-    }
-    .ad-slot {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 160px;
-      border: 2px dashed #bbb;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      color: #777;
-      background: #f8f9fa;
-    }
-    @media (max-width: 600px) {
-      .ad-slot {
-        height: 120px;
-      }
-    }
+    /* ===== Layout helpers for About page ===== */
+    section               { margin-top:4rem; }
+    .section-intro        { max-width:700px; margin:0 auto; text-align:left; }
+    .tut-grid             { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.25rem; }
+    .tut-card             { background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:1.25rem; }
+    .tut-card p           { color:var(--muted); font-size:.95rem; }
+    .tool-grid            { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:1.25rem; }
+    .tool-grid .card      { height:100%; display:flex; flex-direction:column; justify-content:space-between; }
+    .section-sub          { background:#ecfdf5; border-radius:var(--radius); padding:2.5rem 1.5rem; text-align:center; margin-top:4rem; }
+    .section-sub form     { margin-top:1rem; }
+    @media(max-width:640px){ section{margin-top:3rem;} h2{font-size:1.5rem;} }
   </style>
 </head>
 <body>
-  <!-- ===== Global header injected here ===== -->
+  <!-- =========  NAV  ========= -->
+  <header class="main-header">
+    <div class="logo"><a href="/">MyAI</a></div>
+    <nav class="site-nav desktop">
+      <a href="/">Home</a>
+      <a href="/#articles">Tutorials</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </header>
 
-  <main>
-    <h1 class="page-title">AI Tools Library</h1>
-    <p class="page-lead">Hand‑picked apps that supercharge creators, marketers and founders.</p>
+  <main class="container" style="max-width:1040px;">
+    <!-- ===== Intro ===== -->
+    <section class="section-intro">
+      <h1>About MyAI</h1>
+      <p>MyAI is run by <strong>Yang</strong>, a builder who tests AI tools, crafts actionable prompts and shares no‑fluff automation guides for creators, makers, and solopreneurs.</p>
+    </section>
 
-    <section class="tool-grid">
-      <!-- === Tool Card 1 === -->
-      <article class="tool-card">
-        <h3>ChatGPT Writer</h3>
-        <p>An AI‑powered e‑mail & copy assistant that writes in 25+ languages and cuts your drafting time by 90 %.</p>
-        <a class="btn" href="https://chatgptwriter.ai/?ref=myai" target="_blank" rel="noopener">Try it now</a>
-      </article>
-
-      <!-- === Tool Card 2 === -->
-      <article class="tool-card">
-        <h3>Midjourney</h3>
-        <p>Turn text prompts into stunning images—perfect for ads, blogs and social media in minutes.</p>
-        <a class="btn" href="https://www.midjourney.com/" target="_blank" rel="noopener">Create visuals</a>
-      </article>
-
-      <!-- === Ad Slot / Placeholder === -->
-      <div class="ad-slot">
-        Ad Space 300 × 250
+    <!-- ===== Trending Tutorials ===== -->
+    <section>
+      <h2>🔥 Trending Tutorials</h2>
+      <div class="tut-grid">
+        <article class="tut-card">
+          <h3><a href="/posts/chatgpt-beginner-prompts.html">10 Prompts to Instantly Level Up Your ChatGPT</a></h3>
+          <p>Copy‑paste prompts for stronger, clearer answers from day one.</p>
+        </article>
+        <article class="tut-card">
+          <h3><a href="/posts/ai-automation-guide.html">How to Build Your First AI Automation — No Code</a></h3>
+          <p>Turn boring workflows into one‑click scripts using ChatGPT + Sheets.</p>
+        </article>
+        <article class="tut-card">
+          <h3><a href="/posts/gpt4o-guide.html">Beginner's Guide to GPT‑4o</a></h3>
+          <p>Capabilities, pricing and best prompts for OpenAI’s flagship model.</p>
+        </article>
       </div>
+    </section>
 
-      <!-- === TODO: Additional tool cards auto‑generated by build script === -->
+    <!-- ===== Tools grid ===== -->
+    <section>
+      <h2>🛠 Popular AI Tools & Websites</h2>
+      <div class="tool-grid">
+        <div class="card"><h3>ChatGPT Writer</h3><p>Email & copy assistant in 25+ languages.</p><a class="cta-btn" href="https://chatgptwriter.ai/" target="_blank">Try it now</a></div>
+        <div class="card"><h3>Midjourney</h3><p>Create stunning images from text prompts.</p><a class="cta-btn" href="https://www.midjourney.com/" target="_blank">Create visuals</a></div>
+        <div class="card"><h3>Gemini Pro 1.5</h3><p>Google’s long‑context model in AI Studio.</p><a class="cta-btn" href="https://aistudio.google.com/" target="_blank">Try Gemini</a></div>
+        <div class="card"><h3>Notion AI</h3><p>Draft, translate, summarise inside Notion.</p><a class="cta-btn" href="https://www.notion.so/product/ai" target="_blank">Explore Notion AI</a></div>
+        <div class="card"><h3>Zapier</h3><p>Trigger ChatGPT & Gemini workflows. 5 000+ apps.</p><a class="cta-btn" href="https://zapier.com/" target="_blank">Automate now</a></div>
+        <div class="card"><h3>Canva Magic Design</h3><p>On‑brand visuals & posts in one prompt.</p><a class="cta-btn" href="https://www.canva.com/magic-design/" target="_blank">Design in Canva</a></div>
+        <div class="card"><h3>Mixo AI</h3><p>Launch a product landing page in 30 s.</p><a class="cta-btn" href="https://mixo.io/" target="_blank">Launch page</a></div>
+        <div class="card"><h3>Durable Site Builder</h3><p>Generate a whole website in 60 s.</p><a class="cta-btn" href="https://durable.co/" target="_blank">Generate site</a></div>
+        <div class="card"><h3>Poe by Quora</h3><p>Chat with GPT‑4o, Claude, Gemini in one app.</p><a class="cta-btn" href="https://poe.com/" target="_blank">Start chatting</a></div>
+        <div class="card"><h3>Replit AI</h3><p>Cloud IDE + AI code completion for quick scripts.</p><a class="cta-btn" href="https://replit.com/ai" target="_blank">Code with AI</a></div>
+      </div>
+    </section>
+
+    <!-- ===== Subscribe CTA ===== -->
+    <section class="section-sub">
+      <h2>💌 Stay in the loop</h2>
+      <p>Join 2 000+ makers getting fresh prompts, reviews & cheatsheets every week.</p>
+      <form class="subscribe" action="https://formspree.io/f/yourFormID" method="POST">
+        <input type="email" name="email" placeholder="Your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
     </section>
   </main>
 
-  <!-- ===== Global footer injected here ===== -->
+  <!-- ========= FOOTER ========= -->
+  <footer>
+    <p>© 2025 MyAI • Built with ❤️ and caffeine.</p>
+  </footer>
 </body>
 </html>
