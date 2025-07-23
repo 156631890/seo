@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyAI | AI教程与工具合集</title>
-  <meta name="description" content="MyAI提供AI教程、提示工程技巧和工具评测，帮助创作者和企业家更好地使用AI技术提升工作效率。">
-  <meta name="keywords" content="AI tutorials,ChatGPT prompts,AI tools,prompt engineering,artificial intelligence,machine learning,AI guides">
+  <title data-i18n="siteTitle">MyAI | AI教程与工具合集</title>
+  <meta name="description" data-i18n="siteDescription" content="MyAI提供AI教程、提示工程技巧和工具评测，帮助创作者和企业家更好地使用AI技术提升工作效率。">
+  <meta name="keywords"
+    content="AI tutorials,ChatGPT prompts,AI tools,prompt engineering,artificial intelligence,machine learning,AI guides">
   <link rel="canonical" href="https://www.aiblogs.tech/">
   <link rel="alternate" hreflang="en" href="https://www.aiblogs.tech/">
   <link rel="alternate" hreflang="x-default" href="https://www.aiblogs.tech/">
   <link rel="icon" href="/favicon.png" type="image/png">
-  
+
   <!-- Preconnect to external domains for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-  
+
   <!-- Load critical fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/partials/site-style.css">
@@ -50,25 +52,25 @@
       --card-bg: #ffffff;
       --border: #e5e7eb;
     }
-    
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
-    
+
     /* Header Styles */
     header {
       background: var(--card-bg);
       padding: 1rem 2rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,.05);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .05);
       position: sticky;
       top: 0;
       z-index: 10;
@@ -76,29 +78,29 @@
       justify-content: space-between;
       align-items: center;
     }
-    
-    .logo a { 
-      font-size: 1.5rem; 
-      color: var(--primary); 
+
+    .logo a {
+      font-size: 1.5rem;
+      color: var(--primary);
       text-decoration: none;
       font-weight: 700;
     }
-    
-    nav ul { 
-      list-style: none; 
-      display: flex; 
-      gap: 1.5rem; 
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
     }
-    
-    nav a { 
-      text-decoration: none; 
-      color: var(--text); 
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
       font-weight: 600;
       transition: color 0.2s ease;
     }
-    
-    nav a:hover { 
-      color: var(--primary); 
+
+    nav a:hover {
+      color: var(--primary);
     }
 
     /* Hero Section */
@@ -108,21 +110,21 @@
       background: linear-gradient(135deg, var(--primary), #34d399);
       color: #fff;
     }
-    
+
     .hero h1 {
       font-size: clamp(2rem, 5vw, 2.5rem);
       font-weight: 700;
       margin-bottom: 1rem;
       line-height: 1.2;
     }
-    
+
     .hero p {
       font-size: 1.25rem;
       opacity: 0.95;
       max-width: 640px;
       margin: 0 auto 2rem;
     }
-    
+
     .subscribe-form {
       display: flex;
       gap: 0.5rem;
@@ -130,7 +132,7 @@
       justify-content: center;
       margin-top: 2rem;
     }
-    
+
     .subscribe-form input {
       padding: 0.8rem 1rem;
       border-radius: 0.5rem;
@@ -138,7 +140,7 @@
       min-width: 280px;
       font-size: 1rem;
     }
-    
+
     .subscribe-form button {
       padding: 0.8rem 1.5rem;
       border: none;
@@ -150,74 +152,74 @@
       font-size: 1rem;
       transition: background-color 0.2s ease;
     }
-    
-    .subscribe-form button:hover { 
-      background: #f1f5f9; 
+
+    .subscribe-form button:hover {
+      background: #f1f5f9;
     }
 
     /* Main Content */
-    .section { 
-      max-width: 960px; 
-      margin: 3rem auto; 
-      padding: 0 1.5rem; 
+    .section {
+      max-width: 960px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
     }
-    
+
     .section h2 {
       text-align: center;
       margin-bottom: 2rem;
       font-size: 2rem;
       color: var(--text);
     }
-    
+
     /* Article Cards */
     .articles-grid {
       display: grid;
       gap: 1.5rem;
       margin-bottom: 3rem;
     }
-    
+
     .card {
       background: var(--card-bg);
       padding: 1.5rem;
       border-radius: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
       border: 1px solid var(--border);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    
-    .card:hover { 
+
+    .card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
     }
-    
-    .card h3 { 
-      font-size: 1.25rem; 
-      margin-bottom: 0.5rem; 
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
       color: var(--primary);
       line-height: 1.3;
     }
-    
+
     .card h3 a {
       text-decoration: none;
       color: inherit;
     }
-    
+
     .card h3 a:hover {
       text-decoration: underline;
     }
-    
+
     .card p {
       color: var(--muted);
       margin-bottom: 1rem;
     }
-    
+
     .card-tags {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
       margin-bottom: 1rem;
     }
-    
+
     .tag {
       background: var(--primary);
       color: white;
@@ -228,7 +230,7 @@
       cursor: pointer;
       transition: background-color 0.2s ease;
     }
-    
+
     .tag:hover {
       background: #059669;
     }
@@ -248,23 +250,23 @@
       gap: 1rem;
       margin: 3rem 0;
     }
-    
+
     .stat-card {
       background: var(--card-bg);
       padding: 1.5rem;
       border-radius: 0.75rem;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
       border: 1px solid var(--border);
     }
-    
+
     .stat-number {
       font-size: 2rem;
       font-weight: 700;
       color: var(--primary);
       display: block;
     }
-    
+
     .stat-label {
       color: var(--muted);
       font-size: 0.875rem;
@@ -280,43 +282,43 @@
       margin-top: 4rem;
       border-top: 1px solid var(--border);
     }
-    
-    footer a { 
-      color: var(--muted); 
-      text-decoration: none; 
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
     }
-    
-    footer a:hover { 
-      color: var(--primary); 
+
+    footer a:hover {
+      color: var(--primary);
       text-decoration: underline;
     }
 
     /* Mobile Navigation */
-    .nav-toggle { 
-      display: none; 
+    .nav-toggle {
+      display: none;
       background: none;
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
     }
-    
+
     @media (max-width: 768px) {
-      .nav-toggle { 
-        display: block; 
+      .nav-toggle {
+        display: block;
       }
-      
-      .desktop { 
-        display: none; 
+
+      .desktop {
+        display: none;
       }
-      
-      .hero h1 { 
-        font-size: 2rem; 
+
+      .hero h1 {
+        font-size: 2rem;
       }
-      
-      .subscribe-form input { 
-        min-width: 250px; 
+
+      .subscribe-form input {
+        min-width: 250px;
       }
-      
+
       header {
         padding: 1rem;
       }
@@ -331,38 +333,40 @@
   </style>
 
   <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8231924120348302" crossorigin="anonymous"></script>
-  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8231924120348302"
+    crossorigin="anonymous"></script>
+
   <!-- Google Analytics (replace with your tracking ID) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'GA_MEASUREMENT_ID');
   </script>
 </head>
+
 <body>
   <header class="main-header">
     <div class="logo"><a href="/">MyAI</a></div>
     <details class="nav-toggle">
       <summary>☰</summary>
       <nav class="site-nav">
-        <a href="/">Home</a>
-        <a href="/#articles">Tutorials</a>
-        <a href="/tools.html">Tools</a>
+        <a href="/" data-i18n="nav.home">Home</a>
+        <a href="/#articles" data-i18n="nav.tutorials">Tutorials</a>
+        <a href="/tools.html" data-i18n="nav.tools">Tools</a>
         <a href="/search.html">Search</a>
         <a href="/newsletter.html">Newsletter</a>
-        <a href="/#about">About</a>
+        <a href="/#about" data-i18n="nav.about">About</a>
       </nav>
     </details>
     <nav class="site-nav desktop">
-      <a href="/">Home</a>
-      <a href="/#articles">Tutorials</a>
-      <a href="/tools.html">Tools</a>
+      <a href="/" data-i18n="nav.home">Home</a>
+      <a href="/#articles" data-i18n="nav.tutorials">Tutorials</a>
+      <a href="/tools.html" data-i18n="nav.tools">Tools</a>
       <a href="/search.html">Search</a>
       <a href="/newsletter.html">Newsletter</a>
-      <a href="/#about">About</a>
+      <a href="/#about" data-i18n="nav.about">About</a>
     </nav>
   </header>
 
@@ -370,23 +374,28 @@
     <h1>发现最佳AI工具、模型和Agent</h1>
     <p>探索市面上最全面的AI资源库，包含详细评测、使用指南和最佳实践</p>
     <p style="margin-top: 1rem; font-size: 1.1rem;">加入2,000+用户，获取最新AI工具资讯和使用技巧</p>
-    
+
     <!-- 工具探索按钮 -->
     <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-      <a href="/tools.html" style="padding: 0.8rem 1.5rem; background: white; color: var(--primary); border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: 1rem;">浏览AI工具库</a>
-      <a href="/compare.html" style="padding: 0.8rem 1.5rem; background: rgba(255,255,255,0.2); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: 1rem;">对比AI模型</a>
+      <a href="/tools.html"
+        style="padding: 0.8rem 1.5rem; background: white; color: var(--primary); border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: 1rem;">浏览AI工具库</a>
+      <a href="/compare.html"
+        style="padding: 0.8rem 1.5rem; background: rgba(255,255,255,0.2); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: 1rem;">对比AI模型</a>
     </div>
-    
+
     <form class="subscribe-form" action="https://formspree.io/f/yourFormID" method="POST">
       <input type="email" name="email" placeholder="输入你的邮箱地址" required>
       <button type="submit">获取免费AI工具指南</button>
     </form>
-    
+
     <!-- 搜索功能 -->
     <div style="margin-top: 2rem;">
-      <form action="/search.html" method="GET" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
-        <input type="text" name="q" placeholder="搜索工具、模型、教程..." style="padding: 0.6rem 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; min-width: 250px; font-size: 0.9rem;" />
-        <button type="submit" style="padding: 0.6rem 1rem; border: none; border-radius: 0.5rem; background: rgba(255,255,255,0.2); color: white; font-weight: 600; cursor: pointer; font-size: 0.9rem;">搜索</button>
+      <form action="/search.html" method="GET"
+        style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+        <input type="text" name="q" placeholder="搜索工具、模型、教程..."
+          style="padding: 0.6rem 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; min-width: 250px; font-size: 0.9rem;" />
+        <button type="submit"
+          style="padding: 0.6rem 1rem; border: none; border-radius: 0.5rem; background: rgba(255,255,255,0.2); color: white; font-weight: 600; cursor: pointer; font-size: 0.9rem;">搜索</button>
       </form>
     </div>
   </section>
@@ -411,7 +420,7 @@
         <div class="stat-label">分类</div>
       </div>
     </div>
-    
+
     <!-- AI工具推荐 -->
     <section style="margin-top: 3rem;">
       <h2>热门AI工具推荐</h2>
@@ -419,29 +428,27 @@
         <!-- 工具卡片将通过JavaScript动态生成 -->
       </div>
       <div style="text-align: center; margin-top: 1.5rem;">
-        <a href="/tools.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--primary); color: white; text-decoration: none; border-radius: 0.5rem; font-weight: 600;">查看全部工具</a>
+        <a href="/tools.html"
+          style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--primary); color: white; text-decoration: none; border-radius: 0.5rem; font-weight: 600;">查看全部工具</a>
       </div>
     </section>
 
     <!-- AdSense Ad -->
     <div class="ad-container">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-8231924120348302"
-           data-ad-slot="1234567890"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8231924120348302" data-ad-slot="1234567890"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
       <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
     </div>
 
     <section id="articles">
       <h2>Latest AI Tutorials & Guides</h2>
-      
+
       <div class="articles-grid">
         <article class="card">
-          <h3><a href="/posts/chatgpt-beginner-prompts.html">10 ChatGPT Prompts to Instantly Level Up Your AI Game</a></h3>
+          <h3><a href="/posts/chatgpt-beginner-prompts.html">10 ChatGPT Prompts to Instantly Level Up Your AI Game</a>
+          </h3>
           <p>Copy-paste prompts for better answers from day one. Perfect for beginners who want immediate results.</p>
           <div class="card-tags">
             <span class="tag">ChatGPT</span>
@@ -469,7 +476,7 @@
             <span>Jan 15, 2025</span>
           </div>
         </article>
-        
+
         <article class="card">
           <h3><a href="/posts/top10-free-ai-tools.html">Top 10 Free AI Tools for Content Creators (2025)</a></h3>
           <p>No-code tools that can save you hours every week. Tested and reviewed by our team.</p>
@@ -484,7 +491,7 @@
             <span>Jan 14, 2025</span>
           </div>
         </article>
-        
+
         <article class="card">
           <h3><a href="/posts/prompt-cheatsheet.html">The Ultimate Prompt Engineering Cheat Sheet</a></h3>
           <p>Copy-paste formulas for consistently better answers from any LLM. Bookmark this guide.</p>
@@ -505,10 +512,12 @@
 
   <footer id="about">
     <h3>About MyAI</h3>
-    <p>MyAI was created to help creators, marketers, and solopreneurs navigate the rapidly evolving world of AI tools.</p>
+    <p>MyAI was created to help creators, marketers, and solopreneurs navigate the rapidly evolving world of AI tools.
+    </p>
     <p>We test, review, and create actionable guides so you can focus on what matters most: your work.</p>
     <br>
-    <p>© 2025 MyAI · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a href="/sitemap.xml">Sitemap</a></p>
+    <p>© 2025 MyAI · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a
+        href="/sitemap.xml">Sitemap</a></p>
   </footer>
 
   <!-- Cookie Consent -->
@@ -531,7 +540,7 @@
           href: '/privacy-policy.html'
         }
       });
-      
+
       // Add click handlers to tags
       document.querySelectorAll('.tag').forEach(tag => {
         tag.addEventListener('click', (e) => {
@@ -542,7 +551,7 @@
       });
     });
   </script>
-  
+
   <style>
     .cc-window.cc-banner {
       background: #1d9bf0 !important;
@@ -551,16 +560,28 @@
       font-size: 14px !important;
       z-index: 9999 !important;
     }
-    .cc-window .cc-message { margin-right: 16px !important; }
+
+    .cc-window .cc-message {
+      margin-right: 16px !important;
+    }
+
     .cc-window .cc-btn {
       border-radius: 6px !important;
       padding: 6px 14px !important;
       font-weight: 600 !important;
     }
-    .cc-deny  { background: #fff !important; color: #1d9bf0 !important; }
-    .cc-allow { background: #000 !important; color: #fff !important; }
+
+    .cc-deny {
+      background: #fff !important;
+      color: #1d9bf0 !important;
+    }
+
+    .cc-allow {
+      background: #000 !important;
+      color: #fff !important;
+    }
   </style>
-  
+
   <script>
     (async () => {
       const container = document.querySelector("#articles");
@@ -579,7 +600,19 @@
   </script>
 
   <!-- 引入脚本 -->
+  <script src="/js/i18n.js"></script>
+  <script src="/js/language-switcher.js"></script>
   <script src="/js/ai-tools-loader.js"></script>
   <script src="/js/index.js"></script>
+
+  <script>
+    // 初始化页面翻译
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.i18n) {
+        i18n.initPageTranslation();
+      }
+    });
+  </script>
 </body>
+
 </html>

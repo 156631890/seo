@@ -157,6 +157,7 @@ class ToolsPage {
       const allTab = filtersContainer.querySelector('[data-category="all"]');
       if (allTab) {
         allTab.classList.add('active'); // 确保默认激活
+        allTab.textContent = i18n.t('tools.allCategory');
       }
 
       Object.keys(categories).forEach(catKey => {
@@ -164,7 +165,11 @@ class ToolsPage {
         const filterTab = document.createElement('div');
         filterTab.className = 'filter-tab';
         filterTab.setAttribute('data-category', catKey);
-        filterTab.innerHTML = `${category.icon} ${category.name}`;
+        
+        // 使用i18n获取分类名称
+        const categoryName = i18n.t(`categories.${catKey}.name`);
+        filterTab.innerHTML = `${category.icon} ${categoryName}`;
+        
         filtersContainer.appendChild(filterTab);
       });
 
@@ -172,7 +177,7 @@ class ToolsPage {
       this.bindCategoryFilters();
     } catch (error) {
       console.error('生成分类筛选器出错:', error);
-      this.showMessage('加载分类失败', 'error');
+      this.showMessage(i18n.t('common.error'), 'error');
     }
   }
 
@@ -216,24 +221,24 @@ class ToolsPage {
       statsContainer.innerHTML = `
         <div class="stat-card">
           <div class="stat-number">${totalTools}</div>
-          <div class="stat-label">AI工具</div>
+          <div class="stat-label">${i18n.t('tools.stats.tools')}</div>
         </div>
         <div class="stat-card">
           <div class="stat-number">${totalModels}</div>
-          <div class="stat-label">AI模型</div>
+          <div class="stat-label">${i18n.t('tools.stats.models')}</div>
         </div>
         <div class="stat-card">
           <div class="stat-number">${totalAgents}</div>
-          <div class="stat-label">AI Agent</div>
+          <div class="stat-label">${i18n.t('tools.stats.agents')}</div>
         </div>
         <div class="stat-card">
           <div class="stat-number">${totalCategories}</div>
-          <div class="stat-label">分类</div>
+          <div class="stat-label">${i18n.t('tools.stats.categories')}</div>
         </div>
       `;
     } catch (error) {
       console.error('生成统计信息出错:', error);
-      statsContainer.innerHTML = '<div style="color:red;padding:20px;">加载统计信息失败</div>';
+      statsContainer.innerHTML = `<div style="color:red;padding:20px;">${i18n.t('common.error')}</div>`;
     }
   }
 
@@ -250,14 +255,18 @@ class ToolsPage {
       const toolsToRender = tools || database.tools;
 
       if (toolsToRender.length === 0) {
-        toolsContainer.innerHTML = '<div style="padding:20px;text-align:center;">没有找到匹配的工具</div>';
+        toolsContainer.innerHTML = `<div style="padding:20px;text-align:center;">${i18n.t('tools.messages.noResults')}</div>`;
         return;
       }
 
       toolsContainer.innerHTML = toolsToRender.map(tool => {
         try {
-          const categoryName = database.categories[tool.category] ? 
-            database.categories[tool.category].name : tool.category;
+          // 获取分类名称，支持多语言
+          let categoryName = tool.category;
+          if (database.categories[tool.category]) {
+            const categoryKey = `categories.${tool.category}.name`;
+            categoryName = i18n.t(categoryKey);
+          }
 
           return `
             <div class="tool-card">
@@ -272,7 +281,7 @@ class ToolsPage {
               <div class="tool-meta">
                 <div class="tool-rating">
                   <span class="stars">${'★'.repeat(Math.floor(tool.rating))}${'☆'.repeat(5-Math.floor(tool.rating))}</span>
-                  <span class="rating-text">${tool.rating} (${tool.users || '用户数未知'})</span>
+                  <span class="rating-text">${tool.rating} (${tool.users || i18n.t('common.unknownUsers')})</span>
                 </div>
                 
                 <div class="tool-tags">
@@ -283,19 +292,19 @@ class ToolsPage {
               </div>
               
               <div class="tool-actions">
-                <a href="${tool.url}" target="_blank" class="tool-btn">立即使用</a>
-                <a href="/tool-detail.html?id=${tool.id}&type=tool" class="tool-btn" style="background:transparent;color:var(--primary);border:1px solid var(--primary);">详情</a>
+                <a href="${tool.url}" target="_blank" class="tool-btn">${i18n.t('tools.buttons.useNow')}</a>
+                <a href="/tool-detail.html?id=${tool.id}&type=tool" class="tool-btn" style="background:transparent;color:var(--primary);border:1px solid var(--primary);">${i18n.t('tools.buttons.details')}</a>
               </div>
             </div>
           `;
         } catch (error) {
           console.error('渲染工具卡片出错:', error, tool);
-          return `<div class="tool-card"><div class="tool-header"><h3>渲染错误</h3></div></div>`;
+          return `<div class="tool-card"><div class="tool-header"><h3>${i18n.t('common.error')}</h3></div></div>`;
         }
       }).join('');
     } catch (error) {
       console.error('渲染工具列表出错:', error);
-      toolsContainer.innerHTML = '<div style="color:red;padding:20px;">渲染工具列表出错: ' + error.message + '</div>';
+      toolsContainer.innerHTML = `<div style="color:red;padding:20px;">${i18n.t('common.error')}: ${error.message}</div>`;
     }
   }
 
@@ -562,14 +571,19 @@ class ToolsPage {
         
         this.renderTools(filteredTools);
         
-        // 显示筛选结果消息
-        const categoryName = category === 'all' ? '全部' : 
-          (database.categories[category] ? database.categories[category].name : category);
-        this.showMessage(`已筛选到 "${categoryName}" 分类，共 ${filteredTools.length} 个工具`, 'success');
+        // 显示筛选结果消息，支持多语言
+        let categoryName;
+        if (category === 'all') {
+          categoryName = i18n.t('tools.allCategory');
+        } else {
+          categoryName = i18n.t(`categories.${category}.name`);
+        }
+        
+        this.showMessage(`${i18n.t('tools.messages.filtered')} "${categoryName}" ${i18n.t('tools.messages.category')} ${filteredTools.length} ${i18n.t('tools.messages.toolsCount')}`, 'success');
       }
     } catch (error) {
       console.error('分类筛选出错:', error);
-      this.showMessage('筛选出错: ' + error.message, 'error');
+      this.showMessage(`${i18n.t('common.error')}: ${error.message}`, 'error');
     }
   }
 
@@ -593,7 +607,7 @@ class ToolsPage {
         return;
       }
 
-      this.showMessage(`正在搜索: "${query}"`, 'info');
+      this.showMessage(`${i18n.t('tools.messages.searching')}: "${query}"`, 'info');
 
       let results = [];
 
@@ -612,10 +626,10 @@ class ToolsPage {
         this.renderAgents(results);
       }
       
-      this.showMessage(`找到 ${results.length} 个结果`, 'success');
+      this.showMessage(`${i18n.t('tools.messages.found')} ${results.length} ${i18n.t('tools.messages.results')}`, 'success');
     } catch (error) {
       console.error('搜索出错:', error);
-      this.showMessage('搜索出错: ' + error.message, 'error');
+      this.showMessage(`${i18n.t('common.error')}: ${error.message}`, 'error');
     }
   }
 
@@ -637,10 +651,10 @@ class ToolsPage {
         this.renderAgents();
       }
       
-      this.showMessage('已重置显示', 'info');
+      this.showMessage(i18n.t('tools.messages.reset'), 'info');
     } catch (error) {
       console.error('重置搜索出错:', error);
-      this.showMessage('重置出错: ' + error.message, 'error');
+      this.showMessage(`${i18n.t('common.error')}: ${error.message}`, 'error');
     }
   }
 }
