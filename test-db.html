@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>测试数据库加载</title>
+</head>
+<body>
+  <h1>测试数据库加载</h1>
+  <div id="result"></div>
+
+  <script src="/ai-tools-database.js"></script>
+  <script>
+    window.onload = function() {
+      const resultDiv = document.getElementById('result');
+      
+      try {
+        if (typeof window.aiToolsDatabase !== 'undefined') {
+          const toolsCount = window.aiToolsDatabase.tools.length;
+          const modelsCount = window.aiToolsDatabase.models.length;
+          const agentsCount = window.aiToolsDatabase.agents.length;
+          
+          resultDiv.innerHTML = `
+            <p style="color:green">数据库加载成功!</p>
+            <p>工具数量: ${toolsCount}</p>
+            <p>模型数量: ${modelsCount}</p>
+            <p>Agent数量: ${agentsCount}</p>
+            <h2>工具列表:</h2>
+            <ul>
+              ${window.aiToolsDatabase.tools.map(tool => `<li>${tool.name} - ${tool.description}</li>`).join('')}
+            </ul>
+          `;
+        } else {
+          resultDiv.innerHTML = '<p style="color:red">数据库未定义!</p>';
+        }
+      } catch (error) {
+        resultDiv.innerHTML = `<p style="color:red">错误: ${error.message}</p>`;
+      }
+    };
+  </script>
+</body>
+</html>

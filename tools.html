@@ -308,6 +308,7 @@
     <div class="tools-header">
       <h1>🚀 AI工具与模型合集</h1>
       <p>发现最好的AI工具、大语言模型和智能Agent，提升你的工作效率和创造力</p>
+      <div id="debug-info" style="margin-top:10px;font-size:0.8rem;color:#666;"></div>
     </div>
 
     <!-- ===== 搜索和筛选 ===== -->
@@ -384,7 +385,7 @@
   </footer>
 
   <!-- 引入数据库和脚本 -->
-  <script src="ai-tools-database.js"></script>
+  <script src="/ai-tools-database.js"></script>
   <script>
     // 添加调试信息
     console.log('页面加载中...');
@@ -397,6 +398,20 @@
     // 页面初始化
     document.addEventListener('DOMContentLoaded', function () {
       console.log('DOM加载完成，开始初始化页面');
+      
+      // 显示调试信息
+      const debugInfo = document.getElementById('debug-info');
+      
+      // 检查数据库是否正确加载
+      if (typeof window.aiToolsDatabase === 'undefined' || typeof window.aiToolsManager === 'undefined') {
+        console.error('数据库未正确加载');
+        debugInfo.innerHTML = '<span style="color:red">数据库加载失败，请检查控制台</span>';
+        document.getElementById('toolsGrid').innerHTML = '<div style="color:red;padding:20px;">数据库未正确加载，请检查网络连接</div>';
+        return;
+      }
+      
+      // 显示数据库信息
+      debugInfo.innerHTML = `数据库加载成功: ${window.aiToolsDatabase.tools.length}个工具, ${window.aiToolsDatabase.models.length}个模型, ${window.aiToolsDatabase.agents.length}个Agent`;
 
       // 检查数据库是否正确加载
       if (typeof window.aiToolsDatabase === 'undefined' || typeof window.aiToolsManager === 'undefined') {

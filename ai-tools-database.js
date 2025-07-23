@@ -3,7 +3,7 @@ const aiToolsDatabase = {
   // 工具分类
   categories: {
     'text-generation': { name: '文本生成', icon: '✍️', description: 'AI写作、内容创作工具' },
-    'image-generation': { name: '图像生成', icon: '�', descreiption: 'AI绘画、图片创作工具' },
+    'image-generation': { name: '图像生成', icon: '🎨', description: 'AI绘画、图片创作工具' },
     'code-assistant': { name: '代码助手', icon: '💻', description: '编程辅助、代码生成工具' },
     'productivity': { name: '效率工具', icon: '⚡', description: '提升工作效率的AI工具' },
     'data-analysis': { name: '数据分析', icon: '📊', description: 'AI数据处理和分析工具' },
@@ -14,8 +14,8 @@ const aiToolsDatabase = {
     'design': { name: '设计工具', icon: '🎯', description: 'AI设计和创意工具' },
     'education': { name: '教育学习', icon: '📚', description: 'AI教育和学习辅助工具' },
     'healthcare': { name: '医疗健康', icon: '🏥', description: 'AI医疗和健康应用工具' },
-    'finance': { name: '金融工具', icon: '�', descriptrion: 'AI金融分析和投资工具' },
-    'marketing': { name: '营销工具', icon: '�', de,scription: 'AI营销和广告工具' },
+    'finance': { name: '金融工具', icon: '💰', description: 'AI金融分析和投资工具' },
+    'marketing': { name: '营销工具', icon: '📣', description: 'AI营销和广告工具' },
     'customer-service': { name: '客户服务', icon: '🤝', description: 'AI客服和用户支持工具' },
     'translation': { name: '翻译工具', icon: '🌐', description: 'AI翻译和语言处理工具' },
     'security': { name: '安全工具', icon: '🔒', description: 'AI安全和隐私保护工具' },
