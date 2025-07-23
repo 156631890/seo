@@ -596,7 +596,24 @@ class I18nManager {
         element.textContent = translation;
       }
     });
+    
+    // 显示一个消息，表明翻译已完成
+    console.log(`页面已翻译为 ${this.currentLanguage} 语言`);
   }
+}
+
+// 创建全局实例
+const i18n = new I18nManager();
+
+// 导出到window对象
+window.i18n = i18n;
+window.i18nConfig = i18nConfig;
+
+// 页面加载完成后自动初始化翻译
+document.addEventListener('DOMContentLoaded', () => {
+  // 初始化翻译
+  i18n.initPageTranslation();
+});
 }
 
 // 创建全局实例

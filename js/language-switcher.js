@@ -174,7 +174,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // 确保i18n已加载
   if (window.i18n) {
     const languageSwitcher = new LanguageSwitcher();
-    languageSwitcher.addToPage();
+    
+    // 添加到桌面导航
+    languageSwitcher.addToPage('.site-nav.desktop');
+    
+    // 添加到移动导航
+    const mobileNav = document.querySelector('details.nav-toggle .site-nav');
+    if (mobileNav) {
+      const switcher = languageSwitcher.createSwitcher();
+      switcher.classList.add('mobile-switcher');
+      mobileNav.appendChild(switcher);
+    }
+    
+    // 添加移动端样式
+    const style = document.createElement('style');
+    style.textContent = `
+      .mobile-switcher {
+        margin-top: 1rem;
+        width: 100%;
+      }
+      .mobile-switcher .language-dropdown {
+        width: 100%;
+        position: static;
+        margin-top: 0.5rem;
+      }
+    `;
+    document.head.appendChild(style);
   } else {
     console.error('i18n not loaded');
   }
