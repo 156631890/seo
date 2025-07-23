@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | MyAI - AI Tutorials & Guides</title>
+  <meta name="description" content="Get in touch with the MyAI team. We'd love to hear your questions, feedback, or partnership inquiries about our AI tutorials and guides.">
+  <link rel="canonical" href="https://www.aiblogs.tech/contact.html">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  
+  <!-- Preconnect to external domains for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Load critical fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/partials/site-style.css">
+
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --primary: #10b981;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, var(--primary), #34d399);
+      color: white;
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .contact-info {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
+    }
+    
+    .contact-info h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .contact-method {
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-method h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .contact-method p {
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    
+    .contact-method a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .contact-method a:hover {
+      text-decoration: underline;
+    }
+    
+    .contact-form {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
+    }
+    
+    .contact-form h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .submit-btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    
+    .submit-btn:hover {
+      background: #059669;
+    }
+    
+    .faq-section {
+      margin: 4rem 0;
+    }
+    
+    .faq-section h2 {
+      color: var(--primary);
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+    
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    
+    .faq-question {
+      padding: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s ease;
+    }
+    
+    .faq-question:hover {
+      background: #f9fafb;
+    }
+    
+    .faq-question::after {
+      content: '+';
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    
+    .faq-item.active .faq-question::after {
+      content: '−';
+    }
+    
+    .faq-item.active .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+    }
+    
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero {
+        padding: 3rem 1rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <div class="logo"><a href="/">MyAI</a></div>
+    <details class="nav-toggle">
+      <summary>☰</summary>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/#articles">Tutorials</a>
+        <a href="/tools.html">Tools</a>
+        <a href="/search.html">Search</a>
+        <a href="/newsletter.html">Newsletter</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </details>
+    <nav class="site-nav desktop">
+      <a href="/">Home</a>
+      <a href="/#articles">Tutorials</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/search.html">Search</a>
+      <a href="/newsletter.html">Newsletter</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>Contact Us</h1>
+    <p>Have questions, feedback, or partnership inquiries? We'd love to hear from you!</p>
+  </div>
+
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        
+        <div class="contact-method">
+          <h3>General Inquiries</h3>
+          <p>For general questions about our content or website.</p>
+          <a href="mailto:hello@aiblogs.tech">hello@aiblogs.tech</a>
+        </div>
+        
+        <div class="contact-method">
+          <h3>Partnership Opportunities</h3>
+          <p>For collaboration, sponsorship, or business inquiries.</p>
+          <a href="mailto:partnerships@aiblogs.tech">partnerships@aiblogs.tech</a>
+        </div>
+        
+        <div class="contact-method">
+          <h3>Content Suggestions</h3>
+          <p>Have an idea for a tutorial or tool review?</p>
+          <a href="mailto:content@aiblogs.tech">content@aiblogs.tech</a>
+        </div>
+        
+        <div class="contact-method">
+          <h3>Technical Support</h3>
+          <p>Having issues with our website?</p>
+          <a href="mailto:support@aiblogs.tech">support@aiblogs.tech</a>
+        </div>
+        
+        <div class="contact-method">
+          <h3>Response Time</h3>
+          <p>We aim to respond to all inquiries within 1-2 business days.</p>
+        </div>
+      </div>
+      
+      <div class="contact-form">
+        <h2>Send Us a Message</h2>
+        <form action="https://formspree.io/f/yourFormID" method="POST">
+          <div class="form-group">
+            <label for="name">Your Name *</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <select id="subject" name="subject" required>
+              <option value="">Please select</option>
+              <option value="General Inquiry">General Inquiry</option>
+              <option value="Partnership">Partnership Opportunity</option>
+              <option value="Content Suggestion">Content Suggestion</option>
+              <option value="Technical Issue">Technical Issue</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Your Message *</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">How quickly will I receive a response?</div>
+        <div class="faq-answer">
+          <p>We aim to respond to all inquiries within 1-2 business days. For urgent matters, please indicate this in your subject line.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Can I suggest a topic for a future tutorial?</div>
+        <div class="faq-answer">
+          <p>Absolutely! We welcome content suggestions from our community. Please email us at content@aiblogs.tech with your ideas or use the contact form above.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Do you offer consulting services?</div>
+        <div class="faq-answer">
+          <p>Yes, we offer limited consulting services for businesses looking to implement AI tools and strategies. Please contact us at partnerships@aiblogs.tech with details about your needs.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">How can I advertise on your site?</div>
+        <div class="faq-answer">
+          <p>We offer select advertising opportunities for relevant AI tools and services. Please reach out to partnerships@aiblogs.tech with information about your product and advertising goals.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">I found an error in one of your articles. How can I report it?</div>
+        <div class="faq-answer">
+          <p>We appreciate your help in maintaining accuracy! Please email us at content@aiblogs.tech with the article URL and a description of the error.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="about">
+    <h3>About MyAI</h3>
+    <p>MyAI was created to help creators, marketers, and solopreneurs navigate the rapidly evolving world of AI tools.</p>
+    <p>We test, review, and create actionable guides so you can focus on what matters most: your work.</p>
+    <br>
+    <p>© 2025 MyAI · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a href="/sitemap.xml">Sitemap</a></p>
+  </footer>
+
+  <!-- FAQ Interaction -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const faqItems = document.querySelectorAll('.faq-item');
+      
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+          // Close all other items
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+              otherItem.classList.remove('active');
+            }
+          });
+          
+          // Toggle current item
+          item.classList.toggle('active');
+        });
+      });
+    });
+  </script>
+
+  <!-- Cookie Consent -->
+  <link rel="stylesheet" href="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.css">
+  <script defer src="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.js"></script>
+  <script defer>
+    window.addEventListener('load', () => {
+      window.cookieconsent.initialise({
+        theme: 'classic',
+        position: 'bottom',
+        type: 'opt-in',
+        palette: {
+          button: { background: '#10b981' }
+        },
+        content: {
+          message: 'We use cookies to improve your experience and show relevant ads.',
+          dismiss: 'Accept',
+          deny: 'Decline',
+          link: 'Privacy Policy',
+          href: '/privacy-policy.html'
+        }
+      });
+    });
+  </script>
+</body>
+</html>

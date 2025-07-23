@@ -3,41 +3,475 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About | MyAI</title>
-  <meta name="description" content="Mission, team, and contact info for MyAI.">
-  <link rel="stylesheet" href="/partials/site-style.css">
+  <title>About Us | MyAI - AI Tutorials & Guides</title>
+  <meta name="description" content="Learn about MyAI, our mission to help creators and businesses navigate the AI landscape with practical tutorials, honest tool reviews, and actionable guides.">
+  <link rel="canonical" href="https://www.aiblogs.tech/about.html">
   <link rel="icon" href="/favicon.png" type="image/png">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  
+  <!-- Preconnect to external domains for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Load critical fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/partials/site-style.css">
+
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --primary: #10b981;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, var(--primary), #34d399);
+      color: white;
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    
+    .section {
+      margin-bottom: 4rem;
+    }
+    
+    .section h2 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .section p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .team-member {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
+      transition: transform 0.3s ease;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+    
+    .team-photo {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 3rem;
+    }
+    
+    .team-info {
+      padding: 1.5rem;
+    }
+    
+    .team-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .team-role {
+      font-size: 0.9rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    
+    .team-bio {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .value-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
+      border-top: 4px solid var(--primary);
+    }
+    
+    .value-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .value-description {
+      color: var(--muted);
+    }
+    
+    .timeline {
+      position: relative;
+      margin: 3rem 0;
+      padding-left: 2rem;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 0.5rem;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: white;
+      border: 4px solid var(--primary);
+    }
+    
+    .timeline-date {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .timeline-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .timeline-description {
+      color: var(--muted);
+    }
+    
+    .cta-section {
+      background: var(--card-bg);
+      padding: 3rem 2rem;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
+      margin: 4rem 0;
+    }
+    
+    .cta-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+    
+    .cta-description {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      color: var(--muted);
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+    }
+    
+    .cta-button:hover {
+      background: #059669;
+    }
+    
+    @media (max-width: 768px) {
+      .hero {
+        padding: 3rem 1rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .section h2 {
+        font-size: 1.75rem;
+      }
+      
+      .team-grid, .values-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .timeline {
+        padding-left: 1.5rem;
+      }
+      
+      .timeline-item::before {
+        left: -2rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header class="main-header">
+    <div class="logo"><a href="/">MyAI</a></div>
+    <details class="nav-toggle">
+      <summary>☰</summary>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/#articles">Tutorials</a>
+        <a href="/tools.html">Tools</a>
+        <a href="/search.html">Search</a>
+        <a href="/newsletter.html">Newsletter</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </details>
+    <nav class="site-nav desktop">
+      <a href="/">Home</a>
+      <a href="/#articles">Tutorials</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/search.html">Search</a>
+      <a href="/newsletter.html">Newsletter</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </header>
 
-<!-- 同上：若�?SSI 支持就粘 header.html 全文 -->
-<!--#include virtual="/partials/header.html" -->
+  <div class="hero">
+    <h1>About MyAI</h1>
+    <p>Helping creators and businesses navigate the AI landscape with practical tutorials, honest tool reviews, and actionable guides.</p>
+  </div>
 
-<section class="hero" style="background:linear-gradient(135deg,var(--primary),#34d399)">
-  <h2>About MyAI</h2>
-  <p>Helping 2�?00+ creators turn AI into a real-world advantage.</p>
-</section>
+  <div class="container">
+    <section class="section">
+      <h2>Our Mission</h2>
+      <p>At MyAI, we believe that artificial intelligence should be accessible to everyone. Our mission is to demystify AI tools and technologies, providing clear, practical guidance that helps creators, marketers, and entrepreneurs harness the power of AI to work smarter, not harder.</p>
+      <p>We're committed to cutting through the hype and jargon, focusing instead on what actually works in real-world scenarios. Every tutorial, review, and guide we publish is designed with one goal in mind: to help you achieve tangible results with AI tools, regardless of your technical background.</p>
+    </section>
 
-<main class="section">
-  <h3>Our Mission</h3>
-  <p>We publish actionable guides, prompt libraries, and unbiased tool reviews so that solo founders and makers can get real work done with minimal fluff.</p>
+    <section class="section">
+      <h2>Our Story</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">January 2023</div>
+          <div class="timeline-title">The Beginning</div>
+          <div class="timeline-description">MyAI started as a personal blog documenting experiments with early AI tools and their practical applications for content creation.</div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">June 2023</div>
+          <div class="timeline-title">Growing Community</div>
+          <div class="timeline-description">As interest in AI tools exploded, our audience grew to over 500 subscribers seeking practical guidance on using these new technologies.</div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">October 2023</div>
+          <div class="timeline-title">Expanding Our Focus</div>
+          <div class="timeline-description">We expanded beyond basic tutorials to include in-depth tool reviews, prompt engineering guides, and AI strategy for businesses.</div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">March 2024</div>
+          <div class="timeline-title">1,000 Subscriber Milestone</div>
+          <div class="timeline-description">Our community reached 1,000 subscribers, validating our approach of providing practical, no-nonsense AI guidance.</div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">September 2024</div>
+          <div class="timeline-title">New Website Launch</div>
+          <div class="timeline-description">We launched our redesigned website with improved navigation, search functionality, and a focus on user experience.</div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">January 2025</div>
+          <div class="timeline-title">Today and Beyond</div>
+          <div class="timeline-description">With over 2,000 subscribers and growing, we continue to expand our content library and develop new resources to help our community succeed with AI tools.</div>
+        </div>
+      </div>
+    </section>
 
-  <h3>Meet the Team</h3>
-  <p><strong>Yang Li</strong> �?Editor-in-chief, ex-Growth @ SaaS unicorn<br>
-     <strong>Anna K.</strong> �?Prompt engineer &amp; resident designer</p>
+    <section class="section">
+      <h2>Our Values</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-title">Practical Utility</div>
+          <div class="value-description">We focus on real-world applications and actionable advice, not theoretical concepts. Every piece of content we create must provide immediate value to our readers.</div>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-title">Honesty & Transparency</div>
+          <div class="value-description">We provide honest assessments of AI tools, acknowledging both strengths and limitations. We clearly disclose any affiliate relationships or sponsored content.</div>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-title">Accessibility</div>
+          <div class="value-description">We believe AI should be accessible to everyone, regardless of technical background. We explain complex concepts in simple terms without unnecessary jargon.</div>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-title">Continuous Learning</div>
+          <div class="value-description">The AI landscape evolves rapidly, and we're committed to staying at the forefront, constantly testing new tools and techniques to share with our community.</div>
+        </div>
+      </div>
+    </section>
 
-  <h3>Contact</h3>
-  <p>Email: hi@aiblogs.tech<br>
-     Twitter / X: <a href="https://twitter.com/your_handle">@your_handle</a></p>
-</main>
+    <section class="section">
+      <h2>Our Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="team-photo">👨‍💻</div>
+          <div class="team-info">
+            <div class="team-name">Alex Chen</div>
+            <div class="team-role">Founder & Lead Writer</div>
+            <div class="team-bio">Former content marketer turned AI enthusiast. Alex has tested hundreds of AI tools and specializes in prompt engineering and content generation workflows.</div>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="team-photo">👩‍💻</div>
+          <div class="team-info">
+            <div class="team-name">Sarah Johnson</div>
+            <div class="team-role">AI Tool Reviewer</div>
+            <div class="team-bio">With a background in UX design, Sarah evaluates AI tools from a user experience perspective, focusing on usability and integration into existing workflows.</div>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="team-photo">👨‍🔬</div>
+          <div class="team-info">
+            <div class="team-name">Michael Rodriguez</div>
+            <div class="team-role">Technical Writer</div>
+            <div class="team-bio">Software developer with expertise in AI APIs and integrations. Michael handles our more technical tutorials and implementation guides.</div>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="team-photo">👩‍🎨</div>
+          <div class="team-info">
+            <div class="team-name">Emma Thompson</div>
+            <div class="team-role">Creative AI Specialist</div>
+            <div class="team-bio">Digital artist and writer who explores creative applications of AI. Emma focuses on image generation, creative writing, and multimedia content creation.</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<footer>
-  <p>© 2025 MyAI · <a href="/privacy-policy.html">Privacy</a></p>
-</footer>
+    <div class="cta-section">
+      <div class="cta-title">Join Our Community</div>
+      <div class="cta-description">Get weekly AI tutorials, tool reviews, and exclusive resources delivered straight to your inbox.</div>
+      <a href="/newsletter.html" class="cta-button">Subscribe to Our Newsletter</a>
+    </div>
 
-<script src="/partials/footer-scripts.html" defer></script>
+    <section class="section">
+      <h2>Contact Us</h2>
+      <p>Have questions, feedback, or suggestions? We'd love to hear from you!</p>
+      <p>For general inquiries: <a href="mailto:hello@aiblogs.tech">hello@aiblogs.tech</a></p>
+      <p>For partnership opportunities: <a href="mailto:partnerships@aiblogs.tech">partnerships@aiblogs.tech</a></p>
+      <p>For content suggestions: <a href="mailto:content@aiblogs.tech">content@aiblogs.tech</a></p>
+    </section>
+  </div>
+
+  <footer id="about">
+    <h3>About MyAI</h3>
+    <p>MyAI was created to help creators, marketers, and solopreneurs navigate the rapidly evolving world of AI tools.</p>
+    <p>We test, review, and create actionable guides so you can focus on what matters most: your work.</p>
+    <br>
+    <p>© 2025 MyAI · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a href="/sitemap.xml">Sitemap</a></p>
+  </footer>
+
+  <!-- Cookie Consent -->
+  <link rel="stylesheet" href="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.css">
+  <script defer src="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.js"></script>
+  <script defer>
+    window.addEventListener('load', () => {
+      window.cookieconsent.initialise({
+        theme: 'classic',
+        position: 'bottom',
+        type: 'opt-in',
+        palette: {
+          button: { background: '#10b981' }
+        },
+        content: {
+          message: 'We use cookies to improve your experience and show relevant ads.',
+          dismiss: 'Accept',
+          deny: 'Decline',
+          link: 'Privacy Policy',
+          href: '/privacy-policy.html'
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-

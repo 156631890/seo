@@ -3,16 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyAI | Actionable AI Guides & Tools</title>
-  <meta name="description" content="MyAI publishes weekly AI tutorials, prompt engineering recipes, and honest tool reviews to help creators and solopreneurs work smarter in any language.">
+  <title>MyAI | Actionable AI Guides & Tools for Creators</title>
+  <meta name="description" content="MyAI publishes weekly AI tutorials, prompt engineering recipes, and honest tool reviews to help creators and solopreneurs work smarter with AI technology.">
+  <meta name="keywords" content="AI tutorials,ChatGPT prompts,AI tools,prompt engineering,artificial intelligence,machine learning,AI guides">
   <link rel="canonical" href="https://www.aiblogs.tech/">
   <link rel="alternate" hreflang="en" href="https://www.aiblogs.tech/">
   <link rel="alternate" hreflang="x-default" href="https://www.aiblogs.tech/">
   <link rel="icon" href="/favicon.png" type="image/png">
+  
+  <!-- Preconnect to external domains for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  
+  <!-- Load critical fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/partials/site-style.css">
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "MyAI",
+    "description": "Actionable AI Guides & Tools for Creators",
+    "url": "https://www.aiblogs.tech/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.aiblogs.tech/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MyAI",
+      "url": "https://www.aiblogs.tech/"
+    }
+  }
+  </script>
 
   <style>
     :root {
@@ -20,16 +47,26 @@
       --primary: #10b981;
       --text: #0f172a;
       --muted: #6b7280;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+    
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
+    
+    /* Header Styles */
     header {
-      background: #fff;
+      background: var(--card-bg);
       padding: 1rem 2rem;
       box-shadow: 0 2px 4px rgba(0,0,0,.05);
       position: sticky;
@@ -39,79 +76,271 @@
       justify-content: space-between;
       align-items: center;
     }
-    header h1 { font-size: 1.5rem; color: var(--primary); }
-    nav ul { list-style: none; display: flex; gap: 1rem; }
-    nav a { text-decoration: none; color: var(--text); font-weight: 600; }
-    nav a:hover { color: var(--primary); }
+    
+    .logo a { 
+      font-size: 1.5rem; 
+      color: var(--primary); 
+      text-decoration: none;
+      font-weight: 700;
+    }
+    
+    nav ul { 
+      list-style: none; 
+      display: flex; 
+      gap: 1.5rem; 
+    }
+    
+    nav a { 
+      text-decoration: none; 
+      color: var(--text); 
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    
+    nav a:hover { 
+      color: var(--primary); 
+    }
 
+    /* Hero Section */
     .hero {
       padding: 4rem 1rem;
       text-align: center;
       background: linear-gradient(135deg, var(--primary), #34d399);
       color: #fff;
     }
+    
     .hero h1 {
-      font-size: 2.5rem;
-      font-weight: bold;
+      font-size: clamp(2rem, 5vw, 2.5rem);
+      font-weight: 700;
       margin-bottom: 1rem;
+      line-height: 1.2;
     }
+    
     .hero p {
       font-size: 1.25rem;
       opacity: 0.95;
       max-width: 640px;
-      margin: 0 auto;
+      margin: 0 auto 2rem;
     }
-    .subscribe {
+    
+    .subscribe-form {
       display: flex;
-      gap: .5rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 2rem;
     }
-    .subscribe input,
-    .subscribe button {
+    
+    .subscribe-form input {
+      padding: 0.8rem 1rem;
+      border-radius: 0.5rem;
+      border: none;
+      min-width: 280px;
       font-size: 1rem;
     }
-    .subscribe input {
-      padding: .6rem 1rem;
-      border-radius: .375rem;
+    
+    .subscribe-form button {
+      padding: 0.8rem 1.5rem;
       border: none;
-      min-width: 240px;
-    }
-    .subscribe button {
-      padding: .6rem 1.25rem;
-      border: none;
-      border-radius: .375rem;
+      border-radius: 0.5rem;
       background: #fff;
       color: var(--primary);
       font-weight: 600;
       cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.2s ease;
     }
-    .subscribe button:hover { background: #f1f5f9; }
+    
+    .subscribe-form button:hover { 
+      background: #f1f5f9; 
+    }
 
-    .section { max-width: 960px; margin: 3rem auto; padding: 0 1.5rem; }
+    /* Main Content */
+    .section { 
+      max-width: 960px; 
+      margin: 3rem auto; 
+      padding: 0 1.5rem; 
+    }
+    
+    .section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      color: var(--text);
+    }
+    
+    /* Article Cards */
+    .articles-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
     .card {
-      background: #fff;
+      background: var(--card-bg);
       padding: 1.5rem;
-      border-radius: .75rem;
+      border-radius: 0.75rem;
       box-shadow: 0 2px 8px rgba(0,0,0,.05);
-      margin-bottom: 1.5rem;
-      transition: transform .2s ease;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .card:hover { transform: translateY(-4px); }
-    .card h3 { font-size: 1.25rem; margin-bottom: .5rem; }
-    .card a { text-decoration: none; color: var(--primary); }
-    .card a:hover { opacity: .8; }
+    
+    .card:hover { 
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    }
+    
+    .card h3 { 
+      font-size: 1.25rem; 
+      margin-bottom: 0.5rem; 
+      color: var(--primary);
+      line-height: 1.3;
+    }
+    
+    .card h3 a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .card h3 a:hover {
+      text-decoration: underline;
+    }
+    
+    .card p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    
+    .card-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    
+    .tag {
+      background: var(--primary);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    
+    .tag:hover {
+      background: #059669;
+    }
 
+    .card-meta {
+      font-size: 0.875rem;
+      color: var(--muted);
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    /* Stats Section */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 3rem 0;
+    }
+    
+    .stat-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      border: 1px solid var(--border);
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: block;
+    }
+    
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 3rem 2rem;
       color: var(--muted);
+      background: var(--card-bg);
+      margin-top: 4rem;
+      border-top: 1px solid var(--border);
     }
-    footer a { color: var(--muted); text-decoration: none; }
+    
+    footer a { 
+      color: var(--muted); 
+      text-decoration: none; 
+    }
+    
+    footer a:hover { 
+      color: var(--primary); 
+      text-decoration: underline;
+    }
+
+    /* Mobile Navigation */
+    .nav-toggle { 
+      display: none; 
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-toggle { 
+        display: block; 
+      }
+      
+      .desktop { 
+        display: none; 
+      }
+      
+      .hero h1 { 
+        font-size: 2rem; 
+      }
+      
+      .subscribe-form input { 
+        min-width: 250px; 
+      }
+      
+      header {
+        padding: 1rem;
+      }
+    }
+
+    /* Ad Styles */
+    .ad-container {
+      text-align: center;
+      margin: 2rem 0;
+      padding: 1rem;
+    }
   </style>
 
+  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8231924120348302" crossorigin="anonymous"></script>
+  
+  <!-- Google Analytics (replace with your tracking ID) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script>
 </head>
 <body>
   <header class="main-header">
@@ -122,6 +351,8 @@
         <a href="/">Home</a>
         <a href="/#articles">Tutorials</a>
         <a href="/tools.html">Tools</a>
+        <a href="/search.html">Search</a>
+        <a href="/newsletter.html">Newsletter</a>
         <a href="/#about">About</a>
       </nav>
     </details>
@@ -129,45 +360,140 @@
       <a href="/">Home</a>
       <a href="/#articles">Tutorials</a>
       <a href="/tools.html">Tools</a>
+      <a href="/search.html">Search</a>
+      <a href="/newsletter.html">Newsletter</a>
       <a href="/#about">About</a>
     </nav>
   </header>
 
   <section class="hero">
-    <h1>Confused by AI tools? I test them all and give you prompts, scripts, and one-click deployment.</h1>
-    <p>Built for AI beginners: real-world automations, high-quality prompts, and ready-to-run workflows.</p>
-    <p style="margin-top:2rem;">Join 2,000+ makers getting fresh prompts, tool reviews &amp; cheatsheets straight to their inbox.</p>
-    <form class="subscribe" action="https://formspree.io/f/yourFormID" method="POST">
-      <input type="email" name="email" placeholder="Your email" required>
-      <button type="submit">Subscribe</button>
+    <h1>Master AI Tools with Actionable Guides</h1>
+    <p>Weekly tutorials, prompt engineering recipes, and honest tool reviews to help creators and solopreneurs work smarter with AI.</p>
+    <p style="margin-top: 1rem; font-size: 1.1rem;">Join 2,000+ makers getting fresh prompts, tool reviews & cheatsheets.</p>
+    <form class="subscribe-form" action="https://formspree.io/f/yourFormID" method="POST">
+      <input type="email" name="email" placeholder="Enter your email address" required>
+      <button type="submit">Get Free AI Cheatsheet</button>
     </form>
+    
+    <!-- Search functionality -->
+    <div style="margin-top: 2rem;">
+      <form action="/search.html" method="GET" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+        <input type="text" name="q" placeholder="Search tutorials, tools, prompts..." style="padding: 0.6rem 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; min-width: 250px; font-size: 0.9rem;" />
+        <button type="submit" style="padding: 0.6rem 1rem; border: none; border-radius: 0.5rem; background: rgba(255,255,255,0.2); color: white; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Search</button>
+      </form>
+    </div>
   </section>
 
-  <main class="section" id="articles">
-    <div class="card">
-  <h3><a href="/posts/chatgpt-beginner-prompts.html">10 Prompts to Instantly Level Up Your ChatGPT</a></h3>
-  <p>Copy-paste prompts for better answers from day one.</p>
-</div>
+  <main class="section">
+    <!-- Stats Section -->
+    <div class="stats">
+      <div class="stat-card">
+        <span class="stat-number">50+</span>
+        <div class="stat-label">AI Tutorials</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">2,000+</span>
+        <div class="stat-label">Subscribers</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">100+</span>
+        <div class="stat-label">AI Tools Reviewed</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">Weekly</span>
+        <div class="stat-label">New Content</div>
+      </div>
+    </div>
 
-    <div class="card">
-      <h3><a href="/posts/gpt4o-guide.html">Beginner's Guide to GPT-4o</a></h3>
-      <p>Walkthrough of OpenAI's flagship model capabilities, pricing &amp; best prompts.</p>
+    <!-- AdSense Ad -->
+    <div class="ad-container">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-8231924120348302"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </div>
-    <div class="card">
-      <h3><a href="/posts/top10-free-ai-tools.html">Top 10 Free AI Tools for Marketers (2025)</a></h3>
-      <p>No-code tools that shave hours off your weekly tasks.</p>
-    </div>
-    <div class="card">
-      <h3><a href="/posts/prompt-cheatsheet.html">Prompt Engineering Cheat-Sheet</a></h3>
-      <p>Copy-paste formulas for consistently better answers from any LLM.</p>
-    </div>
+
+    <section id="articles">
+      <h2>Latest AI Tutorials & Guides</h2>
+      
+      <div class="articles-grid">
+        <article class="card">
+          <h3><a href="/posts/chatgpt-beginner-prompts.html">10 ChatGPT Prompts to Instantly Level Up Your AI Game</a></h3>
+          <p>Copy-paste prompts for better answers from day one. Perfect for beginners who want immediate results.</p>
+          <div class="card-tags">
+            <span class="tag">ChatGPT</span>
+            <span class="tag">Prompts</span>
+            <span class="tag">Beginner</span>
+          </div>
+          <div class="card-meta">
+            <span>5 min read</span>
+            <span>•</span>
+            <span>Jan 16, 2025</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3><a href="/posts/gpt4o-guide.html">Complete Beginner's Guide to GPT-4o</a></h3>
+          <p>Everything you need to know about OpenAI's flagship model: capabilities, pricing, and best prompts.</p>
+          <div class="card-tags">
+            <span class="tag">GPT-4o</span>
+            <span class="tag">OpenAI</span>
+            <span class="tag">Guide</span>
+          </div>
+          <div class="card-meta">
+            <span>8 min read</span>
+            <span>•</span>
+            <span>Jan 15, 2025</span>
+          </div>
+        </article>
+        
+        <article class="card">
+          <h3><a href="/posts/top10-free-ai-tools.html">Top 10 Free AI Tools for Content Creators (2025)</a></h3>
+          <p>No-code tools that can save you hours every week. Tested and reviewed by our team.</p>
+          <div class="card-tags">
+            <span class="tag">Tools</span>
+            <span class="tag">Free</span>
+            <span class="tag">Content Creation</span>
+          </div>
+          <div class="card-meta">
+            <span>12 min read</span>
+            <span>•</span>
+            <span>Jan 14, 2025</span>
+          </div>
+        </article>
+        
+        <article class="card">
+          <h3><a href="/posts/prompt-cheatsheet.html">The Ultimate Prompt Engineering Cheat Sheet</a></h3>
+          <p>Copy-paste formulas for consistently better answers from any LLM. Bookmark this guide.</p>
+          <div class="card-tags">
+            <span class="tag">Prompts</span>
+            <span class="tag">Engineering</span>
+            <span class="tag">Advanced</span>
+          </div>
+          <div class="card-meta">
+            <span>15 min read</span>
+            <span>•</span>
+            <span>Jan 13, 2025</span>
+          </div>
+        </article>
+      </div>
+    </section>
   </main>
 
   <footer id="about">
-    <p>© 2025 MyAI · <a href="/sitemap.xml">Sitemap</a> · <a href="/robots.txt">Robots</a></p>
+    <h3>About MyAI</h3>
+    <p>MyAI was created to help creators, marketers, and solopreneurs navigate the rapidly evolving world of AI tools.</p>
+    <p>We test, review, and create actionable guides so you can focus on what matters most: your work.</p>
+    <br>
+    <p>© 2025 MyAI · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a href="/sitemap.xml">Sitemap</a></p>
   </footer>
 
-  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
+  <!-- Cookie Consent -->
   <link rel="stylesheet" href="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.css">
   <script defer src="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.js"></script>
   <script defer>
@@ -177,34 +503,26 @@
         position: 'bottom',
         type: 'opt-in',
         palette: {
-          button: { background: '#1d9bf0' }
+          button: { background: '#10b981' }
         },
         content: {
-          message: 'We use cookies to improve your experience.',
+          message: 'We use cookies to improve your experience and show relevant ads.',
           dismiss: 'Accept',
           deny: 'Decline',
           link: 'Privacy Policy',
           href: '/privacy-policy.html'
         }
       });
+      
+      // Add click handlers to tags
+      document.querySelectorAll('.tag').forEach(tag => {
+        tag.addEventListener('click', (e) => {
+          e.preventDefault();
+          const tagText = tag.textContent;
+          window.location.href = `/search.html?q=${encodeURIComponent(tagText)}`;
+        });
+      });
     });
   </script>
-  <style>
-    .cc-window.cc-banner {
-      background: #1d9bf0 !important;
-      color: #fff !important;
-      padding: 12px 8px !important;
-      font-size: 14px !important;
-      z-index: 9999 !important;
-    }
-    .cc-window .cc-message { margin-right: 16px !important; }
-    .cc-window .cc-btn {
-      border-radius: 6px !important;
-      padding: 6px 14px !important;
-      font-weight: 600 !important;
-    }
-    .cc-deny { background: #fff !important; color: #1d9bf0 !important; }
-    .cc-allow { background: #000 !important; color: #fff !important; }
-  </style>
 </body>
 </html>
