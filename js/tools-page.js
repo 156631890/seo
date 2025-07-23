@@ -119,6 +119,13 @@ class ToolsPage {
           this.searchTools();
         }
       });
+      
+      // 监听输入变化，如果搜索框为空则重置显示
+      searchInput.addEventListener('input', (e) => {
+        if (e.target.value.trim() === '') {
+          this.resetSearch();
+        }
+      });
     }
 
     // 标签页切换事件
@@ -130,6 +137,9 @@ class ToolsPage {
         }
       });
     });
+
+    // 分类筛选事件绑定
+    this.bindCategoryFilters();
   }
 
   /**
@@ -143,19 +153,49 @@ class ToolsPage {
       const database = await this.loader.getDatabase();
       const categories = database.categories;
 
+      // 确保"全部"标签存在并正确设置
+      const allTab = filtersContainer.querySelector('[data-category="all"]');
+      if (allTab) {
+        allTab.classList.add('active'); // 确保默认激活
+      }
+
       Object.keys(categories).forEach(catKey => {
         const category = categories[catKey];
         const filterTab = document.createElement('div');
         filterTab.className = 'filter-tab';
         filterTab.setAttribute('data-category', catKey);
         filterTab.innerHTML = `${category.icon} ${category.name}`;
-        filterTab.addEventListener('click', () => this.filterByCategory(catKey));
         filtersContainer.appendChild(filterTab);
       });
+
+      // 生成完成后绑定事件
+      this.bindCategoryFilters();
     } catch (error) {
       console.error('生成分类筛选器出错:', error);
       this.showMessage('加载分类失败', 'error');
     }
+  }
+
+  /**
+   * 绑定分类筛选器事件
+   */
+  bindCategoryFilters() {
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      // 移除旧的事件监听器，避免重复绑定
+      tab.removeEventListener('click', this.handleCategoryClick);
+      
+      // 绑定新的事件监听器
+      const categoryClickHandler = (e) => {
+        const category = e.target.getAttribute('data-category');
+        if (category) {
+          this.filterByCategory(category);
+        }
+      };
+      
+      tab.addEventListener('click', categoryClickHandler);
+      // 保存引用以便后续移除
+      tab._categoryClickHandler = categoryClickHandler;
+    });
   }
 
   /**
@@ -454,6 +494,24 @@ class ToolsPage {
       
       this.currentTab = tabName;
       
+      // 清空搜索框
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.value = '';
+      }
+      
+      // 重置分类筛选到"全部"
+      if (tabName === 'tools') {
+        this.currentCategory = 'all';
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const allTab = document.querySelector('.filter-tab[data-category="all"]');
+        if (allTab) {
+          allTab.classList.add('active');
+        }
+      }
+      
       // 如果切换到模型或Agent标签页，确保内容已经渲染
       if (tabName === 'models' && document.getElementById('modelsGrid').children.length === 0) {
         this.renderModels();
@@ -461,6 +519,9 @@ class ToolsPage {
         this.renderAgents();
       } else if (tabName === 'compare' && document.getElementById('modelComparison').children.length === 0) {
         this.generateModelComparison();
+      } else if (tabName === 'tools') {
+        // 重新渲染工具页面，显示所有工具
+        this.renderTools();
       }
     } catch (error) {
       console.error('切换标签页出错:', error);
@@ -473,6 +534,7 @@ class ToolsPage {
    */
   async filterByCategory(category) {
     try {
+      // 更新当前分类
       this.currentCategory = category;
       
       // 更新筛选按钮状态
@@ -480,9 +542,15 @@ class ToolsPage {
         tab.classList.remove('active');
       });
       
-      const activeTab = document.querySelector(`[data-category="${category}"]`);
+      const activeTab = document.querySelector(`.filter-tab[data-category="${category}"]`);
       if (activeTab) {
         activeTab.classList.add('active');
+      }
+      
+      // 清空搜索框
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.value = '';
       }
       
       // 筛选工具
@@ -493,6 +561,11 @@ class ToolsPage {
           : database.tools.filter(tool => tool.category === category);
         
         this.renderTools(filteredTools);
+        
+        // 显示筛选结果消息
+        const categoryName = category === 'all' ? '全部' : 
+          (database.categories[category] ? database.categories[category].name : category);
+        this.showMessage(`已筛选到 "${categoryName}" 分类，共 ${filteredTools.length} 个工具`, 'success');
       }
     } catch (error) {
       console.error('分类筛选出错:', error);
@@ -512,12 +585,20 @@ class ToolsPage {
         return;
       }
       
-      const query = searchInput.value;
+      const query = searchInput.value.trim();
+      
+      // 如果搜索框为空，重置显示
+      if (query === '') {
+        this.resetSearch();
+        return;
+      }
+
       this.showMessage(`正在搜索: "${query}"`, 'info');
 
       let results = [];
 
       if (this.currentTab === 'tools') {
+        // 搜索时考虑当前分类筛选
         results = await this.loader.searchTools(
           query, 
           this.currentCategory === 'all' ? null : this.currentCategory
@@ -535,6 +616,31 @@ class ToolsPage {
     } catch (error) {
       console.error('搜索出错:', error);
       this.showMessage('搜索出错: ' + error.message, 'error');
+    }
+  }
+
+  /**
+   * 重置搜索，显示当前分类的所有内容
+   */
+  async resetSearch() {
+    try {
+      if (this.currentTab === 'tools') {
+        const database = await this.loader.getDatabase();
+        const filteredTools = this.currentCategory === 'all' 
+          ? database.tools 
+          : database.tools.filter(tool => tool.category === this.currentCategory);
+        
+        this.renderTools(filteredTools);
+      } else if (this.currentTab === 'models') {
+        this.renderModels();
+      } else if (this.currentTab === 'agents') {
+        this.renderAgents();
+      }
+      
+      this.showMessage('已重置显示', 'info');
+    } catch (error) {
+      console.error('重置搜索出错:', error);
+      this.showMessage('重置出错: ' + error.message, 'error');
     }
   }
 }

@@ -542,8 +542,7 @@
       });
     });
   </script>
-<<<<<<< HEAD
-=======
+  
   <style>
     .cc-window.cc-banner {
       background: #1d9bf0 !important;
@@ -558,43 +557,29 @@
       padding: 6px 14px !important;
       font-weight: 600 !important;
     }
-    .cc-deny { background: #fff !important; color: #1d9bf0 !important; }
+    .cc-deny  { background: #fff !important; color: #1d9bf0 !important; }
     .cc-allow { background: #000 !important; color: #fff !important; }
   </style>
+  
   <script>
-(async () => {
-  const container = document.querySelector("#articles");
-  const res = await fetch("/posts/index.json");
-  const list = await res.json();
-  container.innerHTML = "";                      // 清空硬编码内容
-  list.slice(0, 6).forEach(p => {                // 最多显示 6 篇
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <h3><a href="${p.url}">${p.title}</a></h3>
-      <p>${p.desc}</p>`;
-    container.appendChild(card);
-  });
-})();
-</script>
+    (async () => {
+      const container = document.querySelector("#articles");
+      const res = await fetch("/posts/index.json");
+      const list = await res.json();
+      container.innerHTML = "";                      // 清空硬编码内容
+      list.slice(0, 6).forEach(p => {                // 最多显示 6 篇
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h3><a href="${p.url}">${p.title}</a></h3>
+          <p>${p.desc}</p>`;
+        container.appendChild(card);
+      });
+    })();
+  </script>
 
   <!-- 引入脚本 -->
   <script src="/js/ai-tools-loader.js"></script>
   <script src="/js/index.js"></script>
 </body>
 </html>
-      <article class="card">
-        <h3><a href="/tool-detail.html?id=${tool.id}&type=tool">${tool.name}</a></h3>
-        <p>${tool.description}</p>
-        <div class="card-tags">
-          ${tool.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
-        </div>
-        <div class="card-meta">
-          <span>⭐ ${tool.rating}/5.0</span>
-          <span>•</span>
-          <span>${tool.pricing}</span>
-        </div>
-      </article>
-    `).join('');
-  }
-</script>
