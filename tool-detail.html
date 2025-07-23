@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI工具详情 • MyAI</title>
+  <meta name="description" content="查看AI工具、模型和Agent的详细信息、评测和使用指南">
+  <link rel="stylesheet" href="/partials/site-style.css">
+  <style>
+    /* 工具详情页面样式 */
+    .tool-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4rem 0; text-align: center; }
+    .tool-hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+    .tool-hero .subtitle { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }
+    .tool-hero .meta { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 0.5rem; }
+    
+    .tool-content { max-width: 1000px; margin: 0 auto; padding: 3rem 1rem; }
+    .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; margin-top: 2rem; }
+    
+    .main-content h2 { color: var(--primary); margin-top: 2rem; }
+    .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .feature-item { background: #f8fafc; padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--primary); }
+    
+    .sidebar { position: sticky; top: 2rem; }
+    .info-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; margin-bottom: 1.5rem; }
+    .info-card h3 { margin-top: 0; color: var(--primary); }
+    
+    .rating-display { display: flex; align-items: center; gap: 1rem; margin: 1rem 0; }
+    .stars { color: #fbbf24; font-size: 1.5rem; }
+    .rating-number { font-size: 1.2rem; font-weight: bold; }
+    
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .pros, .cons { padding: 1.5rem; border-radius: var(--radius); }
+    .pros { background: #f0fdf4; border-left: 4px solid #22c55e; }
+    .cons { background: #fef2f2; border-left: 4px solid #ef4444; }
+    .pros h3 { color: #16a34a; }
+    .cons h3 { color: #dc2626; }
+    
+    .cta-section { background: var(--primary); color: white; padding: 3rem; border-radius: var(--radius); text-align: center; margin: 3rem 0; }
+    .cta-btn { display: inline-block; background: white; color: var(--primary); padding: 1rem 2rem; border-radius: var(--radius); text-decoration: none; font-weight: bold; margin-top: 1rem; }
+    
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+    .tag { font-size: 0.8rem; background: #f1f5f9; color: #475569; padding: 0.25rem 0.5rem; border-radius: 12px; }
+    
+    .related-tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .related-tool-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; }
+    .related-tool-card h4 { margin-top: 0; }
+    .related-tool-card a { color: var(--primary); text-decoration: none; }
+    .related-tool-card a:hover { text-decoration: underline; }
+    
+    .screenshot { width: 100%; border-radius: var(--radius); margin: 1.5rem 0; box-shadow: var(--shadow); }
+    
+    .usage-steps { counter-reset: step; }
+    .usage-step { position: relative; padding-left: 3rem; margin-bottom: 1.5rem; }
+    .usage-step::before { 
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2rem;
+      height: 2rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    @media (max-width: 768px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .pros-cons { grid-template-columns: 1fr; }
+      .tool-hero h1 { font-size: 2rem; }
+      .tool-hero .meta { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <header class="main-header">
+    <div class="logo"><a href="/">MyAI</a></div>
+    <nav class="site-nav desktop">
+      <a href="/">首页</a>
+      <a href="/#articles">教程</a>
+      <a href="/tools.html">工具合集</a>
+      <a href="/about.html">关于</a>
+    </nav>
+  </header>
+
+  <!-- 工具标题区域 -->
+  <section class="tool-hero" id="tool-hero">
+    <!-- 工具标题将通过JavaScript动态生成 -->
+  </section>
+
+  <!-- 主要内容 -->
+  <div class="tool-content">
+    <div class="content-grid">
+      <!-- 主要内容区域 -->
+      <div class="main-content" id="main-content">
+        <!-- 工具内容将通过JavaScript动态生成 -->
+      </div>
+
+      <!-- 侧边栏 -->
+      <div class="sidebar" id="sidebar">
+        <!-- 侧边栏内容将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- 行动号召 -->
+    <div class="cta-section" id="cta-section">
+      <!-- CTA内容将通过JavaScript动态生成 -->
+    </div>
+
+    <!-- 相关工具 -->
+    <h2>🔗 相关工具</h2>
+    <div class="related-tools" id="related-tools">
+      <!-- 相关工具将通过JavaScript动态生成 -->
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer>
+    <p>© 2025 MyAI • 用 ❤️ 和 ☕ 构建</p>
+  </footer>
+
+  <script src="/ai-tools-database.js"></script>
+  <script src="/social-share.js"></script>
+  <script>
+    // 页面初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取URL参数
+      const urlParams = new URLSearchParams(window.location.search);
+      const itemId = urlParams.get('id');
+      const itemType = urlParams.get('type') || 'tool'; // 默认为工具
+      
+      if (itemId) {
+        loadItemDetails(itemId, itemType);
+      } else {
+        window.location.href = '/tools.html'; // 如果没有ID参数，重定向到工具列表页
+      }
+    });
+
+    // 加载项目详情
+    function loadItemDetails(itemId, itemType) {
+      let item;
+      
+      // 根据类型获取项目
+      switch (itemType) {
+        case 'tool':
+          item = aiToolsDatabase.tools.find(t => t.id === itemId);
+          break;
+        case 'model':
+          item = aiToolsDatabase.models.find(m => m.id === itemId);
+          break;
+        case 'agent':
+          item = aiToolsDatabase.agents.find(a => a.id === itemId);
+          break;
+      }
+      
+      if (!item) {
+        window.location.href = '/tools.html'; // 如果找不到项目，重定向到工具列表页
+        return;
+      }
+      
+      // 更新页面标题和meta
+      document.title = `${item.name} - AI${itemType === 'tool' ? '工具' : itemType === 'model' ? '模型' : 'Agent'}详情 • MyAI`;
+      
+      // 根据类型渲染不同的详情页
+      switch (itemType) {
+        case 'tool':
+          renderToolDetails(item);
+          break;
+        case 'model':
+          renderModelDetails(item);
+          break;
+        case 'agent':
+          renderAgentDetails(item);
+          break;
+      }
+    }
+
+    // 渲染工具详情
+    function renderToolDetails(tool) {
+      // 渲染标题区域
+      const heroSection = document.getElementById('tool-hero');
+      heroSection.innerHTML = `
+        <div class="container">
+          <h1>${tool.name}</h1>
+          <p class="subtitle">${tool.description}</p>
+          <div class="meta">
+            <div class="meta-item">
+              <span>⭐</span>
+              <span>${tool.rating}/5.0</span>
+            </div>
+            <div class="meta-item">
+              <span>👥</span>
+              <span>${tool.users || '用户数未知'}</span>
+            </div>
+            <div class="meta-item">
+              <span>💰</span>
+              <span>${tool.pricing}</span>
+            </div>
+            <div class="meta-item">
+              <span>🏢</span>
+              <span>${tool.provider}</span>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // 渲染主要内容
+      const mainContent = document.getElementById('main-content');
+      mainContent.innerHTML = `
+        <h2>🚀 工具概述</h2>
+        <p>${tool.description}</p>
+        
+        <h2>✨ 主要功能</h2>
+        <div class="feature-list">
+          ${tool.features.map(feature => `
+            <div class="feature-item">
+              <p>${feature}</p>
+            </div>
+          `).join('')}
+        </div>
+        
+        <h2>📊 优缺点分析</h2>
+        <div class="pros-cons">
+          <div class="pros">
+            <h3>✅ 优势</h3>
+            <ul>
+              ${tool.pros.map(pro => `<li>${pro}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="cons">
+            <h3>❌ 劣势</h3>
+            <ul>
+              ${tool.cons.map(con => `<li>${con}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+        
+        <h2>💡 使用建议</h2>
+        <p>以下是使用${tool.name}的一些建议和最佳实践：</p>
+        <div class="usage-steps">
+          <div class="usage-step">
+            <h4>了解基本功能</h4>
+            <p>首先熟悉${tool.name}的核心功能，包括${tool.features.slice(0, 2).join('和')}等。</p>
+          </div>
+          <div class="usage-step">
+            <h4>选择合适的计划</h4>
+            <p>根据你的需求选择合适的价格计划，${tool.pricing.includes('免费') ? '可以先从免费版本开始尝试' : '考虑是否需要高级功能'}。</p>
+          </div>
+          <div class="usage-step">
+            <h4>充分利用优势</h4>
+            <p>充分发挥${tool.name}的优势，特别是${tool.pros[0]}和${tool.pros[1] || tool.pros[0]}。</p>
+          </div>
+        </div>
+        
+        <h2>🎯 适用场景</h2>
+        <p>${tool.name}特别适合以下场景：</p>
+        <ul>
+          ${tool.tags.map(tag => `<li>${tag}相关的工作</li>`).join('')}
+        </ul>
+      `;
+      
+      // 渲染侧边栏
+      const sidebar = document.getElementById('sidebar');
+      sidebar.innerHTML = `
+        <div class="info-card">
+          <h3>📈 评分详情</h3>
+          <div class="rating-display">
+            <span class="stars">${'★'.repeat(Math.floor(tool.rating))}${'☆'.repeat(5-Math.floor(tool.rating))}</span>
+            <span class="rating-number">${tool.rating}</span>
+          </div>
+          <p>基于用户反馈和专业评测</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>🏷️ 标签</h3>
+          <div class="tool-tags">
+            ${tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+        </div>
+        
+        <div class="info-card">
+          <h3>📅 更新信息</h3>
+          <p>最后更新: ${tool.lastUpdated}</p>
+          <p>数据来源: MyAI团队评测</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>📚 学习资源</h3>
+          <ul>
+            <li><a href="#tutorial">使用教程</a></li>
+            <li><a href="#tips">最佳实践</a></li>
+            <li><a href="#community">社区讨论</a></li>
+          </ul>
+        </div>
+        
+        <div class="info-card">
+          <h3>📣 分享</h3>
+          <div class="social-share" data-title="${tool.name} - AI工具" data-desc="${tool.description}"></div>
+        </div>
+      `;
+      
+      // 渲染CTA区域
+      const ctaSection = document.getElementById('cta-section');
+      ctaSection.innerHTML = `
+        <h2>准备开始使用 ${tool.name}？</h2>
+        <p>立即体验这个强大的AI工具，提升你的工作效率</p>
+        <a href="${tool.url}" target="_blank" class="cta-btn">立即使用 →</a>
+      `;
+      
+      // 渲染相关工具
+      renderRelatedTools(tool);
+      
+      // 初始化社交分享
+      if (window.initSocialShare) {
+        window.initSocialShare();
+      }
+    }
+
+    // 渲染模型详情
+    function renderModelDetails(model) {
+      // 渲染标题区域
+      const heroSection = document.getElementById('tool-hero');
+      heroSection.innerHTML = `
+        <div class="container">
+          <h1>${model.name}</h1>
+          <p class="subtitle">${model.description}</p>
+          <div class="meta">
+            <div class="meta-item">
+              <span>⭐</span>
+              <span>${model.rating}/5.0</span>
+            </div>
+            <div class="meta-item">
+              <span>🧠</span>
+              <span>${model.type}</span>
+            </div>
+            <div class="meta-item">
+              <span>💰</span>
+              <span>${model.pricing}</span>
+            </div>
+            <div class="meta-item">
+              <span>🏢</span>
+              <span>${model.provider}</span>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // 渲染主要内容
+      const mainContent = document.getElementById('main-content');
+      mainContent.innerHTML = `
+        <h2>🚀 模型概述</h2>
+        <p>${model.description}</p>
+        
+        <h2>✨ 主要功能</h2>
+        <div class="feature-list">
+          ${model.features.map(feature => `
+            <div class="feature-item">
+              <p>${feature}</p>
+            </div>
+          `).join('')}
+        </div>
+        
+        <h2>📊 优缺点分析</h2>
+        <div class="pros-cons">
+          <div class="pros">
+            <h3>✅ 优势</h3>
+            <ul>
+              ${model.strengths.map(strength => `<li>${strength}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="cons">
+            <h3>❌ 限制</h3>
+            <ul>
+              ${model.limitations.map(limitation => `<li>${limitation}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+        
+        <h2>💡 使用场景</h2>
+        <p>${model.name}特别适合以下场景：</p>
+        <ul>
+          ${model.features.map(feature => `<li>${feature}</li>`).join('')}
+        </ul>
+        
+        <h2>🔌 API访问</h2>
+        <p>${model.apiAccess ? `${model.name}提供API访问，开发者可以将其集成到自己的应用中。` : `${model.name}目前不提供API访问。`}</p>
+        
+        <h2>🌐 Web界面</h2>
+        <p>${model.webInterface ? `${model.name}提供Web界面，用户可以直接在浏览器中使用。` : `${model.name}目前不提供Web界面。`}</p>
+      `;
+      
+      // 渲染侧边栏
+      const sidebar = document.getElementById('sidebar');
+      sidebar.innerHTML = `
+        <div class="info-card">
+          <h3>📈 评分详情</h3>
+          <div class="rating-display">
+            <span class="stars">${'★'.repeat(Math.floor(model.rating))}${'☆'.repeat(5-Math.floor(model.rating))}</span>
+            <span class="rating-number">${model.rating}</span>
+          </div>
+          <p>基于专业评测和用户反馈</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>🏷️ 功能</h3>
+          <div class="tool-tags">
+            ${model.features.map(feature => `<span class="tag">${feature}</span>`).join('')}
+          </div>
+        </div>
+        
+        <div class="info-card">
+          <h3>📅 更新信息</h3>
+          <p>最后更新: ${model.lastUpdated}</p>
+          <p>数据来源: MyAI团队评测</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>📚 学习资源</h3>
+          <ul>
+            <li><a href="#docs">API文档</a></li>
+            <li><a href="#examples">使用示例</a></li>
+            <li><a href="#tutorials">教程</a></li>
+          </ul>
+        </div>
+        
+        <div class="info-card">
+          <h3>📣 分享</h3>
+          <div class="social-share" data-title="${model.name} - AI模型" data-desc="${model.description}"></div>
+        </div>
+      `;
+      
+      // 渲染CTA区域
+      const ctaSection = document.getElementById('cta-section');
+      ctaSection.innerHTML = `
+        <h2>想要尝试 ${model.name}？</h2>
+        <p>立即体验这个强大的AI模型，探索其能力</p>
+        <a href="${model.url}" target="_blank" class="cta-btn">了解更多 →</a>
+      `;
+      
+      // 渲染相关模型
+      renderRelatedModels(model);
+      
+      // 初始化社交分享
+      if (window.initSocialShare) {
+        window.initSocialShare();
+      }
+    }
+
+    // 渲染Agent详情
+    function renderAgentDetails(agent) {
+      // 渲染标题区域
+      const heroSection = document.getElementById('tool-hero');
+      heroSection.innerHTML = `
+        <div class="container">
+          <h1>${agent.name}</h1>
+          <p class="subtitle">${agent.description}</p>
+          <div class="meta">
+            <div class="meta-item">
+              <span>⭐</span>
+              <span>${agent.rating}/5.0</span>
+            </div>
+            <div class="meta-item">
+              <span>🤖</span>
+              <span>${agent.category}</span>
+            </div>
+            <div class="meta-item">
+              <span>🔧</span>
+              <span>${agent.complexity}</span>
+            </div>
+            <div class="meta-item">
+              <span>🏢</span>
+              <span>${agent.provider || '开源项目'}</span>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // 渲染主要内容
+      const mainContent = document.getElementById('main-content');
+      mainContent.innerHTML = `
+        <h2>🚀 Agent概述</h2>
+        <p>${agent.description}</p>
+        
+        <h2>✨ 主要功能</h2>
+        <div class="feature-list">
+          ${agent.features.map(feature => `
+            <div class="feature-item">
+              <p>${feature}</p>
+            </div>
+          `).join('')}
+        </div>
+        
+        <h2>🎯 使用场景</h2>
+        <p>${agent.useCase}</p>
+        
+        <h2>💻 技术复杂度</h2>
+        <p>复杂度: <strong>${agent.complexity}</strong></p>
+        <p>${
+          agent.complexity === 'Beginner' ? '适合初学者，容易上手和使用。' :
+          agent.complexity === 'Intermediate' ? '需要一定的技术基础，适合有一定编程经验的用户。' :
+          '较为复杂，需要较强的技术背景和编程能力。'
+        }</p>
+        
+        <h2>📚 文档和资源</h2>
+        <p>要开始使用${agent.name}，可以访问以下资源：</p>
+        <ul>
+          <li><a href="${agent.github}" target="_blank">GitHub仓库</a></li>
+          <li><a href="${agent.documentation}" target="_blank">官方文档</a></li>
+        </ul>
+      `;
+      
+      // 渲染侧边栏
+      const sidebar = document.getElementById('sidebar');
+      sidebar.innerHTML = `
+        <div class="info-card">
+          <h3>📈 评分详情</h3>
+          <div class="rating-display">
+            <span class="stars">${'★'.repeat(Math.floor(agent.rating))}${'☆'.repeat(5-Math.floor(agent.rating))}</span>
+            <span class="rating-number">${agent.rating}</span>
+          </div>
+          <p>基于开发者反馈和社区评价</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>🏷️ 标签</h3>
+          <div class="tool-tags">
+            ${agent.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+        </div>
+        
+        <div class="info-card">
+          <h3>📊 GitHub统计</h3>
+          <p>查看GitHub上的项目统计信息：</p>
+          <p><a href="${agent.github}" target="_blank">访问GitHub</a></p>
+        </div>
+        
+        <div class="info-card">
+          <h3>📚 学习资源</h3>
+          <ul>
+            <li><a href="${agent.documentation}" target="_blank">官方文档</a></li>
+            <li><a href="#examples">使用示例</a></li>
+            <li><a href="#community">社区讨论</a></li>
+          </ul>
+        </div>
+        
+        <div class="info-card">
+          <h3>📣 分享</h3>
+          <div class="social-share" data-title="${agent.name} - AI Agent" data-desc="${agent.description}"></div>
+        </div>
+      `;
+      
+      // 渲染CTA区域
+      const ctaSection = document.getElementById('cta-section');
+      ctaSection.innerHTML = `
+        <h2>想要尝试 ${agent.name}？</h2>
+        <p>立即探索这个强大的AI Agent，构建自己的AI应用</p>
+        <a href="${agent.github}" target="_blank" class="cta-btn">查看GitHub →</a>
+      `;
+      
+      // 渲染相关Agent
+      renderRelatedAgents(agent);
+      
+      // 初始化社交分享
+      if (window.initSocialShare) {
+        window.initSocialShare();
+      }
+    }
+
+    // 渲染相关工具
+    function renderRelatedTools(currentTool) {
+      const relatedContainer = document.getElementById('related-tools');
+      const relatedTools = aiToolsDatabase.tools
+        .filter(tool => tool.category === currentTool.category && tool.id !== currentTool.id)
+        .slice(0, 3);
+
+      relatedContainer.innerHTML = relatedTools.map(tool => `
+        <div class="related-tool-card">
+          <h4><a href="/tool-detail.html?id=${tool.id}&type=tool">${tool.name}</a></h4>
+          <p>${tool.description}</p>
+          <div class="rating-display">
+            <span class="stars">${'★'.repeat(Math.floor(tool.rating))}${'☆'.repeat(5-Math.floor(tool.rating))}</span>
+            <span>${tool.rating}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 渲染相关模型
+    function renderRelatedModels(currentModel) {
+      const relatedContainer = document.getElementById('related-tools');
+      const relatedModels = aiToolsDatabase.models
+        .filter(model => model.provider === currentModel.provider && model.id !== currentModel.id)
+        .slice(0, 3);
+
+      relatedContainer.innerHTML = relatedModels.map(model => `
+        <div class="related-tool-card">
+          <h4><a href="/tool-detail.html?id=${model.id}&type=model">${model.name}</a></h4>
+          <p>${model.description}</p>
+          <div class="rating-display">
+            <span class="stars">${'★'.repeat(Math.floor(model.rating))}${'☆'.repeat(5-Math.floor(model.rating))}</span>
+            <span>${model.rating}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 渲染相关Agent
+    function renderRelatedAgents(currentAgent) {
+      const relatedContainer = document.getElementById('related-tools');
+      const relatedAgents = aiToolsDatabase.agents
+        .filter(agent => agent.category === currentAgent.category && agent.id !== currentAgent.id)
+        .slice(0, 3);
+
+      relatedContainer.innerHTML = relatedAgents.map(agent => `
+        <div class="related-tool-card">
+          <h4><a href="/tool-detail.html?id=${agent.id}&type=agent">${agent.name}</a></h4>
+          <p>${agent.description}</p>
+          <div class="rating-display">
+            <span class="stars">${'★'.repeat(Math.floor(agent.rating))}${'☆'.repeat(5-Math.floor(agent.rating))}</span>
+            <span>${agent.rating}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

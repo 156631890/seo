@@ -367,19 +367,26 @@
   </header>
 
   <section class="hero">
-    <h1>Master AI Tools with Actionable Guides</h1>
-    <p>Weekly tutorials, prompt engineering recipes, and honest tool reviews to help creators and solopreneurs work smarter with AI.</p>
-    <p style="margin-top: 1rem; font-size: 1.1rem;">Join 2,000+ makers getting fresh prompts, tool reviews & cheatsheets.</p>
+    <h1>发现最佳AI工具、模型和Agent</h1>
+    <p>探索市面上最全面的AI资源库，包含详细评测、使用指南和最佳实践</p>
+    <p style="margin-top: 1rem; font-size: 1.1rem;">加入2,000+用户，获取最新AI工具资讯和使用技巧</p>
+    
+    <!-- 工具探索按钮 -->
+    <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="/tools.html" style="padding: 0.8rem 1.5rem; background: white; color: var(--primary); border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: 1rem;">浏览AI工具库</a>
+      <a href="/compare.html" style="padding: 0.8rem 1.5rem; background: rgba(255,255,255,0.2); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: 1rem;">对比AI模型</a>
+    </div>
+    
     <form class="subscribe-form" action="https://formspree.io/f/yourFormID" method="POST">
-      <input type="email" name="email" placeholder="Enter your email address" required>
-      <button type="submit">Get Free AI Cheatsheet</button>
+      <input type="email" name="email" placeholder="输入你的邮箱地址" required>
+      <button type="submit">获取免费AI工具指南</button>
     </form>
     
-    <!-- Search functionality -->
+    <!-- 搜索功能 -->
     <div style="margin-top: 2rem;">
       <form action="/search.html" method="GET" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
-        <input type="text" name="q" placeholder="Search tutorials, tools, prompts..." style="padding: 0.6rem 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; min-width: 250px; font-size: 0.9rem;" />
-        <button type="submit" style="padding: 0.6rem 1rem; border: none; border-radius: 0.5rem; background: rgba(255,255,255,0.2); color: white; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Search</button>
+        <input type="text" name="q" placeholder="搜索工具、模型、教程..." style="padding: 0.6rem 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; min-width: 250px; font-size: 0.9rem;" />
+        <button type="submit" style="padding: 0.6rem 1rem; border: none; border-radius: 0.5rem; background: rgba(255,255,255,0.2); color: white; font-weight: 600; cursor: pointer; font-size: 0.9rem;">搜索</button>
       </form>
     </div>
   </section>
@@ -388,22 +395,33 @@
     <!-- Stats Section -->
     <div class="stats">
       <div class="stat-card">
-        <span class="stat-number">50+</span>
-        <div class="stat-label">AI Tutorials</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">2,000+</span>
-        <div class="stat-label">Subscribers</div>
-      </div>
-      <div class="stat-card">
         <span class="stat-number">100+</span>
-        <div class="stat-label">AI Tools Reviewed</div>
+        <div class="stat-label">AI工具</div>
       </div>
       <div class="stat-card">
-        <span class="stat-number">Weekly</span>
-        <div class="stat-label">New Content</div>
+        <span class="stat-number">50+</span>
+        <div class="stat-label">AI模型</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">30+</span>
+        <div class="stat-label">AI Agent</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">20+</span>
+        <div class="stat-label">分类</div>
       </div>
     </div>
+    
+    <!-- AI工具推荐 -->
+    <section style="margin-top: 3rem;">
+      <h2>热门AI工具推荐</h2>
+      <div class="articles-grid" id="tools-grid">
+        <!-- 工具卡片将通过JavaScript动态生成 -->
+      </div>
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="/tools.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--primary); color: white; text-decoration: none; border-radius: 0.5rem; font-weight: 600;">查看全部工具</a>
+      </div>
+    </section>
 
     <!-- AdSense Ad -->
     <div class="ad-container">
@@ -562,4 +580,36 @@
 
 >>>>>>> f20c279d896a10250cee9d6bc3a7c3abcb15a869
 </body>
-</html>
+</html><s
+cript src="/ai-tools-database.js"></script>
+<script>
+  // 页面加载完成后初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    // 渲染推荐工具
+    renderRecommendedTools();
+  });
+
+  // 渲染推荐工具
+  function renderRecommendedTools() {
+    const toolsGrid = document.getElementById('tools-grid');
+    if (!toolsGrid) return;
+    
+    // 获取推荐工具
+    const recommendedTools = window.aiToolsManager.getRecommendedTools(3);
+    
+    toolsGrid.innerHTML = recommendedTools.map(tool => `
+      <article class="card">
+        <h3><a href="/tool-detail.html?id=${tool.id}&type=tool">${tool.name}</a></h3>
+        <p>${tool.description}</p>
+        <div class="card-tags">
+          ${tool.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+        </div>
+        <div class="card-meta">
+          <span>⭐ ${tool.rating}/5.0</span>
+          <span>•</span>
+          <span>${tool.pricing}</span>
+        </div>
+      </article>
+    `).join('');
+  }
+</script>

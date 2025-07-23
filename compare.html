@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI工具对比 • MyAI</title>
+  <meta name="description" content="对比不同的AI工具、模型和Agent，找到最适合你需求的AI解决方案">
+  <link rel="stylesheet" href="/partials/site-style.css">
+  <style>
+    /* 对比页面样式 */
+    .compare-header { text-align: center; margin: 2rem 0 3rem; }
+    .compare-header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .compare-header p { font-size: 1.1rem; color: var(--muted); max-width: 700px; margin: 0 auto; }
+    
+    .compare-container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    
+    .selection-area { background: #f8fafc; border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem; }
+    .selection-title { margin-top: 0; margin-bottom: 1rem; color: var(--primary); }
+    .selection-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+    
+    .item-selector { background: white; border: 1px solid #e2e8f0; border-radius: var(--radius); padding: 1rem; cursor: pointer; transition: all 0.2s; }
+    .item-selector:hover { border-color: var(--primary); }
+    .item-selector.selected { border-color: var(--primary); background: #e0f2fe; }
+    .item-selector h3 { margin-top: 0; font-size: 1.1rem; }
+    .item-selector p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0; }
+    
+    .compare-btn { display: block; width: 200px; margin: 2rem auto; padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-size: 1rem; }
+    .compare-btn:hover { background: #2563eb; }
+    
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 2rem 0; overflow-x: auto; display: block; }
+    .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid #f1f5f9; }
+    .comparison-table th { background: #f8fafc; font-weight: 600; position: sticky; top: 0; z-index: 10; }
+    .comparison-table th:first-child { width: 200px; }
+    .comparison-table td { vertical-align: top; }
+    .comparison-table tr:hover { background: #f8fafc; }
+    
+    .feature-yes { color: #16a34a; }
+    .feature-no { color: #dc2626; }
+    
+    .comparison-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; margin-bottom: 2rem; }
+    .comparison-card h2 { color: var(--primary); margin-top: 0; }
+    
+    .recommendation-section { background: #ecfdf5; border-radius: var(--radius); padding: 2rem; margin: 3rem 0; }
+    .recommendation-section h2 { color: #16a34a; }
+    
+    @media (max-width: 768px) {
+      .compare-header h1 { font-size: 2rem; }
+      .selection-grid { grid-template-columns: 1fr; }
+      .comparison-table { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <header class="main-header">
+    <div class="logo"><a href="/">MyAI</a></div>
+    <nav class="site-nav desktop">
+      <a href="/">首页</a>
+      <a href="/#articles">教程</a>
+      <a href="/tools.html">工具合集</a>
+      <a href="/compare.html" class="active">对比</a>
+      <a href="/about.html">关于</a>
+    </nav>
+  </header>
+
+  <main class="compare-container">
+    <!-- 页面标题 -->
+    <div class="compare-header">
+      <h1>🔍 AI工具对比分析</h1>
+      <p>选择并对比不同的AI工具、模型和Agent，找到最适合你需求的AI解决方案</p>
+    </div>
+
+    <!-- 对比类型选择 -->
+    <div class="comparison-card">
+      <h2>选择对比类型</h2>
+      <div class="selection-grid">
+        <div class="item-selector type-selector selected" data-type="tools">
+          <h3>🛠️ AI工具对比</h3>
+          <p>对比不同的AI应用和工具，如ChatGPT、Midjourney等</p>
+        </div>
+        <div class="item-selector type-selector" data-type="models">
+          <h3>🧠 AI模型对比</h3>
+          <p>对比不同的AI模型，如GPT-4o、Claude 3.5等</p>
+        </div>
+        <div class="item-selector type-selector" data-type="agents">
+          <h3>🤖 AI Agent对比</h3>
+          <p>对比不同的AI代理框架，如AutoGPT、LangChain等</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI工具选择 -->
+    <div id="tools-selection" class="selection-area">
+      <h2 class="selection-title">选择要对比的AI工具（最多4个）</h2>
+      <div class="selection-grid" id="tools-grid">
+        <!-- 工具选择器将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- AI模型选择 -->
+    <div id="models-selection" class="selection-area" style="display: none;">
+      <h2 class="selection-title">选择要对比的AI模型（最多4个）</h2>
+      <div class="selection-grid" id="models-grid">
+        <!-- 模型选择器将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- AI Agent选择 -->
+    <div id="agents-selection" class="selection-area" style="display: none;">
+      <h2 class="selection-title">选择要对比的AI Agent（最多4个）</h2>
+      <div class="selection-grid" id="agents-grid">
+        <!-- Agent选择器将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- 对比按钮 -->
+    <button class="compare-btn" onclick="generateComparison()">生成对比</button>
+
+    <!-- 对比结果 -->
+    <div id="comparison-result">
+      <!-- 对比结果将通过JavaScript动态生成 -->
+    </div>
+
+    <!-- 推荐区域 -->
+    <div class="recommendation-section" id="recommendation-section" style="display: none;">
+      <h2>🌟 基于你的选择，我们推荐</h2>
+      <div id="recommendation-content">
+        <!-- 推荐内容将通过JavaScript动态生成 -->
+      </div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer>
+    <p>© 2025 MyAI • 用 ❤️ 和 ☕ 构建</p>
+  </footer>
+
+  <script src="/ai-tools-database.js"></script>
+  <script>
+    // 全局变量
+    let currentType = 'tools';
+    let selectedItems = {
+      tools: [],
+      models: [],
+      agents: []
+    };
+    const maxSelections = 4;
+
+    // 页面初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      initializePage();
+    });
+
+    function initializePage() {
+      // 生成选择器
+      generateSelectors('tools', aiToolsDatabase.tools);
+      generateSelectors('models', aiToolsDatabase.models);
+      generateSelectors('agents', aiToolsDatabase.agents);
+      
+      // 设置类型选择器事件
+      document.querySelectorAll('.type-selector').forEach(selector => {
+        selector.addEventListener('click', function() {
+          const type = this.getAttribute('data-type');
+          switchComparisonType(type);
+        });
+      });
+    }
+
+    // 生成选择器
+    function generateSelectors(type, items) {
+      const grid = document.getElementById(`${type}-grid`);
+      grid.innerHTML = '';
+      
+      items.forEach(item => {
+        const selector = document.createElement('div');
+        selector.className = 'item-selector';
+        selector.setAttribute('data-id', item.id);
+        
+        selector.innerHTML = `
+          <h3>${item.name}</h3>
+          <p>${item.provider || ''}</p>
+        `;
+        
+        selector.addEventListener('click', function() {
+          toggleSelection(this, type);
+        });
+        
+        grid.appendChild(selector);
+      });
+    }
+
+    // 切换对比类型
+    function switchComparisonType(type) {
+      // 更新当前类型
+      currentType = type;
+      
+      // 更新类型选择器状态
+      document.querySelectorAll('.type-selector').forEach(selector => {
+        selector.classList.remove('selected');
+      });
+      document.querySelector(`.type-selector[data-type="${type}"]`).classList.add('selected');
+      
+      // 显示相应的选择区域
+      document.querySelectorAll('.selection-area').forEach(area => {
+        area.style.display = 'none';
+      });
+      document.getElementById(`${type}-selection`).style.display = 'block';
+      
+      // 清空对比结果
+      document.getElementById('comparison-result').innerHTML = '';
+      document.getElementById('recommendation-section').style.display = 'none';
+    }
+
+    // 切换选择状态
+    function toggleSelection(element, type) {
+      const itemId = element.getAttribute('data-id');
+      const index = selectedItems[type].indexOf(itemId);
+      
+      if (index === -1) {
+        // 如果未选中，检查是否已达到最大选择数
+        if (selectedItems[type].length >= maxSelections) {
+          alert(`最多只能选择${maxSelections}个项目进行对比`);
+          return;
+        }
+        
+        // 添加到选中列表
+        selectedItems[type].push(itemId);
+        element.classList.add('selected');
+      } else {
+        // 从选中列表中移除
+        selectedItems[type].splice(index, 1);
+        element.classList.remove('selected');
+      }
+    }
+
+    // 生成对比
+    function generateComparison() {
+      const selected = selectedItems[currentType];
+      
+      if (selected.length < 2) {
+        alert('请至少选择2个项目进行对比');
+        return;
+      }
+      
+      const resultContainer = document.getElementById('comparison-result');
+      
+      switch (currentType) {
+        case 'tools':
+          generateToolsComparison(selected, resultContainer);
+          break;
+        case 'models':
+          generateModelsComparison(selected, resultContainer);
+          break;
+        case 'agents':
+          generateAgentsComparison(selected, resultContainer);
+          break;
+      }
+      
+      // 显示推荐
+      generateRecommendation(selected);
+    }
+
+    // 生成工具对比
+    function generateToolsComparison(toolIds, container) {
+      const tools = toolIds.map(id => aiToolsDatabase.tools.find(tool => tool.id === id));
+      
+      let html = `
+        <div class="comparison-card">
+          <h2>AI工具对比</h2>
+          <div style="overflow-x: auto;">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>特性</th>
+                  ${tools.map(tool => `<th>${tool.name}</th>`).join('')}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>提供商</td>
+                  ${tools.map(tool => `<td>${tool.provider || '-'}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>分类</td>
+                  ${tools.map(tool => `<td>${aiToolsDatabase.categories[tool.category].name}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>评分</td>
+                  ${tools.map(tool => `<td>${tool.rating} / 5.0</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>用户数</td>
+                  ${tools.map(tool => `<td>${tool.users || '-'}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>定价</td>
+                  ${tools.map(tool => `<td>${tool.pricing}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>功能</td>
+                  ${tools.map(tool => `<td>${tool.features.join('<br>')}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>优势</td>
+                  ${tools.map(tool => `<td>${tool.pros.join('<br>')}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>劣势</td>
+                  ${tools.map(tool => `<td>${tool.cons.join('<br>')}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>最后更新</td>
+                  ${tools.map(tool => `<td>${tool.lastUpdated}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>链接</td>
+                  ${tools.map(tool => `<td><a href="${tool.url}" target="_blank">访问官网</a></td>`).join('')}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+      
+      container.innerHTML = html;
+    }
+
+    // 生成模型对比
+    function generateModelsComparison(modelIds, container) {
+      const models = modelIds.map(id => aiToolsDatabase.models.find(model => model.id === id));
+      
+      let html = `
+        <div class="comparison-card">
+          <h2>AI模型对比</h2>
+          <div style="overflow-x: auto;">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>特性</th>
+                  ${models.map(model => `<th>${model.name}</th>`).join('')}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>提供商</td>
+                  ${models.map(model => `<td>${model.provider}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>类型</td>
+                  ${models.map(model => `<td>${model.type}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>评分</td>
+                  ${models.map(model => `<td>${model.rating} / 5.0</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>定价</td>
+                  ${models.map(model => `<td>${model.pricing}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>功能</td>
+                  ${models.map(model => `<td>${model.features.join('<br>')}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>优势</td>
+                  ${models.map(model => `<td>${model.strengths.join('<br>')}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>限制</td>
+                  ${models.map(model => `<td>${model.limitations.join('<br>')}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>API访问</td>
+                  ${models.map(model => `<td>${model.apiAccess ? '<span class="feature-yes">✓</span>' : '<span class="feature-no">✗</span>'}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>Web界面</td>
+                  ${models.map(model => `<td>${model.webInterface ? '<span class="feature-yes">✓</span>' : '<span class="feature-no">✗</span>'}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>最后更新</td>
+                  ${models.map(model => `<td>${model.lastUpdated}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>链接</td>
+                  ${models.map(model => `<td><a href="${model.url}" target="_blank">访问官网</a></td>`).join('')}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+      
+      container.innerHTML = html;
+    }
+
+    // 生成Agent对比
+    function generateAgentsComparison(agentIds, container) {
+      const agents = agentIds.map(id => aiToolsDatabase.agents.find(agent => agent.id === id));
+      
+      let html = `
+        <div class="comparison-card">
+          <h2>AI Agent对比</h2>
+          <div style="overflow-x: auto;">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>特性</th>
+                  ${agents.map(agent => `<th>${agent.name}</th>`).join('')}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>提供商</td>
+                  ${agents.map(agent => `<td>${agent.provider || '-'}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>分类</td>
+                  ${agents.map(agent => `<td>${agent.category}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>复杂度</td>
+                  ${agents.map(agent => `<td>${agent.complexity}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>评分</td>
+                  ${agents.map(agent => `<td>${agent.rating} / 5.0</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>用例</td>
+                  ${agents.map(agent => `<td>${agent.useCase}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>功能</td>
+                  ${agents.map(agent => `<td>${agent.features.join('<br>')}</td>`).join('')}
+                </tr>
+                <tr>
+                  <td>GitHub</td>
+                  ${agents.map(agent => `<td><a href="${agent.github}" target="_blank">查看代码</a></td>`).join('')}
+                </tr>
+                <tr>
+                  <td>文档</td>
+                  ${agents.map(agent => `<td><a href="${agent.documentation}" target="_blank">查看文档</a></td>`).join('')}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+      
+      container.innerHTML = html;
+    }
+
+    // 生成推荐
+    function generateRecommendation(selectedIds) {
+      const recommendationSection = document.getElementById('recommendation-section');
+      const recommendationContent = document.getElementById('recommendation-content');
+      
+      // 根据当前类型获取项目
+      let items;
+      switch (currentType) {
+        case 'tools':
+          items = selectedIds.map(id => aiToolsDatabase.tools.find(tool => tool.id === id));
+          break;
+        case 'models':
+          items = selectedIds.map(id => aiToolsDatabase.models.find(model => model.id === id));
+          break;
+        case 'agents':
+          items = selectedIds.map(id => aiToolsDatabase.agents.find(agent => agent.id === id));
+          break;
+      }
+      
+      // 找出评分最高的项目
+      const bestItem = items.reduce((best, current) => (current.rating > best.rating) ? current : best, items[0]);
+      
+      // 生成推荐内容
+      let html = `
+        <p>基于您选择的${items.length}个${currentType === 'tools' ? 'AI工具' : currentType === 'models' ? 'AI模型' : 'AI Agent'}，我们推荐：</p>
+        <h3>${bestItem.name}</h3>
+        <p>${bestItem.description}</p>
+        <p><strong>评分：</strong> ${bestItem.rating} / 5.0</p>
+        <p><strong>优势：</strong> ${currentType === 'tools' ? bestItem.pros.join('，') : currentType === 'models' ? bestItem.strengths.join('，') : bestItem.features.slice(0, 3).join('，')}</p>
+        <a href="${bestItem.url || bestItem.github}" target="_blank" class="tool-btn" style="display: inline-block; margin-top: 1rem;">了解更多</a>
+      `;
+      
+      recommendationContent.innerHTML = html;
+      recommendationSection.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

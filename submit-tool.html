@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>提交AI工具 • MyAI</title>
+  <meta name="description" content="提交你发现的AI工具、模型或Agent，帮助我们扩展AI资源库">
+  <link rel="stylesheet" href="/partials/site-style.css">
+  <style>
+    /* 提交页面样式 */
+    .submit-header { text-align: center; margin: 2rem 0 3rem; }
+    .submit-header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .submit-header p { font-size: 1.1rem; color: var(--muted); max-width: 700px; margin: 0 auto; }
+    
+    .submit-container { max-width: 800px; margin: 0 auto; padding: 0 1rem; }
+    
+    .form-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 2rem; margin-bottom: 3rem; }
+    .form-card h2 { color: var(--primary); margin-top: 0; }
+    
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+    .form-group input, .form-group textarea, .form-group select { 
+      width: 100%; 
+      padding: 0.75rem; 
+      border: 1px solid #e2e8f0; 
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    
+    .form-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .form-row .form-group { flex: 1; margin-bottom: 0; }
+    
+    .form-hint { font-size: 0.9rem; color: var(--muted); margin-top: 0.25rem; }
+    
+    .tag-input { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .tag { 
+      background: #f1f5f9; 
+      padding: 0.25rem 0.5rem; 
+      border-radius: 12px; 
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .tag-remove { 
+      cursor: pointer; 
+      color: #64748b;
+      font-weight: bold;
+    }
+    
+    .submit-btn { 
+      display: block; 
+      width: 100%; 
+      padding: 0.75rem; 
+      background: var(--primary); 
+      color: white; 
+      border: none; 
+      border-radius: var(--radius); 
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .submit-btn:hover { background: #2563eb; }
+    
+    .success-message {
+      background: #ecfdf5;
+      border-left: 4px solid #10b981;
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      display: none;
+    }
+    
+    .error-message {
+      background: #fef2f2;
+      border-left: 4px solid #ef4444;
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .submit-header h1 { font-size: 2rem; }
+      .form-row { flex-direction: column; gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <header class="main-header">
+    <div class="logo"><a href="/">MyAI</a></div>
+    <nav class="site-nav desktop">
+      <a href="/">首页</a>
+      <a href="/#articles">教程</a>
+      <a href="/tools.html">工具合集</a>
+      <a href="/about.html">关于</a>
+    </nav>
+  </header>
+
+  <main class="submit-container">
+    <!-- 页面标题 -->
+    <div class="submit-header">
+      <h1>📝 提交AI资源</h1>
+      <p>发现了一个很棒的AI工具、模型或Agent？提交给我们，帮助扩展我们的AI资源库！</p>
+    </div>
+
+    <!-- 成功消息 -->
+    <div class="success-message" id="success-message">
+      <h3>提交成功！</h3>
+      <p>感谢您的贡献，我们会尽快审核您提交的内容。</p>
+    </div>
+
+    <!-- 错误消息 -->
+    <div class="error-message" id="error-message">
+      <h3>提交失败</h3>
+      <p>请检查表单并重试。确保所有必填字段都已填写。</p>
+    </div>
+
+    <!-- 提交表单 -->
+    <div class="form-card">
+      <h2>提交表单</h2>
+      <form id="submit-form">
+        <!-- 资源类型 -->
+        <div class="form-group">
+          <label for="resource-type">资源类型 *</label>
+          <select id="resource-type" required>
+            <option value="">-- 选择资源类型 --</option>
+            <option value="tool">AI工具</option>
+            <option value="model">AI模型</option>
+            <option value="agent">AI Agent</option>
+          </select>
+        </div>
+
+        <!-- 基本信息 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resource-name">名称 *</label>
+            <input type="text" id="resource-name" required placeholder="例如：ChatGPT">
+          </div>
+          <div class="form-group">
+            <label for="resource-provider">提供商</label>
+            <input type="text" id="resource-provider" placeholder="例如：OpenAI">
+          </div>
+        </div>
+
+        <!-- 描述 -->
+        <div class="form-group">
+          <label for="resource-description">描述 *</label>
+          <textarea id="resource-description" required placeholder="简要描述这个AI资源的功能和特点"></textarea>
+        </div>
+
+        <!-- 分类和URL -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resource-category">分类 *</label>
+            <select id="resource-category" required>
+              <option value="">-- 选择分类 --</option>
+              <!-- 分类选项将通过JavaScript动态生成 -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="resource-url">URL *</label>
+            <input type="url" id="resource-url" required placeholder="https://example.com">
+          </div>
+        </div>
+
+        <!-- 功能 -->
+        <div class="form-group">
+          <label for="resource-features">主要功能（每行一个）*</label>
+          <textarea id="resource-features" required placeholder="文本生成&#10;图像理解&#10;代码编写"></textarea>
+          <div class="form-hint">每行输入一个功能点</div>
+        </div>
+
+        <!-- 标签 -->
+        <div class="form-group">
+          <label for="resource-tags">标签</label>
+          <input type="text" id="tag-input" placeholder="输入标签后按回车">
+          <div class="form-hint">输入标签后按回车添加</div>
+          <div class="tag-input" id="tags-container"></div>
+          <input type="hidden" id="resource-tags">
+        </div>
+
+        <!-- 定价 -->
+        <div class="form-group">
+          <label for="resource-pricing">定价 *</label>
+          <input type="text" id="resource-pricing" required placeholder="例如：免费/Pro $20/月">
+        </div>
+
+        <!-- 优缺点 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resource-pros">优势（每行一个）</label>
+            <textarea id="resource-pros" placeholder="易于使用&#10;功能全面&#10;社区活跃"></textarea>
+            <div class="form-hint">每行输入一个优势</div>
+          </div>
+          <div class="form-group">
+            <label for="resource-cons">劣势（每行一个）</label>
+            <textarea id="resource-cons" placeholder="价格较高&#10;学习曲线&#10;依赖模板"></textarea>
+            <div class="form-hint">每行输入一个劣势</div>
+          </div>
+        </div>
+
+        <!-- 额外信息 -->
+        <div class="form-group">
+          <label for="resource-extra">额外信息</label>
+          <textarea id="resource-extra" placeholder="任何其他你认为重要的信息"></textarea>
+        </div>
+
+        <!-- 提交者信息 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="submitter-name">你的名字（可选）</label>
+            <input type="text" id="submitter-name" placeholder="你的名字">
+          </div>
+          <div class="form-group">
+            <label for="submitter-email">你的邮箱（可选）</label>
+            <input type="email" id="submitter-email" placeholder="你的邮箱">
+            <div class="form-hint">仅用于联系，不会公开</div>
+          </div>
+        </div>
+
+        <!-- 提交按钮 -->
+        <button type="submit" class="submit-btn">提交AI资源</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer>
+    <p>© 2025 MyAI • 用 ❤️ 和 ☕ 构建</p>
+  </footer>
+
+  <script src="/ai-tools-database.js"></script>
+  <script>
+    // 页面初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      initializePage();
+      setupTagInput();
+      setupFormSubmission();
+    });
+
+    function initializePage() {
+      // 填充分类选项
+      populateCategories();
+      
+      // 根据资源类型切换表单字段
+      document.getElementById('resource-type').addEventListener('change', function() {
+        updateFormFields(this.value);
+      });
+    }
+
+    // 填充分类选项
+    function populateCategories() {
+      const categorySelect = document.getElementById('resource-category');
+      const categories = aiToolsDatabase.categories;
+      
+      Object.keys(categories).forEach(catKey => {
+        const category = categories[catKey];
+        const option = document.createElement('option');
+        option.value = catKey;
+        option.textContent = `${category.icon} ${category.name}`;
+        categorySelect.appendChild(option);
+      });
+    }
+
+    // 根据资源类型更新表单字段
+    function updateFormFields(type) {
+      const categorySelect = document.getElementById('resource-category');
+      
+      // 清空当前选项
+      categorySelect.innerHTML = '<option value="">-- 选择分类 --</option>';
+      
+      // 根据类型填充不同的分类选项
+      switch (type) {
+        case 'tool':
+          Object.keys(aiToolsDatabase.categories).forEach(catKey => {
+            const category = aiToolsDatabase.categories[catKey];
+            const option = document.createElement('option');
+            option.value = catKey;
+            option.textContent = `${category.icon} ${category.name}`;
+            categorySelect.appendChild(option);
+          });
+          break;
+        case 'model':
+          Object.keys(aiToolsDatabase.modelTypes).forEach(typeKey => {
+            const modelType = aiToolsDatabase.modelTypes[typeKey];
+            const option = document.createElement('option');
+            option.value = typeKey;
+            option.textContent = modelType.name;
+            categorySelect.appendChild(option);
+          });
+          break;
+        case 'agent':
+          Object.keys(aiToolsDatabase.agentTypes).forEach(typeKey => {
+            const agentType = aiToolsDatabase.agentTypes[typeKey];
+            const option = document.createElement('option');
+            option.value = typeKey;
+            option.textContent = agentType.name;
+            categorySelect.appendChild(option);
+          });
+          break;
+      }
+    }
+
+    // 设置标签输入
+    function setupTagInput() {
+      const tagInput = document.getElementById('tag-input');
+      const tagsContainer = document.getElementById('tags-container');
+      const hiddenTagsInput = document.getElementById('resource-tags');
+      let tags = [];
+      
+      tagInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && this.value.trim()) {
+          e.preventDefault();
+          
+          const tag = this.value.trim();
+          if (!tags.includes(tag)) {
+            tags.push(tag);
+            renderTags();
+          }
+          
+          this.value = '';
+        }
+      });
+      
+      function renderTags() {
+        tagsContainer.innerHTML = '';
+        tags.forEach((tag, index) => {
+          const tagElement = document.createElement('div');
+          tagElement.className = 'tag';
+          tagElement.innerHTML = `
+            ${tag}
+            <span class="tag-remove" data-index="${index}">×</span>
+          `;
+          tagsContainer.appendChild(tagElement);
+        });
+        
+        // 更新隐藏输入
+        hiddenTagsInput.value = JSON.stringify(tags);
+        
+        // 添加删除事件
+        document.querySelectorAll('.tag-remove').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const index = parseInt(this.getAttribute('data-index'));
+            tags.splice(index, 1);
+            renderTags();
+          });
+        });
+      }
+    }
+
+    // 设置表单提交
+    function setupFormSubmission() {
+      const form = document.getElementById('submit-form');
+      const successMessage = document.getElementById('success-message');
+      const errorMessage = document.getElementById('error-message');
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // 验证表单
+        if (!validateForm()) {
+          errorMessage.style.display = 'block';
+          successMessage.style.display = 'none';
+          return;
+        }
+        
+        // 收集表单数据
+        const formData = collectFormData();
+        
+        // 在实际应用中，这里会发送数据到服务器
+        // 这里我们只是模拟成功提交
+        console.log('提交的数据:', formData);
+        
+        // 显示成功消息
+        successMessage.style.display = 'block';
+        errorMessage.style.display = 'none';
+        
+        // 重置表单
+        form.reset();
+        document.getElementById('tags-container').innerHTML = '';
+      });
+    }
+
+    // 验证表单
+    function validateForm() {
+      const requiredFields = [
+        'resource-type',
+        'resource-name',
+        'resource-description',
+        'resource-category',
+        'resource-url',
+        'resource-features',
+        'resource-pricing'
+      ];
+      
+      for (const fieldId of requiredFields) {
+        const field = document.getElementById(fieldId);
+        if (!field.value.trim()) {
+          field.focus();
+          return false;
+        }
+      }
+      
+      return true;
+    }
+
+    // 收集表单数据
+    function collectFormData() {
+      const type = document.getElementById('resource-type').value;
+      const name = document.getElementById('resource-name').value;
+      const provider = document.getElementById('resource-provider').value;
+      const description = document.getElementById('resource-description').value;
+      const category = document.getElementById('resource-category').value;
+      const url = document.getElementById('resource-url').value;
+      const features = document.getElementById('resource-features').value.split('\n').filter(f => f.trim());
+      const tags = JSON.parse(document.getElementById('resource-tags').value || '[]');
+      const pricing = document.getElementById('resource-pricing').value;
+      const pros = document.getElementById('resource-pros').value.split('\n').filter(p => p.trim());
+      const cons = document.getElementById('resource-cons').value.split('\n').filter(c => c.trim());
+      const extra = document.getElementById('resource-extra').value;
+      const submitterName = document.getElementById('submitter-name').value;
+      const submitterEmail = document.getElementById('submitter-email').value;
+      
+      return {
+        type,
+        name,
+        provider,
+        description,
+        category,
+        url,
+        features,
+        tags,
+        pricing,
+        pros,
+        cons,
+        extra,
+        submitter: {
+          name: submitterName,
+          email: submitterEmail
+        },
+        submissionDate: new Date().toISOString()
+      };
+    }
+  </script>
+</body>
+</html>

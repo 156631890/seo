@@ -1,22 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About • MyAI</title>
+  <title>AI工具合集 • MyAI</title>
+  <meta name="description" content="发现最好的AI工具、模型和Agent。包含ChatGPT、Midjourney、Claude等热门工具的详细评测和使用指南。">
   <link rel="stylesheet" href="/partials/site-style.css">
   <style>
-    /* ===== Layout helpers for About page ===== */
-    section               { margin-top:4rem; }
-    .section-intro        { max-width:700px; margin:0 auto; text-align:left; }
-    .tut-grid             { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.25rem; }
-    .tut-card             { background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:1.25rem; }
-    .tut-card p           { color:var(--muted); font-size:.95rem; }
-    .tool-grid            { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:1.25rem; }
-    .tool-grid .card      { height:100%; display:flex; flex-direction:column; justify-content:space-between; }
-    .section-sub          { background:#ecfdf5; border-radius:var(--radius); padding:2.5rem 1.5rem; text-align:center; margin-top:4rem; }
-    .section-sub form     { margin-top:1rem; }
-    @media(max-width:640px){ section{margin-top:3rem;} h2{font-size:1.5rem;} }
+    /* ===== AI工具页面样式 ===== */
+    .tools-header { text-align: center; margin: 2rem 0 3rem; }
+    .tools-header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .tools-header p { font-size: 1.1rem; color: var(--muted); max-width: 600px; margin: 0 auto; }
+    
+    /* 搜索和筛选区域 */
+    .search-filters { background: #f8fafc; border-radius: var(--radius); padding: 2rem; margin-bottom: 3rem; }
+    .search-box { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 300px; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: var(--radius); }
+    .search-btn { padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: var(--radius); cursor: pointer; }
+    
+    .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-tab { padding: 0.5rem 1rem; border: 1px solid #e2e8f0; border-radius: 20px; background: white; cursor: pointer; transition: all 0.2s; }
+    .filter-tab:hover, .filter-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+    
+    /* 统计信息 */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: white; padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: bold; color: var(--primary); }
+    .stat-label { color: var(--muted); font-size: 0.9rem; }
+    
+    /* 工具卡片 */
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .tool-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.2s; }
+    .tool-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    
+    .tool-header { padding: 1.5rem 1.5rem 1rem; }
+    .tool-title { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .tool-title h3 { margin: 0; font-size: 1.25rem; }
+    .tool-category { font-size: 0.8rem; color: var(--primary); background: #e0f2fe; padding: 0.25rem 0.5rem; border-radius: 12px; }
+    .tool-description { color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
+    
+    .tool-meta { padding: 0 1.5rem; }
+    .tool-rating { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .stars { color: #fbbf24; }
+    .rating-text { font-size: 0.9rem; color: var(--muted); }
+    
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .tag { font-size: 0.8rem; background: #f1f5f9; color: #475569; padding: 0.25rem 0.5rem; border-radius: 12px; }
+    
+    .tool-pricing { font-weight: 600; color: var(--primary); margin-bottom: 1rem; }
+    
+    .tool-actions { padding: 1.5rem; border-top: 1px solid #f1f5f9; }
+    .tool-btn { display: inline-block; padding: 0.75rem 1.5rem; background: var(--primary); color: white; text-decoration: none; border-radius: var(--radius); transition: background 0.2s; }
+    .tool-btn:hover { background: #2563eb; }
+    
+    /* 标签页 */
+    .tab-nav { display: flex; border-bottom: 2px solid #f1f5f9; margin-bottom: 2rem; }
+    .tab-btn { padding: 1rem 1.5rem; border: none; background: none; cursor: pointer; font-size: 1rem; color: var(--muted); border-bottom: 2px solid transparent; }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+    
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    
+    /* 模型对比表格 */
+    .comparison-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid #f1f5f9; }
+    .comparison-table th { background: #f8fafc; font-weight: 600; }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .tools-header h1 { font-size: 2rem; }
+      .search-box { flex-direction: column; }
+      .search-input { min-width: auto; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
 </head>
 <body>
@@ -24,70 +81,349 @@
   <header class="main-header">
     <div class="logo"><a href="/">MyAI</a></div>
     <nav class="site-nav desktop">
-      <a href="/">Home</a>
-      <a href="/#articles">Tutorials</a>
-      <a href="/tools.html">Tools</a>
-      <a href="/about.html">About</a>
+      <a href="/">首页</a>
+      <a href="/#articles">教程</a>
+      <a href="/tools.html" class="active">工具合集</a>
+      <a href="/about.html">关于</a>
     </nav>
   </header>
 
-  <main class="container" style="max-width:1040px;">
-    <!-- ===== Intro ===== -->
-    <section class="section-intro">
-      <h1>About MyAI</h1>
-      <p>MyAI is run by <strong>Yang</strong>, a builder who tests AI tools, crafts actionable prompts and shares no‑fluff automation guides for creators, makers, and solopreneurs.</p>
-    </section>
+  <main class="container" style="max-width:1200px;">
+    <!-- ===== 页面标题 ===== -->
+    <div class="tools-header">
+      <h1>🚀 AI工具与模型合集</h1>
+      <p>发现最好的AI工具、大语言模型和智能Agent，提升你的工作效率和创造力</p>
+    </div>
 
-    <!-- ===== Trending Tutorials ===== -->
-    <section>
-      <h2>🔥 Trending Tutorials</h2>
-      <div class="tut-grid">
-        <article class="tut-card">
-          <h3><a href="/posts/chatgpt-beginner-prompts.html">10 Prompts to Instantly Level Up Your ChatGPT</a></h3>
-          <p>Copy‑paste prompts for stronger, clearer answers from day one.</p>
-        </article>
-        <article class="tut-card">
-          <h3><a href="/posts/ai-automation-guide.html">How to Build Your First AI Automation — No Code</a></h3>
-          <p>Turn boring workflows into one‑click scripts using ChatGPT + Sheets.</p>
-        </article>
-        <article class="tut-card">
-          <h3><a href="/posts/gpt4o-guide.html">Beginner's Guide to GPT‑4o</a></h3>
-          <p>Capabilities, pricing and best prompts for OpenAI’s flagship model.</p>
-        </article>
+    <!-- ===== 搜索和筛选 ===== -->
+    <div class="search-filters">
+      <div class="search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="搜索工具名称、功能或标签...">
+        <button class="search-btn" onclick="searchTools()">搜索</button>
       </div>
-    </section>
-
-    <!-- ===== Tools grid ===== -->
-    <section>
-      <h2>🛠 Popular AI Tools & Websites</h2>
-      <div class="tool-grid">
-        <div class="card"><h3>ChatGPT Writer</h3><p>Email & copy assistant in 25+ languages.</p><a class="cta-btn" href="https://chatgptwriter.ai/" target="_blank">Try it now</a></div>
-        <div class="card"><h3>Midjourney</h3><p>Create stunning images from text prompts.</p><a class="cta-btn" href="https://www.midjourney.com/" target="_blank">Create visuals</a></div>
-        <div class="card"><h3>Gemini Pro 1.5</h3><p>Google’s long‑context model in AI Studio.</p><a class="cta-btn" href="https://aistudio.google.com/" target="_blank">Try Gemini</a></div>
-        <div class="card"><h3>Notion AI</h3><p>Draft, translate, summarise inside Notion.</p><a class="cta-btn" href="https://www.notion.so/product/ai" target="_blank">Explore Notion AI</a></div>
-        <div class="card"><h3>Zapier</h3><p>Trigger ChatGPT & Gemini workflows. 5 000+ apps.</p><a class="cta-btn" href="https://zapier.com/" target="_blank">Automate now</a></div>
-        <div class="card"><h3>Canva Magic Design</h3><p>On‑brand visuals & posts in one prompt.</p><a class="cta-btn" href="https://www.canva.com/magic-design/" target="_blank">Design in Canva</a></div>
-        <div class="card"><h3>Mixo AI</h3><p>Launch a product landing page in 30 s.</p><a class="cta-btn" href="https://mixo.io/" target="_blank">Launch page</a></div>
-        <div class="card"><h3>Durable Site Builder</h3><p>Generate a whole website in 60 s.</p><a class="cta-btn" href="https://durable.co/" target="_blank">Generate site</a></div>
-        <div class="card"><h3>Poe by Quora</h3><p>Chat with GPT‑4o, Claude, Gemini in one app.</p><a class="cta-btn" href="https://poe.com/" target="_blank">Start chatting</a></div>
-        <div class="card"><h3>Replit AI</h3><p>Cloud IDE + AI code completion for quick scripts.</p><a class="cta-btn" href="https://replit.com/ai" target="_blank">Code with AI</a></div>
+      
+      <div class="filter-tabs" id="categoryFilters">
+        <div class="filter-tab active" data-category="all">全部</div>
+        <!-- 分类标签将通过JavaScript动态生成 -->
       </div>
-    </section>
+    </div>
 
-    <!-- ===== Subscribe CTA ===== -->
-    <section class="section-sub">
-      <h2>💌 Stay in the loop</h2>
-      <p>Join 2 000+ makers getting fresh prompts, reviews & cheatsheets every week.</p>
-      <form class="subscribe" action="https://formspree.io/f/yourFormID" method="POST">
-        <input type="email" name="email" placeholder="Your email" required>
-        <button type="submit">Subscribe</button>
+    <!-- ===== 统计信息 ===== -->
+    <div class="stats-grid" id="statsGrid">
+      <!-- 统计卡片将通过JavaScript动态生成 -->
+    </div>
+
+    <!-- ===== 标签页导航 ===== -->
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="showTab('tools')">🛠️ AI工具</button>
+      <button class="tab-btn" onclick="showTab('models')">🧠 AI模型</button>
+      <button class="tab-btn" onclick="showTab('agents')">🤖 AI Agent</button>
+      <button class="tab-btn" onclick="showTab('compare')">⚖️ 模型对比</button>
+    </div>
+
+    <!-- ===== AI工具标签页 ===== -->
+    <div id="tools-tab" class="tab-content active">
+      <div class="tools-grid" id="toolsGrid">
+        <!-- 工具卡片将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- ===== AI模型标签页 ===== -->
+    <div id="models-tab" class="tab-content">
+      <div class="tools-grid" id="modelsGrid">
+        <!-- 模型卡片将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- ===== AI Agent标签页 ===== -->
+    <div id="agents-tab" class="tab-content">
+      <div class="tools-grid" id="agentsGrid">
+        <!-- Agent卡片将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- ===== 模型对比标签页 ===== -->
+    <div id="compare-tab" class="tab-content">
+      <h3>AI模型对比</h3>
+      <p>选择要对比的模型，了解它们的优势和特点：</p>
+      <div id="modelComparison">
+        <!-- 对比表格将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- ===== 订阅区域 ===== -->
+    <section style="background:#ecfdf5; border-radius:var(--radius); padding:2.5rem 1.5rem; text-align:center; margin-top:4rem;">
+      <h2>💌 获取最新AI工具资讯</h2>
+      <p>订阅我们的newsletter，第一时间了解最新的AI工具和使用技巧</p>
+      <form class="subscribe" action="https://formspree.io/f/yourFormID" method="POST" style="margin-top:1rem;">
+        <input type="email" name="email" placeholder="输入你的邮箱" required>
+        <button type="submit">订阅</button>
       </form>
     </section>
   </main>
 
   <!-- ========= FOOTER ========= -->
   <footer>
-    <p>© 2025 MyAI • Built with ❤️ and caffeine.</p>
+    <p>© 2025 MyAI • 用 ❤️ 和 ☕ 构建</p>
   </footer>
+
+  <!-- 引入数据库和脚本 -->
+  <script src="/ai-tools-database.js"></script>  <scri
+pt>
+    // 页面初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      initializePage();
+    });
+
+    let currentCategory = 'all';
+    let currentTab = 'tools';
+
+    function initializePage() {
+      generateCategoryFilters();
+      generateStats();
+      renderTools();
+      renderModels();
+      renderAgents();
+      generateModelComparison();
+    }
+
+    // 生成分类筛选器
+    function generateCategoryFilters() {
+      const filtersContainer = document.getElementById('categoryFilters');
+      const categories = aiToolsDatabase.categories;
+      
+      Object.keys(categories).forEach(catKey => {
+        const category = categories[catKey];
+        const filterTab = document.createElement('div');
+        filterTab.className = 'filter-tab';
+        filterTab.setAttribute('data-category', catKey);
+        filterTab.innerHTML = `${category.icon} ${category.name}`;
+        filterTab.onclick = () => filterByCategory(catKey);
+        filtersContainer.appendChild(filterTab);
+      });
+    }
+
+    // 生成统计信息
+    function generateStats() {
+      const statsContainer = document.getElementById('statsGrid');
+      const stats = aiToolsManager.getCategoryStats();
+      
+      const totalTools = aiToolsDatabase.tools.length;
+      const totalModels = aiToolsDatabase.models.length;
+      const totalAgents = aiToolsDatabase.agents.length;
+      
+      statsContainer.innerHTML = `
+        <div class="stat-card">
+          <div class="stat-number">${totalTools}</div>
+          <div class="stat-label">AI工具</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${totalModels}</div>
+          <div class="stat-label">AI模型</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${totalAgents}</div>
+          <div class="stat-label">AI Agent</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${Object.keys(aiToolsDatabase.categories).length}</div>
+          <div class="stat-label">分类</div>
+        </div>
+      `;
+    }
+
+    // 渲染工具卡片
+    function renderTools(tools = null) {
+      const toolsContainer = document.getElementById('toolsGrid');
+      const toolsToRender = tools || aiToolsDatabase.tools;
+      
+      toolsContainer.innerHTML = toolsToRender.map(tool => `
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-title">
+              <h3>${tool.name}</h3>
+              <span class="tool-category">${aiToolsDatabase.categories[tool.category].name}</span>
+            </div>
+            <p class="tool-description">${tool.description}</p>
+          </div>
+          
+          <div class="tool-meta">
+            <div class="tool-rating">
+              <span class="stars">${'★'.repeat(Math.floor(tool.rating))}${'☆'.repeat(5-Math.floor(tool.rating))}</span>
+              <span class="rating-text">${tool.rating} (${tool.users || '用户数未知'})</span>
+            </div>
+            
+            <div class="tool-tags">
+              ${tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            
+            <div class="tool-pricing">${tool.pricing}</div>
+          </div>
+          
+          <div class="tool-actions">
+            <a href="${tool.url}" target="_blank" class="tool-btn">立即使用</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 渲染模型卡片
+    function renderModels() {
+      const modelsContainer = document.getElementById('modelsGrid');
+      
+      modelsContainer.innerHTML = aiToolsDatabase.models.map(model => `
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-title">
+              <h3>${model.name}</h3>
+              <span class="tool-category">${model.provider}</span>
+            </div>
+            <p class="tool-description">${model.description}</p>
+          </div>
+          
+          <div class="tool-meta">
+            <div class="tool-rating">
+              <span class="stars">${'★'.repeat(Math.floor(model.rating))}${'☆'.repeat(5-Math.floor(model.rating))}</span>
+              <span class="rating-text">${model.rating}</span>
+            </div>
+            
+            <div class="tool-tags">
+              ${model.features.map(feature => `<span class="tag">${feature}</span>`).join('')}
+            </div>
+            
+            <div class="tool-pricing">${model.pricing}</div>
+          </div>
+          
+          <div class="tool-actions">
+            <a href="${model.url}" target="_blank" class="tool-btn">了解更多</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 渲染Agent卡片
+    function renderAgents() {
+      const agentsContainer = document.getElementById('agentsGrid');
+      
+      agentsContainer.innerHTML = aiToolsDatabase.agents.map(agent => `
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-title">
+              <h3>${agent.name}</h3>
+              <span class="tool-category">${agent.complexity}</span>
+            </div>
+            <p class="tool-description">${agent.description}</p>
+          </div>
+          
+          <div class="tool-meta">
+            <div class="tool-rating">
+              <span class="stars">${'★'.repeat(Math.floor(agent.rating))}${'☆'.repeat(5-Math.floor(agent.rating))}</span>
+              <span class="rating-text">${agent.rating}</span>
+            </div>
+            
+            <div class="tool-tags">
+              ${agent.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            
+            <div class="tool-pricing">用例: ${agent.useCase}</div>
+          </div>
+          
+          <div class="tool-actions">
+            <a href="${agent.github}" target="_blank" class="tool-btn">查看GitHub</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 生成模型对比
+    function generateModelComparison() {
+      const comparisonContainer = document.getElementById('modelComparison');
+      const models = aiToolsDatabase.models;
+      
+      comparisonContainer.innerHTML = `
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>模型</th>
+              <th>提供商</th>
+              <th>类型</th>
+              <th>主要功能</th>
+              <th>定价</th>
+              <th>评分</th>
+              <th>优势</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${models.map(model => `
+              <tr>
+                <td><strong>${model.name}</strong></td>
+                <td>${model.provider}</td>
+                <td>${model.type}</td>
+                <td>${model.features.slice(0, 2).join(', ')}</td>
+                <td>${model.pricing}</td>
+                <td>${model.rating}</td>
+                <td>${model.strengths.slice(0, 2).join(', ')}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    // 标签页切换
+    function showTab(tabName) {
+      // 隐藏所有标签页内容
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // 移除所有按钮的active状态
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // 显示选中的标签页
+      document.getElementById(tabName + '-tab').classList.add('active');
+      event.target.classList.add('active');
+      
+      currentTab = tabName;
+    }
+
+    // 分类筛选
+    function filterByCategory(category) {
+      currentCategory = category;
+      
+      // 更新筛选按钮状态
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelector(`[data-category="${category}"]`).classList.add('active');
+      
+      // 筛选工具
+      if (currentTab === 'tools') {
+        const filteredTools = category === 'all' 
+          ? aiToolsDatabase.tools 
+          : aiToolsDatabase.tools.filter(tool => tool.category === category);
+        renderTools(filteredTools);
+      }
+    }
+
+    // 搜索功能
+    function searchTools() {
+      const query = document.getElementById('searchInput').value;
+      const results = aiToolsManager.searchTools(query, currentCategory === 'all' ? null : currentCategory);
+      
+      if (currentTab === 'tools') {
+        renderTools(results);
+      }
+    }
+
+    // 回车搜索
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchTools();
+      }
+    });
+  </script>
 </body>
 </html>
