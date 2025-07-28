@@ -9,10 +9,11 @@ class AIToolsLoader {
     this.isLoading = false;
     this.loadPromise = null;
     this.manager = null;
+    this.loadStartTime = null;
   }
 
   /**
-   * 加载数据库
+   * 加载数据库 - 优化版本
    * @returns {Promise} 加载完成的Promise
    */
   load() {
@@ -25,34 +26,70 @@ class AIToolsLoader {
     }
 
     this.isLoading = true;
+    this.loadStartTime = Date.now();
     
-    // 创建加载Promise
+    // 创建优化的加载Promise
     this.loadPromise = new Promise((resolve, reject) => {
-      // 在实际应用中，这里可以从服务器加载数据
-      // 现在我们直接使用已有的数据库
-      const script = document.createElement('script');
-      script.src = '/ai-tools-database.js';
-      script.onload = () => {
-        if (typeof aiToolsDatabase !== 'undefined') {
-          this.database = aiToolsDatabase;
-          this.manager = aiToolsManager;
-          this.isLoading = false;
-          resolve(this.database);
-        } else {
-          const error = new Error('数据库加载失败');
+      // 使用requestIdleCallback优化加载时机
+      const loadScript = () => {
+        const script = document.createElement('script');
+        script.src = '/ai-tools-database.js';
+        
+        // 添加预加载提示
+        script.setAttribute('importance', 'high');
+        
+        script.onload = () => {
+          // 使用requestIdleCallback延迟处理，避免阻塞主线程
+          if (window.requestIdleCallback) {
+            requestIdleCallback(() => this.processLoadedData(resolve, reject));
+          } else {
+            setTimeout(() => this.processLoadedData(resolve, reject), 0);
+          }
+        };
+        
+        script.onerror = () => {
+          const error = new Error('数据库脚本加载失败');
           this.isLoading = false;
           reject(error);
-        }
+        };
+        
+        document.head.appendChild(script);
       };
-      script.onerror = () => {
-        const error = new Error('数据库脚本加载失败');
-        this.isLoading = false;
-        reject(error);
-      };
-      document.head.appendChild(script);
+
+      // 如果支持requestIdleCallback，在空闲时加载
+      if (window.requestIdleCallback) {
+        requestIdleCallback(loadScript, { timeout: 1000 });
+      } else {
+        loadScript();
+      }
     });
 
     return this.loadPromise;
+  }
+
+  /**
+   * 处理加载完成的数据
+   */
+  processLoadedData(resolve, reject) {
+    try {
+      if (typeof aiToolsDatabase !== 'undefined') {
+        this.database = aiToolsDatabase;
+        this.manager = aiToolsManager;
+        this.isLoading = false;
+        
+        const loadTime = Date.now() - this.loadStartTime;
+        console.log(`数据库加载完成，耗时: ${loadTime}ms`);
+        
+        resolve(this.database);
+      } else {
+        const error = new Error('数据库加载失败');
+        this.isLoading = false;
+        reject(error);
+      }
+    } catch (error) {
+      this.isLoading = false;
+      reject(error);
+    }
   }
 
   /**

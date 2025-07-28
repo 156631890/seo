@@ -19,6 +19,13 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI工具大全2025 | 100+免费AI工具推荐">
   <meta name="twitter:description" content="⭐ 精选最佳AI工具！ChatGPT、Midjourney、Claude等专业评测+使用教程">
+  
+  <!-- 性能优化 -->
+  <link rel="preload" href="/partials/site-style.css" as="style">
+  <link rel="preload" href="/js/i18n.js" as="script">
+  <link rel="preload" href="/ai-tools-database.js" as="script" importance="high">
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  
   <link rel="stylesheet" href="/partials/site-style.css">
   <style>
     /* ===== AI工具页面样式 ===== */
@@ -412,6 +419,7 @@
   </footer>
 
   <!-- 引入数据库和脚本 -->
+  <script src="/js/performance-monitor.js"></script>
   <script src="/js/i18n.js"></script>
   <script src="/js/language-switcher.js"></script>
   <script src="/js/init-i18n.js"></script>

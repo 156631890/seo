@@ -9,10 +9,19 @@ class ToolsPage {
     this.currentTab = 'tools';
     this.loader = window.aiToolsLoader;
     this.isInitialized = false;
+    
+    // 缓存机制
+    this.renderCache = {
+      tools: null,
+      models: null,
+      agents: null,
+      comparison: null
+    };
+    this.lastRenderTime = {};
   }
 
   /**
-   * 初始化页面
+   * 初始化页面 - 优化版本
    */
   async initialize() {
     if (this.isInitialized) {
@@ -23,16 +32,16 @@ class ToolsPage {
       // 显示加载状态
       this.showLoading();
 
+      const startTime = Date.now();
+
       // 加载数据库
       await this.loader.load();
+      if (window.performanceMonitor) {
+        window.performanceMonitor.mark('DatabaseLoaded');
+      }
 
-      // 生成页面内容
-      await this.generateCategoryFilters();
-      await this.generateStats();
-      await this.renderTools();
-      await this.renderModels();
-      await this.renderAgents();
-      await this.generateModelComparison();
+      // 优化：分阶段初始化，避免一次性渲染造成卡顿
+      await this.initializeInStages();
 
       // 绑定事件
       this.bindEvents();
@@ -43,11 +52,54 @@ class ToolsPage {
       // 更新初始化状态
       this.isInitialized = true;
 
-      // 显示成功消息
-      this.showMessage('数据加载成功', 'success');
+      const totalTime = Date.now() - startTime;
+      this.showMessage(`页面初始化完成，耗时: ${totalTime}ms`, 'success');
     } catch (error) {
       console.error('初始化页面出错:', error);
       this.showMessage('数据加载失败: ' + error.message, 'error');
+      this.hideLoading();
+    }
+  }
+
+  /**
+   * 分阶段初始化，优化性能
+   */
+  async initializeInStages() {
+    // 阶段1：生成基础UI组件（优先级最高）
+    await this.generateCategoryFilters();
+    await this.generateStats();
+
+    // 阶段2：渲染当前标签页内容（工具页面）
+    await this.renderTools();
+    if (window.performanceMonitor) {
+      window.performanceMonitor.mark('ToolsRendered');
+    }
+
+    // 阶段3：使用requestIdleCallback在空闲时预加载其他标签页
+    if (window.requestIdleCallback) {
+      requestIdleCallback(() => {
+        this.preloadOtherTabs();
+      }, { timeout: 2000 });
+    } else {
+      setTimeout(() => this.preloadOtherTabs(), 100);
+    }
+  }
+
+  /**
+   * 预加载其他标签页内容
+   */
+  async preloadOtherTabs() {
+    try {
+      // 预加载模型和Agent数据，但不立即渲染
+      const database = await this.loader.getDatabase();
+      
+      // 预处理数据，提高后续渲染速度
+      this.preProcessedModels = database.models;
+      this.preProcessedAgents = database.agents;
+      
+      console.log('其他标签页数据预加载完成');
+    } catch (error) {
+      console.error('预加载其他标签页出错:', error);
     }
   }
 
@@ -243,7 +295,7 @@ class ToolsPage {
   }
 
   /**
-   * 渲染工具卡片
+   * 渲染工具卡片 - 优化版本，支持分批渲染
    * @param {Array} tools 工具列表
    */
   async renderTools(tools = null) {
@@ -259,49 +311,8 @@ class ToolsPage {
         return;
       }
 
-      toolsContainer.innerHTML = toolsToRender.map(tool => {
-        try {
-          // 获取分类名称，支持多语言
-          let categoryName = tool.category;
-          if (database.categories[tool.category]) {
-            const categoryKey = `categories.${tool.category}.name`;
-            categoryName = i18n.t(categoryKey);
-          }
-
-          return `
-            <div class="tool-card">
-              <div class="tool-header">
-                <div class="tool-title">
-                  <h3><a href="/tool-detail.html?id=${tool.id}&type=tool">${tool.name}</a></h3>
-                  <span class="tool-category">${categoryName}</span>
-                </div>
-                <p class="tool-description">${tool.description}</p>
-              </div>
-              
-              <div class="tool-meta">
-                <div class="tool-rating">
-                  <span class="stars">${'★'.repeat(Math.floor(tool.rating))}${'☆'.repeat(5-Math.floor(tool.rating))}</span>
-                  <span class="rating-text">${tool.rating} (${tool.users || i18n.t('common.unknownUsers')})</span>
-                </div>
-                
-                <div class="tool-tags">
-                  ${tool.tags ? tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
-                </div>
-                
-                <div class="tool-pricing">${tool.pricing}</div>
-              </div>
-              
-              <div class="tool-actions">
-                <a href="${tool.url}" target="_blank" class="tool-btn">${i18n.t('tools.buttons.useNow')}</a>
-                <a href="/tool-detail.html?id=${tool.id}&type=tool" class="tool-btn" style="background:transparent;color:var(--primary);border:1px solid var(--primary);">${i18n.t('tools.buttons.details')}</a>
-              </div>
-            </div>
-          `;
-        } catch (error) {
-          console.error('渲染工具卡片出错:', error, tool);
-          return `<div class="tool-card"><div class="tool-header"><h3>${i18n.t('common.error')}</h3></div></div>`;
-        }
-      }).join('');
+      // 优化：分批渲染，避免一次性渲染大量DOM元素
+      await this.renderToolsInBatches(toolsToRender, database, toolsContainer);
     } catch (error) {
       console.error('渲染工具列表出错:', error);
       toolsContainer.innerHTML = `<div style="color:red;padding:20px;">${i18n.t('common.error')}: ${error.message}</div>`;
@@ -309,7 +320,89 @@ class ToolsPage {
   }
 
   /**
-   * 渲染模型卡片
+   * 分批渲染工具卡片
+   */
+  async renderToolsInBatches(tools, database, container) {
+    const BATCH_SIZE = 12; // 每批渲染12个工具
+    const batches = [];
+    
+    // 将工具分组
+    for (let i = 0; i < tools.length; i += BATCH_SIZE) {
+      batches.push(tools.slice(i, i + BATCH_SIZE));
+    }
+
+    // 清空容器
+    container.innerHTML = '';
+
+    // 渲染第一批（立即显示）
+    if (batches.length > 0) {
+      const firstBatchHtml = this.generateToolsHTML(batches[0], database);
+      container.innerHTML = firstBatchHtml;
+    }
+
+    // 使用requestAnimationFrame分批渲染剩余内容
+    for (let i = 1; i < batches.length; i++) {
+      await new Promise(resolve => {
+        requestAnimationFrame(() => {
+          const batchHtml = this.generateToolsHTML(batches[i], database);
+          container.insertAdjacentHTML('beforeend', batchHtml);
+          resolve();
+        });
+      });
+    }
+  }
+
+  /**
+   * 生成工具HTML
+   */
+  generateToolsHTML(tools, database) {
+    return tools.map(tool => {
+      try {
+        // 获取分类名称，支持多语言
+        let categoryName = tool.category;
+        if (database.categories[tool.category]) {
+          const categoryKey = `categories.${tool.category}.name`;
+          categoryName = i18n.t(categoryKey);
+        }
+
+        return `
+          <div class="tool-card">
+            <div class="tool-header">
+              <div class="tool-title">
+                <h3><a href="/tool-detail.html?id=${tool.id}&type=tool">${tool.name}</a></h3>
+                <span class="tool-category">${categoryName}</span>
+              </div>
+              <p class="tool-description">${tool.description}</p>
+            </div>
+            
+            <div class="tool-meta">
+              <div class="tool-rating">
+                <span class="stars">${'★'.repeat(Math.floor(tool.rating))}${'☆'.repeat(5-Math.floor(tool.rating))}</span>
+                <span class="rating-text">${tool.rating} (${tool.users || i18n.t('common.unknownUsers')})</span>
+              </div>
+              
+              <div class="tool-tags">
+                ${tool.tags ? tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
+              </div>
+              
+              <div class="tool-pricing">${tool.pricing}</div>
+            </div>
+            
+            <div class="tool-actions">
+              <a href="${tool.url}" target="_blank" class="tool-btn">${i18n.t('tools.buttons.useNow')}</a>
+              <a href="/tool-detail.html?id=${tool.id}&type=tool" class="tool-btn" style="background:transparent;color:var(--primary);border:1px solid var(--primary);">${i18n.t('tools.buttons.details')}</a>
+            </div>
+          </div>
+        `;
+      } catch (error) {
+        console.error('渲染工具卡片出错:', error, tool);
+        return `<div class="tool-card"><div class="tool-header"><h3>${i18n.t('common.error')}</h3></div></div>`;
+      }
+    }).join('');
+  }
+
+  /**
+   * 渲染模型卡片 - 优化版本
    * @param {Array} models 模型列表
    */
   async renderModels(models = null) {
@@ -317,50 +410,57 @@ class ToolsPage {
     if (!modelsContainer) return;
 
     try {
-      const database = await this.loader.getDatabase();
-      const modelsToRender = models || database.models;
+      // 优先使用预处理的数据
+      const modelsToRender = models || this.preProcessedModels || (await this.loader.getDatabase()).models;
 
       if (modelsToRender.length === 0) {
         modelsContainer.innerHTML = '<div style="padding:20px;text-align:center;">没有找到匹配的模型</div>';
         return;
       }
 
-      modelsContainer.innerHTML = modelsToRender.map(model => {
+      // 使用DocumentFragment优化DOM操作
+      const fragment = document.createDocumentFragment();
+      
+      modelsToRender.forEach(model => {
         try {
-          return `
-            <div class="tool-card">
-              <div class="tool-header">
-                <div class="tool-title">
-                  <h3><a href="/tool-detail.html?id=${model.id}&type=model">${model.name}</a></h3>
-                  <span class="tool-category">${model.provider}</span>
-                </div>
-                <p class="tool-description">${model.description}</p>
+          const cardElement = document.createElement('div');
+          cardElement.className = 'tool-card';
+          cardElement.innerHTML = `
+            <div class="tool-header">
+              <div class="tool-title">
+                <h3><a href="/tool-detail.html?id=${model.id}&type=model">${model.name}</a></h3>
+                <span class="tool-category">${model.provider}</span>
+              </div>
+              <p class="tool-description">${model.description}</p>
+            </div>
+            
+            <div class="tool-meta">
+              <div class="tool-rating">
+                <span class="stars">${'★'.repeat(Math.floor(model.rating))}${'☆'.repeat(5-Math.floor(model.rating))}</span>
+                <span class="rating-text">${model.rating}</span>
               </div>
               
-              <div class="tool-meta">
-                <div class="tool-rating">
-                  <span class="stars">${'★'.repeat(Math.floor(model.rating))}${'☆'.repeat(5-Math.floor(model.rating))}</span>
-                  <span class="rating-text">${model.rating}</span>
-                </div>
-                
-                <div class="tool-tags">
-                  ${model.features ? model.features.map(feature => `<span class="tag">${feature}</span>`).join('') : ''}
-                </div>
-                
-                <div class="tool-pricing">${model.pricing}</div>
+              <div class="tool-tags">
+                ${model.features ? model.features.map(feature => `<span class="tag">${feature}</span>`).join('') : ''}
               </div>
               
-              <div class="tool-actions">
-                <a href="${model.url}" target="_blank" class="tool-btn">了解更多</a>
-                <a href="/tool-detail.html?id=${model.id}&type=model" class="tool-btn" style="background:transparent;color:var(--primary);border:1px solid var(--primary);">详情</a>
-              </div>
+              <div class="tool-pricing">${model.pricing}</div>
+            </div>
+            
+            <div class="tool-actions">
+              <a href="${model.url}" target="_blank" class="tool-btn">了解更多</a>
+              <a href="/tool-detail.html?id=${model.id}&type=model" class="tool-btn" style="background:transparent;color:var(--primary);border:1px solid var(--primary);">详情</a>
             </div>
           `;
+          fragment.appendChild(cardElement);
         } catch (error) {
           console.error('渲染模型卡片出错:', error, model);
-          return `<div class="tool-card"><div class="tool-header"><h3>渲染错误</h3></div></div>`;
         }
-      }).join('');
+      });
+
+      // 一次性更新DOM
+      modelsContainer.innerHTML = '';
+      modelsContainer.appendChild(fragment);
     } catch (error) {
       console.error('渲染模型列表出错:', error);
       modelsContainer.innerHTML = '<div style="color:red;padding:20px;">渲染模型列表出错: ' + error.message + '</div>';
@@ -368,7 +468,7 @@ class ToolsPage {
   }
 
   /**
-   * 渲染Agent卡片
+   * 渲染Agent卡片 - 优化版本
    * @param {Array} agents Agent列表
    */
   async renderAgents(agents = null) {
@@ -376,50 +476,57 @@ class ToolsPage {
     if (!agentsContainer) return;
 
     try {
-      const database = await this.loader.getDatabase();
-      const agentsToRender = agents || database.agents;
+      // 优先使用预处理的数据
+      const agentsToRender = agents || this.preProcessedAgents || (await this.loader.getDatabase()).agents;
 
       if (agentsToRender.length === 0) {
         agentsContainer.innerHTML = '<div style="padding:20px;text-align:center;">没有找到匹配的Agent</div>';
         return;
       }
 
-      agentsContainer.innerHTML = agentsToRender.map(agent => {
+      // 使用DocumentFragment优化DOM操作
+      const fragment = document.createDocumentFragment();
+      
+      agentsToRender.forEach(agent => {
         try {
-          return `
-            <div class="tool-card">
-              <div class="tool-header">
-                <div class="tool-title">
-                  <h3><a href="/tool-detail.html?id=${agent.id}&type=agent">${agent.name}</a></h3>
-                  <span class="tool-category">${agent.complexity}</span>
-                </div>
-                <p class="tool-description">${agent.description}</p>
+          const cardElement = document.createElement('div');
+          cardElement.className = 'tool-card';
+          cardElement.innerHTML = `
+            <div class="tool-header">
+              <div class="tool-title">
+                <h3><a href="/tool-detail.html?id=${agent.id}&type=agent">${agent.name}</a></h3>
+                <span class="tool-category">${agent.complexity}</span>
+              </div>
+              <p class="tool-description">${agent.description}</p>
+            </div>
+            
+            <div class="tool-meta">
+              <div class="tool-rating">
+                <span class="stars">${'★'.repeat(Math.floor(agent.rating))}${'☆'.repeat(5-Math.floor(agent.rating))}</span>
+                <span class="rating-text">${agent.rating}</span>
               </div>
               
-              <div class="tool-meta">
-                <div class="tool-rating">
-                  <span class="stars">${'★'.repeat(Math.floor(agent.rating))}${'☆'.repeat(5-Math.floor(agent.rating))}</span>
-                  <span class="rating-text">${agent.rating}</span>
-                </div>
-                
-                <div class="tool-tags">
-                  ${agent.tags ? agent.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
-                </div>
-                
-                <div class="tool-pricing">用例: ${agent.useCase}</div>
+              <div class="tool-tags">
+                ${agent.tags ? agent.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
               </div>
               
-              <div class="tool-actions">
-                <a href="${agent.github}" target="_blank" class="tool-btn">查看GitHub</a>
-                <a href="/tool-detail.html?id=${agent.id}&type=agent" class="tool-btn" style="background:transparent;color:var(--primary);border:1px solid var(--primary);">详情</a>
-              </div>
+              <div class="tool-pricing">用例: ${agent.useCase}</div>
+            </div>
+            
+            <div class="tool-actions">
+              <a href="${agent.github}" target="_blank" class="tool-btn">查看GitHub</a>
+              <a href="/tool-detail.html?id=${agent.id}&type=agent" class="tool-btn" style="background:transparent;color:var(--primary);border:1px solid var(--primary);">详情</a>
             </div>
           `;
+          fragment.appendChild(cardElement);
         } catch (error) {
           console.error('渲染Agent卡片出错:', error, agent);
-          return `<div class="tool-card"><div class="tool-header"><h3>渲染错误</h3></div></div>`;
         }
-      }).join('');
+      });
+
+      // 一次性更新DOM
+      agentsContainer.innerHTML = '';
+      agentsContainer.appendChild(fragment);
     } catch (error) {
       console.error('渲染Agent列表出错:', error);
       agentsContainer.innerHTML = '<div style="color:red;padding:20px;">渲染Agent列表出错: ' + error.message + '</div>';
@@ -472,7 +579,7 @@ class ToolsPage {
   }
 
   /**
-   * 标签页切换
+   * 标签页切换 - 优化版本，懒加载内容
    * @param {string} tabName 标签页名称
    */
   showTab(tabName) {
@@ -521,19 +628,93 @@ class ToolsPage {
         }
       }
       
-      // 如果切换到模型或Agent标签页，确保内容已经渲染
-      if (tabName === 'models' && document.getElementById('modelsGrid').children.length === 0) {
-        this.renderModels();
-      } else if (tabName === 'agents' && document.getElementById('agentsGrid').children.length === 0) {
-        this.renderAgents();
-      } else if (tabName === 'compare' && document.getElementById('modelComparison').children.length === 0) {
-        this.generateModelComparison();
-      } else if (tabName === 'tools') {
-        // 重新渲染工具页面，显示所有工具
-        this.renderTools();
-      }
+      // 懒加载标签页内容，避免不必要的渲染
+      this.loadTabContent(tabName);
     } catch (error) {
       console.error('切换标签页出错:', error);
+    }
+  }
+
+  /**
+   * 懒加载标签页内容 - 带缓存优化
+   */
+  async loadTabContent(tabName) {
+    try {
+      const startTime = Date.now();
+      
+      // 检查缓存
+      const cacheKey = tabName;
+      const lastRender = this.lastRenderTime[cacheKey];
+      const cacheExpiry = 5 * 60 * 1000; // 5分钟缓存
+      
+      if (lastRender && (Date.now() - lastRender) < cacheExpiry) {
+        // 使用缓存
+        const container = this.getContainerForTab(tabName);
+        if (container && container.children.length > 0) {
+          this.showMessage(`从缓存加载${tabName}内容`, 'info');
+          return;
+        }
+      }
+      
+      switch (tabName) {
+        case 'models':
+          const modelsGrid = document.getElementById('modelsGrid');
+          if (modelsGrid && (modelsGrid.children.length === 0 || !this.renderCache.models)) {
+            this.showMessage('正在加载模型数据...', 'info');
+            await this.renderModels();
+            this.renderCache.models = true;
+            this.lastRenderTime.models = Date.now();
+            const loadTime = Date.now() - startTime;
+            this.showMessage(`模型数据加载完成，耗时: ${loadTime}ms`, 'success');
+          }
+          break;
+          
+        case 'agents':
+          const agentsGrid = document.getElementById('agentsGrid');
+          if (agentsGrid && (agentsGrid.children.length === 0 || !this.renderCache.agents)) {
+            this.showMessage('正在加载Agent数据...', 'info');
+            await this.renderAgents();
+            this.renderCache.agents = true;
+            this.lastRenderTime.agents = Date.now();
+            const loadTime = Date.now() - startTime;
+            this.showMessage(`Agent数据加载完成，耗时: ${loadTime}ms`, 'success');
+          }
+          break;
+          
+        case 'compare':
+          const modelComparison = document.getElementById('modelComparison');
+          if (modelComparison && (modelComparison.children.length === 0 || !this.renderCache.comparison)) {
+            this.showMessage('正在生成模型对比...', 'info');
+            await this.generateModelComparison();
+            this.renderCache.comparison = true;
+            this.lastRenderTime.compare = Date.now();
+            const loadTime = Date.now() - startTime;
+            this.showMessage(`模型对比生成完成，耗时: ${loadTime}ms`, 'success');
+          }
+          break;
+          
+        case 'tools':
+          // 重新渲染工具页面，显示所有工具
+          await this.renderTools();
+          this.lastRenderTime.tools = Date.now();
+          break;
+      }
+    } catch (error) {
+      console.error('加载标签页内容出错:', error);
+      this.showMessage(`加载${tabName}内容失败: ${error.message}`, 'error');
+    }
+  }
+
+  /**
+   * 获取标签页对应的容器
+   */
+  getContainerForTab(tabName) {
+    switch (tabName) {
+      case 'models': return document.getElementById('modelsGrid');
+      case 'agents': return document.getElementById('agentsGrid');
+      case 'compare': return document.getElementById('modelComparison');
+      case 'tools': return document.getElementById('toolsGrid');
+      default: return null;
     }
   }
 
