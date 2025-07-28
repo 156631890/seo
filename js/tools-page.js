@@ -82,7 +82,12 @@ class ToolsPage {
       // 完整数据加载完成后，更新当前显示的内容
       if (this.currentTab === 'tools') {
         this.renderTools();
+      } else if (this.currentTab === 'models') {
+        this.renderModels();
+      } else if (this.currentTab === 'agents') {
+        this.renderAgents();
       }
+      
       this.generateStats(); // 更新统计信息
       this.showMessage('数据已更新到最新版本', 'success');
     });

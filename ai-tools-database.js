@@ -1390,7 +1390,17 @@ const aiToolsDatabase = {
             name: 'Speechify',
             provider: 'Speechify',
             category: 'voice-audio',
- 
+            description: 'AI文本转语音工具，帮助阅读和学习',
+            features: ['文本朗读', '速度调节', '多语言', '移动应用'],
+            pricing: '免费/Premium $11.58/月',
+            tags: ['朗读', '学习', '阅读', '移动'],
+            rating: 4.5,
+            users: '20M+',
+            url: 'https://speechify.com',
+            pros: ['使用简单', '移动友好', '学习辅助'],
+            cons: ['声音机械', '免费版限制', '功能单一'],
+            lastUpdated: '2024-12-01'
+        }
     ],
 
     // AI Agent数据
@@ -1632,7 +1642,7 @@ const aiToolsDatabase = {
             documentation: 'https://docs.phidata.com/',
             rating: 4.2,
             tags: ['工具集成', '推理', '助手构建', '框架']
-        }
+        },
         {
             id: 'taskweaver',
             name: 'TaskWeaver',
@@ -1855,18 +1865,10 @@ class AIToolsManager {
 
 // 导出数据库和管理器
 (function () {
-    // 先创建管理器实例
-    const manager = new AIToolsManager(aiToolsDatabase);
-
     // 导出到window对象
     window.aiToolsDatabase = aiToolsDatabase;
+    
+    // 创建管理器实例
+    const manager = new AIToolsManager(aiToolsDatabase);
     window.aiToolsManager = manager;
-
-    // 也导出为全局变量，但避免重复声明
-    if (typeof aiToolsDatabase === 'undefined') {
-        window.aiToolsDatabase = aiToolsDatabase;
-    }
-    if (typeof aiToolsManager === 'undefined') {
-        window.aiToolsManager = manager;
-    }
 })();

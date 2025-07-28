@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据加载测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .test-section { background: #f8f9fa; padding: 1.5rem; margin: 1rem 0; border-radius: 8px; }
+        .test-button { background: #007bff; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; margin: 0.5rem; }
+        .test-button:hover { background: #0056b3; }
+        .status { padding: 0.5rem; margin: 0.5rem 0; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .data-display { background: white; padding: 1rem; border-radius: 4px; max-height: 400px; overflow-y: auto; }
+        .count { font-weight: bold; color: #007bff; }
+    </style>
+</head>
+<body>
+    <h1>🔍 数据加载测试页面</h1>
+    
+    <div class="test-section">
+        <h2>📊 数据库状态检查</h2>
+        <div id="database-status"></div>
+        <button class="test-button" onclick="checkDatabaseStatus()">检查数据库状态</button>
+        <button class="test-button" onclick="loadFullDatabase()">加载完整数据库</button>
+    </div>
+
+    <div class="test-section">
+        <h2>🛠️ 工具数据测试</h2>
+        <div id="tools-status"></div>
+        <button class="test-button" onclick="testToolsData()">测试工具数据</button>
+        <div id="tools-display" class="data-display" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🧠 模型数据测试</h2>
+        <div id="models-status"></div>
+        <button class="test-button" onclick="testModelsData()">测试模型数据</button>
+        <div id="models-display" class="data-display" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🤖 Agent数据测试</h2>
+        <div id="agents-status"></div>
+        <button class="test-button" onclick="testAgentsData()">测试Agent数据</button>
+        <div id="agents-display" class="data-display" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔄 数据加载器测试</h2>
+        <div id="loader-status"></div>
+        <button class="test-button" onclick="testDataChunks()">测试数据分块加载器</button>
+        <button class="test-button" onclick="testAIToolsLoader()">测试AI工具加载器</button>
+    </div>
+
+    <!-- 引入必要的脚本 -->
+    <script src="/js/data-chunks.js"></script>
+    <script src="/js/ai-tools-loader.js"></script>
+    <script src="/ai-tools-database.js"></script>
+
+    <script>
+        // 检查数据库状态
+        function checkDatabaseStatus() {
+            const statusDiv = document.getElementById('database-status');
+            
+            if (typeof aiToolsDatabase === 'undefined') {
+                statusDiv.innerHTML = '<div class="status error">❌ aiToolsDatabase 未加载</div>';
+                return;
+            }
+
+            const tools = aiToolsDatabase.tools || [];
+            const models = aiToolsDatabase.models || [];
+            const agents = aiToolsDatabase.agents || [];
+            const categories = aiToolsDatabase.categories || {};
+
+            statusDiv.innerHTML = `
+                <div class="status success">✅ 数据库已加载</div>
+                <div class="status info">工具数量: <span class="count">${tools.length}</span></div>
+                <div class="status info">模型数量: <span class="count">${models.length}</span></div>
+                <div class="status info">Agent数量: <span class="count">${agents.length}</span></div>
+                <div class="status info">分类数量: <span class="count">${Object.keys(categories).length}</span></div>
+            `;
+        }
+
+        // 加载完整数据库
+        function loadFullDatabase() {
+            if (typeof aiToolsDatabase === 'undefined') {
+                const script = document.createElement('script');
+                script.src = '/ai-tools-database.js';
+                script.onload = () => {
+                    checkDatabaseStatus();
+                };
+                document.head.appendChild(script);
+            } else {
+                checkDatabaseStatus();
+            }
+        }
+
+        // 测试工具数据
+        function testToolsData() {
+            const statusDiv = document.getElementById('tools-status');
+            const displayDiv = document.getElementById('tools-display');
+            
+            if (typeof aiToolsDatabase === 'undefined') {
+                statusDiv.innerHTML = '<div class="status error">❌ 数据库未加载</div>';
+                return;
+            }
+
+            const tools = aiToolsDatabase.tools || [];
+            statusDiv.innerHTML = `<div class="status success">✅ 工具数据: ${tools.length} 个</div>`;
+            
+            displayDiv.style.display = 'block';
+            displayDiv.innerHTML = '<h4>前10个工具:</h4>' + 
+                tools.slice(0, 10).map(tool => 
+                    `<div><strong>${tool.name}</strong> - ${tool.category} - ${tool.description}</div>`
+                ).join('');
+        }
+
+        // 测试模型数据
+        function testModelsData() {
+            const statusDiv = document.getElementById('models-status');
+            const displayDiv = document.getElementById('models-display');
+            
+            if (typeof aiToolsDatabase === 'undefined') {
+                statusDiv.innerHTML = '<div class="status error">❌ 数据库未加载</div>';
+                return;
+            }
+
+            const models = aiToolsDatabase.models || [];
+            statusDiv.innerHTML = `<div class="status success">✅ 模型数据: ${models.length} 个</div>`;
+            
+            displayDiv.style.display = 'block';
+            displayDiv.innerHTML = '<h4>所有模型:</h4>' + 
+                models.map(model => 
+                    `<div><strong>${model.name}</strong> - ${model.provider} - ${model.description}</div>`
+                ).join('');
+        }
+
+        // 测试Agent数据
+        function testAgentsData() {
+            const statusDiv = document.getElementById('agents-status');
+            const displayDiv = document.getElementById('agents-display');
+            
+            if (typeof aiToolsDatabase === 'undefined') {
+                statusDiv.innerHTML = '<div class="status error">❌ 数据库未加载</div>';
+                return;
+            }
+
+            const agents = aiToolsDatabase.agents || [];
+            statusDiv.innerHTML = `<div class="status success">✅ Agent数据: ${agents.length} 个</div>`;
+            
+            displayDiv.style.display = 'block';
+            displayDiv.innerHTML = '<h4>所有Agent:</h4>' + 
+                agents.map(agent => 
+                    `<div><strong>${agent.name}</strong> - ${agent.category} - ${agent.description}</div>`
+                ).join('');
+        }
+
+        // 测试数据分块加载器
+        async function testDataChunks() {
+            const statusDiv = document.getElementById('loader-status');
+            
+            if (typeof window.dataChunks === 'undefined') {
+                statusDiv.innerHTML = '<div class="status error">❌ 数据分块加载器未加载</div>';
+                return;
+            }
+
+            try {
+                const tools = await window.dataChunks.getTools();
+                const models = await window.dataChunks.getModels();
+                const agents = await window.dataChunks.getAgents();
+
+                statusDiv.innerHTML = `
+                    <div class="status success">✅ 数据分块加载器正常</div>
+                    <div class="status info">工具: ${tools.length} 个</div>
+                    <div class="status info">模型: ${models.length} 个</div>
+                    <div class="status info">Agent: ${agents.length} 个</div>
+                `;
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="status error">❌ 数据分块加载器错误: ${error.message}</div>`;
+            }
+        }
+
+        // 测试AI工具加载器
+        async function testAIToolsLoader() {
+            const statusDiv = document.getElementById('loader-status');
+            
+            if (typeof window.aiToolsLoader === 'undefined') {
+                statusDiv.innerHTML = '<div class="status error">❌ AI工具加载器未加载</div>';
+                return;
+            }
+
+            try {
+                const database = await window.aiToolsLoader.getDatabase();
+                
+                statusDiv.innerHTML = `
+                    <div class="status success">✅ AI工具加载器正常</div>
+                    <div class="status info">工具: ${database.tools ? database.tools.length : 0} 个</div>
+                    <div class="status info">模型: ${database.models ? database.models.length : 0} 个</div>
+                    <div class="status info">Agent: ${database.agents ? database.agents.length : 0} 个</div>
+                `;
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="status error">❌ AI工具加载器错误: ${error.message}</div>`;
+            }
+        }
+
+        // 页面加载完成后自动检查
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                checkDatabaseStatus();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

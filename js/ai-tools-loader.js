@@ -54,6 +54,9 @@ class AIToolsLoader {
         agents: []  // 稍后加载
       };
       
+      // 立即开始加载完整数据
+      this.loadFullDataInBackground();
+      
       // 创建简化的管理器
       this.manager = new FastToolsManager(this.database, this.dataChunks);
       
@@ -74,22 +77,56 @@ class AIToolsLoader {
   }
 
   /**
+   * 后台加载完整数据
+   */
+  async loadFullDataInBackground() {
+    try {
+      // 使用requestIdleCallback在空闲时加载
+      if (window.requestIdleCallback) {
+        requestIdleCallback(async () => {
+          await this.updateWithFullData();
+        }, { timeout: 2000 });
+      } else {
+        setTimeout(async () => {
+          await this.updateWithFullData();
+        }, 100);
+      }
+    } catch (error) {
+      console.error('后台加载完整数据失败:', error);
+    }
+  }
+
+  /**
    * 更新为完整数据
    */
   async updateWithFullData() {
     try {
-      const fullTools = await this.dataChunks.getTools();
-      const models = await this.dataChunks.getModels();
-      const agents = await this.dataChunks.getAgents();
-      
-      this.database.tools = fullTools;
-      this.database.models = models;
-      this.database.agents = agents;
-      
-      console.log('完整数据更新完成');
-      
-      // 触发数据更新事件
-      window.dispatchEvent(new CustomEvent('dataUpdated'));
+      // 直接从全局数据库获取数据，避免分块加载的复杂性
+      if (typeof aiToolsDatabase !== 'undefined') {
+        this.database.tools = aiToolsDatabase.tools || [];
+        this.database.models = aiToolsDatabase.models || [];
+        this.database.agents = aiToolsDatabase.agents || [];
+        
+        console.log(`完整数据更新完成: ${this.database.tools.length}个工具, ${this.database.models.length}个模型, ${this.database.agents.length}个Agent`);
+        
+        // 触发数据更新事件
+        window.dispatchEvent(new CustomEvent('dataUpdated'));
+      } else {
+        // 如果全局数据库还没加载，尝试加载
+        await this.dataChunks.loadFullData();
+        const fullTools = await this.dataChunks.getTools();
+        const models = await this.dataChunks.getModels();
+        const agents = await this.dataChunks.getAgents();
+        
+        this.database.tools = fullTools;
+        this.database.models = models;
+        this.database.agents = agents;
+        
+        console.log(`完整数据更新完成: ${this.database.tools.length}个工具, ${this.database.models.length}个模型, ${this.database.agents.length}个Agent`);
+        
+        // 触发数据更新事件
+        window.dispatchEvent(new CustomEvent('dataUpdated'));
+      }
     } catch (error) {
       console.error('更新完整数据失败:', error);
     }
