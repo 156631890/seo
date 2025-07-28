@@ -1,78 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>10 Beginner ChatGPT Prompts to Instantly Improve Your Results – MyAI</title>
-  <meta name="description" content="Try these 10 plug-and-play ChatGPT prompts to get better answers, avoid generic replies, and save hours every week.">
-  <link rel="canonical" href="https://www.aiblogs.tech/posts/chatgpt-beginner-prompts.html">
-  <link rel="stylesheet" href="/partials/site-style.css">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>10 ChatGPT Prompts to Instantly Level Up Your AI Game | MyAI - AI Tutorials & Guides</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Discover 10 powerful ChatGPT prompts that will transform your AI interactions. Perfect for beginners looking to get better results from day one.">
+  <meta name="keywords" content="ChatGPT prompts,AI prompts,ChatGPT tips,AI beginner guide,prompt engineering">
+  <meta name="author" content="MyAI Team">
+  <link rel="canonical" href="https://www.aiblogs.tech/posts/chatgpt-beginner-prompts.html" />
+  
+  <!-- Google Search Console 验证 -->
+  <meta name="google-site-verification" content="IyyiuJxBRqr62v-cPzO7vqonf-d6v2rnzgNK8HzO1Bs" />
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="10 ChatGPT Prompts to Instantly Level Up Your AI Game | MyAI">
+  <meta property="og:description" content="Discover 10 powerful ChatGPT prompts that will transform your AI interactions. Perfect for beginners looking to get better results from day one.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.aiblogs.tech/posts/chatgpt-beginner-prompts.html">
+  <meta property="og:image" content="https://www.aiblogs.tech/images/chatgpt-prompts-og.jpg">
+  <meta property="og:site_name" content="MyAI">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="10 ChatGPT Prompts to Instantly Level Up Your AI Game | MyAI">
+  <meta name="twitter:description" content="Discover 10 powerful ChatGPT prompts that will transform your AI interactions. Perfect for beginners looking to get better results from day one.">
+  <meta name="twitter:image" content="https://www.aiblogs.tech/images/chatgpt-prompts-twitter.jpg">
+  
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="/partials/site-style.css" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style">
+  <link rel="preload" href="/social-share.js" as="script">
+  
+  <!-- Performance Optimizations -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  
+  <!-- Critical CSS Inline -->
   <style>
-    /* 如果还没有全局样式，建议加一些局部补充 */
-    article { max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
-    article h1 { font-size: 2rem; margin-bottom: 1rem; }
-    article h2 { font-size: 1.5rem; margin-top: 1.5rem; }
-    article pre { background: #f3f4f6; padding: .75rem; border-radius: .375rem; overflow-x: auto; }
+    :root{--c1:#0f172a;--c2:#6b7280;--c3:#f8fafc;--brand:#10b981;--card-bg:#ffffff;--border:#e5e7eb}
+    body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--c3);color:var(--c1);line-height:1.7}
+    .main-header{background:var(--card-bg);padding:1rem 2rem;box-shadow:0 2px 4px rgba(0,0,0,.05);position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center}
+    .logo a{font-size:1.5rem;color:var(--brand);text-decoration:none;font-weight:700}
+    .post-header{background:var(--card-bg);padding:3rem 1rem;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.05);border-bottom:1px solid var(--border)}
+    .title{font-size:clamp(1.75rem,4vw,2.5rem);margin:0 0 1rem;font-weight:700;line-height:1.2;color:var(--c1);max-width:800px;margin-left:auto;margin-right:auto}
+    article{max-width:760px;margin:2rem auto;padding:0 1rem;background:var(--card-bg);border-radius:12px;box-shadow:0 4px 8px rgba(0,0,0,.05);border:1px solid var(--border)}
+    .reading-progress{position:fixed;top:0;left:0;width:0%;height:3px;background:var(--brand);z-index:1000;transition:width 0.1s ease}
   </style>
+  
+  <!-- Deferred CSS -->
+  <link rel="stylesheet" href="/partials/site-style.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/partials/site-style.css"></noscript>
+  
+  <!-- Fonts - with display swap for better performance -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" crossorigin>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  
+  <!-- Structured Data for Articles -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "10 ChatGPT Prompts to Instantly Level Up Your AI Game",
+    "description": "Discover 10 powerful ChatGPT prompts that will transform your AI interactions. Perfect for beginners looking to get better results from day one.",
+    "author": {
+      "@type": "Organization",
+      "name": "MyAI Team"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MyAI",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.aiblogs.tech/logo.png"
+      }
+    },
+    "datePublished": "2025-01-16",
+    "dateModified": "2025-01-16",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.aiblogs.tech/posts/chatgpt-beginner-prompts.html"
+    },
+    "image": "https://www.aiblogs.tech/images/chatgpt-prompts-og.jpg"
+  }
+  </script>
+
+  <!-- Async AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8231924120348302" crossorigin="anonymous"></script>
 </head>
+
 <body>
-  <!-- 导航 -->
-  <header>
-    <h1><a href="/">MyAI</a></h1>
-    <nav>
-      <a href="/">Home</a> |
-      <a href="/#articles">Tutorials</a> |
-      <a href="/tools.html">Tools</a> |
+  <!-- Reading Progress Bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <header class="main-header">
+    <div class="logo"><a href="/">MyAI</a></div>
+    <details class="nav-toggle">
+      <summary>☰</summary>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/#articles">Tutorials</a>
+        <a href="/tools.html">Tools</a>
+        <a href="/search.html">Search</a>
+        <a href="/newsletter.html">Newsletter</a>
+        <a href="/#about">About</a>
+      </nav>
+    </details>
+    <nav class="site-nav desktop">
+      <a href="/">Home</a>
+      <a href="/#articles">Tutorials</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/search.html">Search</a>
+      <a href="/newsletter.html">Newsletter</a>
       <a href="/#about">About</a>
     </nav>
   </header>
 
+  <header class="post-header">
+    <h1 class="title">10 ChatGPT Prompts to Instantly Level Up Your AI Game</h1>
+    <div class="meta">
+      <span>Published: January 16, 2025</span>
+      <span>•</span>
+      <span>5 min read</span>
+      <span>•</span>
+      <span>Tutorials</span>
+    </div>
+  </header>
+
   <article>
-    <h1>10 Prompts to Instantly Level Up Your ChatGPT Responses</h1>
-    <p><em>New to AI? These prompts will help you get better answers from day one — no coding or prompt engineering needed.</em></p>
-
-    <h2>1. Summarize anything like a human</h2>
-    <pre><code>Summarize the following in plain English with key points and examples: [insert content]</code></pre>
-
-    <h2>2. Turn a blog idea into a full outline</h2>
-    <pre><code>Generate an outline for a blog post titled "[title]". Include an intro, 3-5 key sections, and a CTA.</code></pre>
-
-    <h2>3. Teach me like I’m 12</h2>
-    <pre><code>Explain [topic] to a 12-year-old using analogies and simple language.</code></pre>
-
-    <h2>4. Rewrite in a confident tone</h2>
-    <pre><code>Rewrite the following paragraph to sound more confident, clear, and professional: [paste]</code></pre>
-
-    <h2>5. Draft a tweet thread from my blog post</h2>
-    <pre><code>Turn the following blog into a 5-7 tweet thread: [paste blog content]</code></pre>
-
-    <h2>6. Idea generation for [X]</h2>
-    <pre"><code>Give me 10 creative ideas for [topic or goal]. Prioritize speed and usefulness.</code></pre>
-
-    <h2>7. Fix this email</h2>
-    <pre><code>Rewrite the following email to be shorter, clearer, and more persuasive: [email]</code></pre>
-
-    <h2>8. Quick fact check</h2>
-    <pre><code>Verify the accuracy of this claim using available public sources: [statement]</code></pre>
-
-    <h2>9. Translate my thoughts into bullet points</h2>
-    <pre"><code>Convert this messy note into a clean, structured bullet list: [note]</code></pre>
-
-    <h2>10. Ask me the right questions</h2>
-    <pre"><code>Help me clarify my thinking on [topic]. Ask me 5 questions to guide my thinking.</code></pre>
-
-    <hr>
-
-    <div class="subscribe" style="text-align:center; margin-top: 2rem;">
-      <p><strong>💌 Want more plug-and-play prompts?</strong></p>
-      <form action="https://formspree.io/f/yourFormID" method="POST">
-        <input type="email" name="email" placeholder="Your email" required>
-        <button type="submit" style="margin-top: .5rem;">Get 20 more prompts →</button>
-      </form>
+    <!-- Article Tags -->
+    <div class="article-tags">
+      <span class="tag" data-tag="ChatGPT">ChatGPT</span>
+      <span class="tag" data-tag="Prompts">Prompts</span>
+      <span class="tag" data-tag="Beginner">Beginner</span>
     </div>
 
+    <!-- Social Share Buttons -->
+    <div class="social-share">
+      <span class="share-label">Share this article:</span>
+      <div class="share-buttons">
+        <button class="share-btn twitter" onclick="shareOnTwitter()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+          </svg>
+          Twitter
+        </button>
+        <button class="share-btn linkedin" onclick="shareOnLinkedIn()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          LinkedIn
+        </button>
+        <button class="share-btn facebook" onclick="shareOnFacebook()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          Facebook
+        </button>
+        <button class="share-btn copy" onclick="copyToClipboard()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+          </svg>
+          Copy Link
+        </button>
+      </div>
+    </div>
+
+    <div class="content">
+      <p>Want to get better results from ChatGPT immediately? These 10 powerful prompts will transform how you interact with AI, helping you get more accurate, useful, and creative responses from day one. No technical knowledge required—just copy, paste, and watch the magic happen.</p>
+
+      <!-- Inline AdSense Ad - Lazy loaded -->
+      <div class="inline-ad" data-ad-slot="1234567890">
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  const adSlot = entry.target.getAttribute('data-ad-slot');
+                  const ins = document.createElement('ins');
+                  ins.className = 'adsbygoogle';
+                  ins.style.display = 'block';
+                  ins.style.textAlign = 'center';
+                  ins.setAttribute('data-ad-layout', 'in-article');
+                  ins.setAttribute('data-ad-format', 'fluid');
+                  ins.setAttribute('data-ad-client', 'ca-pub-8231924120348302');
+                  ins.setAttribute('data-ad-slot', adSlot);
+                  
+                  entry.target.innerHTML = '';
+                  entry.target.appendChild(ins);
+                  
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+                  observer.unobserve(entry.target);
+                }
+              });
+            }, {threshold: 0.1});
+            
+            document.querySelectorAll('.inline-ad').forEach(ad => {
+              observer.observe(ad);
+            });
+          });
+        </script>
+      </div>
+
+      <h2>1. The Expert Prompt</h2>
+      <p><strong>Copy-paste this:</strong> "Act as an expert in [topic] with 20+ years of experience. Explain [specific question] in simple terms, highlighting key insights that beginners often miss."</p>
+      <p>This prompt transforms ChatGPT into a specialized expert, giving you insights that go beyond surface-level explanations. Perfect for learning complex topics quickly.</p>
+
+      <h2>2. The Decision Helper</h2>
+      <p><strong>Copy-paste this:</strong> "I'm deciding between [option A] and [option B]. Create a detailed comparison table with at least 5 factors to consider, then provide a recommendation based on [your specific needs]."</p>
+      <p>Stop agonizing over decisions. This prompt creates a structured analysis that helps you see beyond obvious differences and make confident choices.</p>
+
+      <h2>3. The Content Improver</h2>
+      <p><strong>Copy-paste this:</strong> "Improve the following text to make it more engaging, professional, and concise while maintaining its core message: [paste your text]"</p>
+      <p>Instantly upgrade any piece of writing. Whether it's an email, social media post, or report, this prompt polishes your content to professional standards.</p>
+
+      <h2>4. The Learning Accelerator</h2>
+      <p><strong>Copy-paste this:</strong> "I want to learn about [topic]. Create a 7-day learning plan for me with specific resources, activities, and goals for each day. Assume I'm a beginner with 30 minutes available daily."</p>
+      <p>Turn vague learning goals into actionable plans. This prompt creates a structured curriculum that fits your schedule and learning style.</p>
+
+      <h2>5. The Problem Solver</h2>
+      <p><strong>Copy-paste this:</strong> "I'm facing this problem: [describe problem]. Generate 5 creative solutions, ranging from conventional to out-of-the-box approaches. For each solution, explain the pros, cons, and implementation steps."</p>
+      <p>Break through mental blocks with this prompt that forces ChatGPT to explore multiple angles of your problem, often revealing solutions you hadn't considered.</p>
+
+      <!-- Subscribe box -->
+      <div class="subscribe-box">
+        <h3>Get the Complete ChatGPT Prompt Collection</h3>
+        <p>Join 2,000+ creators getting 50+ premium prompts, weekly AI tutorials, and exclusive tips.</p>
+        <form action="https://formspree.io/f/yourFormID" method="POST">
+          <input type="email" name="email" placeholder="Enter your email address" required />
+          <br />
+          <button type="submit">Get 40 More Prompts (Free)</button>
+        </form>
+      </div>
+
+      <h2>6. The Simplifier</h2>
+      <p><strong>Copy-paste this:</strong> "Explain [complex concept] to me like I'm 10 years old. Use simple analogies and examples from everyday life."</p>
+      <p>Cut through jargon and complexity with this prompt that forces ChatGPT to distill even the most complicated topics into child-friendly explanations.</p>
+
+      <h2>7. The Creativity Booster</h2>
+      <p><strong>Copy-paste this:</strong> "Generate 10 unique ideas for [your project/goal]. For each idea, provide a brief description, one key advantage, and a potential challenge to overcome."</p>
+      <p>Overcome creative blocks instantly. This prompt delivers diverse ideas with practical considerations to help you evaluate each option.</p>
+
+      <h2>8. The Feedback Generator</h2>
+      <p><strong>Copy-paste this:</strong> "Review this [text/idea/plan] and provide constructive feedback in three categories: Strengths, Areas for Improvement, and Specific Suggestions. Be honest but supportive."</p>
+      <p>Get balanced, actionable feedback on anything. This prompt ensures you receive both encouragement and practical ways to improve.</p>
+
+      <h2>9. The Perspective Expander</h2>
+      <p><strong>Copy-paste this:</strong> "Analyze [topic/situation] from these three different perspectives: [perspective 1], [perspective 2], and [perspective 3]. Highlight unique insights from each viewpoint."</p>
+      <p>Break out of your thought bubbles with this prompt that forces consideration of multiple viewpoints, perfect for making balanced decisions or creating nuanced content.</p>
+
+      <h2>10. The Implementation Guide</h2>
+      <p><strong>Copy-paste this:</strong> "Create a step-by-step implementation plan for [your goal], including: 1) Required resources, 2) Timeline with milestones, 3) Potential obstacles and solutions, 4) Success metrics."</p>
+      <p>Turn abstract goals into concrete action plans. This prompt creates a roadmap that increases your chances of successfully completing any project.</p>
+
+      <h3>Bonus Tips for Better Results</h3>
+      <ul>
+        <li>Be specific about your needs and context</li>
+        <li>Ask ChatGPT to "think step by step" for complex problems</li>
+        <li>Request multiple formats (bullet points, tables, etc.)</li>
+        <li>Don't hesitate to refine responses with follow-up prompts</li>
+      </ul>
+
+      <p>These prompts are just the beginning. As you get comfortable with them, you'll develop an intuition for crafting prompts that get exactly what you need from AI assistants. Start with these templates, then customize them for your specific situations.</p>
+
+      <p>Remember: The quality of your prompt directly determines the quality of the response. With these 10 prompts in your toolkit, you're already ahead of 90% of ChatGPT users.</p>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+      <h3>Comments</h3>
+      <div id="disqus_thread"></div>
+      <script>
+        // Lazy load Disqus when user scrolls to comments section
+        const commentsObserver = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            var disqus_config = function () {
+              this.page.url = window.location.href;
+              this.page.identifier = 'chatgpt-beginner-prompts';
+            };
+            
+            const script = document.createElement('script');
+            script.src = 'https://myai-blog.disqus.com/embed.js';
+            script.setAttribute('data-timestamp', +new Date());
+            document.head.appendChild(script);
+            
+            commentsObserver.disconnect();
+          }
+        }, {threshold: 0.1});
+        
+        document.addEventListener('DOMContentLoaded', function() {
+          commentsObserver.observe(document.querySelector('.comments-section'));
+        });
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    <!-- Related Articles -->
+    <div class="related-articles">
+      <h3>Related Articles</h3>
+      <div class="related-grid" id="relatedArticles">
+        <!-- Related articles will be populated by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Post navigation -->
+    <div class="nav-footer">
+      <a href="/posts/prompt-cheatsheet.html">← Previous</a>
+      <a href="/">Back to Home</a>
+      <a href="/posts/gpt4o-guide.html">Next →</a>
+    </div>
   </article>
 
-  <footer>
-    <p style="text-align:center; margin:2rem 0;">© 2025 My
+  <footer id="about">
+    <h3>About MyAI</h3>
+    <p>MyAI was created to help creators, marketers, and solopreneurs navigate the rapidly evolving world of AI tools.</p>
+    <p>We test, review, and create actionable guides so you can focus on what matters most: your work.</p>
+    <br>
+    <p>© 2025 MyAI · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a href="/sitemap.xml">Sitemap</a></p>
+  </footer>
+
+  <!-- Deferred JavaScript Loading -->
+  <script defer src="/social-share.js"></script>
+  <script defer src="/content-management.js"></script>
+  
+  <!-- Reading Progress and Related Articles -->
+  <script>
+    // Reading Progress Bar
+    function updateReadingProgress() {
+      const article = document.querySelector('article .content');
+      const scrollTop = window.scrollY;
+      const docHeight = article.offsetHeight;
+      const winHeight = window.innerHeight;
+      const scrollPercent = scrollTop / (docHeight - winHeight);
+      const scrollPercentRounded = Math.min(Math.round(scrollPercent * 100), 100);
+      
+      document.getElementById('readingProgress').style.width = scrollPercentRounded + '%';
+    }
+
+    // Social Share Functions
+    function shareOnTwitter() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(document.title);
+      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+    }
+
+    function shareOnLinkedIn() {
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+    }
+
+    function shareOnFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+    }
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = document.querySelector('.share-btn.copy');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>Copied!';
+        btn.style.background = '#10b981';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '#6b7280';
+        }, 2000);
+      });
+    }
+
+    // Initialize on page load with performance optimizations
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add scroll event listener with throttling for better performance
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateReadingProgress();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+      
+      // Populate related articles
+      setTimeout(() => {
+        const relatedArticles = [
+          {
+            title: "The Ultimate Prompt Engineering Cheat Sheet",
+            url: "/posts/prompt-cheatsheet.html",
+            excerpt: "Copy-paste formulas for consistently better answers from any LLM.",
+            tags: ["Prompts", "Engineering", "Advanced"],
+            readTime: "15 min"
+          },
+          {
+            title: "Complete Beginner's Guide to GPT-4o",
+            url: "/posts/gpt4o-guide.html",
+            excerpt: "Everything you need to know about OpenAI's flagship model.",
+            tags: ["GPT-4o", "OpenAI", "Guide"],
+            readTime: "8 min"
+          },
+          {
+            title: "Top 10 Free AI Tools for Content Creators (2025)",
+            url: "/posts/top10-free-ai-tools.html",
+            excerpt: "No-code tools that can save you hours every week.",
+            tags: ["Tools", "Free", "Content Creation"],
+            readTime: "12 min"
+          }
+        ];
+        
+        const relatedContainer = document.getElementById('relatedArticles');
+        relatedContainer.innerHTML = relatedArticles.map(article => `
+          <div class="related-card">
+            <h4><a href="${article.url}">${article.title}</a></h4>
+            <p>${article.excerpt}</p>
+            <div class="related-meta">
+              <span>${article.readTime} read</span>
+              <span>•</span>
+              <span>${article.tags.slice(0, 2).join(', ')}</span>
+            </div>
+          </div>
+        `).join('');
+      }, 100);
+      
+      // Add click handlers to tags
+      document.querySelectorAll('.tag').forEach(tag => {
+        tag.addEventListener('click', () => {
+          const tagText = tag.textContent;
+          window.location.href = `/search.html?q=${encodeURIComponent(tagText)}`;
+        });
+      });
+    });
+  </script>
+
+  <!-- Cookie Consent - Deferred -->
+  <link rel="stylesheet" href="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.css" media="print" onload="this.media='all'">
+  <script defer src="https://unpkg.com/cookieconsent@3/build/cookieconsent.min.js"></script>
+  <script defer>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        window.cookieconsent.initialise({
+          palette: { 
+            popup: { background: "#000" }, 
+            button: { background: "#10b981" } 
+          },
+          theme: "classic",
+          position: "bottom",
+          type: "opt-in",
+          content: {
+            message: "We use cookies to improve your experience and show relevant ads.",
+            dismiss: "Accept",
+            deny: "Decline",
+            link: "Privacy Policy",
+            href: "/privacy-policy.html"
+          }
+        });
+      }, 2000); // Delay cookie consent to prioritize content loading
+    });
+  </script>
+</body>
+
+</html>
