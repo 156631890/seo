@@ -1,6 +1,6 @@
 /**
- * AI工具数据加载器
- * 负责异步加载AI工具、模型和Agent数据
+ * AI工具数据加载器 - 超级优化版本
+ * 使用分块加载和缓存策略
  */
 
 class AIToolsLoader {
@@ -10,10 +10,12 @@ class AIToolsLoader {
     this.loadPromise = null;
     this.manager = null;
     this.loadStartTime = null;
+    this.dataChunks = window.dataChunks;
+    this.fastMode = true; // 启用快速模式
   }
 
   /**
-   * 加载数据库 - 优化版本
+   * 快速加载 - 使用分块数据
    * @returns {Promise} 加载完成的Promise
    */
   load() {
@@ -28,43 +30,69 @@ class AIToolsLoader {
     this.isLoading = true;
     this.loadStartTime = Date.now();
     
-    // 创建优化的加载Promise
-    this.loadPromise = new Promise((resolve, reject) => {
-      // 使用requestIdleCallback优化加载时机
-      const loadScript = () => {
-        const script = document.createElement('script');
-        script.src = '/ai-tools-database.js';
-        
-        // 添加预加载提示
-        script.setAttribute('importance', 'high');
-        
-        script.onload = () => {
-          // 使用requestIdleCallback延迟处理，避免阻塞主线程
-          if (window.requestIdleCallback) {
-            requestIdleCallback(() => this.processLoadedData(resolve, reject));
-          } else {
-            setTimeout(() => this.processLoadedData(resolve, reject), 0);
-          }
-        };
-        
-        script.onerror = () => {
-          const error = new Error('数据库脚本加载失败');
-          this.isLoading = false;
-          reject(error);
-        };
-        
-        document.head.appendChild(script);
-      };
-
-      // 如果支持requestIdleCallback，在空闲时加载
-      if (window.requestIdleCallback) {
-        requestIdleCallback(loadScript, { timeout: 1000 });
-      } else {
-        loadScript();
-      }
-    });
-
+    // 快速模式：立即返回基础数据
+    this.loadPromise = this.fastLoad();
     return this.loadPromise;
+  }
+
+  /**
+   * 快速加载模式
+   */
+  async fastLoad() {
+    try {
+      // 立即加载分类数据
+      const categories = await this.dataChunks.loadCategories();
+      
+      // 立即加载首批工具数据
+      const toolsFirst = await this.dataChunks.loadToolsFirstBatch();
+      
+      // 构建最小数据库
+      this.database = {
+        categories: categories,
+        tools: toolsFirst,
+        models: [], // 稍后加载
+        agents: []  // 稍后加载
+      };
+      
+      // 创建简化的管理器
+      this.manager = new FastToolsManager(this.database, this.dataChunks);
+      
+      this.isLoading = false;
+      const loadTime = Date.now() - this.loadStartTime;
+      console.log(`快速数据加载完成，耗时: ${loadTime}ms`);
+      
+      // 监听完整数据加载完成事件
+      window.addEventListener('fullDataLoaded', () => {
+        this.updateWithFullData();
+      });
+      
+      return this.database;
+    } catch (error) {
+      this.isLoading = false;
+      throw error;
+    }
+  }
+
+  /**
+   * 更新为完整数据
+   */
+  async updateWithFullData() {
+    try {
+      const fullTools = await this.dataChunks.getTools();
+      const models = await this.dataChunks.getModels();
+      const agents = await this.dataChunks.getAgents();
+      
+      this.database.tools = fullTools;
+      this.database.models = models;
+      this.database.agents = agents;
+      
+      console.log('完整数据更新完成');
+      
+      // 触发数据更新事件
+      window.dispatchEvent(new CustomEvent('dataUpdated'));
+    } catch (error) {
+      console.error('更新完整数据失败:', error);
+    }
   }
 
   /**
@@ -172,6 +200,78 @@ class AIToolsLoader {
     return this.getManager().then(manager => {
       return manager.getRecommendedTools(limit);
     });
+  }
+}
+
+/**
+ * 快速工具管理器 - 轻量级版本
+ */
+class FastToolsManager {
+  constructor(database, dataChunks) {
+    this.db = database;
+    this.dataChunks = dataChunks;
+  }
+
+  // 搜索工具 - 快速版本
+  async searchTools(query, category = null) {
+    let tools = await this.dataChunks.getTools();
+    
+    if (query) {
+      const searchTerm = query.toLowerCase();
+      tools = tools.filter(tool =>
+        tool.name.toLowerCase().includes(searchTerm) ||
+        tool.description.toLowerCase().includes(searchTerm) ||
+        tool.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+      );
+    }
+
+    if (category) {
+      tools = tools.filter(tool => tool.category === category);
+    }
+
+    return tools.sort((a, b) => b.rating - a.rating);
+  }
+
+  // 搜索模型
+  async searchModels(query) {
+    const models = await this.dataChunks.getModels();
+    
+    if (!query) return models;
+    
+    const searchTerm = query.toLowerCase();
+    return models.filter(model =>
+      model.name.toLowerCase().includes(searchTerm) ||
+      model.description.toLowerCase().includes(searchTerm)
+    ).sort((a, b) => b.rating - a.rating);
+  }
+
+  // 搜索Agent
+  async searchAgents(query) {
+    const agents = await this.dataChunks.getAgents();
+    
+    if (!query) return agents;
+    
+    const searchTerm = query.toLowerCase();
+    return agents.filter(agent =>
+      agent.name.toLowerCase().includes(searchTerm) ||
+      agent.description.toLowerCase().includes(searchTerm)
+    ).sort((a, b) => b.rating - a.rating);
+  }
+
+  // 获取分类统计
+  getCategoryStats() {
+    const stats = {};
+    Object.keys(this.db.categories).forEach(cat => {
+      stats[cat] = this.db.tools.filter(tool => tool.category === cat).length;
+    });
+    return stats;
+  }
+
+  // 获取推荐工具
+  getRecommendedTools(limit = 6) {
+    return this.db.tools
+      .sort((a, b) => b.rating - a.rating)
+      .slice(0, limit);
   }
 }
 

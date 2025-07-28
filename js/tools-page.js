@@ -21,44 +21,71 @@ class ToolsPage {
   }
 
   /**
-   * 初始化页面 - 优化版本
+   * 超快初始化 - 立即显示内容
    */
   async initialize() {
     if (this.isInitialized) {
       return;
     }
 
+    const startTime = Date.now();
+
     try {
-      // 显示加载状态
-      this.showLoading();
-
-      const startTime = Date.now();
-
-      // 加载数据库
+      // 立即加载基础数据（无需loading状态）
       await this.loader.load();
+      
       if (window.performanceMonitor) {
         window.performanceMonitor.mark('DatabaseLoaded');
       }
 
-      // 优化：分阶段初始化，避免一次性渲染造成卡顿
-      await this.initializeInStages();
+      // 立即渲染首屏内容
+      await this.renderFirstScreen();
 
       // 绑定事件
       this.bindEvents();
 
-      // 隐藏加载状态
-      this.hideLoading();
+      // 监听完整数据加载完成
+      this.setupDataUpdateListener();
 
-      // 更新初始化状态
       this.isInitialized = true;
 
       const totalTime = Date.now() - startTime;
-      this.showMessage(`页面初始化完成，耗时: ${totalTime}ms`, 'success');
+      this.showMessage(`首屏渲染完成，耗时: ${totalTime}ms`, 'success');
+      
     } catch (error) {
       console.error('初始化页面出错:', error);
       this.showMessage('数据加载失败: ' + error.message, 'error');
-      this.hideLoading();
     }
+  }
+
+  /**
+   * 渲染首屏内容
+   */
+  async renderFirstScreen() {
+    // 并行执行所有首屏渲染任务
+    await Promise.all([
+      this.generateCategoryFilters(),
+      this.generateStats(),
+      this.renderTools()
+    ]);
+    
+    if (window.performanceMonitor) {
+      window.performanceMonitor.mark('ToolsRendered');
+    }
+  }
+
+  /**
+   * 设置数据更新监听器
+   */
+  setupDataUpdateListener() {
+    window.addEventListener('dataUpdated', () => {
+      // 完整数据加载完成后，更新当前显示的内容
+      if (this.currentTab === 'tools') {
+        this.renderTools();
+      }
+      this.generateStats(); // 更新统计信息
+      this.showMessage('数据已更新到最新版本', 'success');
+    });
   }
 
   /**
@@ -104,29 +131,20 @@ class ToolsPage {
   }
 
   /**
-   * 显示加载状态
+   * 显示轻量级加载状态（仅在必要时使用）
    */
-  showLoading() {
-    const loadingEl = document.createElement('div');
-    loadingEl.id = 'loading-indicator';
-    loadingEl.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.8);display:flex;justify-content:center;align-items:center;z-index:1000;';
-    loadingEl.innerHTML = '<div style="text-align:center;"><div style="width:50px;height:50px;border:5px solid #f3f3f3;border-top:5px solid var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto;"></div><p style="margin-top:10px;">加载中...</p></div>';
-    document.body.appendChild(loadingEl);
-
-    // 添加动画样式
-    const style = document.createElement('style');
-    style.textContent = '@keyframes spin {0% {transform:rotate(0deg);} 100% {transform:rotate(360deg);}}';
-    document.head.appendChild(style);
+  showLoading(message = '加载中...') {
+    const debugInfo = document.getElementById('debug-info');
+    if (debugInfo) {
+      debugInfo.innerHTML = `<span style="color:#2563eb">${message}</span>`;
+    }
   }
 
   /**
    * 隐藏加载状态
    */
   hideLoading() {
-    const loadingEl = document.getElementById('loading-indicator');
-    if (loadingEl) {
-      loadingEl.remove();
-    }
+    // 快速模式下不需要隐藏操作
   }
 
   /**
@@ -320,36 +338,12 @@ class ToolsPage {
   }
 
   /**
-   * 分批渲染工具卡片
+   * 超快渲染工具卡片 - 一次性渲染，减少DOM操作
    */
   async renderToolsInBatches(tools, database, container) {
-    const BATCH_SIZE = 12; // 每批渲染12个工具
-    const batches = [];
-    
-    // 将工具分组
-    for (let i = 0; i < tools.length; i += BATCH_SIZE) {
-      batches.push(tools.slice(i, i + BATCH_SIZE));
-    }
-
-    // 清空容器
-    container.innerHTML = '';
-
-    // 渲染第一批（立即显示）
-    if (batches.length > 0) {
-      const firstBatchHtml = this.generateToolsHTML(batches[0], database);
-      container.innerHTML = firstBatchHtml;
-    }
-
-    // 使用requestAnimationFrame分批渲染剩余内容
-    for (let i = 1; i < batches.length; i++) {
-      await new Promise(resolve => {
-        requestAnimationFrame(() => {
-          const batchHtml = this.generateToolsHTML(batches[i], database);
-          container.insertAdjacentHTML('beforeend', batchHtml);
-          resolve();
-        });
-      });
-    }
+    // 快速模式：一次性渲染所有内容
+    const allHtml = this.generateToolsHTML(tools, database);
+    container.innerHTML = allHtml;
   }
 
   /**

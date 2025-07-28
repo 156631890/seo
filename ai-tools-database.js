@@ -96,12 +96,97 @@ const aiToolsDatabase = {
             rating: 4.5,
             url: 'https://gemini.google.com',
             lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'llama-3-1-405b',
+            name: 'Llama 3.1 405B',
+            provider: 'Meta',
+            type: '开源大语言模型',
+            category: 'text-generation',
+            description: 'Meta最大的开源语言模型，性能媲美闭源模型',
+            features: ['开源免费', '多语言支持', '代码生成', '推理能力'],
+            pricing: '开源免费',
+            apiAccess: true,
+            webInterface: false,
+            strengths: ['完全开源', '性能强大', '可自部署'],
+            limitations: ['硬件要求高', '部署复杂', '商业限制'],
+            rating: 4.6,
+            url: 'https://llama.meta.com',
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'mistral-large',
+            name: 'Mistral Large',
+            provider: 'Mistral AI',
+            type: '大语言模型',
+            category: 'text-generation',
+            description: '欧洲领先的AI公司Mistral的旗舰模型',
+            features: ['多语言优秀', '推理能力', '代码生成', '函数调用'],
+            pricing: '按token计费',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['欧洲数据合规', '多语言强', '性价比高'],
+            limitations: ['生态较小', '知名度低', '功能待完善'],
+            rating: 4.4,
+            url: 'https://mistral.ai',
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'qwen-2-5-72b',
+            name: 'Qwen 2.5 72B',
+            provider: '阿里云',
+            type: '大语言模型',
+            category: 'text-generation',
+            description: '阿里云通义千问系列的最新模型，中文能力突出',
+            features: ['中文优化', '代码生成', '数学推理', '多模态'],
+            pricing: '按token计费',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['中文能力强', '本土化好', '价格便宜'],
+            limitations: ['国际化程度低', '英文能力一般', '生态有限'],
+            rating: 4.3,
+            url: 'https://tongyi.aliyun.com',
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'deepseek-v3',
+            name: 'DeepSeek V3',
+            provider: 'DeepSeek',
+            type: '大语言模型',
+            category: 'text-generation',
+            description: '深度求索的最新模型，专注于推理和代码能力',
+            features: ['推理能力强', '代码生成', '数学解题', '逻辑分析'],
+            pricing: '按token计费',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['推理能力突出', '代码质量高', '价格实惠'],
+            limitations: ['知名度较低', '生态建设中', '多模态有限'],
+            rating: 4.5,
+            url: 'https://deepseek.com',
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'yi-large',
+            name: 'Yi Large',
+            provider: '零一万物',
+            type: '大语言模型',
+            category: 'text-generation',
+            description: '零一万物的大规模语言模型，平衡性能与效率',
+            features: ['长上下文', '多语言', '推理能力', '代码生成'],
+            pricing: '按token计费',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['长上下文处理', '性价比高', '中文友好'],
+            limitations: ['市场份额小', '生态待建设', '国际化不足'],
+            rating: 4.2,
+            url: 'https://01.ai',
+            lastUpdated: '2024-12-05'
         }
     ],
 
-    // AI工具数据
+    // AI工具数据 - 大幅扩展版本
     tools: [
-        // 文本生成工具
+        // ===== 文本生成工具 =====
         {
             id: 'chatgpt',
             name: 'ChatGPT',
@@ -150,8 +235,88 @@ const aiToolsDatabase = {
             cons: ['价格较高', '学习曲线', '依赖模板'],
             lastUpdated: '2024-12-10'
         },
+        {
+            id: 'copy-ai',
+            name: 'Copy.ai',
+            provider: 'Copy.ai',
+            category: 'text-generation',
+            description: 'AI文案生成工具，专注于营销和销售文案',
+            features: ['广告文案', '产品描述', '邮件模板', '社交媒体内容'],
+            pricing: '免费/Pro $36/月',
+            tags: ['文案', '营销', '广告', '销售'],
+            rating: 4.3,
+            users: '2M+',
+            url: 'https://copy.ai',
+            pros: ['模板丰富', '易于上手', '价格合理'],
+            cons: ['创意有限', '需要人工优化', '英文为主'],
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'writesonic',
+            name: 'Writesonic',
+            provider: 'Writesonic',
+            category: 'text-generation',
+            description: 'AI写作平台，支持多种内容类型生成',
+            features: ['文章写作', 'SEO优化', '广告文案', '产品描述'],
+            pricing: '免费/Pro $12.67/月',
+            tags: ['写作', 'SEO', '内容营销', '博客'],
+            rating: 4.4,
+            users: '1.5M+',
+            url: 'https://writesonic.com',
+            pros: ['SEO友好', '多语言支持', '价格实惠'],
+            cons: ['质量不稳定', '需要编辑', '模板化'],
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'rytr',
+            name: 'Rytr',
+            provider: 'Rytr',
+            category: 'text-generation',
+            description: '经济实惠的AI写作助手，适合个人和小团队',
+            features: ['博客写作', '邮件营销', '社交媒体', '产品描述'],
+            pricing: '免费/Premium $9/月',
+            tags: ['写作', '经济实惠', '多用途', '简单'],
+            rating: 4.2,
+            users: '800K+',
+            url: 'https://rytr.me',
+            pros: ['价格便宜', '界面简洁', '快速生成'],
+            cons: ['功能基础', '创意有限', '需要优化'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'wordtune',
+            name: 'Wordtune',
+            provider: 'AI21 Labs',
+            category: 'text-generation',
+            description: 'AI文本改写和优化工具，提升写作质量',
+            features: ['文本改写', '语调调整', '长度控制', '语法优化'],
+            pricing: '免费/Premium $9.99/月',
+            tags: ['改写', '优化', '语法', '润色'],
+            rating: 4.6,
+            users: '3M+',
+            url: 'https://wordtune.com',
+            pros: ['改写质量高', '保持原意', '多种选项'],
+            cons: ['功能单一', '依赖原文', '英文为主'],
+            lastUpdated: '2024-12-05'
+        },
+        {
+            id: 'quillbot',
+            name: 'QuillBot',
+            provider: 'QuillBot',
+            category: 'text-generation',
+            description: 'AI释义和写作工具，帮助改进文本表达',
+            features: ['文本释义', '语法检查', '抄袭检测', '引用生成'],
+            pricing: '免费/Premium $4.17/月',
+            tags: ['释义', '语法', '学术', '写作'],
+            rating: 4.5,
+            users: '50M+',
+            url: 'https://quillbot.com',
+            pros: ['学术友好', '价格低廉', '功能全面'],
+            cons: ['免费版限制', '质量一般', '速度较慢'],
+            lastUpdated: '2024-12-10'
+        },
 
-        // 图像生成工具
+        // ===== 图像生成工具 =====
         {
             id: 'midjourney',
             name: 'Midjourney',
@@ -200,8 +365,88 @@ const aiToolsDatabase = {
             cons: ['技术门槛高', '需要硬件', '设置复杂'],
             lastUpdated: '2024-11-25'
         },
+        {
+            id: 'leonardo-ai',
+            name: 'Leonardo.AI',
+            provider: 'Leonardo.AI',
+            category: 'image-generation',
+            description: '专业的AI艺术生成平台，适合游戏和创意设计',
+            features: ['游戏资产', '角色设计', '场景生成', '风格训练'],
+            pricing: '免费/付费 $10-48/月',
+            tags: ['游戏', '角色', '场景', '专业'],
+            rating: 4.6,
+            users: '2M+',
+            url: 'https://leonardo.ai',
+            pros: ['游戏专业', '质量稳定', '风格多样'],
+            cons: ['学习成本', '付费功能多', '生成较慢'],
+            lastUpdated: '2024-12-01'
+        },
+        {
+            id: 'firefly',
+            name: 'Adobe Firefly',
+            provider: 'Adobe',
+            category: 'image-generation',
+            description: 'Adobe的AI创意工具，集成在Creative Cloud中',
+            features: ['文本效果', '图像填充', '颜色变换', '创意云集成'],
+            pricing: '免费/Creative Cloud订阅',
+            tags: ['Adobe', '创意', '专业', '集成'],
+            rating: 4.5,
+            users: '10M+',
+            url: 'https://firefly.adobe.com',
+            pros: ['专业工具', '无缝集成', '商业安全'],
+            cons: ['需要订阅', '功能有限', '创意受限'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'ideogram',
+            name: 'Ideogram',
+            provider: 'Ideogram',
+            category: 'image-generation',
+            description: '擅长文字渲染的AI图像生成工具',
+            features: ['文字渲染', 'Logo设计', '海报制作', '品牌设计'],
+            pricing: '免费/Plus $7/月',
+            tags: ['文字', 'Logo', '海报', '品牌'],
+            rating: 4.3,
+            users: '1M+',
+            url: 'https://ideogram.ai',
+            pros: ['文字效果好', '价格便宜', '易于使用'],
+            cons: ['功能单一', '风格有限', '质量不稳定'],
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'flux',
+            name: 'Flux',
+            provider: 'Black Forest Labs',
+            category: 'image-generation',
+            description: '新一代开源图像生成模型，质量媲美闭源模型',
+            features: ['开源模型', '高质量生成', '快速渲染', '多样化风格'],
+            pricing: '免费/云服务付费',
+            tags: ['开源', '高质量', '快速', '新技术'],
+            rating: 4.7,
+            users: '500K+',
+            url: 'https://blackforestlabs.ai',
+            pros: ['开源免费', '质量极高', '速度快'],
+            cons: ['较新工具', '社区小', '文档少'],
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'artbreeder',
+            name: 'Artbreeder',
+            provider: 'Artbreeder',
+            category: 'image-generation',
+            description: '基于遗传算法的AI艺术创作平台',
+            features: ['图像混合', '风格迁移', '角色生成', '协作创作'],
+            pricing: '免费/Pro $8.99/月',
+            tags: ['混合', '协作', '角色', '实验'],
+            rating: 4.2,
+            users: '3M+',
+            url: 'https://artbreeder.com',
+            pros: ['创意独特', '社区活跃', '易于探索'],
+            cons: ['控制有限', '质量不稳定', '风格固定'],
+            lastUpdated: '2024-11-28'
+        },
 
-        // 代码助手
+        // ===== 代码助手工具 =====
         {
             id: 'github-copilot',
             name: 'GitHub Copilot',
@@ -250,8 +495,88 @@ const aiToolsDatabase = {
             cons: ['相对较新', '社区较小', '功能待完善'],
             lastUpdated: '2024-12-10'
         },
+        {
+            id: 'tabnine',
+            name: 'Tabnine',
+            provider: 'Tabnine',
+            category: 'code-assistant',
+            description: 'AI代码补全工具，支持本地和云端部署',
+            features: ['智能补全', '本地部署', '团队训练', '隐私保护'],
+            pricing: '免费/Pro $12/月',
+            tags: ['补全', '本地', '隐私', '团队'],
+            rating: 4.4,
+            users: '1M+',
+            url: 'https://tabnine.com',
+            pros: ['隐私安全', '本地部署', '团队定制'],
+            cons: ['功能有限', '价格较高', '设置复杂'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'amazon-codewhisperer',
+            name: 'Amazon CodeWhisperer',
+            provider: 'Amazon',
+            category: 'code-assistant',
+            description: 'Amazon的AI代码生成服务，集成AWS生态',
+            features: ['代码生成', 'AWS集成', '安全扫描', '多语言支持'],
+            pricing: '免费/Professional $19/月',
+            tags: ['AWS', '企业', '安全', '集成'],
+            rating: 4.2,
+            users: '500K+',
+            url: 'https://aws.amazon.com/codewhisperer',
+            pros: ['AWS集成', '安全扫描', '企业级'],
+            cons: ['AWS绑定', '功能基础', '生态限制'],
+            lastUpdated: '2024-12-01'
+        },
+        {
+            id: 'replit-ghostwriter',
+            name: 'Replit Ghostwriter',
+            provider: 'Replit',
+            category: 'code-assistant',
+            description: '在线IDE中的AI编程助手',
+            features: ['代码补全', '代码解释', '错误修复', '在线协作'],
+            pricing: '免费/Hacker $7/月',
+            tags: ['在线', '协作', '学习', '简单'],
+            rating: 4.1,
+            users: '20M+',
+            url: 'https://replit.com/ai',
+            pros: ['在线使用', '学习友好', '价格便宜'],
+            cons: ['功能基础', '依赖平台', '性能一般'],
+            lastUpdated: '2024-11-30'
+        },
+        {
+            id: 'sourcegraph-cody',
+            name: 'Sourcegraph Cody',
+            provider: 'Sourcegraph',
+            category: 'code-assistant',
+            description: 'AI编程助手，专注于代码理解和搜索',
+            features: ['代码搜索', '上下文理解', '代码解释', '重构建议'],
+            pricing: '免费/Pro $9/月',
+            tags: ['搜索', '理解', '重构', '企业'],
+            rating: 4.3,
+            users: '100K+',
+            url: 'https://sourcegraph.com/cody',
+            pros: ['代码理解强', '搜索功能好', '企业友好'],
+            cons: ['相对较新', '用户较少', '功能待完善'],
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'codex',
+            name: 'OpenAI Codex',
+            provider: 'OpenAI',
+            category: 'code-assistant',
+            description: 'OpenAI的代码生成模型，GitHub Copilot的底层技术',
+            features: ['代码生成', 'API调用', '多语言支持', '自然语言转代码'],
+            pricing: 'API按使用计费',
+            tags: ['API', '生成', '多语言', '基础模型'],
+            rating: 4.5,
+            users: '开发者',
+            url: 'https://openai.com/blog/openai-codex',
+            pros: ['功能强大', 'API灵活', '质量高'],
+            cons: ['需要开发', 'API成本', '技术门槛'],
+            lastUpdated: '2024-11-15'
+        },
 
-        // 效率工具
+        // ===== 效率工具 =====
         {
             id: 'notion-ai',
             name: 'Notion AI',
@@ -284,8 +609,72 @@ const aiToolsDatabase = {
             cons: ['主要支持英语', '高级功能付费', '有时过于严格'],
             lastUpdated: '2024-12-01'
         },
+        {
+            id: 'otter-ai',
+            name: 'Otter.ai',
+            provider: 'Otter.ai',
+            category: 'productivity',
+            description: 'AI会议记录和转录工具，自动生成会议纪要',
+            features: ['实时转录', '会议总结', '关键词提取', '协作分享'],
+            pricing: '免费/Pro $8.33/月',
+            tags: ['会议', '转录', '总结', '协作'],
+            rating: 4.3,
+            users: '2M+',
+            url: 'https://otter.ai',
+            pros: ['转录准确', '实时处理', '集成方便'],
+            cons: ['主要英语', '免费版限制', '隐私担忧'],
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'superhuman',
+            name: 'Superhuman',
+            provider: 'Superhuman',
+            category: 'productivity',
+            description: 'AI增强的邮件客户端，提升邮件处理效率',
+            features: ['智能分类', '快速回复', '邮件调度', '跟踪分析'],
+            pricing: '$30/月',
+            tags: ['邮件', '效率', '智能', '高端'],
+            rating: 4.6,
+            users: '100K+',
+            url: 'https://superhuman.com',
+            pros: ['效率极高', '界面优美', '功能强大'],
+            cons: ['价格昂贵', '学习成本', '平台限制'],
+            lastUpdated: '2024-12-05'
+        },
+        {
+            id: 'reclaim-ai',
+            name: 'Reclaim.ai',
+            provider: 'Reclaim.ai',
+            category: 'productivity',
+            description: 'AI时间管理工具，自动优化日程安排',
+            features: ['智能调度', '习惯跟踪', '专注时间', '会议优化'],
+            pricing: '免费/Pro $8/月',
+            tags: ['时间管理', '调度', '习惯', '专注'],
+            rating: 4.4,
+            users: '500K+',
+            url: 'https://reclaim.ai',
+            pros: ['自动化强', '节省时间', '数据洞察'],
+            cons: ['设置复杂', '依赖日历', '功能过多'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'clockify-ai',
+            name: 'Clockify AI',
+            provider: 'Clockify',
+            category: 'productivity',
+            description: 'AI时间跟踪工具，自动记录和分析工作时间',
+            features: ['自动跟踪', '项目分类', '报告生成', '团队管理'],
+            pricing: '免费/Pro $3.99/月',
+            tags: ['时间跟踪', '项目', '报告', '团队'],
+            rating: 4.2,
+            users: '5M+',
+            url: 'https://clockify.me',
+            pros: ['完全免费', '功能全面', '团队友好'],
+            cons: ['界面一般', 'AI功能少', '报告复杂'],
+            lastUpdated: '2024-11-25'
+        },
 
-        // 数据分析工具
+        // ===== 数据分析工具 =====
         {
             id: 'julius-ai',
             name: 'Julius AI',
@@ -302,8 +691,56 @@ const aiToolsDatabase = {
             cons: ['功能有限', '数据格式限制', '准确性待提升'],
             lastUpdated: '2024-11-20'
         },
+        {
+            id: 'tableau-ai',
+            name: 'Tableau AI',
+            provider: 'Tableau',
+            category: 'data-analysis',
+            description: 'Tableau集成的AI功能，智能数据洞察',
+            features: ['智能洞察', '自动图表', '异常检测', '预测分析'],
+            pricing: 'Tableau订阅包含',
+            tags: ['商业智能', '可视化', '洞察', '企业'],
+            rating: 4.5,
+            users: '企业用户',
+            url: 'https://tableau.com/ai',
+            pros: ['专业强大', '企业级', '集成完善'],
+            cons: ['价格昂贵', '学习成本高', '复杂设置'],
+            lastUpdated: '2024-12-01'
+        },
+        {
+            id: 'pandas-ai',
+            name: 'PandasAI',
+            provider: 'PandasAI',
+            category: 'data-analysis',
+            description: '为Pandas添加AI功能的Python库',
+            features: ['自然语言查询', '数据清洗', '可视化生成', 'Python集成'],
+            pricing: '开源免费',
+            tags: ['Python', '开源', '数据科学', '编程'],
+            rating: 4.3,
+            users: '开发者',
+            url: 'https://github.com/gventuri/pandas-ai',
+            pros: ['开源免费', 'Python原生', '灵活强大'],
+            cons: ['需要编程', '文档不足', '稳定性一般'],
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'polymer-search',
+            name: 'Polymer',
+            provider: 'Polymer',
+            category: 'data-analysis',
+            description: 'AI驱动的数据可视化和分析平台',
+            features: ['智能可视化', '数据连接', '协作分析', '自动洞察'],
+            pricing: '免费/Pro $20/月',
+            tags: ['可视化', '协作', '洞察', '简单'],
+            rating: 4.1,
+            users: '50K+',
+            url: 'https://polymer.co',
+            pros: ['易于使用', '美观界面', '快速上手'],
+            cons: ['功能有限', '数据源少', '定制性差'],
+            lastUpdated: '2024-11-28'
+        },
 
-        // 语音音频工具
+        // ===== 语音音频工具 =====
         {
             id: 'elevenlabs',
             name: 'ElevenLabs',
@@ -320,8 +757,72 @@ const aiToolsDatabase = {
             cons: ['使用限制', '伦理争议', '成本较高'],
             lastUpdated: '2024-12-05'
         },
+        {
+            id: 'murf-ai',
+            name: 'Murf AI',
+            provider: 'Murf',
+            category: 'voice-audio',
+            description: 'AI语音生成平台，适合专业配音制作',
+            features: ['专业配音', '多种声音', '语音编辑', '批量生成'],
+            pricing: '免费/Pro $13-26/月',
+            tags: ['配音', '专业', '编辑', '批量'],
+            rating: 4.4,
+            users: '1M+',
+            url: 'https://murf.ai',
+            pros: ['声音专业', '编辑功能强', '适合商用'],
+            cons: ['价格较高', '声音选择有限', '中文支持一般'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'speechify',
+            name: 'Speechify',
+            provider: 'Speechify',
+            category: 'voice-audio',
+            description: 'AI文本转语音工具，帮助阅读和学习',
+            features: ['文本朗读', '速度调节', '多语言', '移动应用'],
+            pricing: '免费/Premium $11.58/月',
+            tags: ['朗读', '学习', '阅读', '移动'],
+            rating: 4.5,
+            users: '20M+',
+            url: 'https://speechify.com',
+            pros: ['使用简单', '移动友好', '学习辅助'],
+            cons: ['声音机械', '免费版限制', '功能单一'],
+            lastUpdated: '2024-12-01'
+        },
+        {
+            id: 'descript',
+            name: 'Descript',
+            provider: 'Descript',
+            category: 'voice-audio',
+            description: 'AI音频编辑工具，像编辑文档一样编辑音频',
+            features: ['文本编辑音频', '语音克隆', '转录', '协作编辑'],
+            pricing: '免费/Pro $12-24/月',
+            tags: ['音频编辑', '转录', '协作', '创新'],
+            rating: 4.6,
+            users: '500K+',
+            url: 'https://descript.com',
+            pros: ['编辑创新', '功能全面', '协作友好'],
+            cons: ['学习成本', '性能要求高', '价格不低'],
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'resemble-ai',
+            name: 'Resemble AI',
+            provider: 'Resemble AI',
+            category: 'voice-audio',
+            description: '企业级AI语音克隆和合成平台',
+            features: ['语音克隆', '实时合成', 'API集成', '企业安全'],
+            pricing: 'API按使用计费',
+            tags: ['企业', 'API', '克隆', '安全'],
+            rating: 4.3,
+            users: '企业客户',
+            url: 'https://resemble.ai',
+            pros: ['企业级', 'API灵活', '安全可靠'],
+            cons: ['价格昂贵', '技术门槛', '个人用户少'],
+            lastUpdated: '2024-11-30'
+        },
 
-        // 视频创作工具
+        // ===== 视频创作工具 =====
         {
             id: 'runway',
             name: 'Runway ML',
@@ -338,8 +839,72 @@ const aiToolsDatabase = {
             cons: ['生成时间长', '质量不稳定', '成本较高'],
             lastUpdated: '2024-12-01'
         },
+        {
+            id: 'pika-labs',
+            name: 'Pika Labs',
+            provider: 'Pika Labs',
+            category: 'video-creation',
+            description: 'AI视频生成工具，专注于短视频创作',
+            features: ['文本到视频', '图像到视频', '视频编辑', '风格控制'],
+            pricing: '免费/Pro $10/月',
+            tags: ['短视频', '生成', '简单', '快速'],
+            rating: 4.2,
+            users: '500K+',
+            url: 'https://pika.art',
+            pros: ['生成快速', '操作简单', '价格便宜'],
+            cons: ['功能有限', '质量一般', '时长限制'],
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'synthesia',
+            name: 'Synthesia',
+            provider: 'Synthesia',
+            category: 'video-creation',
+            description: 'AI虚拟人视频生成平台，适合企业培训',
+            features: ['虚拟主播', '多语言配音', '企业模板', '批量生成'],
+            pricing: 'Personal $22.5/月',
+            tags: ['虚拟人', '企业', '培训', '多语言'],
+            rating: 4.3,
+            users: '企业客户',
+            url: 'https://synthesia.io',
+            pros: ['企业专业', '多语言强', '批量高效'],
+            cons: ['价格昂贵', '个性化差', '表情僵硬'],
+            lastUpdated: '2024-12-05'
+        },
+        {
+            id: 'invideo-ai',
+            name: 'InVideo AI',
+            provider: 'InVideo',
+            category: 'video-creation',
+            description: 'AI视频制作平台，快速创建营销视频',
+            features: ['模板丰富', '自动剪辑', '文本动画', '音乐匹配'],
+            pricing: '免费/Plus $15/月',
+            tags: ['营销', '模板', '自动化', '简单'],
+            rating: 4.1,
+            users: '7M+',
+            url: 'https://invideo.io',
+            pros: ['模板丰富', '操作简单', '营销友好'],
+            cons: ['创意有限', '质量一般', '水印限制'],
+            lastUpdated: '2024-11-28'
+        },
+        {
+            id: 'luma-ai',
+            name: 'Luma AI',
+            provider: 'Luma AI',
+            category: 'video-creation',
+            description: '3D视频生成和NeRF技术平台',
+            features: ['3D重建', 'NeRF生成', '视频捕捉', '沉浸体验'],
+            pricing: '免费/Pro $29.99/月',
+            tags: ['3D', 'NeRF', '重建', '技术'],
+            rating: 4.5,
+            users: '100K+',
+            url: 'https://lumalabs.ai',
+            pros: ['技术先进', '3D效果好', '创新功能'],
+            cons: ['技术门槛高', '硬件要求高', '应用场景限制'],
+            lastUpdated: '2024-12-12'
+        },
 
-        // 自动化工具
+        // ===== 自动化工具 =====
         {
             id: 'zapier',
             name: 'Zapier',
@@ -356,8 +921,140 @@ const aiToolsDatabase = {
             cons: ['复杂任务限制', '价格递增', '调试困难'],
             lastUpdated: '2024-12-10'
         },
+        {
+            id: 'make',
+            name: 'Make (Integromat)',
+            provider: 'Make',
+            category: 'automation',
+            description: '可视化自动化平台，支持复杂工作流设计',
+            features: ['可视化编辑', '复杂逻辑', '数据处理', 'API集成'],
+            pricing: '免费/Pro $9-29/月',
+            tags: ['可视化', '复杂', '逻辑', '专业'],
+            rating: 4.4,
+            users: '500K+',
+            url: 'https://make.com',
+            pros: ['功能强大', '逻辑复杂', '可视化好'],
+            cons: ['学习成本高', '设置复杂', '调试困难'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'n8n',
+            name: 'n8n',
+            provider: 'n8n',
+            category: 'automation',
+            description: '开源的工作流自动化工具，可自托管',
+            features: ['开源免费', '自托管', '节点编辑', '扩展性强'],
+            pricing: '开源免费/云服务付费',
+            tags: ['开源', '自托管', '节点', '扩展'],
+            rating: 4.3,
+            users: '开发者',
+            url: 'https://n8n.io',
+            pros: ['完全免费', '自主控制', '扩展性强'],
+            cons: ['技术门槛高', '维护成本', '社区支持'],
+            lastUpdated: '2024-12-01'
+        },
 
-        // 设计工具
+        // ===== 营销工具 =====
+        {
+            id: 'hubspot-ai',
+            name: 'HubSpot AI',
+            provider: 'HubSpot',
+            category: 'marketing',
+            description: 'HubSpot集成的AI营销功能，智能客户管理',
+            features: ['内容生成', '客户洞察', '邮件优化', '销售预测'],
+            pricing: 'HubSpot订阅包含',
+            tags: ['CRM', '客户', '销售', '企业'],
+            rating: 4.5,
+            users: '企业客户',
+            url: 'https://hubspot.com/ai',
+            pros: ['集成完善', '企业级', '功能全面'],
+            cons: ['价格昂贵', '复杂设置', '学习成本高'],
+            lastUpdated: '2024-12-05'
+        },
+        {
+            id: 'mailchimp-ai',
+            name: 'Mailchimp AI',
+            provider: 'Mailchimp',
+            category: 'marketing',
+            description: 'AI增强的邮件营销平台',
+            features: ['智能推荐', '内容优化', '发送时间优化', '受众分析'],
+            pricing: '免费/付费 $10-299/月',
+            tags: ['邮件营销', '推荐', '优化', '分析'],
+            rating: 4.3,
+            users: '12M+',
+            url: 'https://mailchimp.com',
+            pros: ['易于使用', '功能丰富', '分析详细'],
+            cons: ['价格递增', '模板限制', '高级功能付费'],
+            lastUpdated: '2024-11-30'
+        },
+        {
+            id: 'persado',
+            name: 'Persado',
+            provider: 'Persado',
+            category: 'marketing',
+            description: 'AI驱动的营销语言优化平台',
+            features: ['语言优化', 'A/B测试', '情感分析', '转化提升'],
+            pricing: '企业定制',
+            tags: ['语言', '优化', '转化', '企业'],
+            rating: 4.4,
+            users: '企业客户',
+            url: 'https://persado.com',
+            pros: ['转化效果好', '科学方法', '企业级'],
+            cons: ['价格昂贵', '企业专用', '设置复杂'],
+            lastUpdated: '2024-12-08'
+        },
+
+        // ===== 翻译工具 =====
+        {
+            id: 'deepl',
+            name: 'DeepL',
+            provider: 'DeepL',
+            category: 'translation',
+            description: '高质量AI翻译工具，翻译准确度极高',
+            features: ['高质量翻译', '文档翻译', 'API集成', '多语言支持'],
+            pricing: '免费/Pro $6.99/月',
+            tags: ['翻译', '高质量', '文档', 'API'],
+            rating: 4.8,
+            users: '1B+',
+            url: 'https://deepl.com',
+            pros: ['翻译质量极高', '支持文档', '速度快'],
+            cons: ['语言支持有限', '免费版限制', '专业术语一般'],
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'google-translate',
+            name: 'Google Translate',
+            provider: 'Google',
+            category: 'translation',
+            description: '免费的AI翻译服务，支持100+语言',
+            features: ['100+语言', '实时翻译', '图像翻译', '语音翻译'],
+            pricing: '免费',
+            tags: ['免费', '多语言', '实时', '图像'],
+            rating: 4.4,
+            users: '500M+',
+            url: 'https://translate.google.com',
+            pros: ['完全免费', '语言最多', '功能全面'],
+            cons: ['质量一般', '隐私担忧', '专业性差'],
+            lastUpdated: '2024-12-01'
+        },
+        {
+            id: 'microsoft-translator',
+            name: 'Microsoft Translator',
+            provider: 'Microsoft',
+            category: 'translation',
+            description: 'Microsoft的AI翻译服务，企业级应用',
+            features: ['企业集成', '实时会议翻译', 'API服务', '多平台支持'],
+            pricing: '免费/付费API',
+            tags: ['企业', '会议', 'API', '集成'],
+            rating: 4.3,
+            users: '企业用户',
+            url: 'https://translator.microsoft.com',
+            pros: ['企业友好', '会议翻译', '集成方便'],
+            cons: ['个人功能少', '界面一般', '质量中等'],
+            lastUpdated: '2024-11-25'
+        },
+
+        // ===== 设计工具 =====
         {
             id: 'canva-ai',
             name: 'Canva AI',
@@ -373,7 +1070,327 @@ const aiToolsDatabase = {
             pros: ['模板丰富', '易于使用', '功能全面'],
             cons: ['创意限制', '高级功能付费', '输出质量一般'],
             lastUpdated: '2024-12-01'
-        }
+        },
+        {
+            id: 'figma-ai',
+            name: 'Figma AI',
+            provider: 'Figma',
+            category: 'design',
+            description: 'Figma集成的AI设计助手功能',
+            features: ['设计建议', '自动布局', '内容生成', '协作增强'],
+            pricing: 'Figma订阅包含',
+            tags: ['UI设计', '协作', '专业', '团队'],
+            rating: 4.4,
+            users: '4M+',
+            url: 'https://figma.com',
+            pros: ['专业工具', '协作强', '设计师友好'],
+            cons: ['学习成本', 'AI功能少', '需要订阅'],
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'uizard',
+            name: 'Uizard',
+            provider: 'Uizard',
+            category: 'design',
+            description: 'AI驱动的UI/UX设计工具，快速原型制作',
+            features: ['手绘转设计', '模板生成', '协作设计', '代码导出'],
+            pricing: '免费/Pro $12/月',
+            tags: ['UI设计', '原型', '手绘', '快速'],
+            rating: 4.2,
+            users: '2M+',
+            url: 'https://uizard.io',
+            pros: ['快速原型', '手绘识别', '易于上手'],
+            cons: ['功能有限', '设计质量一般', '专业性不足'],
+            lastUpdated: '2024-12-05'
+        },
+        {
+            id: 'framer-ai',
+            name: 'Framer AI',
+            provider: 'Framer',
+            category: 'design',
+            description: 'AI增强的网站设计和原型工具',
+            features: ['AI网站生成', '交互设计', '响应式布局', '发布部署'],
+            pricing: '免费/Pro $5-25/月',
+            tags: ['网站', '交互', '响应式', '发布'],
+            rating: 4.6,
+            users: '3M+',
+            url: 'https://framer.com',
+            pros: ['功能强大', '交互丰富', '发布方便'],
+            cons: ['学习成本', '性能要求', '价格不低'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'figma-ai',
+            name: 'Figma AI',
+            provider: 'Figma',
+            category: 'design',
+            description: 'Figma集成的AI设计助手，帮助快速创建设计原型',
+            features: ['原型设计', 'UI生成', '设计建议', '自动布局'],
+            pricing: '免费/Pro $12/月',
+            tags: ['UI设计', '原型', '协作', 'AI辅助'],
+            rating: 4.4,
+            users: '4M+',
+            url: 'https://figma.com',
+            pros: ['专业设计', '团队协作', 'AI辅助'],
+            cons: ['学习曲线', '需要设计基础', '功能复杂'],
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'adobe-firefly',
+            name: 'Adobe Firefly',
+            provider: 'Adobe',
+            category: 'design',
+            description: 'Adobe的生成式AI工具，集成在Creative Cloud中',
+            features: ['图像生成', '文本效果', '矢量生成', '3D设计'],
+            pricing: '免费/Creative Cloud订阅',
+            tags: ['Adobe', '生成式AI', '创意', '专业'],
+            rating: 4.6,
+            users: '10M+',
+            url: 'https://firefly.adobe.com',
+            pros: ['专业级质量', 'Creative Cloud集成', '商用安全'],
+            cons: ['需要订阅', '学习成本', '资源消耗大'],
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'framer-ai',
+            name: 'Framer AI',
+            provider: 'Framer',
+            category: 'design',
+            description: 'AI驱动的网站设计和原型工具',
+            features: ['网站生成', '响应式设计', '动画效果', '代码导出'],
+            pricing: '免费/Pro $20/月',
+            tags: ['网站设计', '原型', '响应式', '代码生成'],
+            rating: 4.3,
+            users: '1M+',
+            url: 'https://framer.com',
+            pros: ['快速原型', '代码质量高', '现代设计'],
+            cons: ['价格较高', '功能限制', '学习曲线'],
+            lastUpdated: '2024-12-01'
+        },
+
+        // 更多文本生成工具
+        {
+            id: 'writesonic',
+            name: 'Writesonic',
+            provider: 'Writesonic',
+            category: 'text-generation',
+            description: 'AI写作平台，支持多种内容类型生成',
+            features: ['文章写作', '广告文案', '社交媒体', 'SEO优化'],
+            pricing: '免费/Pro $12.67/月',
+            tags: ['写作', '营销', 'SEO', '多语言'],
+            rating: 4.4,
+            users: '5M+',
+            url: 'https://writesonic.com',
+            pros: ['模板丰富', 'SEO友好', '多语言支持'],
+            cons: ['质量不稳定', '需要编辑', '使用限制'],
+            lastUpdated: '2024-12-05'
+        },
+        {
+            id: 'copy-ai',
+            name: 'Copy.ai',
+            provider: 'Copy.ai',
+            category: 'text-generation',
+            description: 'AI文案生成工具，专注营销和销售文案',
+            features: ['销售文案', '邮件营销', '社交媒体', '产品描述'],
+            pricing: '免费/Pro $36/月',
+            tags: ['文案', '营销', '销售', '转化'],
+            rating: 4.3,
+            users: '10M+',
+            url: 'https://copy.ai',
+            pros: ['营销专业', '转化率高', '模板多样'],
+            cons: ['价格较高', '创意有限', '需要优化'],
+            lastUpdated: '2024-11-28'
+        },
+        {
+            id: 'rytr',
+            name: 'Rytr',
+            provider: 'Rytr',
+            category: 'text-generation',
+            description: '经济实惠的AI写作助手，支持40+用例',
+            features: ['博客写作', '邮件', '广告', '创意写作'],
+            pricing: '免费/Premium $9/月',
+            tags: ['经济实惠', '多用例', '简单易用', '快速'],
+            rating: 4.2,
+            users: '7M+',
+            url: 'https://rytr.me',
+            pros: ['价格便宜', '使用简单', '响应快速'],
+            cons: ['功能基础', '质量一般', '定制有限'],
+            lastUpdated: '2024-12-01'
+        },
+
+        // 更多图像生成工具
+        {
+            id: 'leonardo-ai',
+            name: 'Leonardo AI',
+            provider: 'Leonardo.Ai',
+            category: 'image-generation',
+            description: '专业的AI图像生成平台，支持多种艺术风格',
+            features: ['图像生成', '风格控制', '批量生成', '高分辨率'],
+            pricing: '免费/付费 $10-48/月',
+            tags: ['艺术', '专业', '风格多样', '高质量'],
+            rating: 4.5,
+            users: '3M+',
+            url: 'https://leonardo.ai',
+            pros: ['质量优秀', '风格丰富', '专业功能'],
+            cons: ['学习曲线', '生成时间', '资源消耗'],
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'ideogram',
+            name: 'Ideogram',
+            provider: 'Ideogram',
+            category: 'image-generation',
+            description: '擅长文字渲染的AI图像生成工具',
+            features: ['文字渲染', '图像生成', '风格控制', '高清输出'],
+            pricing: '免费/Plus $7/月',
+            tags: ['文字渲染', '标志设计', '海报', '创意'],
+            rating: 4.3,
+            users: '2M+',
+            url: 'https://ideogram.ai',
+            pros: ['文字效果好', '价格合理', '使用简单'],
+            cons: ['功能相对单一', '风格有限', '生成速度慢'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'flux-ai',
+            name: 'Flux AI',
+            provider: 'Black Forest Labs',
+            category: 'image-generation',
+            description: '新一代开源AI图像生成模型',
+            features: ['开源免费', '高质量生成', '快速渲染', '多样化风格'],
+            pricing: '免费/云服务付费',
+            tags: ['开源', '高质量', '快速', '免费'],
+            rating: 4.4,
+            users: '1M+',
+            url: 'https://flux.ai',
+            pros: ['完全开源', '质量优秀', '速度快'],
+            cons: ['技术门槛', '资源需求', '社区较新'],
+            lastUpdated: '2024-12-15'
+        },
+
+        // 更多代码助手
+        {
+            id: 'tabnine',
+            name: 'Tabnine',
+            provider: 'Tabnine',
+            category: 'code-assistant',
+            description: 'AI代码补全工具，支持多种编程语言',
+            features: ['代码补全', '多语言支持', '本地部署', '团队训练'],
+            pricing: '免费/Pro $12/月',
+            tags: ['代码补全', '多语言', '本地', '隐私'],
+            rating: 4.2,
+            users: '1M+',
+            url: 'https://tabnine.com',
+            pros: ['隐私保护', '本地运行', '多语言'],
+            cons: ['功能相对简单', '准确性一般', '需要训练'],
+            lastUpdated: '2024-12-01'
+        },
+        {
+            id: 'amazon-codewhisperer',
+            name: 'Amazon CodeWhisperer',
+            provider: 'Amazon',
+            category: 'code-assistant',
+            description: 'Amazon的AI代码生成服务',
+            features: ['代码生成', '安全扫描', 'AWS集成', '多IDE支持'],
+            pricing: '免费/Professional $19/月',
+            tags: ['Amazon', 'AWS', '安全', '企业级'],
+            rating: 4.1,
+            users: '500K+',
+            url: 'https://aws.amazon.com/codewhisperer',
+            pros: ['AWS集成', '安全扫描', '企业级'],
+            cons: ['生态限制', '功能相对基础', '依赖AWS'],
+            lastUpdated: '2024-11-20'
+        },
+        {
+            id: 'replit-ghostwriter',
+            name: 'Replit Ghostwriter',
+            provider: 'Replit',
+            category: 'code-assistant',
+            description: 'Replit集成的AI编程助手',
+            features: ['代码生成', '调试辅助', '代码解释', '在线编程'],
+            pricing: '免费/Hacker $7/月',
+            tags: ['在线编程', '学习', '协作', '简单'],
+            rating: 4.0,
+            users: '20M+',
+            url: 'https://replit.com',
+            pros: ['在线使用', '学习友好', '协作便利'],
+            cons: ['功能有限', '性能一般', '依赖网络'],
+            lastUpdated: '2024-12-05'
+        },
+
+        // 更多效率工具
+        {
+            id: 'otter-ai',
+            name: 'Otter.ai',
+            provider: 'Otter.ai',
+            category: 'productivity',
+            description: 'AI会议记录和转录工具',
+            features: ['实时转录', '会议总结', '关键词提取', '多人识别'],
+            pricing: '免费/Pro $8.33/月',
+            tags: ['会议', '转录', '总结', '协作'],
+            rating: 4.4,
+            users: '3M+',
+            url: 'https://otter.ai',
+            pros: ['准确率高', '实时转录', '会议集成'],
+            cons: ['主要支持英语', '网络依赖', '隐私担忧'],
+            lastUpdated: '2024-12-01'
+        },
+        {
+            id: 'calendly-ai',
+            name: 'Calendly AI',
+            provider: 'Calendly',
+            category: 'productivity',
+            description: 'AI驱动的智能日程安排工具',
+            features: ['智能调度', '会议优化', '自动提醒', '日历集成'],
+            pricing: '免费/Professional $8/月',
+            tags: ['日程', '调度', '会议', '自动化'],
+            rating: 4.3,
+            users: '10M+',
+            url: 'https://calendly.com',
+            pros: ['调度智能', '集成丰富', '使用简单'],
+            cons: ['功能相对单一', '定制有限', '依赖集成'],
+            lastUpdated: '2024-11-25'
+        },
+        {
+            id: 'superhuman',
+            name: 'Superhuman',
+            provider: 'Superhuman',
+            category: 'productivity',
+            description: 'AI增强的高效邮件客户端',
+            features: ['智能分类', '快速回复', '邮件调度', '跟踪分析'],
+            pricing: '$30/月',
+            tags: ['邮件', '效率', '快捷键', '专业'],
+            rating: 4.6,
+            users: '500K+',
+            url: 'https://superhuman.com',
+            pros: ['效率极高', '功能强大', '用户体验好'],
+            cons: ['价格昂贵', '学习曲线', '功能过载'],
+            lastUpdated: '2024-12-10'
+        },
+
+        // 语音音频工具扩展
+        {
+            id: 'murf-ai',
+            name: 'Murf AI',
+            provider: 'Murf',
+            category: 'voice-audio',
+            description: 'AI语音生成平台，支持多种语言和声音',
+            features: ['语音合成', '多语言', '情感控制', '批量生成'],
+            pricing: '免费/Pro $13/月',
+            tags: ['语音合成', '多语言', '配音', '商用'],
+            rating: 4.3,
+            users: '4M+',
+            url: 'https://murf.ai',
+            pros: ['声音自然', '多语言支持', '商用友好'],
+            cons: ['免费限制', '声音选择有限', '情感表达一般'],
+            lastUpdated: '2024-12-01'
+        },
+        {
+            id: 'speechify',
+            name: 'Speechify',
+            provider: 'Speechify',
+            category: 'voice-audio',
+ 
     ],
 
     // AI Agent数据
@@ -498,6 +1515,124 @@ const aiToolsDatabase = {
             rating: 4.6,
             tags: ['数据连接', 'RAG', '索引', '问答']
         },
+        {
+            id: 'dify',
+            name: 'Dify',
+            category: 'automation',
+            description: '开源的LLM应用开发平台，可视化构建AI应用',
+            features: ['可视化构建', 'RAG支持', '工作流编排', '多模型支持'],
+            useCase: '快速构建AI应用和聊天机器人',
+            complexity: 'Beginner',
+            github: 'https://github.com/langgenius/dify',
+            documentation: 'https://docs.dify.ai/',
+            rating: 4.5,
+            tags: ['可视化', 'RAG', '应用构建', '开源']
+        },
+        {
+            id: 'flowise',
+            name: 'Flowise',
+            category: 'automation',
+            description: '拖拽式LLM流程构建工具，基于LangChain',
+            features: ['拖拽构建', 'LangChain集成', '可视化流程', '模块化设计'],
+            useCase: '无代码构建LLM应用',
+            complexity: 'Beginner',
+            github: 'https://github.com/FlowiseAI/Flowise',
+            documentation: 'https://docs.flowiseai.com/',
+            rating: 4.3,
+            tags: ['无代码', '拖拽', 'LangChain', '可视化']
+        },
+        {
+            id: 'open-interpreter',
+            name: 'Open Interpreter',
+            category: 'automation',
+            description: '开源的代码解释器，让LLM在本地运行代码',
+            features: ['本地代码执行', '多语言支持', '文件操作', '系统集成'],
+            useCase: '本地AI助手和自动化任务',
+            complexity: 'Intermediate',
+            github: 'https://github.com/KillianLucas/open-interpreter',
+            documentation: 'https://docs.openinterpreter.com/',
+            rating: 4.4,
+            tags: ['本地执行', '代码解释', '自动化', '开源']
+        },
+        {
+            id: 'agentgpt',
+            name: 'AgentGPT',
+            category: 'automation',
+            description: '自主AI代理平台，可以设定目标让AI自主完成',
+            features: ['目标设定', '自主执行', 'Web界面', '任务分解'],
+            useCase: '自主完成复杂任务和目标',
+            complexity: 'Intermediate',
+            github: 'https://github.com/reworkd/AgentGPT',
+            documentation: 'https://docs.reworkd.ai/',
+            rating: 4.2,
+            tags: ['自主代理', '目标导向', 'Web界面', '任务执行']
+        },
+        {
+            id: 'babyagi',
+            name: 'BabyAGI',
+            category: 'automation',
+            description: '任务驱动的自主AI代理系统',
+            features: ['任务生成', '优先级排序', '任务执行', '结果存储'],
+            useCase: '自主任务管理和执行',
+            complexity: 'Advanced',
+            github: 'https://github.com/yoheinakajima/babyagi',
+            documentation: 'https://github.com/yoheinakajima/babyagi/blob/main/README.md',
+            rating: 4.1,
+            tags: ['任务驱动', '自主执行', '优先级', '实验性']
+        },
+        {
+            id: 'chatdev',
+            name: 'ChatDev',
+            category: 'automation',
+            description: '多代理软件开发公司模拟，AI协作开发软件',
+            features: ['多角色协作', '软件开发', '代码生成', '项目管理'],
+            useCase: '自动化软件开发流程',
+            complexity: 'Advanced',
+            github: 'https://github.com/OpenBMB/ChatDev',
+            documentation: 'https://github.com/OpenBMB/ChatDev/blob/main/README.md',
+            rating: 4.3,
+            tags: ['多代理', '软件开发', '协作', '角色扮演']
+        },
+        {
+            id: 'memgpt',
+            name: 'MemGPT',
+            category: 'research',
+            description: '具有长期记忆的AI代理系统',
+            features: ['长期记忆', '上下文管理', '个性化交互', '记忆层次'],
+            useCase: '需要长期记忆的AI助手',
+            complexity: 'Advanced',
+            github: 'https://github.com/cpacker/MemGPT',
+            documentation: 'https://memgpt.readthedocs.io/',
+            rating: 4.4,
+            tags: ['长期记忆', '上下文', '个性化', '研究']
+        },
+        {
+            id: 'taskweaver',
+            name: 'TaskWeaver',
+            provider: 'Microsoft',
+            category: 'automation',
+            description: 'Microsoft开发的代码优先的AI代理框架',
+            features: ['代码生成', '插件系统', '任务规划', '数据分析'],
+            useCase: '数据分析和任务自动化',
+            complexity: 'Intermediate',
+            github: 'https://github.com/microsoft/TaskWeaver',
+            documentation: 'https://microsoft.github.io/TaskWeaver/',
+            rating: 4.3,
+            tags: ['微软', '代码优先', '数据分析', '插件']
+        },
+        {
+            id: 'phidata',
+            name: 'Phidata',
+            category: 'automation',
+            description: '构建AI助手的框架，专注于工具使用和推理',
+            features: ['工具集成', '推理链', '记忆管理', '多模态支持'],
+            useCase: '构建智能AI助手',
+            complexity: 'Intermediate',
+            github: 'https://github.com/phidatahq/phidata',
+            documentation: 'https://docs.phidata.com/',
+            rating: 4.2,
+            tags: ['工具集成', '推理', '助手构建', '框架']
+        }
         {
             id: 'taskweaver',
             name: 'TaskWeaver',
@@ -719,19 +1854,19 @@ class AIToolsManager {
 }
 
 // 导出数据库和管理器
-(function() {
-  // 先创建管理器实例
-  const manager = new AIToolsManager(aiToolsDatabase);
-  
-  // 导出到window对象
-  window.aiToolsDatabase = aiToolsDatabase;
-  window.aiToolsManager = manager;
-  
-  // 也导出为全局变量，但避免重复声明
-  if (typeof aiToolsDatabase === 'undefined') {
+(function () {
+    // 先创建管理器实例
+    const manager = new AIToolsManager(aiToolsDatabase);
+
+    // 导出到window对象
     window.aiToolsDatabase = aiToolsDatabase;
-  }
-  if (typeof aiToolsManager === 'undefined') {
     window.aiToolsManager = manager;
-  }
+
+    // 也导出为全局变量，但避免重复声明
+    if (typeof aiToolsDatabase === 'undefined') {
+        window.aiToolsDatabase = aiToolsDatabase;
+    }
+    if (typeof aiToolsManager === 'undefined') {
+        window.aiToolsManager = manager;
+    }
 })();
