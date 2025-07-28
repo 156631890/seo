@@ -1,81 +1,309 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="siteTitle">AI工具合集 • MyAI</title>
-  <meta name="description" data-i18n="siteDescription" content="发现最好的AI工具、模型和Agent。包含ChatGPT、Midjourney、Claude等热门工具的详细评测和使用指南。">
+  <title data-i18n="toolsPageTitle">AI工具大全2025 | 免费AI工具推荐与评测 - MyAI</title>
+  <meta name="description" data-i18n="toolsPageDescription"
+    content="⭐ 精选100+最佳AI工具！涵盖文本生成、图像创作、代码助手、效率工具等20+分类。专业评测+使用教程，帮你找到最适合的AI工具。">
+
+  <!-- 工具页面专用SEO meta标签 -->
+  <meta name="keywords"
+    content="AI工具大全,AI工具推荐,免费AI工具,AI工具评测,ChatGPT,Midjourney,Claude,Stable Diffusion,GitHub Copilot,AI代码助手,AI图像生成,AI文本生成,AI工具比较,最佳AI工具,AI工具排行榜">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI工具大全2025 | 免费AI工具推荐与评测">
+  <meta property="og:description" content="⭐ 精选100+最佳AI工具！涵盖文本生成、图像创作、代码助手等20+分类。专业评测+使用教程">
+  <meta property="og:url" content="https://www.aiblogs.tech/tools.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI工具大全2025 | 100+免费AI工具推荐">
+  <meta name="twitter:description" content="⭐ 精选最佳AI工具！ChatGPT、Midjourney、Claude等专业评测+使用教程">
   <link rel="stylesheet" href="/partials/site-style.css">
   <style>
     /* ===== AI工具页面样式 ===== */
-    .tools-header { text-align: center; margin: 2rem 0 3rem; }
-    .tools-header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-    .tools-header p { font-size: 1.1rem; color: var(--muted); max-width: 600px; margin: 0 auto; }
-    
+    .tools-header {
+      text-align: center;
+      margin: 2rem 0 3rem;
+    }
+
+    .tools-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tools-header p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
     /* 搜索和筛选区域 */
-    .search-filters { background: #f8fafc; border-radius: var(--radius); padding: 2rem; margin-bottom: 3rem; }
-    .search-box { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-    .search-input { flex: 1; min-width: 300px; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: var(--radius); }
-    .search-btn { padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: var(--radius); cursor: pointer; }
-    
-    .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .filter-tab { padding: 0.5rem 1rem; border: 1px solid #e2e8f0; border-radius: 20px; background: white; cursor: pointer; transition: all 0.2s; }
-    .filter-tab:hover, .filter-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
-    
+    .search-filters {
+      background: #f8fafc;
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 300px;
+      padding: 0.75rem;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+    }
+
+    .search-btn {
+      padding: 0.75rem 1.5rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-tab:hover,
+    .filter-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
     /* 统计信息 */
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .stat-card { background: white; padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
-    .stat-number { font-size: 2rem; font-weight: bold; color: var(--primary); }
-    .stat-label { color: var(--muted); font-size: 0.9rem; }
-    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
     /* 工具卡片 */
-    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-    .tool-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.2s; }
-    .tool-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-    
-    .tool-header { padding: 1.5rem 1.5rem 1rem; }
-    .tool-title { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
-    .tool-title h3 { margin: 0; font-size: 1.25rem; }
-    .tool-category { font-size: 0.8rem; color: var(--primary); background: #e0f2fe; padding: 0.25rem 0.5rem; border-radius: 12px; }
-    .tool-description { color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
-    
-    .tool-meta { padding: 0 1.5rem; }
-    .tool-rating { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
-    .stars { color: #fbbf24; }
-    .rating-text { font-size: 0.9rem; color: var(--muted); }
-    
-    .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
-    .tag { font-size: 0.8rem; background: #f1f5f9; color: #475569; padding: 0.25rem 0.5rem; border-radius: 12px; }
-    
-    .tool-pricing { font-weight: 600; color: var(--primary); margin-bottom: 1rem; }
-    
-    .tool-actions { padding: 1.5rem; border-top: 1px solid #f1f5f9; }
-    .tool-btn { display: inline-block; padding: 0.75rem 1.5rem; background: var(--primary); color: white; text-decoration: none; border-radius: var(--radius); transition: background 0.2s; }
-    .tool-btn:hover { background: #2563eb; }
-    
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tool-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .tool-header {
+      padding: 1.5rem 1.5rem 1rem;
+    }
+
+    .tool-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-title h3 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .tool-category {
+      font-size: 0.8rem;
+      color: var(--primary);
+      background: #e0f2fe;
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+    }
+
+    .tool-description {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .tool-meta {
+      padding: 0 1.5rem;
+    }
+
+    .tool-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .stars {
+      color: #fbbf24;
+    }
+
+    .rating-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .tool-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      background: #f1f5f9;
+      color: #475569;
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+    }
+
+    .tool-pricing {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .tool-actions {
+      padding: 1.5rem;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .tool-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--radius);
+      transition: background 0.2s;
+    }
+
+    .tool-btn:hover {
+      background: #2563eb;
+    }
+
     /* 标签页 */
-    .tab-nav { display: flex; border-bottom: 2px solid #f1f5f9; margin-bottom: 2rem; }
-    .tab-btn { padding: 1rem 1.5rem; border: none; background: none; cursor: pointer; font-size: 1rem; color: var(--muted); border-bottom: 2px solid transparent; }
-    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
-    
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    
+    .tab-nav {
+      display: flex;
+      border-bottom: 2px solid #f1f5f9;
+      margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+      padding: 1rem 1.5rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
     /* 模型对比表格 */
-    .comparison-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid #f1f5f9; }
-    .comparison-table th { background: #f8fafc; font-weight: 600; }
-    
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .comparison-table th {
+      background: #f8fafc;
+      font-weight: 600;
+    }
+
     /* 响应式设计 */
     @media (max-width: 768px) {
-      .tools-header h1 { font-size: 2rem; }
-      .search-box { flex-direction: column; }
-      .search-input { min-width: auto; }
-      .tools-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .tools-header h1 {
+        font-size: 2rem;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      .search-input {
+        min-width: auto;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
+
 <body>
   <header class="main-header">
     <div class="logo"><a href="/">MyAI</a></div>
@@ -113,10 +341,11 @@
     <!-- ===== 搜索和筛选 ===== -->
     <div class="search-filters">
       <div class="search-box">
-        <input type="text" id="searchInput" class="search-input" data-i18n="tools.searchPlaceholder" placeholder="搜索工具名称、功能或标签...">
+        <input type="text" id="searchInput" class="search-input" data-i18n="tools.searchPlaceholder"
+          placeholder="搜索工具名称、功能或标签...">
         <button class="search-btn" id="searchButton" data-i18n="tools.searchButton">搜索</button>
       </div>
-      
+
       <div class="filter-tabs" id="categoryFilters">
         <div class="filter-tab active" data-category="all" data-i18n="tools.allCategory">全部</div>
         <!-- 分类标签将通过JavaScript动态生成 -->
@@ -167,7 +396,8 @@
     </div>
 
     <!-- ===== 订阅区域 ===== -->
-    <section style="background:#ecfdf5; border-radius:var(--radius); padding:2.5rem 1.5rem; text-align:center; margin-top:4rem;">
+    <section
+      style="background:#ecfdf5; border-radius:var(--radius); padding:2.5rem 1.5rem; text-align:center; margin-top:4rem;">
       <h2>💌 获取最新AI工具资讯</h2>
       <p>订阅我们的newsletter，第一时间了解最新的AI工具和使用技巧</p>
       <form class="subscribe" action="https://formspree.io/f/yourFormID" method="POST" style="margin-top:1rem;">
@@ -184,8 +414,10 @@
   <!-- 引入数据库和脚本 -->
   <script src="/js/i18n.js"></script>
   <script src="/js/language-switcher.js"></script>
+  <script src="/js/init-i18n.js"></script>
   <script src="/js/ai-tools-loader.js"></script>
   <script src="/js/tools-page.js"></script>
   <script src="/js/debug-language.js"></script>
 </body>
+
 </html>

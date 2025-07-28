@@ -25,9 +25,13 @@ const i18nConfig = {
   translations: {
     // 中文
     zh: {
-      // 网站标题和描述
-      siteTitle: 'MyAI - AI工具与模型合集',
-      siteDescription: '发现最好的AI工具、大语言模型和智能Agent，提升你的工作效率和创造力',
+      // 网站标题和描述 - SEO优化版本
+      siteTitle: '2025年最全AI工具合集 | 100+免费AI工具推荐 - MyAI',
+      siteDescription: '🚀 发现2025年最好用的100+AI工具！包含ChatGPT、Midjourney、Claude等热门工具详细评测。免费AI工具推荐，提升工作效率10倍！立即获取专业使用指南。',
+      
+      // 工具页面专用SEO
+      toolsPageTitle: 'AI工具大全2025 | 免费AI工具推荐与评测 - MyAI',
+      toolsPageDescription: '⭐ 精选100+最佳AI工具！涵盖文本生成、图像创作、代码助手、效率工具等20+分类。专业评测+使用教程，帮你找到最适合的AI工具。',
       
       // 导航菜单
       nav: {
@@ -117,8 +121,13 @@ const i18nConfig = {
 
     // 英文
     en: {
-      siteTitle: 'MyAI - AI Tools & Models Collection',
-      siteDescription: 'Discover the best AI tools, large language models, and intelligent agents to boost your productivity and creativity',
+      // SEO优化版本
+      siteTitle: 'Best AI Tools 2025 | 100+ Free AI Tools & Reviews - MyAI',
+      siteDescription: '🚀 Discover 100+ best AI tools for 2025! ChatGPT, Midjourney, Claude & more. Free AI tools reviews, tutorials & comparisons. Boost productivity 10x with expert guides!',
+      
+      // 工具页面专用SEO
+      toolsPageTitle: 'Complete AI Tools Directory 2025 | Free AI Tools Database - MyAI',
+      toolsPageDescription: '⭐ Curated collection of 100+ top AI tools! Text generation, image creation, code assistants & more. Professional reviews + tutorials to find your perfect AI tool.',
       
       nav: {
         home: 'Home',
@@ -609,16 +618,4 @@ const i18n = new I18nManager();
 window.i18n = i18n;
 window.i18nConfig = i18nConfig;
 
-// 页面加载完成后自动初始化翻译
-document.addEventListener('DOMContentLoaded', () => {
-  // 初始化翻译
-  i18n.initPageTranslation();
-});
-}
-
-// 创建全局实例
-const i18n = new I18nManager();
-
-// 导出到window对象
-window.i18n = i18n;
-window.i18nConfig = i18nConfig;
+// 不在这里自动初始化，由init-i18n.js统一管理

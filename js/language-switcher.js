@@ -169,10 +169,16 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// 页面加载完成后初始化语言切换器
-document.addEventListener('DOMContentLoaded', () => {
+// 初始化语言切换器的函数
+function initLanguageSwitcher() {
   // 确保i18n已加载
-  if (window.i18n) {
+  if (!window.i18n || !window.i18nConfig) {
+    console.warn('i18n not loaded, retrying in 100ms...');
+    setTimeout(initLanguageSwitcher, 100);
+    return;
+  }
+
+  try {
     const languageSwitcher = new LanguageSwitcher();
     
     // 添加到桌面导航
@@ -187,8 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // 添加移动端样式
-    const style = document.createElement('style');
-    style.textContent = `
+    const mobileStyle = document.createElement('style');
+    mobileStyle.textContent = `
       .mobile-switcher {
         margin-top: 1rem;
         width: 100%;
@@ -199,8 +205,13 @@ document.addEventListener('DOMContentLoaded', () => {
         margin-top: 0.5rem;
       }
     `;
-    document.head.appendChild(style);
-  } else {
-    console.error('i18n not loaded');
+    document.head.appendChild(mobileStyle);
+    
+    console.log('Language switcher initialized successfully');
+  } catch (error) {
+    console.error('Error initializing language switcher:', error);
   }
-});
+}
+
+// 页面加载完成后初始化语言切换器
+document.addEventListener('DOMContentLoaded', initLanguageSwitcher);

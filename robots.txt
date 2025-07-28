@@ -1,29 +1,33 @@
 User-agent: *
 Allow: /
 
-# Block admin and private areas
-Disallow: /admin/
-Disallow: /private/
-Disallow: /temp/
+# 优先抓取重要页面
+Allow: /tools.html
+Allow: /posts/
+Allow: /search.html
+Allow: /compare.html
+
+# 阻止抓取不重要的页面
+Disallow: /js/debug-language.js
+Disallow: /test-i18n.html
+Disallow: /test-search.html
 Disallow: /*.json$
 
-# Allow important files
-Allow: /sitemap.xml
-Allow: /robots.txt
-Allow: /favicon.ico
-
-# Sitemap location
+# 网站地图位置
 Sitemap: https://www.aiblogs.tech/sitemap.xml
 
-# Crawl delay for respectful crawling
+# 爬取延迟（毫秒）
 Crawl-delay: 1
 
-# Specific rules for different bots
+# 特定搜索引擎优化
 User-agent: Googlebot
+Allow: /
 Crawl-delay: 0
 
 User-agent: Bingbot
+Allow: /
 Crawl-delay: 1
 
-User-agent: Slurp
+User-agent: Baiduspider
+Allow: /
 Crawl-delay: 2
