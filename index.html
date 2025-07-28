@@ -307,6 +307,31 @@
       align-items: center;
     }
 
+    /* 新文章样式 */
+    .featured-new {
+      border: 2px solid #ff6b6b;
+      position: relative;
+      background: linear-gradient(135deg, #fff 0%, #fff8f8 100%);
+    }
+
+    .new-badge {
+      position: absolute;
+      top: -10px;
+      right: 15px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    }
+
+    .featured-new:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.2);
+    }
+
     /* Stats Section */
     .stats {
       display: grid;
@@ -512,6 +537,70 @@
       <h2>Latest AI Tutorials & Guides</h2>
 
       <div class="articles-grid">
+        <article class="card featured-new">
+          <div class="new-badge">🔥 最新</div>
+          <h3><a href="/posts/chinese-ai-tools-comprehensive-review-2025.html">2025年中国AI工具全面评测：百度文心一言vs腾讯元宝vs阿里通义千问</a></h3>
+          <p>深度评测中国主流AI工具！百度文心一言、腾讯元宝、阿里通义千问、字节豆包等国产AI工具全面对比。</p>
+          <div class="card-tags">
+            <span class="tag">中国AI</span>
+            <span class="tag">百度文心</span>
+            <span class="tag">腾讯元宝</span>
+          </div>
+          <div class="card-meta">
+            <span>20 min read</span>
+            <span>•</span>
+            <span>Dec 15, 2024</span>
+          </div>
+        </article>
+
+        <article class="card featured-new">
+          <div class="new-badge">🎨 精选</div>
+          <h3><a href="/posts/ai-image-generation-tools-comparison-2025.html">2025年AI图像生成工具大比拼：Midjourney vs DALL-E 3 vs Stable Diffusion</a></h3>
+          <p>最全面的AI图像生成工具对比！Midjourney、DALL-E 3、Stable Diffusion、Leonardo.AI等顶级AI绘画工具深度评测。</p>
+          <div class="card-tags">
+            <span class="tag">AI绘画</span>
+            <span class="tag">Midjourney</span>
+            <span class="tag">DALL-E 3</span>
+          </div>
+          <div class="card-meta">
+            <span>16 min read</span>
+            <span>•</span>
+            <span>Dec 15, 2024</span>
+          </div>
+        </article>
+
+        <article class="card featured-new">
+          <div class="new-badge">🎬 热门</div>
+          <h3><a href="/posts/ai-video-generation-tools-2025.html">2025年AI视频生成工具全面评测：Sora vs RunwayML vs Pika Labs</a></h3>
+          <p>最新AI视频生成工具深度对比！Sora、RunwayML、Pika Labs、Synthesia等顶级AI视频制作工具评测。</p>
+          <div class="card-tags">
+            <span class="tag">AI视频</span>
+            <span class="tag">Sora</span>
+            <span class="tag">RunwayML</span>
+          </div>
+          <div class="card-meta">
+            <span>18 min read</span>
+            <span>•</span>
+            <span>Dec 15, 2024</span>
+          </div>
+        </article>
+
+        <article class="card featured-new">
+          <div class="new-badge">✍️ 推荐</div>
+          <h3><a href="/posts/ai-writing-tools-comparison-2025.html">2025年AI写作工具全面对比：Jasper vs Copy.ai vs Writesonic</a></h3>
+          <p>最全面的AI写作工具评测！Jasper、Copy.ai、Writesonic、Grammarly等顶级AI写作助手深度对比。</p>
+          <div class="card-tags">
+            <span class="tag">AI写作</span>
+            <span class="tag">Jasper</span>
+            <span class="tag">Copy.ai</span>
+          </div>
+          <div class="card-meta">
+            <span>20 min read</span>
+            <span>•</span>
+            <span>Dec 15, 2024</span>
+          </div>
+        </article>
+
         <article class="card">
           <h3><a href="/posts/chatgpt-beginner-prompts.html">10 ChatGPT Prompts to Instantly Level Up Your AI Game</a>
           </h3>
