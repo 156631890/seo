@@ -31,8 +31,9 @@ class ToolsPage {
     const startTime = Date.now();
 
     try {
-      // 立即加载基础数据（无需loading状态）
-      await this.loader.load();
+      // 使用快速加载器，立即可用
+      this.loader = window.fastAILoader;
+      await this.loader.init();
       
       if (window.performanceMonitor) {
         window.performanceMonitor.mark('DatabaseLoaded');
@@ -43,9 +44,6 @@ class ToolsPage {
 
       // 绑定事件
       this.bindEvents();
-
-      // 监听完整数据加载完成
-      this.setupDataUpdateListener();
 
       this.isInitialized = true;
 
@@ -62,15 +60,23 @@ class ToolsPage {
    * 渲染首屏内容
    */
   async renderFirstScreen() {
-    // 并行执行所有首屏渲染任务
-    await Promise.all([
-      this.generateCategoryFilters(),
-      this.generateStats(),
-      this.renderTools()
-    ]);
-    
-    if (window.performanceMonitor) {
-      window.performanceMonitor.mark('ToolsRendered');
+    // 使用快速加载器，立即渲染
+    try {
+      // 立即生成分类过滤器
+      await this.generateCategoryFilters();
+      
+      // 立即生成统计信息
+      await this.generateStats();
+      
+      // 立即渲染工具列表
+      await this.renderTools();
+      
+      if (window.performanceMonitor) {
+        window.performanceMonitor.mark('ToolsRendered');
+      }
+    } catch (error) {
+      console.error('首屏渲染失败:', error);
+      this.showMessage('加载失败，请刷新页面重试', 'error');
     }
   }
 
@@ -225,8 +231,7 @@ class ToolsPage {
     if (!filtersContainer) return;
 
     try {
-      const database = await this.loader.getDatabase();
-      const categories = database.categories;
+      const categories = await this.loader.getCategories();
 
       // 确保"全部"标签存在并正确设置
       const allTab = filtersContainer.querySelector('[data-category="all"]');
@@ -286,12 +291,12 @@ class ToolsPage {
     if (!statsContainer) return;
 
     try {
-      const database = await this.loader.getDatabase();
+      const stats = await this.loader.getStats();
       
-      const totalTools = database.tools ? database.tools.length : 0;
-      const totalModels = database.models ? database.models.length : 0;
-      const totalAgents = database.agents ? database.agents.length : 0;
-      const totalCategories = database.categories ? Object.keys(database.categories).length : 0;
+      const totalTools = stats.totalTools || 0;
+      const totalModels = stats.totalModels || 0;
+      const totalAgents = stats.totalAgents || 0;
+      const totalCategories = stats.totalCategories || 0;
 
       statsContainer.innerHTML = `
         <div class="stat-card">
@@ -326,8 +331,7 @@ class ToolsPage {
     if (!toolsContainer) return;
 
     try {
-      const database = await this.loader.getDatabase();
-      const toolsToRender = tools || database.tools;
+      const toolsToRender = tools || await this.loader.getTools(this.currentCategory === 'all' ? null : this.currentCategory);
 
       if (toolsToRender.length === 0) {
         toolsContainer.innerHTML = `<div style="padding:20px;text-align:center;">${i18n.t('tools.messages.noResults')}</div>`;
