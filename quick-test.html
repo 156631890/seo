@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>快速测试</title>
+</head>
+<body>
+    <h1>数据库加载测试</h1>
+    <div id="result"></div>
+    
+    <script src="ai-tools-database.js"></script>
+    <script>
+        try {
+            if (typeof aiToolsDatabase !== 'undefined') {
+                const db = aiToolsDatabase;
+                document.getElementById('result').innerHTML = `
+                    <p style="color: green;">✅ 数据库加载成功！</p>
+                    <p>工具数量: ${db.tools ? db.tools.length : 0}</p>
+                    <p>模型数量: ${db.models ? db.models.length : 0}</p>
+                    <p>Agent数量: ${db.agents ? db.agents.length : 0}</p>
+                    
+                    <h3>测试ElevenLabs:</h3>
+                    ${(() => {
+                        const elevenLabs = db.tools.find(t => t.id === 'elevenlabs');
+                        if (elevenLabs) {
+                            return `<p style="color: green;">✅ 找到ElevenLabs: ${elevenLabs.name}</p>`;
+                        } else {
+                            return `<p style="color: red;">❌ 未找到ElevenLabs</p>`;
+                        }
+                    })()}
+                `;
+            } else {
+                document.getElementById('result').innerHTML = '<p style="color: red;">❌ 数据库未定义</p>';
+            }
+        } catch (error) {
+            document.getElementById('result').innerHTML = `<p style="color: red;">❌ 错误: ${error.message}</p>`;
+        }
+    </script>
+</body>
+</html>

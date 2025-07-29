@@ -3572,38 +3572,23 @@ class AIToolsManager {
     const manager = new AIToolsManager(aiToolsDatabase);
     window.aiToolsManager = manager;
 })();
-// ===== 音频和音乐工具 =====
+// ===== 自主代理 =====
 {
-    id: 'elevenlabs',
-        name: 'ElevenLabs',
-            provider: 'ElevenLabs',
-                category: 'voice-audio',
-                    description: '顶级AI语音合成和克隆工具',
-                        features: ['语音合成', '声音克隆', '多语言支持', '情感控制'],
-                            pricing: '免费/Pro $5-330/月',
-                                tags: ['语音', '克隆', '多语言', '专业'],
-                                    rating: 4.8,
-                                        users: '2M+',
-                                            url: 'https://elevenlabs.io',
-                                                pros: ['质量极高', '声音逼真', '多语言强'],
-                                                    cons: ['价格较高', '伦理争议', '滥用风险'],
-                                                        lastUpdated: '2024-12-15'
-},
-{
-    id: 'mubert',
-        name: 'Mubert',
-            provider: 'Mubert',
-                category: 'music',
-                    description: 'AI音乐生成平台，适合内容创作者',
-                        features: ['音乐生成', '风格选择', '时长控制', '商业授权'],
-                            pricing: '免费/Pro $14-199/月',
-                                tags: ['音乐', '生成', '商业', '内容'],
-                                    rating: 4.3,
-                                        users: '1M+',
-                                            url: 'https://mubert.com',
-                                                pros: ['音乐质量好', '商业友好', '风格丰富'],
-                                                    cons: ['创意有限', '个性化不足', '依赖模板'],
-                                                        lastUpdated: '2024-12-10'
+    id: 'autogpt',
+        name: 'AutoGPT',
+            provider: 'Significant Gravitas',
+                type: 'autonomous',
+                    category: 'automation',
+                        description: '自主执行任务的AI代理，可以分解复杂任务',
+                            features: ['任务分解', '自主执行', '工具调用', '长期记忆'],
+                                pricing: '开源免费',
+                                    tags: ['自主', '任务', '开源', '实验性'],
+                                        rating: 4.1,
+                                            users: '500K+',
+                                                url: 'https://github.com/Significant-Gravitas/AutoGPT',
+                                                    pros: ['完全自主', '开源免费', '功能强大'],
+                                                        cons: ['不稳定', '成本高', '可能偏离目标'],
+                                                            lastUpdated: '2024-12-15'
 },
 {
     id: 'suno-ai',
@@ -4395,11 +4380,10 @@ class AIToolsManager {
 }
     ],
 
-// AI Agent数据
+// AI代理数据
 agents: [
-    // ===== 自主代理 =====
     {
-        id: 'autogpt',
+        id: 'autogpt-agent',
         name: 'AutoGPT',
         provider: 'Significant Gravitas',
         type: 'autonomous',
