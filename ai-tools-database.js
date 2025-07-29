@@ -28,7 +28,21 @@ const aiToolsDatabase = {
         'real-estate': { name: '房地产', icon: '🏠', description: 'AI房地产分析和管理工具' },
         'agriculture': { name: '农业科技', icon: '🌾', description: 'AI农业和智慧农业工具' },
         'logistics': { name: '物流运输', icon: '🚚', description: 'AI物流优化和管理工具' },
-        'travel': { name: '旅游出行', icon: '✈️', description: 'AI旅游规划和出行工具' }
+        'travel': { name: '旅游出行', icon: '✈️', description: 'AI旅游规划和出行工具' },
+        'robotics': { name: '机器人技术', icon: '🤖', description: 'AI机器人和自动化硬件' },
+        'blockchain': { name: '区块链AI', icon: '⛓️', description: 'AI与区块链结合的应用' },
+        'iot': { name: '物联网AI', icon: '📡', description: 'AI物联网和智能设备' },
+        'manufacturing': { name: '智能制造', icon: '🏭', description: 'AI制造业和工业4.0应用' },
+        'energy': { name: '能源管理', icon: '⚡', description: 'AI能源优化和管理工具' },
+        'environment': { name: '环境保护', icon: '🌱', description: 'AI环保和可持续发展工具' },
+        'sports': { name: '体育科技', icon: '⚽', description: 'AI体育分析和训练工具' },
+        'entertainment': { name: '娱乐媒体', icon: '🎭', description: 'AI娱乐和媒体制作工具' },
+        'fashion': { name: '时尚设计', icon: '👗', description: 'AI时尚设计和搭配工具' },
+        'food': { name: '食品科技', icon: '🍽️', description: 'AI食品和餐饮相关工具' },
+        'weather': { name: '气象预测', icon: '🌤️', description: 'AI天气预报和气候分析' },
+        'space': { name: '航空航天', icon: '🚀', description: 'AI航空航天和太空探索' },
+        'psychology': { name: '心理健康', icon: '🧠', description: 'AI心理分析和健康工具' },
+        'accessibility': { name: '无障碍技术', icon: '♿', description: 'AI无障碍和辅助技术' }
     },
 
     // 模型类型
@@ -39,7 +53,21 @@ const aiToolsDatabase = {
         'audio': { name: '音频模型', description: '处理和生成音频的AI模型' },
         'video': { name: '视频模型', description: '处理和生成视频的AI模型' },
         'embedding': { name: '嵌入模型', description: '将文本转换为向量表示的模型' },
-        'fine-tuning': { name: '微调模型', description: '可以针对特定任务进行微调的模型' }
+        'fine-tuning': { name: '微调模型', description: '可以针对特定任务进行微调的模型' },
+        'reasoning': { name: '推理模型', description: '专门优化推理和逻辑思考的模型' },
+        'code': { name: '代码模型', description: '专门用于代码生成和编程的模型' },
+        'math': { name: '数学模型', description: '专门用于数学计算和科学推理的模型' },
+        'vision': { name: '视觉模型', description: '专门处理图像和视觉任务的模型' },
+        'speech': { name: '语音模型', description: '专门处理语音识别和合成的模型' },
+        'translation': { name: '翻译模型', description: '专门用于语言翻译的模型' },
+        'summarization': { name: '摘要模型', description: '专门用于文本摘要和总结的模型' },
+        'classification': { name: '分类模型', description: '专门用于文本和数据分类的模型' },
+        'generation': { name: '生成模型', description: '专门用于内容生成的模型' },
+        'retrieval': { name: '检索模型', description: '专门用于信息检索和搜索的模型' },
+        'recommendation': { name: '推荐模型', description: '专门用于推荐系统的模型' },
+        'anomaly': { name: '异常检测模型', description: '专门用于异常检测和监控的模型' },
+        'forecasting': { name: '预测模型', description: '专门用于时间序列预测的模型' },
+        'optimization': { name: '优化模型', description: '专门用于优化和决策的模型' }
     },
 
     // Agent类型
@@ -48,7 +76,21 @@ const aiToolsDatabase = {
         'assistant': { name: '助手代理', description: '辅助人类完成任务的AI代理' },
         'multi-agent': { name: '多代理系统', description: '多个AI代理协作完成任务的系统' },
         'specialized': { name: '专业领域代理', description: '针对特定领域优化的AI代理' },
-        'framework': { name: '代理框架', description: '用于构建AI代理的开发框架' }
+        'framework': { name: '代理框架', description: '用于构建AI代理的开发框架' },
+        'conversational': { name: '对话代理', description: '专门用于对话交互的AI代理' },
+        'task-oriented': { name: '任务导向代理', description: '专门执行特定任务的AI代理' },
+        'learning': { name: '学习代理', description: '能够从经验中学习和改进的AI代理' },
+        'reactive': { name: '反应式代理', description: '基于环境刺激做出反应的AI代理' },
+        'proactive': { name: '主动式代理', description: '能够主动规划和执行任务的AI代理' },
+        'collaborative': { name: '协作代理', description: '能够与人类或其他代理协作的AI代理' },
+        'mobile': { name: '移动代理', description: '能够在不同环境中移动和执行任务的代理' },
+        'hybrid': { name: '混合代理', description: '结合多种代理类型特点的混合代理' },
+        'cognitive': { name: '认知代理', description: '模拟人类认知过程的AI代理' },
+        'emotional': { name: '情感代理', description: '具备情感理解和表达能力的AI代理' },
+        'social': { name: '社交代理', description: '专门用于社交互动的AI代理' },
+        'creative': { name: '创意代理', description: '专门用于创意和艺术创作的AI代理' },
+        'analytical': { name: '分析代理', description: '专门用于数据分析和洞察的AI代理' },
+        'security': { name: '安全代理', description: '专门用于安全监控和防护的AI代理' }
     },
 
     // AI模型数据
@@ -375,6 +417,211 @@ const aiToolsDatabase = {
             limitations: ['硬件要求高', '部署复杂', '文档较少'],
             rating: 4.4,
             url: 'https://internlm.org',
+            lastUpdated: '2024-12-12'
+        },
+        // ===== 最新AI模型 =====
+        {
+            id: 'o1-preview',
+            name: 'OpenAI o1-preview',
+            provider: 'OpenAI',
+            type: '推理优化模型',
+            category: 'text-generation',
+            description: 'OpenAI专门优化推理能力的模型，擅长复杂问题解决',
+            features: ['深度推理', '数学解题', '科学分析', '逻辑思考'],
+            pricing: '按token计费（高价）',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['推理能力极强', '数学优秀', '逻辑清晰'],
+            limitations: ['成本极高', '速度很慢', '功能单一'],
+            rating: 4.8,
+            url: 'https://openai.com/o1',
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'o1-mini',
+            name: 'OpenAI o1-mini',
+            provider: 'OpenAI',
+            type: '推理优化模型',
+            category: 'text-generation',
+            description: 'o1的轻量版本，平衡推理能力和成本',
+            features: ['推理能力', '成本优化', '数学解题', '代码分析'],
+            pricing: '按token计费（中等）',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['推理能力强', '成本合理', '速度适中'],
+            limitations: ['能力有限', '仍然较慢', '应用场景窄'],
+            rating: 4.5,
+            url: 'https://openai.com/o1',
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'claude-3-5-haiku',
+            name: 'Claude 3.5 Haiku',
+            provider: 'Anthropic',
+            type: '快速响应模型',
+            category: 'text-generation',
+            description: 'Claude 3.5系列的快速版本，平衡速度和能力',
+            features: ['快速响应', '成本优化', '多模态', '安全对话'],
+            pricing: '按token计费（低成本）',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['响应极快', '成本低', '安全性高'],
+            limitations: ['能力相对有限', '创意一般', '推理较弱'],
+            rating: 4.3,
+            url: 'https://claude.ai',
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'gemini-2-0-flash',
+            name: 'Gemini 2.0 Flash',
+            provider: 'Google',
+            type: '多模态模型',
+            category: 'text-generation',
+            description: 'Google最新的多模态模型，支持实时交互',
+            features: ['实时交互', '多模态', '快速响应', '工具调用'],
+            pricing: '免费/付费版本',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['实时能力', '多模态强', '免费使用'],
+            limitations: ['相对较新', '稳定性待验证', '功能待完善'],
+            rating: 4.4,
+            url: 'https://gemini.google.com',
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'llama-3-3-70b',
+            name: 'Llama 3.3 70B',
+            provider: 'Meta',
+            type: '开源大语言模型',
+            category: 'text-generation',
+            description: 'Meta最新的开源模型，性能大幅提升',
+            features: ['开源免费', '性能提升', '多语言', '工具调用'],
+            pricing: '开源免费',
+            apiAccess: true,
+            webInterface: false,
+            strengths: ['完全开源', '性能优秀', '部署灵活'],
+            limitations: ['硬件要求', '部署复杂', '商业限制'],
+            rating: 4.6,
+            url: 'https://llama.meta.com',
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'grok-2',
+            name: 'Grok-2',
+            provider: 'xAI',
+            type: '大语言模型',
+            category: 'text-generation',
+            description: 'xAI的第二代模型，集成实时信息',
+            features: ['实时信息', '图像理解', '幽默对话', '推理能力'],
+            pricing: 'X Premium订阅',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['实时信息', '个性鲜明', '图像能力'],
+            limitations: ['平台限制', '可用性有限', '成本较高'],
+            rating: 4.3,
+            url: 'https://x.ai',
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'nova-pro',
+            name: 'Amazon Nova Pro',
+            provider: 'Amazon',
+            type: '多模态模型',
+            category: 'text-generation',
+            description: 'Amazon最新的多模态基础模型',
+            features: ['多模态理解', '文档处理', '图像分析', 'AWS集成'],
+            pricing: 'AWS按使用计费',
+            apiAccess: true,
+            webInterface: false,
+            strengths: ['AWS集成', '企业级', '多模态'],
+            limitations: ['主要AWS', '相对较新', '生态有限'],
+            rating: 4.2,
+            url: 'https://aws.amazon.com/bedrock',
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'nova-lite',
+            name: 'Amazon Nova Lite',
+            provider: 'Amazon',
+            type: '轻量模型',
+            category: 'text-generation',
+            description: 'Amazon Nova的轻量版本，成本优化',
+            features: ['成本优化', '快速响应', '基础能力', 'AWS集成'],
+            pricing: 'AWS按使用计费（低成本）',
+            apiAccess: true,
+            webInterface: false,
+            strengths: ['成本极低', '响应快', 'AWS集成'],
+            limitations: ['能力有限', '功能基础', '主要AWS'],
+            rating: 4.0,
+            url: 'https://aws.amazon.com/bedrock',
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'reka-core',
+            name: 'Reka Core',
+            provider: 'Reka AI',
+            type: '多模态模型',
+            category: 'text-generation',
+            description: 'Reka AI的旗舰多模态模型',
+            features: ['多模态理解', '长上下文', '推理能力', '多语言'],
+            pricing: '按token计费',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['多模态强', '长上下文', '性能优秀'],
+            limitations: ['知名度低', '生态小', '成本较高'],
+            rating: 4.3,
+            url: 'https://reka.ai',
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'command-r-plus',
+            name: 'Command R+',
+            provider: 'Cohere',
+            type: '企业级模型',
+            category: 'text-generation',
+            description: 'Cohere最新的企业级语言模型',
+            features: ['企业优化', 'RAG增强', '工具调用', '多语言'],
+            pricing: '按token计费',
+            apiAccess: true,
+            webInterface: false,
+            strengths: ['企业友好', 'RAG优秀', '工具调用强'],
+            limitations: ['主要B2B', '知名度低', '生态有限'],
+            rating: 4.4,
+            url: 'https://cohere.com',
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'phi-4',
+            name: 'Phi-4',
+            provider: 'Microsoft',
+            type: '小型语言模型',
+            category: 'text-generation',
+            description: 'Microsoft的小型高效语言模型',
+            features: ['小型高效', '推理能力', '数学优秀', '代码生成'],
+            pricing: '开源免费',
+            apiAccess: true,
+            webInterface: false,
+            strengths: ['效率极高', '推理强', '资源需求低'],
+            limitations: ['参数较少', '知识有限', '应用场景窄'],
+            rating: 4.5,
+            url: 'https://huggingface.co/microsoft/phi-4',
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'mixtral-8x22b',
+            name: 'Mixtral 8x22B',
+            provider: 'Mistral AI',
+            type: '混合专家模型',
+            category: 'text-generation',
+            description: 'Mistral最大的混合专家模型',
+            features: ['混合专家', '高效推理', '多语言', '代码生成'],
+            pricing: '按token计费',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['效率高', '性能强', '多语言优秀'],
+            limitations: ['部署复杂', '硬件要求', '相对较新'],
+            rating: 4.5,
+            url: 'https://mistral.ai',
             lastUpdated: '2024-12-12'
         },
         {
@@ -4396,9 +4643,1195 @@ agents: [
         pros: ['搜索专业', '管道灵活', '文档详细'],
         cons: ['学习成本', '主要搜索场景', '社区较小'],
         lastUpdated: '2024-12-08'
+    },
+
+    // ===== 更多图像生成工具 =====
+    {
+        id: 'flux-1',
+        name: 'Flux.1',
+        provider: 'Black Forest Labs',
+        category: 'image-generation',
+        description: '新一代开源图像生成模型，质量媲美Midjourney',
+        features: ['超高质量', '开源免费', '快速生成', '多种尺寸'],
+        pricing: '免费/Pro版付费',
+        tags: ['开源', '高质量', '快速', '免费'],
+        rating: 4.7,
+        users: '2M+',
+        url: 'https://blackforestlabs.ai',
+        pros: ['质量极高', '完全开源', '生成快速'],
+        cons: ['硬件要求高', '相对较新', '社区建设中'],
+        lastUpdated: '2024-12-15'
+    },
+    {
+        id: 'playground-ai',
+        name: 'Playground AI',
+        provider: 'Playground AI',
+        category: 'image-generation',
+        description: '用户友好的AI图像生成平台，支持多种模型',
+        features: ['多模型支持', '批量生成', '图像编辑', '社区分享'],
+        pricing: '免费/Pro $15/月',
+        tags: ['多模型', '批量', '编辑', '社区'],
+        rating: 4.4,
+        users: '3M+',
+        url: 'https://playgroundai.com',
+        pros: ['界面友好', '模型丰富', '功能全面'],
+        cons: ['免费版限制', '质量不稳定', '加载较慢'],
+        lastUpdated: '2024-12-10'
+    },
+    {
+        id: 'artbreeder',
+        name: 'Artbreeder',
+        provider: 'Artbreeder',
+        category: 'image-generation',
+        description: '基于遗传算法的AI艺术创作平台',
+        features: ['图像混合', '特征调节', '协作创作', '高分辨率'],
+        pricing: '免费/Pro $8.99/月',
+        tags: ['混合', '调节', '协作', '艺术'],
+        rating: 4.2,
+        users: '1.5M+',
+        url: 'https://artbreeder.com',
+        pros: ['创意独特', '操作直观', '社区活跃'],
+        cons: ['风格有限', '生成较慢', '功能单一'],
+        lastUpdated: '2024-12-05'
+    },
+    {
+        id: 'dreamstudio',
+        name: 'DreamStudio',
+        provider: 'Stability AI',
+        category: 'image-generation',
+        description: 'Stability AI官方的Stable Diffusion云平台',
+        features: ['Stable Diffusion', '参数控制', '批量生成', '高级设置'],
+        pricing: '按积分付费',
+        tags: ['Stable Diffusion', '云端', '专业', '控制'],
+        rating: 4.3,
+        users: '2M+',
+        url: 'https://dreamstudio.ai',
+        pros: ['官方平台', '参数丰富', '质量稳定'],
+        cons: ['按次付费', '界面复杂', '学习成本'],
+        lastUpdated: '2024-12-08'
+    },
+    {
+        id: 'canva-ai',
+        name: 'Canva AI',
+        provider: 'Canva',
+        category: 'image-generation',
+        description: 'Canva集成的AI设计工具，适合非专业用户',
+        features: ['模板设计', 'AI生成', '品牌一致性', '团队协作'],
+        pricing: '免费/Pro $12.99/月',
+        tags: ['设计', '模板', '品牌', '协作'],
+        rating: 4.5,
+        users: '100M+',
+        url: 'https://canva.com',
+        pros: ['易于使用', '模板丰富', '团队功能'],
+        cons: ['创意有限', '依赖模板', '高级功能付费'],
+        lastUpdated: '2024-12-12'
+    },
+
+    // ===== 更多视频生成工具 =====
+    {
+        id: 'sora',
+        name: 'Sora',
+        provider: 'OpenAI',
+        category: 'video-creation',
+        description: 'OpenAI的文本到视频生成模型（预览版）',
+        features: ['文本到视频', '长视频生成', '高质量输出', '物理一致性'],
+        pricing: '未公开发布',
+        tags: ['文本到视频', '长视频', '高质量', '物理'],
+        rating: 4.9,
+        users: '限量测试',
+        url: 'https://openai.com/sora',
+        pros: ['质量极高', '物理真实', '时长较长'],
+        cons: ['未公开发布', '计算成本高', '安全限制'],
+        lastUpdated: '2024-12-15'
+    },
+    {
+        id: 'runway-gen3',
+        name: 'Runway Gen-3',
+        provider: 'Runway',
+        category: 'video-creation',
+        description: 'Runway最新的视频生成模型，支持文本和图像输入',
+        features: ['文本到视频', '图像到视频', '视频编辑', '运动控制'],
+        pricing: '$12-76/月',
+        tags: ['文本到视频', '图像到视频', '编辑', '运动'],
+        rating: 4.6,
+        users: '5M+',
+        url: 'https://runway.com',
+        pros: ['功能全面', '质量优秀', '更新频繁'],
+        cons: ['价格较高', '生成时间长', '免费版限制'],
+        lastUpdated: '2024-12-10'
+    },
+    {
+        id: 'pika-labs',
+        name: 'Pika Labs',
+        provider: 'Pika Labs',
+        category: 'video-creation',
+        description: '专注于短视频生成的AI工具',
+        features: ['短视频生成', '风格控制', '动画效果', '社区分享'],
+        pricing: '免费/Pro $10/月',
+        tags: ['短视频', '动画', '风格', '社区'],
+        rating: 4.3,
+        users: '2M+',
+        url: 'https://pika.art',
+        pros: ['专注短视频', '效果丰富', '价格合理'],
+        cons: ['视频较短', '质量不稳定', '功能有限'],
+        lastUpdated: '2024-12-08'
+    },
+    {
+        id: 'stable-video',
+        name: 'Stable Video Diffusion',
+        provider: 'Stability AI',
+        category: 'video-creation',
+        description: 'Stability AI的开源视频生成模型',
+        features: ['开源免费', '图像到视频', '可定制', '本地部署'],
+        pricing: '开源免费',
+        tags: ['开源', '图像到视频', '定制', '本地'],
+        rating: 4.2,
+        users: '500K+',
+        url: 'https://stability.ai/stable-video',
+        pros: ['完全开源', '可本地部署', '定制性强'],
+        cons: ['技术门槛高', '硬件要求高', '质量一般'],
+        lastUpdated: '2024-12-05'
+    },
+    {
+        id: 'luma-dream-machine',
+        name: 'Luma Dream Machine',
+        provider: 'Luma AI',
+        category: 'video-creation',
+        description: 'Luma AI的视频生成工具，支持3D场景',
+        features: ['3D场景', '文本到视频', '相机控制', '物理模拟'],
+        pricing: '免费/Pro $29.99/月',
+        tags: ['3D', '场景', '相机', '物理'],
+        rating: 4.4,
+        users: '1M+',
+        url: 'https://lumalabs.ai',
+        pros: ['3D效果好', '相机控制', '物理真实'],
+        cons: ['生成较慢', '价格较高', '学习成本'],
+        lastUpdated: '2024-12-12'
+    },
+
+    // ===== 更多音频/音乐工具 =====
+    {
+        id: 'suno-ai',
+        name: 'Suno AI',
+        provider: 'Suno',
+        category: 'music',
+        description: '领先的AI音乐生成工具，支持歌词和旋律创作',
+        features: ['歌曲生成', '歌词创作', '多种风格', '人声合成'],
+        pricing: '免费/Pro $10/月',
+        tags: ['音乐', '歌词', '人声', '创作'],
+        rating: 4.7,
+        users: '10M+',
+        url: 'https://suno.com',
+        pros: ['音乐质量高', '风格丰富', '易于使用'],
+        cons: ['版权问题', '创意有限', '商业使用限制'],
+        lastUpdated: '2024-12-15'
+    },
+    {
+        id: 'udio',
+        name: 'Udio',
+        provider: 'Udio',
+        category: 'music',
+        description: '高质量AI音乐生成平台，支持专业音乐制作',
+        features: ['专业音质', '风格控制', '长音乐', '混音功能'],
+        pricing: '免费/Pro $10/月',
+        tags: ['专业', '音质', '混音', '长音乐'],
+        rating: 4.6,
+        users: '3M+',
+        url: 'https://udio.com',
+        pros: ['音质专业', '功能全面', '风格多样'],
+        cons: ['学习成本', '生成较慢', '免费版限制'],
+        lastUpdated: '2024-12-10'
+    },
+    {
+        id: 'mubert',
+        name: 'Mubert',
+        provider: 'Mubert',
+        category: 'music',
+        description: 'AI背景音乐生成工具，适合内容创作者',
+        features: ['背景音乐', '无版权', '实时生成', 'API接口'],
+        pricing: '免费/Pro $14/月',
+        tags: ['背景音乐', '无版权', '实时', 'API'],
+        rating: 4.3,
+        users: '2M+',
+        url: 'https://mubert.com',
+        pros: ['无版权问题', '实时生成', 'API支持'],
+        cons: ['音乐较简单', '创意有限', '主要背景音'],
+        lastUpdated: '2024-12-08'
+    },
+    {
+        id: 'soundraw',
+        name: 'Soundraw',
+        provider: 'Soundraw',
+        category: 'music',
+        description: 'AI音乐创作平台，支持自定义和编辑',
+        features: ['音乐定制', '情绪控制', '长度调节', '商业授权'],
+        pricing: '免费/Pro $16.99/月',
+        tags: ['定制', '情绪', '商业', '编辑'],
+        rating: 4.4,
+        users: '1.5M+',
+        url: 'https://soundraw.io',
+        pros: ['定制性强', '商业友好', '编辑功能'],
+        cons: ['风格有限', '价格较高', '学习成本'],
+        lastUpdated: '2024-12-12'
+    },
+    {
+        id: 'elevenlabs',
+        name: 'ElevenLabs',
+        provider: 'ElevenLabs',
+        category: 'voice-audio',
+        description: '顶级AI语音合成工具，支持声音克隆',
+        features: ['语音合成', '声音克隆', '多语言', '情感控制'],
+        pricing: '免费/Pro $5-330/月',
+        tags: ['语音合成', '声音克隆', '多语言', '情感'],
+        rating: 4.8,
+        users: '5M+',
+        url: 'https://elevenlabs.io',
+        pros: ['语音质量极高', '声音克隆', '多语言支持'],
+        cons: ['伦理争议', '价格较高', '滥用风险'],
+        lastUpdated: '2024-12-15'
+    },
+
+    // ===== AI代理和自动化工具 =====
+    {
+        id: 'autogpt',
+        name: 'AutoGPT',
+        provider: 'Significant Gravitas',
+        category: 'automation',
+        description: '开源的自主AI代理，能够独立执行复杂任务',
+        features: ['自主执行', '任务分解', '工具调用', '长期记忆'],
+        pricing: '开源免费',
+        tags: ['自主', '代理', '开源', '任务'],
+        rating: 4.2,
+        users: '1M+',
+        url: 'https://github.com/Significant-Gravitas/AutoGPT',
+        pros: ['完全自主', '开源免费', '功能强大'],
+        cons: ['不稳定', '成本高', '需要监督'],
+        lastUpdated: '2024-12-10'
+    },
+    {
+        id: 'langchain',
+        name: 'LangChain',
+        provider: 'LangChain',
+        category: 'automation',
+        description: '构建LLM应用的开发框架',
+        features: ['应用框架', '链式调用', '代理构建', '工具集成'],
+        pricing: '开源免费/企业版付费',
+        tags: ['框架', '开发', '链式', '集成'],
+        rating: 4.6,
+        users: '500K+',
+        url: 'https://langchain.com',
+        pros: ['生态丰富', '文档详细', '社区活跃'],
+        cons: ['学习成本高', '版本更新快', '复杂度高'],
+        lastUpdated: '2024-12-15'
+    },
+    {
+        id: 'crew-ai',
+        name: 'CrewAI',
+        provider: 'CrewAI',
+        category: 'automation',
+        description: '多代理协作框架，让AI代理团队合作完成任务',
+        features: ['多代理', '角色分工', '任务协作', '工作流程'],
+        pricing: '开源免费/云服务付费',
+        tags: ['多代理', '协作', '团队', '工作流'],
+        rating: 4.4,
+        users: '200K+',
+        url: 'https://crewai.com',
+        pros: ['协作能力强', '角色清晰', '易于使用'],
+        cons: ['相对较新', '文档待完善', '稳定性待提升'],
+        lastUpdated: '2024-12-12'
+    },
+    {
+        id: 'zapier-ai',
+        name: 'Zapier AI',
+        provider: 'Zapier',
+        category: 'automation',
+        description: 'Zapier的AI自动化功能，连接各种应用和服务',
+        features: ['应用连接', '工作流自动化', 'AI增强', '无代码'],
+        pricing: '免费/付费 $19.99-599/月',
+        tags: ['自动化', '连接', '无代码', '工作流'],
+        rating: 4.5,
+        users: '6M+',
+        url: 'https://zapier.com',
+        pros: ['应用丰富', '易于使用', '稳定可靠'],
+        cons: ['价格较高', '复杂任务限制', '依赖第三方'],
+        lastUpdated: '2024-12-08'
+    },
+    {
+        id: 'make-integromat',
+        name: 'Make (Integromat)',
+        provider: 'Make',
+        category: 'automation',
+        description: '可视化自动化平台，支持复杂的工作流程',
+        features: ['可视化编辑', '复杂逻辑', '数据处理', 'API集成'],
+        pricing: '免费/付费 $9-299/月',
+        tags: ['可视化', '复杂', '数据', 'API'],
+        rating: 4.4,
+        users: '500K+',
+        url: 'https://make.com',
+        pros: ['功能强大', '可视化好', '逻辑复杂'],
+        cons: ['学习成本', '价格较高', '界面复杂'],
+        lastUpdated: '2024-12-10'
+    },
+
+    // ===== 更多代码助手工具 =====
+    {
+        id: 'cursor',
+        name: 'Cursor',
+        provider: 'Anysphere',
+        category: 'code-assistant',
+        description: 'AI原生的代码编辑器，基于VS Code构建',
+        features: ['AI编程', '代码生成', '智能补全', '对话编程'],
+        pricing: '免费/Pro $20/月',
+        tags: ['编辑器', 'AI原生', '对话', '智能'],
+        rating: 4.7,
+        users: '1M+',
+        url: 'https://cursor.sh',
+        pros: ['AI集成深度', '用户体验好', '功能强大'],
+        cons: ['相对较新', '依赖网络', '学习成本'],
+        lastUpdated: '2024-12-15'
+    },
+    {
+        id: 'codeium',
+        name: 'Codeium',
+        provider: 'Codeium',
+        category: 'code-assistant',
+        description: '免费的AI代码助手，支持多种编程语言',
+        features: ['代码补全', '聊天助手', '多语言支持', '免费使用'],
+        pricing: '免费/企业版付费',
+        tags: ['免费', '补全', '多语言', '聊天'],
+        rating: 4.5,
+        users: '500K+',
+        url: 'https://codeium.com',
+        pros: ['完全免费', '功能全面', '支持广泛'],
+        cons: ['质量不如付费', '功能相对基础', '依赖网络'],
+        lastUpdated: '2024-12-12'
+    },
+    {
+        id: 'tabnine',
+        name: 'Tabnine',
+        provider: 'Tabnine',
+        category: 'code-assistant',
+        description: 'AI代码补全工具，支持本地部署',
+        features: ['智能补全', '本地部署', '团队训练', '隐私保护'],
+        pricing: '免费/Pro $12/月',
+        tags: ['补全', '本地', '隐私', '团队'],
+        rating: 4.3,
+        users: '1M+',
+        url: 'https://tabnine.com',
+        pros: ['隐私保护', '本地部署', '团队功能'],
+        cons: ['功能相对单一', '价格较高', '训练成本'],
+        lastUpdated: '2024-12-08'
+    },
+    {
+        id: 'replit-ai',
+        name: 'Replit AI',
+        provider: 'Replit',
+        category: 'code-assistant',
+        description: 'Replit集成的AI编程助手',
+        features: ['在线编程', 'AI生成', '协作开发', '部署集成'],
+        pricing: '免费/Pro $7/月',
+        tags: ['在线', '协作', '部署', '集成'],
+        rating: 4.4,
+        users: '20M+',
+        url: 'https://replit.com',
+        pros: ['在线便捷', '协作友好', '部署简单'],
+        cons: ['性能有限', '依赖网络', '功能基础'],
+        lastUpdated: '2024-12-10'
+    },
+
+    // ===== 更多研究和分析工具 =====
+    {
+        id: 'semantic-scholar',
+        name: 'Semantic Scholar',
+        provider: 'Allen Institute for AI',
+        category: 'research',
+        description: 'AI驱动的学术搜索引擎',
+        features: ['学术搜索', '论文分析', '引用网络', '研究趋势'],
+        pricing: '免费',
+        tags: ['学术', '论文', '搜索', '分析'],
+        rating: 4.6,
+        users: '50M+',
+        url: 'https://semanticscholar.org',
+        pros: ['学术专业', '完全免费', '数据丰富'],
+        cons: ['仅限学术', '界面简单', '功能有限'],
+        lastUpdated: '2024-12-12'
+    },
+    {
+        id: 'consensus',
+        name: 'Consensus',
+        provider: 'Consensus',
+        category: 'research',
+        description: 'AI驱动的科学研究搜索引擎',
+        features: ['科学搜索', '证据总结', '研究洞察', '可信度评估'],
+        pricing: '免费/Pro $8.99/月',
+        tags: ['科学', '证据', '洞察', '可信'],
+        rating: 4.4,
+        users: '1M+',
+        url: 'https://consensus.app',
+        pros: ['科学专业', '证据可靠', '洞察深入'],
+        cons: ['领域有限', '更新较慢', '价格较高'],
+        lastUpdated: '2024-12-08'
+    },
+    {
+        id: 'elicit',
+        name: 'Elicit',
+        provider: 'Ought',
+        category: 'research',
+        description: 'AI研究助手，帮助文献综述和研究分析',
+        features: ['文献综述', '研究问题', '数据提取', '假设生成'],
+        pricing: '免费/Plus $10/月',
+        tags: ['文献', '综述', '数据', '假设'],
+        rating: 4.5,
+        users: '500K+',
+        url: 'https://elicit.org',
+        pros: ['研究专业', '功能全面', '质量高'],
+        cons: ['学习成本', '英文为主', '价格较高'],
+        lastUpdated: '2024-12-10'
+    },
+
+    // ===== 更多营销和商业工具 =====
+    {
+        id: 'hubspot-ai',
+        name: 'HubSpot AI',
+        provider: 'HubSpot',
+        category: 'marketing',
+        description: 'HubSpot集成的AI营销工具',
+        features: ['内容生成', '邮件营销', '客户分析', 'CRM集成'],
+        pricing: '免费/付费 $45-3200/月',
+        tags: ['CRM', '营销', '邮件', '分析'],
+        rating: 4.5,
+        users: '100K+',
+        url: 'https://hubspot.com',
+        pros: ['CRM集成', '功能全面', '企业级'],
+        cons: ['价格昂贵', '复杂度高', '学习成本'],
+        lastUpdated: '2024-12-12'
+    },
+    {
+        id: 'mailchimp-ai',
+        name: 'Mailchimp AI',
+        provider: 'Mailchimp',
+        category: 'marketing',
+        description: 'Mailchimp的AI邮件营销功能',
+        features: ['邮件生成', '主题优化', '发送时间', '受众分析'],
+        pricing: '免费/付费 $10-299/月',
+        tags: ['邮件', '营销', '优化', '分析'],
+        rating: 4.3,
+        users: '12M+',
+        url: 'https://mailchimp.com',
+        pros: ['邮件专业', '易于使用', '价格合理'],
+        cons: ['功能有限', '模板化', '创新不足'],
+        lastUpdated: '2024-12-08'
+    },
+    {
+        id: 'hootsuite-ai',
+        name: 'Hootsuite AI',
+        provider: 'Hootsuite',
+        category: 'social-media',
+        description: 'Hootsuite的AI社交媒体管理工具',
+        features: ['内容生成', '发布调度', '社交分析', '趋势监测'],
+        pricing: '免费/付费 $99-739/月',
+        tags: ['社交', '管理', '分析', '调度'],
+        rating: 4.2,
+        users: '18M+',
+        url: 'https://hootsuite.com',
+        pros: ['社交专业', '功能全面', '分析详细'],
+        cons: ['价格昂贵', '界面复杂', '学习成本'],
+        lastUpdated: '2024-12-10'
+    },
+
+    // ===== 更多教育和学习工具 =====
+    {
+        id: 'khan-academy-ai',
+        name: 'Khan Academy AI (Khanmigo)',
+        provider: 'Khan Academy',
+        category: 'education',
+        description: 'Khan Academy的AI学习助手',
+        features: ['个性化学习', '作业辅导', '概念解释', '学习路径'],
+        pricing: '免费/付费功能',
+        tags: ['学习', '教育', '辅导', '个性化'],
+        rating: 4.6,
+        users: '120M+',
+        url: 'https://khanacademy.org',
+        pros: ['教育专业', '免费使用', '内容丰富'],
+        cons: ['功能有限', '主要K-12', '英文为主'],
+        lastUpdated: '2024-12-12'
+    },
+    {
+        id: 'duolingo-ai',
+        name: 'Duolingo AI',
+        provider: 'Duolingo',
+        category: 'education',
+        description: 'Duolingo的AI语言学习功能',
+        features: ['语言学习', '个性化练习', '对话练习', '发音纠正'],
+        pricing: '免费/Plus $6.99/月',
+        tags: ['语言', '学习', '对话', '发音'],
+        rating: 4.7,
+        users: '500M+',
+        url: 'https://duolingo.com',
+        pros: ['语言专业', '用户体验好', '价格便宜'],
+        cons: ['深度有限', '游戏化过度', '语法薄弱'],
+        lastUpdated: '2024-12-15'
+    },
+    {
+        id: 'coursera-ai',
+        name: 'Coursera AI',
+        provider: 'Coursera',
+        category: 'education',
+        description: 'Coursera的AI学习辅助功能',
+        features: ['课程推荐', '学习分析', '作业辅导', '职业规划'],
+        pricing: '免费/付费课程',
+        tags: ['课程', '推荐', '分析', '职业'],
+        rating: 4.4,
+        users: '100M+',
+        url: 'https://coursera.org',
+        pros: ['课程丰富', '大学合作', '证书权威'],
+        cons: ['价格较高', '质量参差', '语言限制'],
+        lastUpdated: '2024-12-10'
+    },
+
+    // ===== 更多健康和医疗工具 =====
+    {
+        id: 'ada-health',
+        name: 'Ada Health',
+        provider: 'Ada Health',
+        category: 'healthcare',
+        description: 'AI健康评估和症状检查工具',
+        features: ['症状检查', '健康评估', '医疗建议', '风险评估'],
+        pricing: '免费/企业版付费',
+        tags: ['症状', '健康', '评估', '医疗'],
+        rating: 4.3,
+        users: '10M+',
+        url: 'https://ada.com',
+        pros: ['医疗专业', '评估准确', '易于使用'],
+        cons: ['不能替代医生', '地区限制', '语言有限'],
+        lastUpdated: '2024-12-08'
+    },
+    {
+        id: 'babylon-health',
+        name: 'Babylon Health',
+        provider: 'Babylon Health',
+        category: 'healthcare',
+        description: 'AI驱动的数字健康平台',
+        features: ['症状检查', '远程咨询', '健康监测', '预防建议'],
+        pricing: '订阅制/保险覆盖',
+        tags: ['数字健康', '远程', '监测', '预防'],
+        rating: 4.1,
+        users: '5M+',
+        url: 'https://babylonhealth.com',
+        pros: ['功能全面', '远程便利', '专业团队'],
+        cons: ['地区限制', '价格较高', '监管复杂'],
+        lastUpdated: '2024-12-05'
+    },
+
+    // ===== 更多金融工具 =====
+    {
+        id: 'mint-ai',
+        name: 'Mint AI',
+        provider: 'Intuit',
+        category: 'finance',
+        description: 'Mint的AI个人财务管理功能',
+        features: ['支出分析', '预算建议', '投资洞察', '财务规划'],
+        pricing: '免费',
+        tags: ['个人财务', '预算', '投资', '规划'],
+        rating: 4.2,
+        users: '25M+',
+        url: 'https://mint.com',
+        pros: ['完全免费', '功能全面', '易于使用'],
+        cons: ['广告较多', '隐私担忧', '美国为主'],
+        lastUpdated: '2024-12-10'
+    },
+    {
+        id: 'personal-capital-ai',
+        name: 'Personal Capital AI',
+        provider: 'Personal Capital',
+        category: 'finance',
+        description: 'Personal Capital的AI财富管理工具',
+        features: ['投资组合分析', '退休规划', '费用分析', '风险评估'],
+        pricing: '免费/付费咨询',
+        tags: ['财富管理', '投资', '退休', '风险'],
+        rating: 4.4,
+        users: '3M+',
+        url: 'https://personalcapital.com',
+        pros: ['投资专业', '分析详细', '免费使用'],
+        cons: ['推销较多', '复杂度高', '美国为主'],
+        lastUpdated: '2024-12-08'
+    },
+
+    // ===== 更多客户服务工具 =====
+    {
+        id: 'zendesk-ai',
+        name: 'Zendesk AI',
+        provider: 'Zendesk',
+        category: 'customer-service',
+        description: 'Zendesk的AI客户服务功能',
+        features: ['智能路由', '自动回复', '情感分析', '知识库'],
+        pricing: '付费 $19-215/月',
+        tags: ['客服', '路由', '自动', '知识库'],
+        rating: 4.3,
+        users: '100K+',
+        url: 'https://zendesk.com',
+        pros: ['客服专业', '功能全面', '集成丰富'],
+        cons: ['价格昂贵', '复杂度高', '学习成本'],
+        lastUpdated: '2024-12-12'
+    },
+    {
+        id: 'intercom-ai',
+        name: 'Intercom AI',
+        provider: 'Intercom',
+        category: 'customer-service',
+        description: 'Intercom的AI客户沟通平台',
+        features: ['聊天机器人', '客户洞察', '自动化流程', '个性化消息'],
+        pricing: '付费 $39-999/月',
+        tags: ['聊天机器人', '洞察', '自动化', '个性化'],
+        rating: 4.4,
+        users: '25K+',
+        url: 'https://intercom.com',
+        pros: ['用户体验好', '功能强大', '设计优秀'],
+        cons: ['价格很高', '复杂度高', '小企业不友好'],
+        lastUpdated: '2024-12-10'
+    },
+
+    // ===== 更多翻译工具 =====
+    {
+        id: 'deepl',
+        name: 'DeepL',
+        provider: 'DeepL',
+        category: 'translation',
+        description: '高质量AI翻译工具，翻译质量优于Google翻译',
+        features: ['高质量翻译', '文档翻译', '写作改进', 'API接口'],
+        pricing: '免费/Pro $6.99-57.99/月',
+        tags: ['翻译', '高质量', '文档', 'API'],
+        rating: 4.8,
+        users: '1B+',
+        url: 'https://deepl.com',
+        pros: ['翻译质量最高', '支持文档', '价格合理'],
+        cons: ['语言支持有限', '免费版限制', '功能相对单一'],
+        lastUpdated: '2024-12-15'
+    },
+    {
+        id: 'google-translate',
+        name: 'Google Translate',
+        provider: 'Google',
+        category: 'translation',
+        description: 'Google的免费翻译服务，支持最多语言',
+        features: ['多语言支持', '图像翻译', '语音翻译', '实时翻译'],
+        pricing: '免费',
+        tags: ['多语言', '图像', '语音', '实时'],
+        rating: 4.5,
+        users: '500M+',
+        url: 'https://translate.google.com',
+        pros: ['完全免费', '语言最多', '功能丰富'],
+        cons: ['质量一般', '隐私担忧', '依赖网络'],
+        lastUpdated: '2024-12-12'
+    },
+
+    // ===== 更多安全工具 =====
+    {
+        id: 'darktrace',
+        name: 'Darktrace',
+        provider: 'Darktrace',
+        category: 'security',
+        description: 'AI驱动的网络安全防护平台',
+        features: ['威胁检测', '异常分析', '自动响应', '网络监控'],
+        pricing: '企业定价',
+        tags: ['网络安全', '威胁检测', '异常', '监控'],
+        rating: 4.4,
+        users: '6K+企业',
+        url: 'https://darktrace.com',
+        pros: ['AI技术先进', '检测准确', '自动响应'],
+        cons: ['价格昂贵', '复杂度高', '误报可能'],
+        lastUpdated: '2024-12-08'
+    },
+    {
+        id: 'crowdstrike-ai',
+        name: 'CrowdStrike AI',
+        provider: 'CrowdStrike',
+        category: 'security',
+        description: 'CrowdStrike的AI网络安全平台',
+        features: ['端点保护', '威胁情报', '事件响应', '云安全'],
+        pricing: '企业定价',
+        tags: ['端点保护', '威胁情报', '响应', '云安全'],
+        rating: 4.6,
+        users: '20K+企业',
+        url: 'https://crowdstrike.com',
+        pros: ['技术领先', '响应快速', '云原生'],
+        cons: ['价格很高', '复杂部署', '资源消耗'],
+        lastUpdated: '2024-12-10'
     }
+],
+
+    // AI代理数据
+    agents: [
+        {
+            id: 'autogpt-agent',
+            name: 'AutoGPT',
+            provider: 'Significant Gravitas',
+            type: 'autonomous',
+            category: 'automation',
+            description: '开源自主AI代理，能够独立规划和执行复杂任务',
+            capabilities: ['任务规划', '工具使用', '文件操作', '网络搜索', '代码执行'],
+            pricing: '开源免费',
+            tags: ['自主', '开源', '任务规划', '工具调用'],
+            rating: 4.2,
+            users: '1M+',
+            url: 'https://github.com/Significant-Gravitas/AutoGPT',
+            pros: ['完全自主', '开源免费', '功能强大'],
+            cons: ['不稳定', '成本高', '需要监督'],
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'langchain-agents',
+            name: 'LangChain Agents',
+            provider: 'LangChain',
+            type: 'framework',
+            category: 'automation',
+            description: 'LangChain框架中的代理系统，支持多种代理类型',
+            capabilities: ['工具调用', '推理链', '记忆管理', '多模态', '自定义代理'],
+            pricing: '开源免费',
+            tags: ['框架', '工具调用', '推理', '自定义'],
+            rating: 4.6,
+            users: '500K+',
+            url: 'https://langchain.com',
+            pros: ['生态丰富', '高度可定制', '文档详细'],
+            cons: ['学习成本高', '复杂度高', '版本更新快'],
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'crew-ai-agents',
+            name: 'CrewAI',
+            provider: 'CrewAI',
+            type: 'multi-agent',
+            category: 'automation',
+            description: '多代理协作框架，让AI代理团队合作完成复杂任务',
+            capabilities: ['多代理协作', '角色分工', '任务分解', '工作流管理', '结果整合'],
+            pricing: '开源免费/云服务付费',
+            tags: ['多代理', '协作', '团队', '工作流'],
+            rating: 4.4,
+            users: '200K+',
+            url: 'https://crewai.com',
+            pros: ['协作能力强', '角色清晰', '易于使用'],
+            cons: ['相对较新', '文档待完善', '稳定性待提升'],
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'microsoft-copilot',
+            name: 'Microsoft Copilot',
+            provider: 'Microsoft',
+            type: 'assistant',
+            category: 'productivity',
+            description: 'Microsoft的AI助手，集成在Office和Windows中',
+            capabilities: ['文档编辑', '数据分析', '邮件处理', '会议总结', '代码生成'],
+            pricing: '$30/月/用户',
+            tags: ['Office集成', '生产力', '企业', '助手'],
+            rating: 4.5,
+            users: '100M+',
+            url: 'https://copilot.microsoft.com',
+            pros: ['深度集成', '企业级', '功能全面'],
+            cons: ['价格较高', '依赖生态', '隐私担忧'],
+            lastUpdated: '2024-12-15'
+        },
+        {
+            id: 'github-copilot',
+            name: 'GitHub Copilot',
+            provider: 'GitHub/Microsoft',
+            type: 'specialized',
+            category: 'code-assistant',
+            description: '专门的AI编程助手，集成在各种代码编辑器中',
+            capabilities: ['代码补全', '函数生成', '测试编写', '代码解释', '重构建议'],
+            pricing: '$10/月个人，$19/月企业',
+            tags: ['编程', '代码', 'IDE集成', '专业'],
+            rating: 4.7,
+            users: '5M+',
+            url: 'https://github.com/features/copilot',
+            pros: ['编程专业', 'IDE集成好', '质量高'],
+            cons: ['仅限编程', '需要订阅', '版权争议'],
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'anthropic-claude-agents',
+            name: 'Claude Computer Use',
+            provider: 'Anthropic',
+            type: 'autonomous',
+            category: 'automation',
+            description: 'Claude的计算机使用能力，可以直接操作计算机界面',
+            capabilities: ['屏幕操作', '应用控制', '文件管理', '网页交互', '任务自动化'],
+            pricing: 'Claude API定价',
+            tags: ['计算机操作', '界面控制', '自动化', '多模态'],
+            rating: 4.6,
+            users: 'API用户',
+            url: 'https://claude.ai',
+            pros: ['直接操作界面', '功能强大', '安全性高'],
+            cons: ['仍在测试', '成本较高', '速度较慢'],
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'openai-assistants',
+            name: 'OpenAI Assistants',
+            provider: 'OpenAI',
+            type: 'assistant',
+            category: 'automation',
+            description: 'OpenAI的助手API，支持工具调用和文件处理',
+            capabilities: ['工具调用', '文件处理', '代码执行', '知识检索', '对话管理'],
+            pricing: 'OpenAI API定价',
+            tags: ['API', '工具调用', '文件处理', '助手'],
+            rating: 4.5,
+            users: 'API用户',
+            url: 'https://platform.openai.com/docs/assistants',
+            pros: ['官方支持', '功能丰富', '易于集成'],
+            cons: ['API限制', '成本累积', '依赖网络'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'google-duet-ai',
+            name: 'Google Duet AI',
+            provider: 'Google',
+            type: 'assistant',
+            category: 'productivity',
+            description: 'Google Workspace的AI助手',
+            capabilities: ['文档编写', '表格分析', '演示制作', '邮件处理', '会议辅助'],
+            pricing: '$30/月/用户',
+            tags: ['Google Workspace', '生产力', '协作', '企业'],
+            rating: 4.3,
+            users: '3B+ Workspace用户',
+            url: 'https://workspace.google.com/solutions/ai',
+            pros: ['深度集成', '协作友好', '多语言'],
+            cons: ['价格较高', '功能有限', '依赖生态'],
+            lastUpdated: '2024-12-05'
+        },
+        {
+            id: 'zapier-central',
+            name: 'Zapier Central',
+            provider: 'Zapier',
+            type: 'autonomous',
+            category: 'automation',
+            description: 'Zapier的AI代理，能够自动化复杂的工作流程',
+            capabilities: ['工作流自动化', '应用连接', '数据处理', '任务调度', '错误处理'],
+            pricing: 'Zapier订阅的一部分',
+            tags: ['自动化', '工作流', '应用连接', '无代码'],
+            rating: 4.4,
+            users: '6M+',
+            url: 'https://zapier.com/central',
+            pros: ['应用丰富', '易于使用', '稳定可靠'],
+            cons: ['价格较高', '复杂任务限制', '依赖第三方'],
+            lastUpdated: '2024-12-12'
+        },
+        {
+            id: 'adept-act1',
+            name: 'Adept ACT-1',
+            provider: 'Adept',
+            type: 'autonomous',
+            category: 'automation',
+            description: 'Adept的通用AI代理，能够操作任何软件界面',
+            capabilities: ['软件操作', '界面理解', '任务执行', '学习适应', '多应用协调'],
+            pricing: '未公开',
+            tags: ['通用操作', '软件控制', '界面理解', '学习'],
+            rating: 4.7,
+            users: '内测中',
+            url: 'https://adept.ai',
+            pros: ['通用性强', '技术先进', '学习能力'],
+            cons: ['未公开发布', '安全风险', '成本未知'],
+            lastUpdated: '2024-12-01'
+        },
+        {
+            id: 'rabbit-r1',
+            name: 'Rabbit R1',
+            provider: 'Rabbit Inc.',
+            type: 'specialized',
+            category: 'automation',
+            description: 'Rabbit的AI设备和代理系统',
+            capabilities: ['应用操作', '任务自动化', '语音交互', '学习模仿', '设备控制'],
+            pricing: '$199设备',
+            tags: ['硬件设备', '应用操作', '语音', '学习'],
+            rating: 4.0,
+            users: '100K+',
+            url: 'https://rabbit.tech',
+            pros: ['硬件集成', '操作直观', '学习能力'],
+            cons: ['硬件依赖', '功能有限', '生态较小'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'multi-on',
+            name: 'MultiOn',
+            provider: 'MultiOn',
+            type: 'autonomous',
+            category: 'automation',
+            description: 'Web自动化AI代理，能够在浏览器中执行复杂任务',
+            capabilities: ['网页自动化', '表单填写', '数据提取', '购物助手', '预订服务'],
+            pricing: '免费/付费计划',
+            tags: ['网页自动化', '浏览器', '数据提取', '购物'],
+            rating: 4.2,
+            users: '500K+',
+            url: 'https://multion.ai',
+            pros: ['网页专业', '自动化强', '易于使用'],
+            cons: ['仅限网页', '稳定性一般', '功能有限'],
+            lastUpdated: '2024-12-10'
+        },
+        {
+            id: 'agent-gpt',
+            name: 'AgentGPT',
+            provider: 'AgentGPT',
+            type: 'autonomous',
+            category: 'automation',
+            description: '基于Web的自主AI代理平台',
+            capabilities: ['目标设定', '任务分解', '自主执行', '结果评估', '迭代改进'],
+            pricing: '免费/Pro $20/月',
+            tags: ['Web平台', '自主', '目标导向', '迭代'],
+            rating: 4.1,
+            users: '1M+',
+            url: 'https://agentgpt.reworkd.ai',
+            pros: ['Web界面', '易于使用', '开源'],
+            cons: ['功能基础', '稳定性一般', '成本控制'],
+            lastUpdated: '2024-12-05'
+        },
+        {
+            id: 'superagent',
+            name: 'Superagent',
+            provider: 'Superagent',
+            type: 'framework',
+            category: 'automation',
+            description: '构建和部署AI代理的开源框架',
+            capabilities: ['代理构建', '工具集成', '部署管理', '监控分析', '扩展性'],
+            pricing: '开源免费/云服务付费',
+            tags: ['框架', '构建', '部署', '开源'],
+            rating: 4.3,
+            users: '100K+',
+            url: 'https://superagent.sh',
+            pros: ['开源免费', '易于部署', '扩展性好'],
+            cons: ['相对较新', '文档待完善', '社区较小'],
+            lastUpdated: '2024-12-08'
+        },
+        {
+            id: 'semantic-kernel',
+            name: 'Semantic Kernel',
+            provider: 'Microsoft',
+            type: 'framework',
+            category: 'automation',
+            description: 'Microsoft的AI代理开发框架',
+            capabilities: ['技能组合', '规划器', '连接器', '记忆系统', '插件架构'],
+            pricing: '开源免费',
+            tags: ['Microsoft', '框架', '技能', '规划'],
+            rating: 4.4,
+            users: '200K+',
+            url: 'https://github.com/microsoft/semantic-kernel',
+            pros: ['Microsoft支持', '架构清晰', '文档详细'],
+            cons: ['相对复杂', '学习成本', '主要.NET'],
+            lastUpdated: '2024-12-12'
+        }
+    ]
 ]
 };
+
+// 辅助函数
+aiToolsDatabase.utils = {
+    // 获取统计信息
+    getStats: function () {
+        return {
+            totalTools: this.tools.length,
+            totalModels: this.models.length,
+            totalAgents: this.agents.length,
+            totalCategories: Object.keys(this.categories).length,
+            totalModelTypes: Object.keys(this.modelTypes).length,
+            totalAgentTypes: Object.keys(this.agentTypes).length,
+            lastUpdated: new Date().toISOString().split('T')[0]
+        };
+    },
+
+    // 按分类获取工具
+    getToolsByCategory: function (category) {
+        return this.tools.filter(tool => tool.category === category);
+    },
+
+    // 按提供商获取工具
+    getToolsByProvider: function (provider) {
+        return this.tools.filter(tool => tool.provider === provider);
+    },
+
+    // 按评分获取工具
+    getToolsByRating: function (minRating = 4.0) {
+        return this.tools.filter(tool => tool.rating >= minRating);
+    },
+
+    // 获取免费工具
+    getFreeTools: function () {
+        return this.tools.filter(tool =>
+            tool.pricing.toLowerCase().includes('免费') ||
+            tool.pricing.toLowerCase().includes('free') ||
+            tool.pricing.toLowerCase().includes('开源')
+        );
+    },
+
+    // 按类型获取模型
+    getModelsByType: function (type) {
+        return this.models.filter(model => model.type.includes(type));
+    },
+
+    // 按提供商获取模型
+    getModelsByProvider: function (provider) {
+        return this.models.filter(model => model.provider === provider);
+    },
+
+    // 获取开源模型
+    getOpenSourceModels: function () {
+        return this.models.filter(model =>
+            model.pricing.toLowerCase().includes('开源') ||
+            model.pricing.toLowerCase().includes('免费') ||
+            model.pricing.toLowerCase().includes('free')
+        );
+    },
+
+    // 按类型获取代理
+    getAgentsByType: function (type) {
+        return this.agents.filter(agent => agent.type === type);
+    },
+
+    // 搜索工具
+    searchTools: function (query) {
+        const lowerQuery = query.toLowerCase();
+        return this.tools.filter(tool =>
+            tool.name.toLowerCase().includes(lowerQuery) ||
+            tool.description.toLowerCase().includes(lowerQuery) ||
+            tool.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
+        );
+    },
+
+    // 搜索模型
+    searchModels: function (query) {
+        const lowerQuery = query.toLowerCase();
+        return this.models.filter(model =>
+            model.name.toLowerCase().includes(lowerQuery) ||
+            model.description.toLowerCase().includes(lowerQuery) ||
+            model.features.some(feature => feature.toLowerCase().includes(lowerQuery))
+        );
+    },
+
+    // 搜索代理
+    searchAgents: function (query) {
+        const lowerQuery = query.toLowerCase();
+        return this.agents.filter(agent =>
+            agent.name.toLowerCase().includes(lowerQuery) ||
+            agent.description.toLowerCase().includes(lowerQuery) ||
+            agent.capabilities.some(cap => cap.toLowerCase().includes(lowerQuery))
+        );
+    },
+
+    // 获取热门工具（按用户数）
+    getPopularTools: function (limit = 10) {
+        return this.tools
+            .filter(tool => tool.users)
+            .sort((a, b) => {
+                const aUsers = this.parseUserCount(a.users);
+                const bUsers = this.parseUserCount(b.users);
+                return bUsers - aUsers;
+            })
+            .slice(0, limit);
+    },
+
+    // 解析用户数量
+    parseUserCount: function (userStr) {
+        if (!userStr) return 0;
+        const num = parseFloat(userStr.replace(/[^\d.]/g, ''));
+        if (userStr.includes('B')) return num * 1000000000;
+        if (userStr.includes('M')) return num * 1000000;
+        if (userStr.includes('K')) return num * 1000;
+        return num;
+    },
+
+    // 获取最新更新的工具
+    getRecentlyUpdated: function (limit = 10) {
+        return this.tools
+            .sort((a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated))
+            .slice(0, limit);
+    },
+
+    // 获取推荐工具（基于评分和用户数）
+    getRecommendedTools: function (limit = 10) {
+        return this.tools
+            .filter(tool => tool.rating >= 4.0 && tool.users)
+            .sort((a, b) => {
+                const scoreA = a.rating * Math.log10(this.parseUserCount(a.users) + 1);
+                const scoreB = b.rating * Math.log10(this.parseUserCount(b.users) + 1);
+                return scoreB - scoreA;
+            })
+            .slice(0, limit);
+    },
+
+    // 获取分类统计
+    getCategoryStats: function () {
+        const stats = {};
+        Object.keys(this.categories).forEach(category => {
+            stats[category] = {
+                name: this.categories[category].name,
+                icon: this.categories[category].icon,
+                toolCount: this.tools.filter(tool => tool.category === category).length,
+                avgRating: this.getAverageRating(this.tools.filter(tool => tool.category === category))
+            };
+        });
+        return stats;
+    },
+
+    // 计算平均评分
+    getAverageRating: function (items) {
+        if (items.length === 0) return 0;
+        const sum = items.reduce((acc, item) => acc + (item.rating || 0), 0);
+        return Math.round((sum / items.length) * 10) / 10;
+    },
+
+    // 获取提供商统计
+    getProviderStats: function () {
+        const providers = {};
+        this.tools.forEach(tool => {
+            if (!providers[tool.provider]) {
+                providers[tool.provider] = {
+                    toolCount: 0,
+                    avgRating: 0,
+                    tools: []
+                };
+            }
+            providers[tool.provider].toolCount++;
+            providers[tool.provider].tools.push(tool);
+        });
+
+        Object.keys(providers).forEach(provider => {
+            providers[provider].avgRating = this.getAverageRating(providers[provider].tools);
+        });
+
+        return providers;
+    },
+
+    // 获取价格统计
+    getPricingStats: function () {
+        const pricing = {
+            free: 0,
+            freemium: 0,
+            paid: 0,
+            enterprise: 0
+        };
+
+        this.tools.forEach(tool => {
+            const price = tool.pricing.toLowerCase();
+            if (price.includes('免费') || price.includes('free') || price.includes('开源')) {
+                if (price.includes('/') || price.includes('pro') || price.includes('plus')) {
+                    pricing.freemium++;
+                } else {
+                    pricing.free++;
+                }
+            } else if (price.includes('企业') || price.includes('enterprise')) {
+                pricing.enterprise++;
+            } else {
+                pricing.paid++;
+            }
+        });
+
+        return pricing;
+    }
+};
+
+// 绑定工具函数到数据库对象
+Object.keys(aiToolsDatabase.utils).forEach(key => {
+    if (typeof aiToolsDatabase.utils[key] === 'function') {
+        aiToolsDatabase.utils[key] = aiToolsDatabase.utils[key].bind(aiToolsDatabase);
+    }
+});
 
 // 导出数据库
 if (typeof module !== 'undefined' && module.exports) {

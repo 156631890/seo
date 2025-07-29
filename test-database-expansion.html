@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具数据库扩展测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .category-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .tool-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .tool-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .rating {
+            color: #ffc107;
+        }
+        .tag {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .section {
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 AI工具数据库扩展测试</h1>
+    
+    <div class="section">
+        <h2>📊 数据库统计</h2>
+        <div class="stats-grid" id="stats-grid"></div>
+    </div>
+
+    <div class="section">
+        <h2>📂 分类统计</h2>
+        <div class="category-grid" id="category-grid"></div>
+    </div>
+
+    <div class="section">
+        <h2>🔥 热门工具 (Top 10)</h2>
+        <div class="tool-list" id="popular-tools"></div>
+    </div>
+
+    <div class="section">
+        <h2>⭐ 推荐工具 (Top 10)</h2>
+        <div class="tool-list" id="recommended-tools"></div>
+    </div>
+
+    <div class="section">
+        <h2>🆕 最新模型 (Top 10)</h2>
+        <div class="tool-list" id="latest-models"></div>
+    </div>
+
+    <div class="section">
+        <h2>🤖 AI代理 (Top 10)</h2>
+        <div class="tool-list" id="top-agents"></div>
+    </div>
+
+    <div class="section">
+        <h2>💰 免费工具</h2>
+        <div class="tool-list" id="free-tools"></div>
+    </div>
+
+    <script src="ai-tools-database.js"></script>
+    <script>
+        // 显示统计信息
+        function displayStats() {
+            const stats = aiToolsDatabase.utils.getStats();
+            const statsGrid = document.getElementById('stats-grid');
+            
+            const statItems = [
+                { label: '工具总数', value: stats.totalTools },
+                { label: '模型总数', value: stats.totalModels },
+                { label: '代理总数', value: stats.totalAgents },
+                { label: '分类总数', value: stats.totalCategories },
+                { label: '模型类型', value: stats.totalModelTypes },
+                { label: '代理类型', value: stats.totalAgentTypes }
+            ];
+
+            statsGrid.innerHTML = statItems.map(item => `
+                <div class="stat-card">
+                    <div class="stat-number">${item.value}</div>
+                    <div>${item.label}</div>
+                </div>
+            `).join('');
+        }
+
+        // 显示分类统计
+        function displayCategoryStats() {
+            const categoryStats = aiToolsDatabase.utils.getCategoryStats();
+            const categoryGrid = document.getElementById('category-grid');
+            
+            categoryGrid.innerHTML = Object.entries(categoryStats)
+                .sort((a, b) => b[1].toolCount - a[1].toolCount)
+                .slice(0, 12)
+                .map(([key, category]) => `
+                    <div class="category-card">
+                        <h3>${category.icon} ${category.name}</h3>
+                        <p>工具数量: <strong>${category.toolCount}</strong></p>
+                        <p>平均评分: <span class="rating">⭐ ${category.avgRating}</span></p>
+                    </div>
+                `).join('');
+        }
+
+        // 显示工具列表
+        function displayTools(tools, containerId, limit = 10) {
+            const container = document.getElementById(containerId);
+            const limitedTools = tools.slice(0, limit);
+            
+            container.innerHTML = limitedTools.map(tool => `
+                <div class="tool-card">
+                    <h3>${tool.name}</h3>
+                    <p><strong>提供商:</strong> ${tool.provider}</p>
+                    <p><strong>分类:</strong> ${aiToolsDatabase.categories[tool.category]?.name || tool.category}</p>
+                    <p>${tool.description}</p>
+                    <p><strong>评分:</strong> <span class="rating">⭐ ${tool.rating}</span></p>
+                    <p><strong>用户:</strong> ${tool.users || 'N/A'}</p>
+                    <p><strong>价格:</strong> ${tool.pricing}</p>
+                    <div>
+                        ${(tool.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 显示模型列表
+        function displayModels(models, containerId, limit = 10) {
+            const container = document.getElementById(containerId);
+            const limitedModels = models.slice(0, limit);
+            
+            container.innerHTML = limitedModels.map(model => `
+                <div class="tool-card">
+                    <h3>${model.name}</h3>
+                    <p><strong>提供商:</strong> ${model.provider}</p>
+                    <p><strong>类型:</strong> ${model.type}</p>
+                    <p>${model.description}</p>
+                    <p><strong>评分:</strong> <span class="rating">⭐ ${model.rating}</span></p>
+                    <p><strong>价格:</strong> ${model.pricing}</p>
+                    <p><strong>特性:</strong> ${model.features.join(', ')}</p>
+                    <p><strong>更新时间:</strong> ${model.lastUpdated}</p>
+                </div>
+            `).join('');
+        }
+
+        // 显示代理列表
+        function displayAgents(agents, containerId, limit = 10) {
+            const container = document.getElementById(containerId);
+            const limitedAgents = agents.slice(0, limit);
+            
+            container.innerHTML = limitedAgents.map(agent => `
+                <div class="tool-card">
+                    <h3>${agent.name}</h3>
+                    <p><strong>提供商:</strong> ${agent.provider}</p>
+                    <p><strong>类型:</strong> ${aiToolsDatabase.agentTypes[agent.type]?.name || agent.type}</p>
+                    <p>${agent.description}</p>
+                    <p><strong>评分:</strong> <span class="rating">⭐ ${agent.rating}</span></p>
+                    <p><strong>用户:</strong> ${agent.users || 'N/A'}</p>
+                    <p><strong>价格:</strong> ${agent.pricing}</p>
+                    <p><strong>能力:</strong> ${agent.capabilities.join(', ')}</p>
+                    <div>
+                        ${(agent.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 初始化页面
+        function init() {
+            displayStats();
+            displayCategoryStats();
+            
+            // 显示热门工具
+            const popularTools = aiToolsDatabase.utils.getPopularTools(10);
+            displayTools(popularTools, 'popular-tools');
+            
+            // 显示推荐工具
+            const recommendedTools = aiToolsDatabase.utils.getRecommendedTools(10);
+            displayTools(recommendedTools, 'recommended-tools');
+            
+            // 显示最新模型
+            const latestModels = aiToolsDatabase.models
+                .sort((a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated))
+                .slice(0, 10);
+            displayModels(latestModels, 'latest-models');
+            
+            // 显示顶级代理
+            const topAgents = aiToolsDatabase.agents
+                .sort((a, b) => b.rating - a.rating)
+                .slice(0, 10);
+            displayAgents(topAgents, 'top-agents');
+            
+            // 显示免费工具
+            const freeTools = aiToolsDatabase.utils.getFreeTools().slice(0, 12);
+            displayTools(freeTools, 'free-tools', 12);
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
