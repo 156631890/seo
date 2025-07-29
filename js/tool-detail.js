@@ -71,10 +71,113 @@ class ToolDetailPage {
    * @param {string} message 错误信息
    */
   showError(message) {
-    const errorEl = document.createElement('div');
-    errorEl.style.cssText = 'background:#fef2f2;color:#dc2626;padding:1rem;border-radius:0.375rem;margin:2rem auto;max-width:600px;text-align:center;';
-    errorEl.innerHTML = `<p>${message}</p><p><a href="/tools.html" style="color:#2563eb;text-decoration:underline;">返回工具列表</a></p>`;
-    document.body.appendChild(errorEl);
+    // 隐藏加载状态
+    this.hideLoading();
+    
+    // 清空页面内容
+    document.body.innerHTML = '';
+    
+    // 创建错误页面
+    const errorPage = document.createElement('div');
+    errorPage.style.cssText = 'font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background: #f5f5f5; min-height: 100vh;';
+    
+    errorPage.innerHTML = `
+      <div style="max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
+        <div style="font-size: 4rem; color: #dc3545; margin-bottom: 20px;">⚠️</div>
+        <h1 style="color: #dc3545; margin-bottom: 20px;">加载详情失败</h1>
+        
+        <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin: 20px 0; border: 1px solid #f5c6cb;">
+          <strong>错误信息:</strong> ${message}
+          <br><br>
+          <strong>可能的原因:</strong>
+          <ul style="text-align: left; margin-top: 10px;">
+            <li>工具ID不存在或无效</li>
+            <li>数据加载出现问题</li>
+            <li>网络连接异常</li>
+          </ul>
+        </div>
+
+        <div style="margin: 30px 0;">
+          <a href="/tools.html" style="display: inline-block; background: #007bff; color: white; text-decoration: none; padding: 12px 24px; border-radius: 5px; margin: 10px; transition: background 0.3s;">🔙 返回工具列表</a>
+          <a href="/index.html" style="display: inline-block; background: #28a745; color: white; text-decoration: none; padding: 12px 24px; border-radius: 5px; margin: 10px; transition: background 0.3s;">🏠 返回首页</a>
+          <a href="javascript:history.back()" style="display: inline-block; background: #6c757d; color: white; text-decoration: none; padding: 12px 24px; border-radius: 5px; margin: 10px; transition: background 0.3s;">↩️ 返回上一页</a>
+          <a href="javascript:location.reload()" style="display: inline-block; background: #ffc107; color: #212529; text-decoration: none; padding: 12px 24px; border-radius: 5px; margin: 10px; transition: background 0.3s;">🔄 重新加载</a>
+        </div>
+
+        <div style="margin-top: 30px; text-align: left;">
+          <h2>热门工具推荐</h2>
+          <div id="popular-tools-fallback" style="color: #666; font-style: italic;">正在加载热门工具...</div>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(errorPage);
+    
+    // 尝试加载热门工具作为备选
+    this.loadPopularToolsFallback();
+  }
+
+  /**
+   * 加载热门工具作为错误页面的备选内容
+   */
+  async loadPopularToolsFallback() {
+    try {
+      const container = document.getElementById('popular-tools-fallback');
+      if (!container) return;
+      
+      // 尝试从全局数据库获取热门工具
+      if (typeof aiToolsDatabase !== 'undefined' && aiToolsDatabase.tools) {
+        const popularTools = aiToolsDatabase.tools
+          .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+          .slice(0, 6);
+        
+        if (popularTools.length > 0) {
+          container.innerHTML = popularTools.map(tool => `
+            <div style="background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #007bff;">
+              <h3 style="margin: 0 0 10px 0; color: #007bff;">
+                <a href="/tool-detail.html?id=${tool.id}&type=tool" style="text-decoration: none; color: inherit;">${tool.name}</a>
+              </h3>
+              <p style="margin: 0; color: #666;">${tool.description || '暂无描述'}</p>
+              <p style="margin: 5px 0 0 0; font-size: 0.9em; color: #888;">
+                <strong>评分:</strong> ${tool.rating || 'N/A'} ⭐ | 
+                <strong>价格:</strong> ${tool.pricing || '未知'}
+              </p>
+            </div>
+          `).join('');
+        } else {
+          container.innerHTML = '<p style="color: #666;">暂无热门工具数据</p>';
+        }
+      } else {
+        // 尝试使用加载器获取数据
+        if (this.loader) {
+          const tools = await this.loader.getRecommendedTools(6);
+          if (tools && tools.length > 0) {
+            container.innerHTML = tools.map(tool => `
+              <div style="background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #007bff;">
+                <h3 style="margin: 0 0 10px 0; color: #007bff;">
+                  <a href="/tool-detail.html?id=${tool.id}&type=tool" style="text-decoration: none; color: inherit;">${tool.name}</a>
+                </h3>
+                <p style="margin: 0; color: #666;">${tool.description || '暂无描述'}</p>
+                <p style="margin: 5px 0 0 0; font-size: 0.9em; color: #888;">
+                  <strong>评分:</strong> ${tool.rating || 'N/A'} ⭐ | 
+                  <strong>价格:</strong> ${tool.pricing || '未知'}
+                </p>
+              </div>
+            `).join('');
+          } else {
+            container.innerHTML = '<p style="color: #666;">无法加载推荐工具</p>';
+          }
+        } else {
+          container.innerHTML = '<p style="color: #666;">数据加载器不可用</p>';
+        }
+      }
+    } catch (error) {
+      console.error('加载热门工具失败:', error);
+      const container = document.getElementById('popular-tools-fallback');
+      if (container) {
+        container.innerHTML = '<p style="color: #dc3545;">加载推荐工具时出现错误</p>';
+      }
+    }
   }
 
   /**
@@ -175,51 +278,61 @@ class ToolDetailPage {
         
         <h2>✨ 主要功能</h2>
         <div class="feature-list">
-          ${tool.features.map(feature => `
+          ${(tool.features || []).map(feature => `
             <div class="feature-item">
               <p>${feature}</p>
             </div>
           `).join('')}
         </div>
         
+        ${tool.pros || tool.cons ? `
         <h2>📊 优缺点分析</h2>
         <div class="pros-cons">
+          ${tool.pros ? `
           <div class="pros">
             <h3>✅ 优势</h3>
             <ul>
               ${tool.pros.map(pro => `<li>${pro}</li>`).join('')}
             </ul>
           </div>
+          ` : ''}
+          ${tool.cons ? `
           <div class="cons">
             <h3>❌ 劣势</h3>
             <ul>
               ${tool.cons.map(con => `<li>${con}</li>`).join('')}
             </ul>
           </div>
+          ` : ''}
         </div>
+        ` : ''}
         
         <h2>💡 使用建议</h2>
         <p>以下是使用${tool.name}的一些建议和最佳实践：</p>
         <div class="usage-steps">
           <div class="usage-step">
             <h4>了解基本功能</h4>
-            <p>首先熟悉${tool.name}的核心功能，包括${tool.features.slice(0, 2).join('和')}等。</p>
+            <p>首先熟悉${tool.name}的核心功能${tool.features && tool.features.length > 0 ? `，包括${tool.features.slice(0, 2).join('和')}等` : ''}。</p>
           </div>
           <div class="usage-step">
             <h4>选择合适的计划</h4>
-            <p>根据你的需求选择合适的价格计划，${tool.pricing.includes('免费') ? '可以先从免费版本开始尝试' : '考虑是否需要高级功能'}。</p>
+            <p>根据你的需求选择合适的价格计划，${tool.pricing && tool.pricing.includes('免费') ? '可以先从免费版本开始尝试' : '考虑是否需要高级功能'}。</p>
           </div>
+          ${tool.pros && tool.pros.length > 0 ? `
           <div class="usage-step">
             <h4>充分利用优势</h4>
-            <p>充分发挥${tool.name}的优势，特别是${tool.pros[0]}和${tool.pros[1] || tool.pros[0]}。</p>
+            <p>充分发挥${tool.name}的优势，特别是${tool.pros[0]}${tool.pros[1] ? `和${tool.pros[1]}` : ''}。</p>
           </div>
+          ` : ''}
         </div>
         
+        ${tool.tags && tool.tags.length > 0 ? `
         <h2>🎯 适用场景</h2>
         <p>${tool.name}特别适合以下场景：</p>
         <ul>
           ${tool.tags.map(tag => `<li>${tag}相关的工作</li>`).join('')}
         </ul>
+        ` : ''}
       `;
     }
 
@@ -236,12 +349,14 @@ class ToolDetailPage {
           <p>基于用户反馈和专业评测</p>
         </div>
         
+        ${tool.tags && tool.tags.length > 0 ? `
         <div class="info-card">
           <h3>🏷️ 标签</h3>
           <div class="tool-tags">
             ${tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
           </div>
         </div>
+        ` : ''}
         
         <div class="info-card">
           <h3>📅 更新信息</h3>
@@ -335,34 +450,42 @@ class ToolDetailPage {
         
         <h2>✨ 主要功能</h2>
         <div class="feature-list">
-          ${model.features.map(feature => `
+          ${(model.features || []).map(feature => `
             <div class="feature-item">
               <p>${feature}</p>
             </div>
           `).join('')}
         </div>
         
+        ${model.strengths || model.limitations ? `
         <h2>📊 优缺点分析</h2>
         <div class="pros-cons">
+          ${model.strengths ? `
           <div class="pros">
             <h3>✅ 优势</h3>
             <ul>
               ${model.strengths.map(strength => `<li>${strength}</li>`).join('')}
             </ul>
           </div>
+          ` : ''}
+          ${model.limitations ? `
           <div class="cons">
             <h3>❌ 限制</h3>
             <ul>
               ${model.limitations.map(limitation => `<li>${limitation}</li>`).join('')}
             </ul>
           </div>
+          ` : ''}
         </div>
+        ` : ''}
         
+        ${model.features && model.features.length > 0 ? `
         <h2>💡 使用场景</h2>
         <p>${model.name}特别适合以下场景：</p>
         <ul>
           ${model.features.map(feature => `<li>${feature}</li>`).join('')}
         </ul>
+        ` : ''}
         
         <h2>🔌 API访问</h2>
         <p>${model.apiAccess ? `${model.name}提供API访问，开发者可以将其集成到自己的应用中。` : `${model.name}目前不提供API访问。`}</p>
@@ -385,12 +508,14 @@ class ToolDetailPage {
           <p>基于专业评测和用户反馈</p>
         </div>
         
+        ${model.features && model.features.length > 0 ? `
         <div class="info-card">
           <h3>🏷️ 功能</h3>
           <div class="tool-tags">
             ${model.features.map(feature => `<span class="tag">${feature}</span>`).join('')}
           </div>
         </div>
+        ` : ''}
         
         <div class="info-card">
           <h3>📅 更新信息</h3>
@@ -484,7 +609,7 @@ class ToolDetailPage {
         
         <h2>✨ 主要功能</h2>
         <div class="feature-list">
-          ${agent.features.map(feature => `
+          ${(agent.features || []).map(feature => `
             <div class="feature-item">
               <p>${feature}</p>
             </div>
@@ -524,12 +649,14 @@ class ToolDetailPage {
           <p>基于开发者反馈和社区评价</p>
         </div>
         
+        ${agent.tags && agent.tags.length > 0 ? `
         <div class="info-card">
           <h3>🏷️ 标签</h3>
           <div class="tool-tags">
             ${agent.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
           </div>
         </div>
+        ` : ''}
         
         <div class="info-card">
           <h3>📊 GitHub统计</h3>
@@ -585,16 +712,20 @@ class ToolDetailPage {
         .filter(tool => tool.category === this.item.category && tool.id !== this.item.id)
         .slice(0, 3);
 
-      relatedContainer.innerHTML = relatedTools.map(tool => `
-        <div class="related-tool-card">
-          <h4><a href="/tool-detail.html?id=${tool.id}&type=tool">${tool.name}</a></h4>
-          <p>${tool.description}</p>
-          <div class="rating-display">
-            <span class="stars">${'★'.repeat(Math.floor(tool.rating))}${'☆'.repeat(5-Math.floor(tool.rating))}</span>
-            <span>${tool.rating}</span>
+      if (relatedTools && relatedTools.length > 0) {
+        relatedContainer.innerHTML = relatedTools.map(tool => `
+          <div class="related-tool-card">
+            <h4><a href="/tool-detail.html?id=${tool.id}&type=tool">${tool.name}</a></h4>
+            <p>${tool.description || ''}</p>
+            <div class="rating-display">
+              <span class="stars">${'★'.repeat(Math.floor(tool.rating || 0))}${'☆'.repeat(5-Math.floor(tool.rating || 0))}</span>
+              <span>${tool.rating || 0}</span>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
+      } else {
+        relatedContainer.innerHTML = '<div style="color:#666;padding:20px;">暂无相关工具</div>';
+      }
     } catch (error) {
       console.error('渲染相关工具出错:', error);
       relatedContainer.innerHTML = '<div style="color:red;padding:20px;">加载相关工具失败</div>';
@@ -614,16 +745,20 @@ class ToolDetailPage {
         .filter(model => model.provider === this.item.provider && model.id !== this.item.id)
         .slice(0, 3);
 
-      relatedContainer.innerHTML = relatedModels.map(model => `
-        <div class="related-tool-card">
-          <h4><a href="/tool-detail.html?id=${model.id}&type=model">${model.name}</a></h4>
-          <p>${model.description}</p>
-          <div class="rating-display">
-            <span class="stars">${'★'.repeat(Math.floor(model.rating))}${'☆'.repeat(5-Math.floor(model.rating))}</span>
-            <span>${model.rating}</span>
+      if (relatedModels && relatedModels.length > 0) {
+        relatedContainer.innerHTML = relatedModels.map(model => `
+          <div class="related-tool-card">
+            <h4><a href="/tool-detail.html?id=${model.id}&type=model">${model.name}</a></h4>
+            <p>${model.description || ''}</p>
+            <div class="rating-display">
+              <span class="stars">${'★'.repeat(Math.floor(model.rating || 0))}${'☆'.repeat(5-Math.floor(model.rating || 0))}</span>
+              <span>${model.rating || 0}</span>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
+      } else {
+        relatedContainer.innerHTML = '<div style="color:#666;padding:20px;">暂无相关模型</div>';
+      }
     } catch (error) {
       console.error('渲染相关模型出错:', error);
       relatedContainer.innerHTML = '<div style="color:red;padding:20px;">加载相关模型失败</div>';
@@ -643,16 +778,20 @@ class ToolDetailPage {
         .filter(agent => agent.category === this.item.category && agent.id !== this.item.id)
         .slice(0, 3);
 
-      relatedContainer.innerHTML = relatedAgents.map(agent => `
-        <div class="related-tool-card">
-          <h4><a href="/tool-detail.html?id=${agent.id}&type=agent">${agent.name}</a></h4>
-          <p>${agent.description}</p>
-          <div class="rating-display">
-            <span class="stars">${'★'.repeat(Math.floor(agent.rating))}${'☆'.repeat(5-Math.floor(agent.rating))}</span>
-            <span>${agent.rating}</span>
+      if (relatedAgents && relatedAgents.length > 0) {
+        relatedContainer.innerHTML = relatedAgents.map(agent => `
+          <div class="related-tool-card">
+            <h4><a href="/tool-detail.html?id=${agent.id}&type=agent">${agent.name}</a></h4>
+            <p>${agent.description || ''}</p>
+            <div class="rating-display">
+              <span class="stars">${'★'.repeat(Math.floor(agent.rating || 0))}${'☆'.repeat(5-Math.floor(agent.rating || 0))}</span>
+              <span>${agent.rating || 0}</span>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
+      } else {
+        relatedContainer.innerHTML = '<div style="color:#666;padding:20px;">暂无相关Agent</div>';
+      }
     } catch (error) {
       console.error('渲染相关Agent出错:', error);
       relatedContainer.innerHTML = '<div style="color:red;padding:20px;">加载相关Agent失败</div>';
@@ -668,16 +807,20 @@ class ToolDetailPage {
     if (!relatedContainer || !relatedItems.length) return;
 
     try {
-      relatedContainer.innerHTML = relatedItems.map(item => `
-        <div class="related-tool-card">
-          <h4><a href="/tool-detail.html?id=${item.id}&type=${this.itemType}">${item.name}</a></h4>
-          <p>${item.description}</p>
-          <div class="rating-display">
-            <span class="stars">${'★'.repeat(Math.floor(item.rating))}${'☆'.repeat(5-Math.floor(item.rating))}</span>
-            <span>${item.rating}</span>
+      if (relatedItems && relatedItems.length > 0) {
+        relatedContainer.innerHTML = relatedItems.map(item => `
+          <div class="related-tool-card">
+            <h4><a href="/tool-detail.html?id=${item.id}&type=${this.itemType}">${item.name}</a></h4>
+            <p>${item.description || ''}</p>
+            <div class="rating-display">
+              <span class="stars">${'★'.repeat(Math.floor(item.rating || 0))}${'☆'.repeat(5-Math.floor(item.rating || 0))}</span>
+              <span>${item.rating || 0}</span>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
+      } else {
+        relatedContainer.innerHTML = '<div style="color:#666;padding:20px;">暂无相关项目</div>';
+      }
     } catch (error) {
       console.error('快速渲染相关项目出错:', error);
       relatedContainer.innerHTML = '<div style="color:#666;padding:20px;">暂无相关项目</div>';

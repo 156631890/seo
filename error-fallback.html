@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载失败 - 返回工具列表</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .error-icon {
+            font-size: 4rem;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #f5c6cb;
+        }
+        .back-btn {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        .back-btn:hover {
+            background: #0056b3;
+        }
+        .tools-list {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .tool-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        .tool-item h3 {
+            margin: 0 0 10px 0;
+            color: #007bff;
+        }
+        .tool-item p {
+            margin: 0;
+            color: #666;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-icon">⚠️</div>
+        <h1>加载详情失败</h1>
+        
+        <div class="error-message">
+            <strong>抱歉！</strong> 无法加载工具详情页面。这可能是由于：
+            <ul style="text-align: left; margin-top: 10px;">
+                <li>工具ID不存在或无效</li>
+                <li>数据加载出现问题</li>
+                <li>网络连接异常</li>
+            </ul>
+        </div>
+
+        <div>
+            <a href="/tools.html" class="back-btn">🔙 返回工具列表</a>
+            <a href="/index.html" class="back-btn">🏠 返回首页</a>
+            <a href="javascript:history.back()" class="back-btn">↩️ 返回上一页</a>
+        </div>
+
+        <div class="tools-list">
+            <h2>热门工具推荐</h2>
+            <div id="popular-tools" class="loading">正在加载热门工具...</div>
+        </div>
+    </div>
+
+    <script src="ai-tools-database.js"></script>
+    <script>
+        // 加载热门工具
+        function loadPopularTools() {
+            const container = document.getElementById('popular-tools');
+            
+            try {
+                if (typeof aiToolsDatabase !== 'undefined' && aiToolsDatabase.tools) {
+                    // 获取评分最高的前6个工具
+                    const popularTools = aiToolsDatabase.tools
+                        .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+                        .slice(0, 6);
+                    
+                    if (popularTools.length > 0) {
+                        container.innerHTML = popularTools.map(tool => `
+                            <div class="tool-item">
+                                <h3><a href="/tool-detail.html?id=${tool.id}&type=tool" style="text-decoration: none; color: inherit;">${tool.name}</a></h3>
+                                <p>${tool.description || '暂无描述'}</p>
+                                <p><strong>评分:</strong> ${tool.rating || 'N/A'} ⭐ | <strong>价格:</strong> ${tool.pricing || '未知'}</p>
+                            </div>
+                        `).join('');
+                    } else {
+                        container.innerHTML = '<p>暂无热门工具数据</p>';
+                    }
+                } else {
+                    container.innerHTML = '<p>数据库加载失败，请刷新页面重试</p>';
+                }
+            } catch (error) {
+                console.error('加载热门工具失败:', error);
+                container.innerHTML = '<p>加载热门工具时出现错误</p>';
+            }
+        }
+
+        // 页面加载完成后加载热门工具
+        document.addEventListener('DOMContentLoaded', () => {
+            // 延迟加载，确保数据库已加载
+            setTimeout(loadPopularTools, 1000);
+        });
+
+        // 如果数据库已经加载，立即加载热门工具
+        if (typeof aiToolsDatabase !== 'undefined') {
+            loadPopularTools();
+        }
+    </script>
+</body>
+</html>
