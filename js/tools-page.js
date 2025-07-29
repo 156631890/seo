@@ -129,11 +129,8 @@ class ToolsPage {
   async preloadOtherTabs() {
     try {
       // 预加载模型和Agent数据，但不立即渲染
-      const database = await this.loader.getDatabase();
-      
-      // 预处理数据，提高后续渲染速度
-      this.preProcessedModels = database.models;
-      this.preProcessedAgents = database.agents;
+      this.preProcessedModels = await this.loader.getModels();
+      this.preProcessedAgents = await this.loader.getAgents();
       
       console.log('其他标签页数据预加载完成');
     } catch (error) {
@@ -338,8 +335,11 @@ class ToolsPage {
         return;
       }
 
+      // 获取分类数据用于渲染
+      const categories = await this.loader.getCategories();
+
       // 优化：分批渲染，避免一次性渲染大量DOM元素
-      await this.renderToolsInBatches(toolsToRender, database, toolsContainer);
+      await this.renderToolsInBatches(toolsToRender, categories, toolsContainer);
     } catch (error) {
       console.error('渲染工具列表出错:', error);
       toolsContainer.innerHTML = `<div style="color:red;padding:20px;">${i18n.t('common.error')}: ${error.message}</div>`;
@@ -349,21 +349,21 @@ class ToolsPage {
   /**
    * 超快渲染工具卡片 - 一次性渲染，减少DOM操作
    */
-  async renderToolsInBatches(tools, database, container) {
+  async renderToolsInBatches(tools, categories, container) {
     // 快速模式：一次性渲染所有内容
-    const allHtml = this.generateToolsHTML(tools, database);
+    const allHtml = this.generateToolsHTML(tools, categories);
     container.innerHTML = allHtml;
   }
 
   /**
    * 生成工具HTML
    */
-  generateToolsHTML(tools, database) {
+  generateToolsHTML(tools, categories) {
     return tools.map(tool => {
       try {
         // 获取分类名称，支持多语言
         let categoryName = tool.category;
-        if (database.categories[tool.category]) {
+        if (categories && categories[tool.category]) {
           const categoryKey = `categories.${tool.category}.name`;
           categoryName = i18n.t(categoryKey);
         }
@@ -414,7 +414,7 @@ class ToolsPage {
 
     try {
       // 优先使用预处理的数据
-      const modelsToRender = models || this.preProcessedModels || (await this.loader.getDatabase()).models;
+      const modelsToRender = models || this.preProcessedModels || await this.loader.getModels();
 
       if (modelsToRender.length === 0) {
         modelsContainer.innerHTML = '<div style="padding:20px;text-align:center;">没有找到匹配的模型</div>';
@@ -480,7 +480,7 @@ class ToolsPage {
 
     try {
       // 优先使用预处理的数据
-      const agentsToRender = agents || this.preProcessedAgents || (await this.loader.getDatabase()).agents;
+      const agentsToRender = agents || this.preProcessedAgents || await this.loader.getAgents();
 
       if (agentsToRender.length === 0) {
         agentsContainer.innerHTML = '<div style="padding:20px;text-align:center;">没有找到匹配的Agent</div>';
@@ -544,8 +544,7 @@ class ToolsPage {
     if (!comparisonContainer) return;
 
     try {
-      const database = await this.loader.getDatabase();
-      const models = database.models;
+      const models = await this.loader.getModels();
 
       comparisonContainer.innerHTML = `
         <table class="comparison-table">
@@ -748,10 +747,7 @@ class ToolsPage {
       
       // 筛选工具
       if (this.currentTab === 'tools') {
-        const database = await this.loader.getDatabase();
-        const filteredTools = category === 'all' 
-          ? database.tools 
-          : database.tools.filter(tool => tool.category === category);
+        const filteredTools = await this.loader.getTools(category === 'all' ? null : category);
         
         this.renderTools(filteredTools);
         
@@ -823,11 +819,7 @@ class ToolsPage {
   async resetSearch() {
     try {
       if (this.currentTab === 'tools') {
-        const database = await this.loader.getDatabase();
-        const filteredTools = this.currentCategory === 'all' 
-          ? database.tools 
-          : database.tools.filter(tool => tool.category === this.currentCategory);
-        
+        const filteredTools = await this.loader.getTools(this.currentCategory === 'all' ? null : this.currentCategory);
         this.renderTools(filteredTools);
       } else if (this.currentTab === 'models') {
         this.renderModels();

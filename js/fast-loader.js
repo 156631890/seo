@@ -349,6 +349,13 @@ window.fastAILoader.init();
 // 兼容性接口
 window.aiToolsLoader = {
   load: () => window.fastAILoader.init(),
+  init: () => window.fastAILoader.init(),
+  getCategories: () => window.fastAILoader.getCategories(),
+  getTools: (category) => window.fastAILoader.getTools(category),
+  getModels: () => window.fastAILoader.getModels(),
+  getAgents: () => window.fastAILoader.getAgents(),
+  getStats: () => window.fastAILoader.getStats(),
+  search: (query, type) => window.fastAILoader.search(query, type),
   searchTools: (query, category) => window.fastAILoader.search(query, 'tools').then(results => 
     category ? results.filter(r => r.category === category) : results
   ),
