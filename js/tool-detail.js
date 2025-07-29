@@ -29,11 +29,8 @@ class ToolDetailPage {
         return;
       }
 
-      // 加载数据库
-      await this.loader.load();
-
-      // 加载项目详情
-      await this.loadItemDetails();
+      // 使用快速加载器直接获取项目详情
+      await this.loadItemDetailsQuickly();
 
       // 隐藏加载状态
       this.hideLoading();
@@ -81,35 +78,49 @@ class ToolDetailPage {
   }
 
   /**
-   * 加载项目详情
+   * 快速加载项目详情
    */
-  async loadItemDetails() {
-    const database = await this.loader.getDatabase();
+  async loadItemDetailsQuickly() {
+    try {
+      // 使用快速详情加载器
+      this.item = await window.fastDetailLoader.getItemDetails(this.itemId, this.itemType);
 
-    // 根据类型获取项目
-    switch (this.itemType) {
-      case 'tool':
-        this.item = database.tools.find(t => t.id === this.itemId);
-        if (this.item) {
+      if (!this.item) {
+        this.showError('找不到指定的项目');
+        return;
+      }
+
+      // 根据类型渲染详情
+      switch (this.itemType) {
+        case 'tool':
           this.renderToolDetails();
-        }
-        break;
-      case 'model':
-        this.item = database.models.find(m => m.id === this.itemId);
-        if (this.item) {
+          break;
+        case 'model':
           this.renderModelDetails();
-        }
-        break;
-      case 'agent':
-        this.item = database.agents.find(a => a.id === this.itemId);
-        if (this.item) {
+          break;
+        case 'agent':
           this.renderAgentDetails();
-        }
-        break;
-    }
+          break;
+      }
 
-    if (!this.item) {
-      this.showError('找不到指定的项目');
+      // 异步加载相关项目
+      this.loadRelatedItemsAsync();
+    } catch (error) {
+      console.error('快速加载项目详情失败:', error);
+      this.showError('加载详情失败: ' + error.message);
+    }
+  }
+
+  /**
+   * 异步加载相关项目
+   */
+  async loadRelatedItemsAsync() {
+    try {
+      const relatedItems = await window.fastDetailLoader.getRelatedItems(this.item, this.itemType, 3);
+      this.renderRelatedItemsQuickly(relatedItems);
+    } catch (error) {
+      console.error('加载相关项目失败:', error);
+      // 不显示错误，只是不显示相关项目
     }
   }
 
@@ -645,6 +656,31 @@ class ToolDetailPage {
     } catch (error) {
       console.error('渲染相关Agent出错:', error);
       relatedContainer.innerHTML = '<div style="color:red;padding:20px;">加载相关Agent失败</div>';
+    }
+  }
+
+  /**
+   * 快速渲染相关项目
+   * @param {Array} relatedItems 相关项目列表
+   */
+  renderRelatedItemsQuickly(relatedItems) {
+    const relatedContainer = document.getElementById('related-tools');
+    if (!relatedContainer || !relatedItems.length) return;
+
+    try {
+      relatedContainer.innerHTML = relatedItems.map(item => `
+        <div class="related-tool-card">
+          <h4><a href="/tool-detail.html?id=${item.id}&type=${this.itemType}">${item.name}</a></h4>
+          <p>${item.description}</p>
+          <div class="rating-display">
+            <span class="stars">${'★'.repeat(Math.floor(item.rating))}${'☆'.repeat(5-Math.floor(item.rating))}</span>
+            <span>${item.rating}</span>
+          </div>
+        </div>
+      `).join('');
+    } catch (error) {
+      console.error('快速渲染相关项目出错:', error);
+      relatedContainer.innerHTML = '<div style="color:#666;padding:20px;">暂无相关项目</div>';
     }
   }
 }
