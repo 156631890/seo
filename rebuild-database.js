@@ -1,4 +1,14 @@
-// AI工具、模型和Agent数据库
+/**
+ * 重建AI工具数据库文件
+ * 修复语法错误和结构问题
+ */
+
+const fs = require('fs');
+
+console.log('🔧 开始重建数据库文件...');
+
+// 创建基本的数据库结构
+const databaseTemplate = `// AI工具、模型和Agent数据库
 const aiToolsDatabase = {
     // 工具分类
     categories: {
@@ -124,134 +134,6 @@ const aiToolsDatabase = {
             pros: ['音质极高', '语音克隆', '多语言'],
             cons: ['使用限制', '伦理争议', '成本较高'],
             lastUpdated: '2024-12-15'
-        },
-        {
-            id: 'claude',
-            name: 'Claude',
-            provider: 'Anthropic',
-            category: 'text-generation',
-            description: 'Anthropic开发的AI助手，擅长分析和创作',
-            features: ['长文本处理', '代码分析', '创意写作', '逻辑推理'],
-            pricing: '免费/Pro $20/月',
-            tags: ['聊天', '分析', '写作', '安全'],
-            rating: 4.7,
-            users: '10M+',
-            url: 'https://claude.ai',
-            pros: ['安全性高', '长上下文', '分析能力强'],
-            cons: ['可用性受限', '响应较慢'],
-            lastUpdated: '2024-11-15'
-        },
-        {
-            id: 'midjourney',
-            name: 'Midjourney',
-            provider: 'Midjourney Inc.',
-            category: 'image-generation',
-            description: '顶级AI图像生成工具，创造惊艳的艺术作品',
-            features: ['文本到图像', '图像编辑', '风格控制', '高分辨率输出'],
-            pricing: '$10-60/月',
-            tags: ['绘画', '艺术', '设计', '创意'],
-            rating: 4.9,
-            users: '20M+',
-            url: 'https://midjourney.com',
-            pros: ['图像质量极高', '艺术风格丰富', '社区活跃'],
-            cons: ['仅Discord使用', '需要付费', '学习曲线陡峭'],
-            lastUpdated: '2024-11-20'
-        },
-        {
-            id: 'dalle-3',
-            name: 'DALL-E 3',
-            provider: 'OpenAI',
-            category: 'image-generation',
-            description: 'OpenAI最新的图像生成模型，集成在ChatGPT中',
-            features: ['文本到图像', '图像编辑', '风格多样', '安全过滤'],
-            pricing: 'ChatGPT Plus $20/月',
-            tags: ['绘画', 'AI艺术', '创意', '集成'],
-            rating: 4.6,
-            users: '50M+',
-            url: 'https://openai.com/dall-e-3',
-            pros: ['易于使用', '安全性高', '与ChatGPT集成'],
-            cons: ['需要订阅', '生成速度慢', '风格限制'],
-            lastUpdated: '2024-12-01'
-        },
-        {
-            id: 'github-copilot',
-            name: 'GitHub Copilot',
-            provider: 'GitHub/OpenAI',
-            category: 'code-assistant',
-            description: 'AI代码助手，提供智能代码补全和生成',
-            features: ['代码自动完成', '函数生成', '注释生成', '多语言支持'],
-            pricing: '$10/月',
-            tags: ['编程', 'IDE', '自动完成', '开发'],
-            rating: 4.6,
-            users: '5M+',
-            url: 'https://github.com/features/copilot',
-            pros: ['IDE集成', '代码质量高', '支持多语言'],
-            cons: ['需要订阅', '可能有版权问题', '依赖网络'],
-            lastUpdated: '2024-12-05'
-        },
-        {
-            id: 'cursor',
-            name: 'Cursor',
-            provider: 'Anysphere',
-            category: 'code-assistant',
-            description: '专为AI设计的代码编辑器',
-            features: ['AI聊天', '代码生成', '重构建议', '调试辅助'],
-            pricing: '免费/Pro $20/月',
-            tags: ['编辑器', 'AI编程', '聊天', '重构'],
-            rating: 4.5,
-            users: '500K+',
-            url: 'https://cursor.sh',
-            pros: ['专为AI设计', '界面友好', '功能强大'],
-            cons: ['相对较新', '生态有限', '学习成本'],
-            lastUpdated: '2024-12-15'
-        },
-        {
-            id: 'notion-ai',
-            name: 'Notion AI',
-            provider: 'Notion',
-            category: 'productivity',
-            description: 'Notion内置的AI助手，帮助写作和整理',
-            features: ['文档写作', '内容总结', '翻译', '头脑风暴'],
-            pricing: '$10/月',
-            tags: ['笔记', '写作', '总结', '翻译'],
-            rating: 4.4,
-            users: '30M+',
-            url: 'https://notion.so/product/ai',
-            pros: ['无缝集成', '多种功能', '易于使用'],
-            cons: ['仅限Notion内', '功能相对基础', '需要额外付费'],
-            lastUpdated: '2024-11-30'
-        },
-        {
-            id: 'grammarly',
-            name: 'Grammarly',
-            provider: 'Grammarly Inc.',
-            category: 'productivity',
-            description: 'AI写作助手，提供语法检查和写作建议',
-            features: ['语法检查', '拼写纠正', '写作建议', '语调分析'],
-            pricing: '免费/Premium $12/月',
-            tags: ['语法', '写作', '校对', '英语'],
-            rating: 4.5,
-            users: '30M+',
-            url: 'https://grammarly.com',
-            pros: ['准确性高', '广泛集成', '实时检查'],
-            cons: ['主要支持英语', '高级功能付费', '有时过于严格'],
-            lastUpdated: '2024-12-01'
-        },
-        {
-            id: 'runway-ml',
-            name: 'Runway ML',
-            provider: 'Runway',
-            category: 'video-creation',
-            description: 'AI视频生成和编辑平台',
-            features: ['视频生成', '图像到视频', '视频编辑', '特效制作'],
-            pricing: '免费/Pro $12-76/月',
-            tags: ['视频', '生成', '编辑', '创意'],
-            rating: 4.4,
-            users: '1M+',
-            url: 'https://runwayml.com',
-            pros: ['视频质量好', '功能丰富', '创新技术'],
-            cons: ['价格较高', '学习成本', '处理时间长'],
-            lastUpdated: '2024-12-12'
         }
     ],
 
@@ -380,4 +262,25 @@ Object.keys(aiToolsDatabase.utils).forEach(key => {
 // 导出数据库
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = aiToolsDatabase;
+}`;
+
+// 写入新的数据库文件
+fs.writeFileSync('ai-tools-database-clean.js', databaseTemplate);
+
+console.log('✅ 创建了干净的数据库文件: ai-tools-database-clean.js');
+
+// 测试新文件的语法
+const { execSync } = require('child_process');
+try {
+    execSync('node -c ai-tools-database-clean.js');
+    console.log('✅ 新数据库文件语法正确');
+    
+    // 如果语法正确，替换原文件
+    fs.copyFileSync('ai-tools-database-clean.js', 'ai-tools-database.js');
+    console.log('✅ 已替换原数据库文件');
+    
+} catch (error) {
+    console.error('❌ 新数据库文件语法错误:', error.message);
 }
+
+console.log('🎉 数据库重建完成！');

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所有工具详情测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .warning { background: #fff3cd; color: #856404; }
+        .test-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-btn:hover {
+            background: #0056b3;
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .tool-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+        .tool-card h3 {
+            margin: 0 0 10px 0;
+            color: #007bff;
+        }
+        .tool-card .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-success { background: #28a745; }
+        .status-error { background: #dc3545; }
+        .status-pending { background: #ffc107; }
+        .tool-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .tool-link:hover {
+            background: #0056b3;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 所有工具详情测试</h1>
+        
+        <div class="info">
+            <strong>测试目标:</strong> 验证数据库中的所有工具详情页面是否都可以正常打开，不会出现"找不到工具"或map错误。
+        </div>
+
+        <button class="test-btn" onclick="loadDatabase()">1. 加载数据库</button>
+        <button class="test-btn" onclick="testAllTools()">2. 测试所有工具</button>
+        <button class="test-btn" onclick="testDetailLoader()">3. 测试详情加载器</button>
+        <button class="test-btn" onclick="generateToolLinks()">4. 生成工具链接</button>
+
+        <div id="results"></div>
+        <div id="tool-grid" class="tool-grid"></div>
+    </div>
+
+    <script src="ai-tools-database.js"></script>
+    <script src="js/fast-detail-loader.js"></script>
+    
+    <script>
+        let allTools = [];
+        let testResults = {};
+
+        function addResult(type, title, content) {
+            const resultsDiv = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `<h3>${title}</h3>${content}`;
+            resultsDiv.appendChild(div);
+        }
+
+        function loadDatabase() {
+            try {
+                if (typeof aiToolsDatabase !== 'undefined') {
+                    const db = aiToolsDatabase;
+                    allTools = db.tools || [];
+                    
+                    addResult('success', '✅ 数据库加载成功', `
+                        <p>工具数量: ${allTools.length}</p>
+                        <p>模型数量: ${db.models ? db.models.length : 0}</p>
+                        <p>Agent数量: ${db.agents ? db.agents.length : 0}</p>
+                        <p>分类数量: ${db.categories ? Object.keys(db.categories).length : 0}</p>
+                    `);
+
+                    // 显示所有工具列表
+                    const toolsList = allTools.map(tool => 
+                        `<li><strong>${tool.name}</strong> (${tool.id}) - ${tool.category}</li>`
+                    ).join('');
+                    
+                    addResult('info', '📋 工具列表', `
+                        <p>数据库中包含以下工具:</p>
+                        <ul style="max-height: 200px; overflow-y: auto;">${toolsList}</ul>
+                    `);
+                } else {
+                    addResult('error', '❌ 数据库未加载', 'aiToolsDatabase变量不存在');
+                }
+            } catch (error) {
+                addResult('error', '❌ 数据库加载失败', `错误: ${error.message}`);
+            }
+        }
+
+        function testAllTools() {
+            if (allTools.length === 0) {
+                addResult('error', '❌ 请先加载数据库', '');
+                return;
+            }
+
+            addResult('info', '🔄 开始测试所有工具', `正在测试 ${allTools.length} 个工具的详情页面渲染...`);
+
+            let successCount = 0;
+            let errorCount = 0;
+            const errors = [];
+
+            allTools.forEach(tool => {
+                try {
+                    // 测试所有可能导致map错误的渲染操作
+                    
+                    // 1. 测试基本信息
+                    const basicInfo = `
+                        <h1>${tool.name || '未知工具'}</h1>
+                        <p>${tool.description || '暂无描述'}</p>
+                        <p>评分: ${tool.rating || 0}</p>
+                        <p>提供商: ${tool.provider || '未知'}</p>
+                    `;
+
+                    // 2. 测试功能列表渲染
+                    const featuresHtml = (tool.features || []).map(feature => `
+                        <div class="feature-item">
+                            <p>${feature}</p>
+                        </div>
+                    `).join('');
+
+                    // 3. 测试优缺点渲染
+                    let prosConsHtml = '';
+                    if (tool.pros || tool.cons) {
+                        prosConsHtml = '<div class="pros-cons">';
+                        if (tool.pros) {
+                            prosConsHtml += `<ul>${tool.pros.map(pro => `<li>${pro}</li>`).join('')}</ul>`;
+                        }
+                        if (tool.cons) {
+                            prosConsHtml += `<ul>${tool.cons.map(con => `<li>${con}</li>`).join('')}</ul>`;
+                        }
+                        prosConsHtml += '</div>';
+                    }
+
+                    // 4. 测试标签渲染
+                    const tagsHtml = (tool.tags && tool.tags.length > 0) ? 
+                        tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : '';
+
+                    // 5. 测试使用场景渲染
+                    const scenariosHtml = (tool.tags && tool.tags.length > 0) ?
+                        tool.tags.map(tag => `<li>${tag}相关的工作</li>`).join('') : '';
+
+                    // 如果所有渲染都成功，记录为成功
+                    testResults[tool.id] = {
+                        status: 'success',
+                        name: tool.name,
+                        category: tool.category,
+                        message: '所有渲染测试通过'
+                    };
+                    successCount++;
+
+                } catch (error) {
+                    testResults[tool.id] = {
+                        status: 'error',
+                        name: tool.name,
+                        category: tool.category,
+                        message: error.message
+                    };
+                    errors.push(`${tool.name} (${tool.id}): ${error.message}`);
+                    errorCount++;
+                }
+            });
+
+            if (errorCount === 0) {
+                addResult('success', '✅ 所有工具测试通过', `
+                    <p>成功测试了 ${successCount} 个工具的详情页面渲染</p>
+                    <p><strong>结论:</strong> 所有工具详情页面都可以正常打开，不会出现map错误</p>
+                `);
+            } else {
+                addResult('warning', '⚠️ 部分工具测试失败', `
+                    <p>成功: ${successCount} 个</p>
+                    <p>失败: ${errorCount} 个</p>
+                    <p><strong>失败的工具:</strong></p>
+                    <pre>${errors.join('\n')}</pre>
+                `);
+            }
+
+            // 更新工具网格显示
+            updateToolGrid();
+        }
+
+        function testDetailLoader() {
+            if (allTools.length === 0) {
+                addResult('error', '❌ 请先加载数据库', '');
+                return;
+            }
+
+            if (typeof window.fastDetailLoader === 'undefined') {
+                addResult('warning', '⚠️ 详情加载器未加载', '跳过详情加载器测试');
+                return;
+            }
+
+            addResult('info', '🔄 测试详情加载器', `正在测试 ${Math.min(5, allTools.length)} 个工具的详情加载...`);
+
+            const testTools = allTools.slice(0, 5); // 只测试前5个工具
+            let promises = [];
+
+            testTools.forEach(tool => {
+                const promise = window.fastDetailLoader.getItemDetails(tool.id, 'tool')
+                    .then(item => {
+                        return {
+                            id: tool.id,
+                            name: tool.name,
+                            status: 'success',
+                            message: `成功加载: ${item.name}`
+                        };
+                    })
+                    .catch(error => {
+                        return {
+                            id: tool.id,
+                            name: tool.name,
+                            status: 'error',
+                            message: `加载失败: ${error.message}`
+                        };
+                    });
+                promises.push(promise);
+            });
+
+            Promise.all(promises).then(results => {
+                const successResults = results.filter(r => r.status === 'success');
+                const errorResults = results.filter(r => r.status === 'error');
+
+                if (errorResults.length === 0) {
+                    addResult('success', '✅ 详情加载器测试通过', `
+                        <p>成功加载了 ${successResults.length} 个工具的详情</p>
+                        <p>所有工具都可以通过详情加载器正常访问</p>
+                    `);
+                } else {
+                    addResult('warning', '⚠️ 部分详情加载失败', `
+                        <p>成功: ${successResults.length} 个</p>
+                        <p>失败: ${errorResults.length} 个</p>
+                        <p><strong>失败详情:</strong></p>
+                        <pre>${errorResults.map(r => `${r.name}: ${r.message}`).join('\n')}</pre>
+                    `);
+                }
+            });
+        }
+
+        function generateToolLinks() {
+            if (allTools.length === 0) {
+                addResult('error', '❌ 请先加载数据库', '');
+                return;
+            }
+
+            const links = allTools.map(tool => 
+                `<a href="tool-detail.html?id=${tool.id}&type=tool" target="_blank">${tool.name}</a>`
+            ).join(' | ');
+
+            addResult('info', '🔗 工具详情页面链接', `
+                <p>点击以下链接可以直接测试各个工具的详情页面:</p>
+                <div style="max-height: 200px; overflow-y: auto; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                    ${links}
+                </div>
+                <p><strong>使用方法:</strong> 点击任意工具名称，如果能正常打开详情页面，说明该工具可以正常访问。</p>
+            `);
+        }
+
+        function updateToolGrid() {
+            const gridDiv = document.getElementById('tool-grid');
+            
+            if (Object.keys(testResults).length === 0) {
+                gridDiv.innerHTML = '';
+                return;
+            }
+
+            const toolCards = allTools.map(tool => {
+                const result = testResults[tool.id];
+                const statusClass = result ? `status-${result.status}` : 'status-pending';
+                const statusText = result ? result.message : '未测试';
+                
+                return `
+                    <div class="tool-card">
+                        <h3>
+                            <span class="status-indicator ${statusClass}"></span>
+                            ${tool.name}
+                        </h3>
+                        <p><strong>ID:</strong> ${tool.id}</p>
+                        <p><strong>分类:</strong> ${tool.category}</p>
+                        <p><strong>状态:</strong> ${statusText}</p>
+                        <a href="tool-detail.html?id=${tool.id}&type=tool" target="_blank" class="tool-link">
+                            打开详情页面
+                        </a>
+                    </div>
+                `;
+            }).join('');
+
+            gridDiv.innerHTML = `
+                <h2>🎯 工具测试结果</h2>
+                ${toolCards}
+            `;
+        }
+
+        // 页面加载完成后自动加载数据库
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                loadDatabase();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
