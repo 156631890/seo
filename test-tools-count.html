@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具数量测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; margin: 20px 0; }
+        .tool-card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: #f9f9f9; }
+        .tool-header { font-weight: bold; color: #333; margin-bottom: 5px; }
+        .tool-meta { font-size: 0.9em; color: #666; }
+    </style>
+</head>
+<body>
+    <h1>🔍 工具数量和分类测试</h1>
+    
+    <div class="test-section">
+        <h2>1. 总体统计</h2>
+        <div id="stats-test">
+            <p class="info">正在加载统计数据...</p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. 分类统计</h2>
+        <div id="category-test">
+            <p class="info">正在加载分类数据...</p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. 工具列表</h2>
+        <div id="tools-test">
+            <p class="info">正在加载工具列表...</p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. 分类过滤测试</h2>
+        <div id="filter-test">
+            <p class="info">正在测试分类过滤...</p>
+        </div>
+    </div>
+
+    <script src="/js/simple-performance.js"></script>
+    <script src="/js/fast-loader.js"></script>
+    <script>
+        async function runTests() {
+            try {
+                // 测试1: 总体统计
+                const stats = await window.fastAILoader.getStats();
+                document.getElementById('stats-test').innerHTML = `
+                    <div class="success">✅ 统计数据加载成功</div>
+                    <ul>
+                        <li><strong>工具总数</strong>: ${stats.totalTools}</li>
+                        <li><strong>分类总数</strong>: ${stats.totalCategories}</li>
+                        <li><strong>模型总数</strong>: ${stats.totalModels}</li>
+                        <li><strong>Agent总数</strong>: ${stats.totalAgents}</li>
+                    </ul>
+                `;
+
+                // 测试2: 分类统计
+                const categories = await window.fastAILoader.getCategories();
+                const categoryStats = Object.entries(categories)
+                    .filter(([key, cat]) => cat.count > 0)
+                    .map(([key, cat]) => `<tr><td>${cat.icon} ${cat.name}</td><td>${cat.count}</td></tr>`)
+                    .join('');
+                
+                document.getElementById('category-test').innerHTML = `
+                    <div class="success">✅ 分类数据加载成功</div>
+                    <table>
+                        <thead>
+                            <tr><th>分类</th><th>工具数量</th></tr>
+                        </thead>
+                        <tbody>
+                            ${categoryStats}
+                        </tbody>
+                    </table>
+                `;
+
+                // 测试3: 工具列表
+                const allTools = await window.fastAILoader.getTools();
+                const toolsHtml = allTools.map(tool => `
+                    <div class="tool-card">
+                        <div class="tool-header">${tool.logo} ${tool.name}</div>
+                        <div class="tool-meta">
+                            <div>提供商: ${tool.provider}</div>
+                            <div>分类: ${tool.category}</div>
+                            <div>评分: ${tool.rating}/5.0</div>
+                            <div>用户: ${tool.users}</div>
+                            <div>定价: ${tool.pricing}</div>
+                        </div>
+                        <div style="margin-top: 10px;">${tool.description}</div>
+                    </div>
+                `).join('');
+
+                document.getElementById('tools-test').innerHTML = `
+                    <div class="success">✅ 工具列表加载成功 (共${allTools.length}个工具)</div>
+                    <div class="tool-grid">${toolsHtml}</div>
+                `;
+
+                // 测试4: 分类过滤
+                const textTools = await window.fastAILoader.getTools('text-generation');
+                const imageTools = await window.fastAILoader.getTools('image-generation');
+                const codeTools = await window.fastAILoader.getTools('code-assistant');
+                
+                document.getElementById('filter-test').innerHTML = `
+                    <div class="success">✅ 分类过滤测试成功</div>
+                    <ul>
+                        <li><strong>文本生成工具</strong>: ${textTools.length}个</li>
+                        <li><strong>图像生成工具</strong>: ${imageTools.length}个</li>
+                        <li><strong>代码助手工具</strong>: ${codeTools.length}个</li>
+                    </ul>
+                    <div style="margin-top: 15px;">
+                        <h4>文本生成工具列表:</h4>
+                        <ul>
+                            ${textTools.map(tool => `<li>${tool.name} (${tool.provider})</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('测试失败:', error);
+                document.body.innerHTML += `
+                    <div class="test-section">
+                        <h2>❌ 测试失败</h2>
+                        <p class="error">错误信息: ${error.message}</p>
+                        <pre>${error.stack}</pre>
+                    </div>
+                `;
+            }
+        }
+
+        // 页面加载完成后运行测试
+        document.addEventListener('DOMContentLoaded', runTests);
+    </script>
+</body>
+</html>
