@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对比功能测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 2rem auto; padding: 1rem; }
+        .test-card { background: #f8fafc; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+        .success { border-left: 4px solid #10b981; }
+        .error { border-left: 4px solid #ef4444; }
+        .info { border-left: 4px solid #3b82f6; }
+        .link-button { 
+            display: inline-block; 
+            padding: 0.75rem 1.5rem; 
+            background: #10b981; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 6px; 
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            font-weight: 600;
+        }
+        .link-button:hover { background: #059669; }
+        .secondary { background: #6b7280; }
+        .secondary:hover { background: #4b5563; }
+    </style>
+</head>
+<body>
+    <h1>🔍 AI工具对比功能测试</h1>
+    
+    <div class="test-card info">
+        <h2>📋 测试说明</h2>
+        <p>我已经为你创建了两个版本的对比页面：</p>
+        <ul>
+            <li><strong>完整版</strong>：功能丰富，支持工具、模型、代理对比</li>
+            <li><strong>简化版</strong>：轻量级，专注于AI工具对比</li>
+        </ul>
+    </div>
+
+    <div class="test-card success">
+        <h2>✅ 已修复的问题</h2>
+        <ul>
+            <li>修复了CSS变量引用问题</li>
+            <li>添加了必要的JavaScript依赖</li>
+            <li>改进了错误处理和加载状态</li>
+            <li>创建了备用的简化版本</li>
+        </ul>
+    </div>
+
+    <div class="test-card info">
+        <h2>🚀 测试链接</h2>
+        <p>请点击下面的链接测试对比功能：</p>
+        
+        <a href="/compare-simple.html" class="link-button">
+            🎯 简化版对比页面（推荐）
+        </a>
+        
+        <a href="/compare.html" class="link-button secondary">
+            🔧 完整版对比页面
+        </a>
+        
+        <a href="/test-compare-simple.html" class="link-button secondary">
+            🧪 功能测试页面
+        </a>
+    </div>
+
+    <div class="test-card info">
+        <h2>📝 使用说明</h2>
+        <ol>
+            <li><strong>选择工具</strong>：点击工具卡片进行选择（最多4个）</li>
+            <li><strong>生成对比</strong>：点击"生成对比"按钮</li>
+            <li><strong>查看结果</strong>：查看详细的对比表格和推荐建议</li>
+        </ol>
+    </div>
+
+    <div class="test-card success">
+        <h2>🎉 首页更新完成</h2>
+        <p>首页已成功更新，现在展示的都是2025年最新的AI文章：</p>
+        <ul>
+            <li>AI工具数据库完全指南</li>
+            <li>AI模型重大突破分析</li>
+            <li>AI代理完全指南</li>
+            <li>AI图像生成工具对比</li>
+            <li>AI Agent开发指南</li>
+            <li>AI商业自动化工具</li>
+            <li>AI编程工具推荐</li>
+            <li>AI视频生成工具评测</li>
+            <li>AI写作工具对比</li>
+            <li>Claude vs ChatGPT对比</li>
+            <li>Midjourney完全指南</li>
+        </ul>
+        
+        <a href="/" class="link-button">
+            🏠 返回首页查看
+        </a>
+    </div>
+
+    <script>
+        // 简单的页面测试
+        console.log('对比功能测试页面加载完成');
+        
+        // 检查关键文件是否可访问
+        const testFiles = [
+            '/compare-simple.html',
+            '/compare.html',
+            '/js/ai-tools-loader.js',
+            '/js/compare.js',
+            '/partials/site-style.css'
+        ];
+        
+        testFiles.forEach(async (file) => {
+            try {
+                const response = await fetch(file);
+                console.log(`${file}: ${response.ok ? '✅ 可访问' : '❌ 无法访问'}`);
+            } catch (error) {
+                console.log(`${file}: ❌ 检查失败 - ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html>

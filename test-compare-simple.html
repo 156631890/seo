@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单对比页面测试</title>
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+        .test-section {
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .status {
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            margin: 0.5rem 0;
+        }
+        .success { background: #d1fae5; color: #065f46; }
+        .error { background: #fee2e2; color: #991b1b; }
+        .loading { background: #dbeafe; color: #1e40af; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔍 对比页面功能测试</h1>
+        
+        <div class="test-section">
+            <h2>基础功能测试</h2>
+            <div id="basic-test" class="status loading">正在测试基础功能...</div>
+        </div>
+
+        <div class="test-section">
+            <h2>数据加载测试</h2>
+            <div id="data-test" class="status loading">正在测试数据加载...</div>
+        </div>
+
+        <div class="test-section">
+            <h2>对比功能</h2>
+            <p>如果上述测试通过，你可以：</p>
+            <ul>
+                <li>选择要对比的AI工具、模型或代理</li>
+                <li>点击"生成对比"按钮</li>
+                <li>查看详细的对比结果</li>
+            </ul>
+            <a href="/compare.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: #10b981; color: white; text-decoration: none; border-radius: 0.5rem; margin-top: 1rem;">打开完整对比页面</a>
+        </div>
+    </div>
+
+    <script src="/js/data-chunks.js"></script>
+    <script src="/js/ai-tools-loader.js"></script>
+    <script>
+        const basicTest = document.getElementById('basic-test');
+        const dataTest = document.getElementById('data-test');
+
+        async function runTests() {
+            try {
+                // 测试1: 基础功能
+                basicTest.textContent = '✅ 页面加载成功';
+                basicTest.className = 'status success';
+
+                // 测试2: 数据加载
+                dataTest.textContent = '正在加载AI工具数据...';
+                
+                if (window.aiToolsLoader) {
+                    await window.aiToolsLoader.load();
+                    const database = await window.aiToolsLoader.getDatabase();
+                    
+                    const toolsCount = database.tools ? database.tools.length : 0;
+                    const modelsCount = database.models ? database.models.length : 0;
+                    const agentsCount = database.agents ? database.agents.length : 0;
+                    
+                    dataTest.innerHTML = `✅ 数据加载成功<br>
+                        - 工具: ${toolsCount}个<br>
+                        - 模型: ${modelsCount}个<br>
+                        - 代理: ${agentsCount}个`;
+                    dataTest.className = 'status success';
+                } else {
+                    throw new Error('aiToolsLoader未找到');
+                }
+
+            } catch (error) {
+                console.error('测试失败:', error);
+                dataTest.textContent = `❌ 数据加载失败: ${error.message}`;
+                dataTest.className = 'status error';
+            }
+        }
+
+        // 页面加载完成后运行测试
+        document.addEventListener('DOMContentLoaded', runTests);
+    </script>
+</body>
+</html>

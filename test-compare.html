@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试对比页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .error { color: red; background: #ffe6e6; padding: 10px; border-radius: 5px; }
+        .success { color: green; background: #e6ffe6; padding: 10px; border-radius: 5px; }
+        .loading { color: blue; background: #e6f3ff; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>对比页面测试</h1>
+    <div id="status" class="loading">正在测试...</div>
+    <div id="details"></div>
+
+    <script>
+        const statusEl = document.getElementById('status');
+        const detailsEl = document.getElementById('details');
+
+        async function testComparePage() {
+            try {
+                // 测试1: 检查compare.html是否可访问
+                statusEl.textContent = '测试1: 检查compare.html访问性...';
+                const response = await fetch('/compare.html');
+                if (!response.ok) {
+                    throw new Error(`compare.html返回状态: ${response.status}`);
+                }
+                detailsEl.innerHTML += '<p>✅ compare.html可以正常访问</p>';
+
+                // 测试2: 检查依赖的JS文件
+                statusEl.textContent = '测试2: 检查JavaScript依赖...';
+                
+                const jsFiles = ['/js/ai-tools-loader.js', '/js/compare.js'];
+                for (const jsFile of jsFiles) {
+                    const jsResponse = await fetch(jsFile);
+                    if (!jsResponse.ok) {
+                        throw new Error(`${jsFile}返回状态: ${jsResponse.status}`);
+                    }
+                    detailsEl.innerHTML += `<p>✅ ${jsFile}可以正常访问</p>`;
+                }
+
+                // 测试3: 检查CSS文件
+                statusEl.textContent = '测试3: 检查CSS依赖...';
+                const cssResponse = await fetch('/partials/site-style.css');
+                if (!cssResponse.ok) {
+                    throw new Error(`site-style.css返回状态: ${cssResponse.status}`);
+                }
+                detailsEl.innerHTML += '<p>✅ site-style.css可以正常访问</p>';
+
+                // 测试4: 检查数据文件
+                statusEl.textContent = '测试4: 检查数据文件...';
+                try {
+                    const dataResponse = await fetch('/ai-tools-database.js');
+                    if (dataResponse.ok) {
+                        detailsEl.innerHTML += '<p>✅ ai-tools-database.js可以正常访问</p>';
+                    } else {
+                        detailsEl.innerHTML += '<p>⚠️ ai-tools-database.js访问失败，但可能使用其他数据源</p>';
+                    }
+                } catch (e) {
+                    detailsEl.innerHTML += '<p>⚠️ ai-tools-database.js检查失败，但可能使用其他数据源</p>';
+                }
+
+                statusEl.className = 'success';
+                statusEl.textContent = '✅ 所有基础测试通过！';
+                detailsEl.innerHTML += '<p><strong>建议:</strong> 如果页面仍然无法打开，请检查浏览器控制台是否有JavaScript错误。</p>';
+                detailsEl.innerHTML += '<p><a href="/compare.html" target="_blank">点击这里打开对比页面</a></p>';
+
+            } catch (error) {
+                statusEl.className = 'error';
+                statusEl.textContent = `❌ 测试失败: ${error.message}`;
+                detailsEl.innerHTML += `<p><strong>错误详情:</strong> ${error.message}</p>`;
+                detailsEl.innerHTML += '<p><strong>建议:</strong> 请检查文件路径和服务器配置。</p>';
+            }
+        }
+
+        // 运行测试
+        testComparePage();
+    </script>
+</body>
+</html>

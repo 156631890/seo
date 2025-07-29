@@ -23,19 +23,31 @@ class ComparePage {
       // 显示加载状态
       this.showLoading();
 
+      // 检查依赖
+      if (!this.loader) {
+        throw new Error('AI工具加载器未找到，请检查ai-tools-loader.js是否正确加载');
+      }
+
       // 加载数据库
       await this.loader.load();
+      const database = await this.loader.getDatabase();
+
+      if (!database) {
+        throw new Error('数据库加载失败');
+      }
 
       // 生成选择器
-      await this.generateSelectors('tools', (await this.loader.getDatabase()).tools);
-      await this.generateSelectors('models', (await this.loader.getDatabase()).models);
-      await this.generateSelectors('agents', (await this.loader.getDatabase()).agents);
+      await this.generateSelectors('tools', database.tools || []);
+      await this.generateSelectors('models', database.models || []);
+      await this.generateSelectors('agents', database.agents || []);
 
       // 绑定事件
       this.bindEvents();
 
       // 隐藏加载状态
       this.hideLoading();
+      
+      console.log('对比页面初始化成功');
     } catch (error) {
       console.error('初始化对比页面出错:', error);
       this.showError('加载数据失败: ' + error.message);
@@ -468,5 +480,8 @@ const comparePage = new ComparePage();
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', () => {
-  comparePage.initialize();
+  // 添加延迟确保所有脚本都已加载
+  setTimeout(() => {
+    comparePage.initialize();
+  }, 100);
 });
