@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动端响应式测试 - MyAI</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+            line-height: 1.6;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        
+        .test-section h2 {
+            color: #10b981;
+            margin-bottom: 15px;
+        }
+        
+        .device-info {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .test-card {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .test-btn {
+            padding: 10px 20px;
+            background: #10b981;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .test-btn:hover {
+            background: #059669;
+        }
+        
+        .test-btn.secondary {
+            background: #6b7280;
+        }
+        
+        .test-btn.secondary:hover {
+            background: #4b5563;
+        }
+        
+        .responsive-table {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .responsive-table table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+        
+        .responsive-table th,
+        .responsive-table td {
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+        
+        .responsive-table th {
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-good { background: #10b981; }
+        .status-warning { background: #f59e0b; }
+        .status-error { background: #ef4444; }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .test-container {
+                padding: 15px;
+            }
+            
+            .test-section {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .test-section h2 {
+                font-size: 1.25rem;
+            }
+            
+            .test-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .test-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .test-btn {
+                text-align: center;
+                padding: 12px;
+            }
+            
+            .responsive-table table {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .test-section h2 {
+                font-size: 1.1rem;
+            }
+            
+            .test-btn {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+            
+            .responsive-table table {
+                font-size: 0.8rem;
+                min-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>📱 移动端响应式测试</h1>
+        
+        <div class="device-info">
+            <h3>设备信息</h3>
+            <p><strong>屏幕宽度:</strong> <span id="screen-width"></span>px</p>
+            <p><strong>视口宽度:</strong> <span id="viewport-width"></span>px</p>
+            <p><strong>设备像素比:</strong> <span id="device-ratio"></span></p>
+            <p><strong>用户代理:</strong> <span id="user-agent"></span></p>
+        </div>
+        
+        <div class="test-section">
+            <h2>🏠 首页测试</h2>
+            <p>测试首页在不同设备上的显示效果</p>
+            <div class="test-buttons">
+                <a href="/index.html" class="test-btn">访问首页</a>
+                <a href="/index.html" class="test-btn secondary" target="_blank">新窗口打开</a>
+            </div>
+            
+            <div class="test-grid">
+                <div class="test-card">
+                    <h4>导航菜单</h4>
+                    <p>检查移动端导航是否正常折叠和展开</p>
+                </div>
+                <div class="test-card">
+                    <h4>Hero区域</h4>
+                    <p>检查标题、按钮和表单在移动端的布局</p>
+                </div>
+                <div class="test-card">
+                    <h4>文章卡片</h4>
+                    <p>检查文章卡片在移动端的堆叠效果</p>
+                </div>
+                <div class="test-card">
+                    <h4>统计数据</h4>
+                    <p>检查统计卡片的响应式布局</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>📄 文章页面测试</h2>
+            <p>测试新创建的文章页面移动端适配</p>
+            <div class="test-buttons">
+                <a href="/posts/ai-tools-database-2025-comprehensive-guide.html" class="test-btn">AI工具数据库指南</a>
+                <a href="/posts/latest-ai-models-2025-breakthrough-analysis.html" class="test-btn">AI模型突破分析</a>
+                <a href="/posts/ai-agents-comprehensive-guide-2025.html" class="test-btn">AI代理完全指南</a>
+            </div>
+            
+            <div class="test-grid">
+                <div class="test-card">
+                    <h4>文章标题</h4>
+                    <p>检查长标题在移动端的换行效果</p>
+                </div>
+                <div class="test-card">
+                    <h4>目录导航</h4>
+                    <p>检查目录在移动端的显示和交互</p>
+                </div>
+                <div class="test-card">
+                    <h4>表格内容</h4>
+                    <p>检查对比表格的横向滚动</p>
+                </div>
+                <div class="test-card">
+                    <h4>卡片布局</h4>
+                    <p>检查工具卡片的堆叠布局</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔧 其他页面测试</h2>
+            <p>测试网站其他重要页面</p>
+            <div class="test-buttons">
+                <a href="/tools.html" class="test-btn">工具页面</a>
+                <a href="/search.html" class="test-btn">搜索页面</a>
+                <a href="/compare.html" class="test-btn">对比页面</a>
+                <a href="/about.html" class="test-btn secondary">关于页面</a>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>📊 响应式检查清单</h2>
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>检查项目</th>
+                            <th>桌面端</th>
+                            <th>平板端</th>
+                            <th>手机端</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>导航菜单</td>
+                            <td><span class="status-indicator status-good"></span>正常</td>
+                            <td><span class="status-indicator status-good"></span>正常</td>
+                            <td><span class="status-indicator status-good"></span>折叠</td>
+                            <td>移动端应显示汉堡菜单</td>
+                        </tr>
+                        <tr>
+                            <td>文字大小</td>
+                            <td><span class="status-indicator status-good"></span>16px</td>
+                            <td><span class="status-indicator status-good"></span>15px</td>
+                            <td><span class="status-indicator status-good"></span>14px</td>
+                            <td>移动端字体适当缩小</td>
+                        </tr>
+                        <tr>
+                            <td>按钮大小</td>
+                            <td><span class="status-indicator status-good"></span>正常</td>
+                            <td><span class="status-indicator status-good"></span>正常</td>
+                            <td><span class="status-indicator status-good"></span>加大</td>
+                            <td>移动端按钮更易点击</td>
+                        </tr>
+                        <tr>
+                            <td>表格滚动</td>
+                            <td><span class="status-indicator status-good"></span>不需要</td>
+                            <td><span class="status-indicator status-warning"></span>可能需要</td>
+                            <td><span class="status-indicator status-good"></span>横向滚动</td>
+                            <td>移动端表格可横向滚动</td>
+                        </tr>
+                        <tr>
+                            <td>图片适配</td>
+                            <td><span class="status-indicator status-good"></span>原尺寸</td>
+                            <td><span class="status-indicator status-good"></span>缩放</td>
+                            <td><span class="status-indicator status-good"></span>全宽</td>
+                            <td>图片响应式缩放</td>
+                        </tr>
+                        <tr>
+                            <td>间距调整</td>
+                            <td><span class="status-indicator status-good"></span>标准</td>
+                            <td><span class="status-indicator status-good"></span>适中</td>
+                            <td><span class="status-indicator status-good"></span>紧凑</td>
+                            <td>移动端间距更紧凑</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>💡 移动端优化建议</h2>
+            <div class="test-grid">
+                <div class="test-card">
+                    <h4>✅ 已优化项目</h4>
+                    <ul>
+                        <li>响应式导航菜单</li>
+                        <li>移动端字体大小调整</li>
+                        <li>按钮和表单优化</li>
+                        <li>卡片布局堆叠</li>
+                        <li>表格横向滚动</li>
+                        <li>触摸友好的交互</li>
+                    </ul>
+                </div>
+                <div class="test-card">
+                    <h4>🔄 持续改进</h4>
+                    <ul>
+                        <li>加载速度优化</li>
+                        <li>图片懒加载</li>
+                        <li>离线缓存支持</li>
+                        <li>PWA功能添加</li>
+                        <li>手势操作支持</li>
+                        <li>无障碍访问优化</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🚀 测试步骤</h2>
+            <ol>
+                <li><strong>调整浏览器窗口大小</strong> - 测试不同屏幕尺寸下的显示效果</li>
+                <li><strong>使用开发者工具</strong> - 模拟不同设备的显示效果</li>
+                <li><strong>实际设备测试</strong> - 在真实的手机和平板上测试</li>
+                <li><strong>检查交互元素</strong> - 确保按钮、链接等易于点击</li>
+                <li><strong>测试表单输入</strong> - 检查表单在移动端的可用性</li>
+                <li><strong>验证内容可读性</strong> - 确保文字大小和对比度适合移动端</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        // 显示设备信息
+        function updateDeviceInfo() {
+            document.getElementById('screen-width').textContent = screen.width;
+            document.getElementById('viewport-width').textContent = window.innerWidth;
+            document.getElementById('device-ratio').textContent = window.devicePixelRatio;
+            document.getElementById('user-agent').textContent = navigator.userAgent.substring(0, 100) + '...';
+        }
+        
+        // 页面加载时更新信息
+        updateDeviceInfo();
+        
+        // 窗口大小改变时更新信息
+        window.addEventListener('resize', updateDeviceInfo);
+        
+        // 添加一些交互测试
+        document.querySelectorAll('.test-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // 添加点击反馈
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+        
+        // 检测移动设备
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+        
+        // 显示当前设备类型
+        function showDeviceType() {
+            const width = window.innerWidth;
+            let deviceType = '';
+            
+            if (width <= 480) {
+                deviceType = '📱 小屏手机';
+            } else if (width <= 768) {
+                deviceType = '📱 大屏手机';
+            } else if (width <= 1024) {
+                deviceType = '📱 平板';
+            } else {
+                deviceType = '💻 桌面';
+            }
+            
+            // 在页面顶部显示设备类型
+            if (!document.getElementById('device-type-indicator')) {
+                const indicator = document.createElement('div');
+                indicator.id = 'device-type-indicator';
+                indicator.style.cssText = `
+                    position: fixed;
+                    top: 10px;
+                    right: 10px;
+                    background: #10b981;
+                    color: white;
+                    padding: 5px 10px;
+                    border-radius: 15px;
+                    font-size: 12px;
+                    z-index: 1000;
+                    font-weight: 500;
+                `;
+                document.body.appendChild(indicator);
+            }
+            
+            document.getElementById('device-type-indicator').textContent = deviceType;
+        }
+        
+        showDeviceType();
+        window.addEventListener('resize', showDeviceType);
+    </script>
+</body>
+</html>
