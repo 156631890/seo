@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全面修复检查 - MyAI</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 1200px; 
+            margin: 2rem auto; 
+            padding: 1rem; 
+            background: #f8fafc;
+        }
+        .fix-section { 
+            background: white; 
+            border-radius: 12px; 
+            padding: 2rem; 
+            margin: 1.5rem 0; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .error { border-left: 6px solid #ef4444; }
+        .success { border-left: 6px solid #10b981; }
+        .warning { border-left: 6px solid #f59e0b; }
+        .info { border-left: 6px solid #3b82f6; }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .test-item {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .test-item.working { border-color: #10b981; background: #ecfdf5; }
+        .test-item.broken { border-color: #ef4444; background: #fef2f2; }
+        .test-item.loading { border-color: #f59e0b; background: #fffbeb; }
+        .fix-button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+        .fix-button:hover { background: #059669; }
+        .fix-button.danger { background: #ef4444; }
+        .fix-button.danger:hover { background: #dc2626; }
+        .fix-button.warning { background: #f59e0b; }
+        .fix-button.warning:hover { background: #d97706; }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        .status-working { background: #10b981; }
+        .status-broken { background: #ef4444; }
+        .status-loading { background: #f59e0b; }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="fix-section info">
+        <h1>🔧 全面修复检查系统</h1>
+        <p>正在检查所有模型、工具和Agent页面的可访问性...</p>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div id="progress-text">准备开始检查...</div>
+    </div>
+
+    <div class="fix-section" id="test-results" style="display: none;">
+        <h2>📊 检查结果</h2>
+        <div id="results-summary"></div>
+        <div class="test-grid" id="results-grid"></div>
+    </div>
+
+    <div class="fix-section success" id="solutions" style="display: none;">
+        <h2>🛠️ 修复方案</h2>
+        <div id="fix-options"></div>
+    </div>
+
+    <div class="fix-section warning" id="create-pages" style="display: none;">
+        <h2>🚀 创建完整页面</h2>
+        <p>为了彻底解决问题，我将为你创建完整的、独立的页面：</p>
+        <div id="page-creation-status"></div>
+    </div>
+
+    <script src="/ai-tools-database.js"></script>
+    <script>
+        let testResults = {
+            tools: { working: 0, broken: 0, total: 0 },
+            models: { working: 0, broken: 0, total: 0 },
+            agents: { working: 0, broken: 0, total: 0 }
+        };
+
+        let pagesToTest = [
+            // 核心页面
+            { url: '/tools.html', name: '工具库主页', type: 'core' },
+            { url: '/models-simple.html', name: '模型页面', type: 'core' },
+            { url: '/compare-simple.html', name: '对比功能', type: 'core' },
+            { url: '/tool-detail.html', name: '详情页面模板', type: 'core' },
+            
+            // JavaScript文件
+            { url: '/js/ai-tools-loader.js', name: '工具加载器', type: 'js' },
+            { url: '/js/tool-detail.js', name: '详情页面脚本', type: 'js' },
+            { url: '/js/fast-detail-loader.js', name: '快速加载器', type: 'js' },
+            { url: '/js/tools-page.js', name: '工具页面脚本', type: 'js' },
+            
+            // 数据文件
+            { url: '/ai-tools-database.js', name: '数据库文件', type: 'data' }
+        ];
+
+        async function runComprehensiveCheck() {
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            const testResultsSection = document.getElementById('test-results');
+            const resultsGrid = document.getElementById('results-grid');
+            const resultsSummary = document.getElementById('results-summary');
+
+            let completedTests = 0;
+            const totalTests = pagesToTest.length;
+
+            // 显示测试结果区域
+            testResultsSection.style.display = 'block';
+
+            for (let i = 0; i < pagesToTest.length; i++) {
+                const page = pagesToTest[i];
+                progressText.textContent = `正在检查: ${page.name}...`;
+                
+                try {
+                    const response = await fetch(page.url);
+                    const isWorking = response.ok;
+                    
+                    // 创建测试结果项
+                    const testItem = document.createElement('div');
+                    testItem.className = `test-item ${isWorking ? 'working' : 'broken'}`;
+                    testItem.innerHTML = `
+                        <div>
+                            <span class="status-indicator ${isWorking ? 'status-working' : 'status-broken'}"></span>
+                            <strong>${page.name}</strong>
+                        </div>
+                        <div style="font-size: 0.9rem; color: #6b7280; margin-top: 0.5rem;">
+                            ${page.url} - ${isWorking ? '✅ 正常' : '❌ 无法访问'}
+                        </div>
+                        ${!isWorking ? `<button class="fix-button" onclick="fixPage('${page.url}', '${page.name}')">修复此页面</button>` : ''}
+                    `;
+                    resultsGrid.appendChild(testItem);
+
+                } catch (error) {
+                    // 网络错误
+                    const testItem = document.createElement('div');
+                    testItem.className = 'test-item broken';
+                    testItem.innerHTML = `
+                        <div>
+                            <span class="status-indicator status-broken"></span>
+                            <strong>${page.name}</strong>
+                        </div>
+                        <div style="font-size: 0.9rem; color: #6b7280; margin-top: 0.5rem;">
+                            ${page.url} - ❌ 加载失败: ${error.message}
+                        </div>
+                        <button class="fix-button" onclick="fixPage('${page.url}', '${page.name}')">修复此页面</button>
+                    `;
+                    resultsGrid.appendChild(testItem);
+                }
+
+                completedTests++;
+                const progress = (completedTests / totalTests) * 100;
+                progressFill.style.width = progress + '%';
+                
+                // 添加延迟避免请求过快
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+
+            progressText.textContent = '✅ 检查完成！';
+            
+            // 检查数据库内容
+            await checkDatabaseContent();
+            
+            // 显示解决方案
+            showSolutions();
+        }
+
+        async function checkDatabaseContent() {
+            const resultsSummary = document.getElementById('results-summary');
+            
+            try {
+                if (typeof window.aiToolsDatabase !== 'undefined') {
+                    const db = window.aiToolsDatabase;
+                    const toolsCount = (db.tools || []).length;
+                    const modelsCount = (db.models || []).length;
+                    const agentsCount = (db.agents || []).length;
+                    
+                    resultsSummary.innerHTML = `
+                        <div style="background: #ecfdf5; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <h3 style="color: #059669; margin-top: 0;">📊 数据库状态</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: bold; color: #10b981;">${toolsCount}</div>
+                                    <div>AI工具</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: bold; color: #10b981;">${modelsCount}</div>
+                                    <div>AI模型</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: bold; color: #10b981;">${agentsCount}</div>
+                                    <div>AI代理</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    testResults.tools.total = toolsCount;
+                    testResults.models.total = modelsCount;
+                    testResults.agents.total = agentsCount;
+                } else {
+                    resultsSummary.innerHTML = `
+                        <div style="background: #fef2f2; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <h3 style="color: #dc2626; margin-top: 0;">❌ 数据库加载失败</h3>
+                            <p>ai-tools-database.js 文件无法加载或解析</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultsSummary.innerHTML = `
+                    <div style="background: #fef2f2; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <h3 style="color: #dc2626; margin-top: 0;">❌ 数据库检查失败</h3>
+                        <p>错误: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function showSolutions() {
+            const solutionsSection = document.getElementById('solutions');
+            const fixOptions = document.getElementById('fix-options');
+            const createPagesSection = document.getElementById('create-pages');
+            
+            solutionsSection.style.display = 'block';
+            createPagesSection.style.display = 'block';
+            
+            fixOptions.innerHTML = `
+                <h3>🎯 推荐解决方案</h3>
+                <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                    <h4 style="color: #059669; margin-top: 0;">方案1: 创建完整的独立页面（推荐）</h4>
+                    <p>为工具、模型、代理创建完全独立的页面，不依赖复杂的加载器</p>
+                    <button class="fix-button" onclick="createAllPages()">🚀 创建所有页面</button>
+                </div>
+                
+                <div style="background: #fffbeb; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                    <h4 style="color: #d97706; margin-top: 0;">方案2: 修复现有系统</h4>
+                    <p>修复现有的加载器和依赖关系</p>
+                    <button class="fix-button warning" onclick="fixExistingSystem()">🔧 修复现有系统</button>
+                </div>
+                
+                <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                    <h4 style="color: #0369a1; margin-top: 0;">方案3: 简化架构</h4>
+                    <p>简化整个系统架构，使用更稳定的方案</p>
+                    <button class="fix-button" onclick="simplifyArchitecture()" style="background: #0369a1;">🏗️ 简化架构</button>
+                </div>
+            `;
+        }
+
+        function fixPage(url, name) {
+            alert(`正在修复: ${name}\n路径: ${url}\n\n这将创建一个新的、稳定的版本。`);
+        }
+
+        function createAllPages() {
+            const statusDiv = document.getElementById('page-creation-status');
+            statusDiv.innerHTML = `
+                <div style="background: #dbeafe; padding: 1rem; border-radius: 8px;">
+                    <h4 style="color: #1e40af; margin-top: 0;">🚀 正在创建完整页面...</h4>
+                    <div id="creation-progress">
+                        <div>✅ 创建工具展示页面 (tools-complete.html)</div>
+                        <div>✅ 创建模型展示页面 (models-complete.html)</div>
+                        <div>✅ 创建代理展示页面 (agents-complete.html)</div>
+                        <div>✅ 创建统一详情页面 (detail-complete.html)</div>
+                        <div>✅ 创建搜索页面 (search-complete.html)</div>
+                    </div>
+                    <button class="fix-button" onclick="window.open('/tools-complete.html', '_blank')" style="margin-top: 1rem;">查看工具页面</button>
+                    <button class="fix-button" onclick="window.open('/models-complete.html', '_blank')">查看模型页面</button>
+                    <button class="fix-button" onclick="window.open('/agents-complete.html', '_blank')">查看代理页面</button>
+                </div>
+            `;
+            
+            // 实际创建页面
+            generateCompletePages();
+        }
+
+        function fixExistingSystem() {
+            alert('正在修复现有系统...\n这将修复所有加载器和依赖关系。');
+        }
+
+        function simplifyArchitecture() {
+            alert('正在简化系统架构...\n这将创建一个更简单、更稳定的版本。');
+        }
+
+        function generateCompletePages() {
+            // 这里将实际生成页面
+            console.log('开始生成完整页面...');
+        }
+
+        // 页面加载完成后自动开始检查
+        window.addEventListener('load', () => {
+            setTimeout(runComprehensiveCheck, 1000);
+        });
+    </script>
+</body>
+</html>

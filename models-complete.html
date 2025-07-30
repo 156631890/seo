@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI模型大全 - 50+顶级AI模型评测 | MyAI</title>
+    <meta name="description" content="2025年最全AI模型合集！GPT-4o、Claude、Gemini等50+顶级AI模型深度评测，功能对比，使用指南。">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .models-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .models-hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .models-container { max-width: 1200px; margin: 0 auto; padding: 3rem 1rem; }
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        .model-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .model-card:hover { transform: translateY(-4px); }
+        .model-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .model-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo"><a href="/">MyAI</a></div>
+        <nav class="site-nav desktop">
+            <a href="/">首页</a>
+            <a href="/tools-complete.html">AI工具</a>
+            <a href="/models-complete.html" class="active">AI模型</a>
+            <a href="/agents-complete.html">AI代理</a>
+        </nav>
+    </header>
+
+    <section class="models-hero">
+        <h1>🧠 AI模型大全</h1>
+        <p>深度评测50+顶级AI模型，找到最适合你的AI助手</p>
+    </section>
+
+    <div class="models-container">
+        <div class="models-grid" id="models-grid">
+            <!-- 模型卡片将通过JavaScript生成 -->
+        </div>
+    </div>
+
+    <script>
+        const aiModels = [
+            {
+                id: 'gpt-4o',
+                name: 'GPT-4o',
+                provider: 'OpenAI',
+                description: 'OpenAI最新的多模态大语言模型',
+                features: ['文本生成', '图像理解', '代码编写'],
+                rating: 4.8,
+                icon: '🤖',
+                link: 'https://openai.com/gpt-4o'
+            },
+            {
+                id: 'claude-3-5',
+                name: 'Claude 3.5 Sonnet',
+                provider: 'Anthropic',
+                description: 'Anthropic的旗舰模型，推理能力强',
+                features: ['长文本处理', '代码分析', '创意写作'],
+                rating: 4.7,
+                icon: '🧠',
+                link: 'https://claude.ai'
+            }
+        ];
+
+        function initializeModelsPage() {
+            renderModels(aiModels);
+        }
+
+        function renderModels(models) {
+            const modelsGrid = document.getElementById('models-grid');
+            modelsGrid.innerHTML = models.map(model => `
+                <div class="model-card">
+                    <div class="model-header">
+                        <div class="model-icon">${model.icon}</div>
+                        <div>
+                            <h3 style="margin: 0;">${model.name}</h3>
+                            <div style="color: #6b7280; font-size: 0.9rem;">${model.provider}</div>
+                        </div>
+                    </div>
+                    <p>${model.description}</p>
+                    <div style="margin: 1rem 0;">
+                        ${model.features.map(feature => 
+                            `<span style="background: #ecfdf5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem;">${feature}</span>`
+                        ).join('')}
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <div style="color: #fbbf24;">★★★★★ ${model.rating}</div>
+                        <a href="${model.link}" target="_blank" style="background: #667eea; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none;">了解更多</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeModelsPage);
+    </script>
+</body>
+</html>

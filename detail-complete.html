@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">详情页面 | MyAI</title>
+    <meta name="description" id="page-description" content="查看AI工具、模型和代理的详细信息">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .detail-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .detail-hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .detail-container { max-width: 1000px; margin: 0 auto; padding: 3rem 1rem; }
+        .detail-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        .main-content { background: white; padding: 2rem; border-radius: 0.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .sidebar { position: sticky; top: 2rem; }
+        .info-card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .feature-item {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #10b981;
+        }
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .stars { color: #fbbf24; font-size: 1.5rem; }
+        .cta-button {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        .cta-button:hover { background: #059669; }
+        @media (max-width: 768px) {
+            .detail-content { grid-template-columns: 1fr; gap: 2rem; }
+            .detail-hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo"><a href="/">MyAI</a></div>
+        <nav class="site-nav desktop">
+            <a href="/">首页</a>
+            <a href="/tools-complete.html">AI工具</a>
+            <a href="/models-complete.html">AI模型</a>
+            <a href="/agents-complete.html">AI代理</a>
+        </nav>
+    </header>
+
+    <section class="detail-hero" id="detail-hero">
+        <div id="hero-icon" style="font-size: 4rem; margin-bottom: 1rem;">🤖</div>
+        <h1 id="hero-title">加载中...</h1>
+        <p id="hero-subtitle">正在加载详细信息...</p>
+    </section>
+
+    <div class="detail-container">
+        <div class="detail-content">
+            <main class="main-content">
+                <div id="main-content">
+                    <div style="text-align: center; padding: 3rem; color: #6b7280;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">⏳</div>
+                        <div>正在加载详细信息...</div>
+                    </div>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <div class="info-card" id="info-card">
+                    <h3>基本信息</h3>
+                    <div id="basic-info">加载中...</div>
+                </div>
+
+                <div class="info-card" id="rating-card">
+                    <h3>评分</h3>
+                    <div id="rating-info">加载中...</div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // 完整的数据库（简化版）
+        const completeDatabase = {
+            tools: [
+                {
+                    id: 'chatgpt',
+                    name: 'ChatGPT',
+                    category: 'text-generation',
+                    description: 'OpenAI开发的强大对话AI助手，能够进行自然语言对话、代码生成、文本创作等多种任务。',
+                    features: ['对话交互', '代码生成', '文本创作', '问题解答', '多语言支持'],
+                    pricing: 'Freemium',
+                    rating: 4.8,
+                    provider: 'OpenAI',
+                    link: 'https://chat.openai.com',
+                    pros: ['功能强大', '响应快速', '支持多语言', '持续更新'],
+                    cons: ['有使用限制', '需要网络连接', '可能有偏见'],
+                    icon: '💬'
+                }
+            ],
+            models: [
+                {
+                    id: 'gpt-4o',
+                    name: 'GPT-4o',
+                    provider: 'OpenAI',
+                    type: 'multimodal',
+                    description: 'OpenAI最新的多模态大语言模型，支持文本、图像、音频处理，推理能力显著提升。',
+                    features: ['文本生成', '图像理解', '代码编写', '数学推理', '多语言支持'],
+                    rating: 4.8,
+                    icon: '🤖',
+                    link: 'https://openai.com/gpt-4o',
+                    pros: ['多模态能力', '推理能力强', '响应速度快'],
+                    cons: ['使用成本高', '需要API调用']
+                }
+            ],
+            agents: [
+                {
+                    id: 'autogpt',
+                    name: 'AutoGPT',
+                    type: 'autonomous',
+                    description: '自主执行任务的AI代理，能够独立完成复杂目标，无需人工干预。',
+                    features: ['自主决策', '任务分解', '工具调用', '目标导向'],
+                    rating: 4.6,
+                    icon: '🚀',
+                    link: 'https://github.com/Significant-Gravitas/AutoGPT',
+                    pros: ['完全自主', '功能强大', '开源免费'],
+                    cons: ['配置复杂', '资源消耗大', '可能不稳定']
+                }
+            ]
+        };
+
+        function initializeDetailPage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const itemId = urlParams.get('id');
+            const itemType = urlParams.get('type') || 'tool';
+
+            if (!itemId) {
+                showError('缺少必要参数');
+                return;
+            }
+
+            const item = findItem(itemId, itemType);
+            if (!item) {
+                showError('找不到指定的项目');
+                return;
+            }
+
+            renderItemDetail(item, itemType);
+        }
+
+        function findItem(id, type) {
+            const collections = {
+                'tool': completeDatabase.tools,
+                'model': completeDatabase.models,
+                'agent': completeDatabase.agents
+            };
+
+            const collection = collections[type];
+            return collection ? collection.find(item => item.id === id) : null;
+        }
+
+        function renderItemDetail(item, type) {
+            // 更新页面标题
+            document.getElementById('page-title').textContent = `${item.name} - ${type === 'tool' ? 'AI工具' : type === 'model' ? 'AI模型' : 'AI代理'} | MyAI`;
+            document.getElementById('page-description').content = item.description;
+
+            // 更新Hero区域
+            document.getElementById('hero-icon').textContent = item.icon || '🤖';
+            document.getElementById('hero-title').textContent = item.name;
+            document.getElementById('hero-subtitle').textContent = item.description;
+
+            // 更新主要内容
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = `
+                <h2>功能特性</h2>
+                <div class="feature-grid">
+                    ${item.features.map(feature => `
+                        <div class="feature-item">
+                            <h4>${feature}</h4>
+                        </div>
+                    `).join('')}
+                </div>
+
+                ${item.pros ? `
+                    <h2>优点</h2>
+                    <ul>
+                        ${item.pros.map(pro => `<li style="color: #059669;">✅ ${pro}</li>`).join('')}
+                    </ul>
+                ` : ''}
+
+                ${item.cons ? `
+                    <h2>缺点</h2>
+                    <ul>
+                        ${item.cons.map(con => `<li style="color: #dc2626;">❌ ${con}</li>`).join('')}
+                    </ul>
+                ` : ''}
+
+                <div style="background: #10b981; color: white; padding: 2rem; border-radius: 0.75rem; text-align: center; margin: 2rem 0;">
+                    <h3 style="margin-top: 0;">开始使用 ${item.name}</h3>
+                    <p>立即体验这个强大的AI工具</p>
+                    <a href="${item.link}" target="_blank" class="cta-button" style="background: white; color: #10b981;">访问官网</a>
+                </div>
+            `;
+
+            // 更新侧边栏
+            document.getElementById('basic-info').innerHTML = `
+                <div style="margin-bottom: 1rem;">
+                    <strong>类型:</strong> ${type === 'tool' ? 'AI工具' : type === 'model' ? 'AI模型' : 'AI代理'}
+                </div>
+                ${item.provider ? `
+                    <div style="margin-bottom: 1rem;">
+                        <strong>开发商:</strong> ${item.provider}
+                    </div>
+                ` : ''}
+                ${item.pricing ? `
+                    <div style="margin-bottom: 1rem;">
+                        <strong>定价:</strong> ${item.pricing}
+                    </div>
+                ` : ''}
+                ${item.category ? `
+                    <div style="margin-bottom: 1rem;">
+                        <strong>分类:</strong> ${item.category}
+                    </div>
+                ` : ''}
+            `;
+
+            document.getElementById('rating-info').innerHTML = `
+                <div class="rating-display">
+                    <span class="stars">${'★'.repeat(Math.floor(item.rating))}${'☆'.repeat(5-Math.floor(item.rating))}</span>
+                    <span style="font-size: 1.2rem; font-weight: bold;">${item.rating}</span>
+                </div>
+                <div style="color: #6b7280; font-size: 0.9rem;">基于用户评价</div>
+            `;
+        }
+
+        function showError(message) {
+            document.getElementById('hero-title').textContent = '页面加载失败';
+            document.getElementById('hero-subtitle').textContent = message;
+            document.getElementById('main-content').innerHTML = `
+                <div style="text-align: center; padding: 3rem; color: #dc2626;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">❌</div>
+                    <div>${message}</div>
+                    <a href="/" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #10b981; color: white; text-decoration: none; border-radius: 0.5rem;">返回首页</a>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeDetailPage);
+    </script>
+</body>
+</html>
