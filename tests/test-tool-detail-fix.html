@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具详情修复测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            background: #ffeaea;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            color: green;
+            background: #eafff0;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .test-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-btn:hover {
+            background: #0056b3;
+        }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>工具详情页面修复测试</h1>
+        
+        <div class="test-section">
+            <h2>测试说明</h2>
+            <p>这个页面用于测试工具详情页面的修复情况，特别是解决 "Cannot read properties of undefined (reading 'map')" 错误。</p>
+        </div>
+
+        <div class="test-section">
+            <h2>测试用例</h2>
+            <button class="test-btn" onclick="testToolDetail('gpt-4o', 'model')">测试模型详情 (GPT-4o)</button>
+            <button class="test-btn" onclick="testToolDetail('chatgpt', 'tool')">测试工具详情 (ChatGPT)</button>
+            <button class="test-btn" onclick="testToolDetail('nonexistent', 'tool')">测试不存在的项目</button>
+            <button class="test-btn" onclick="testToolDetail('', 'tool')">测试空ID</button>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <!-- 加载必要的脚本 -->
+    <script src="ai-tools-database.js"></script>
+    <script src="js/data-chunks.js"></script>
+    <script src="js/fast-detail-loader.js"></script>
+    <script src="js/tool-detail.js"></script>
+
+    <script>
+        let testResults = [];
+
+        async function testToolDetail(id, type) {
+            const resultsDiv = document.getElementById('results');
+            const testName = `测试 ${type} ID: ${id || '(空)'}`;
+            
+            try {
+                console.log(`开始${testName}`);
+                
+                // 创建测试容器
+                const testContainer = document.createElement('div');
+                testContainer.className = 'test-section';
+                testContainer.innerHTML = `
+                    <h3>${testName}</h3>
+                    <div id="test-${Date.now()}" style="min-height: 100px; border: 1px solid #eee; padding: 10px;">
+                        <p>加载中...</p>
+                    </div>
+                `;
+                resultsDiv.appendChild(testContainer);
+                
+                // 测试快速详情加载器
+                const item = await window.fastDetailLoader.getItemDetails(id, type);
+                
+                if (item) {
+                    testContainer.innerHTML += `
+                        <div class="success">
+                            ✅ 成功加载项目: ${item.name}
+                            <br>类型: ${item.type || type}
+                            <br>描述: ${item.description || '无描述'}
+                            <br>功能数量: ${item.features ? item.features.length : 0}
+                            <br>优势数量: ${item.pros ? item.pros.length : (item.strengths ? item.strengths.length : 0)}
+                            <br>标签数量: ${item.tags ? item.tags.length : 0}
+                        </div>
+                    `;
+                    
+                    // 测试渲染函数
+                    try {
+                        const toolDetailPage = new ToolDetailPage();
+                        toolDetailPage.item = item;
+                        toolDetailPage.itemType = type;
+                        
+                        // 根据类型调用相应的渲染函数
+                        if (type === 'tool') {
+                            toolDetailPage.renderToolDetails();
+                        } else if (type === 'model') {
+                            toolDetailPage.renderModelDetails();
+                        } else if (type === 'agent') {
+                            toolDetailPage.renderAgentDetails();
+                        }
+                        
+                        testContainer.innerHTML += `
+                            <div class="success">
+                                ✅ 渲染函数执行成功，无map错误
+                            </div>
+                        `;
+                    } catch (renderError) {
+                        testContainer.innerHTML += `
+                            <div class="error">
+                                ❌ 渲染函数错误: ${renderError.message}
+                            </div>
+                        `;
+                    }
+                } else {
+                    testContainer.innerHTML += `
+                        <div class="error">
+                            ❌ 未找到项目
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'test-section';
+                errorDiv.innerHTML = `
+                    <h3>${testName}</h3>
+                    <div class="error">
+                        ❌ 测试失败: ${error.message}
+                        <br>错误堆栈: ${error.stack}
+                    </div>
+                `;
+                resultsDiv.appendChild(errorDiv);
+            }
+        }
+
+        // 页面加载完成后显示状态
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const statusDiv = document.createElement('div');
+                statusDiv.className = 'test-section';
+                statusDiv.innerHTML = `
+                    <h3>加载状态</h3>
+                    <p>数据库加载状态: ${typeof aiToolsDatabase !== 'undefined' ? '✅ 已加载' : '❌ 未加载'}</p>
+                    <p>快速加载器状态: ${typeof window.fastDetailLoader !== 'undefined' ? '✅ 已加载' : '❌ 未加载'}</p>
+                    <p>工具详情页面类状态: ${typeof ToolDetailPage !== 'undefined' ? '✅ 已加载' : '❌ 未加载'}</p>
+                `;
+                document.getElementById('results').appendChild(statusDiv);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

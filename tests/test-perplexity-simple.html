@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perplexity简单测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Perplexity工具简单测试</h1>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function addResult(type, title, content) {
+            const resultsDiv = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `<h3>${title}</h3>${content}`;
+            resultsDiv.appendChild(div);
+        }
+
+        // 创建一个最小的测试数据库
+        const testDatabase = {
+            tools: [
+                {
+                    id: 'perplexity',
+                    name: 'Perplexity AI',
+                    provider: 'Perplexity',
+                    category: 'research',
+                    description: 'AI驱动的搜索引擎，提供准确的答案和引用',
+                    features: ['AI搜索', '实时信息', '引用来源', '对话式查询'],
+                    pricing: '免费/Pro $20/月',
+                    tags: ['搜索', '研究', '引用', '实时'],
+                    rating: 4.5,
+                    users: '10M+',
+                    url: 'https://perplexity.ai',
+                    pros: ['搜索准确', '引用可靠', '界面简洁'],
+                    cons: ['功能相对单一', '依赖网络', '中文支持一般'],
+                    lastUpdated: '2024-12-10'
+                },
+                {
+                    id: 'chatgpt',
+                    name: 'ChatGPT',
+                    provider: 'OpenAI',
+                    category: 'text-generation',
+                    description: '最受欢迎的AI聊天机器人',
+                    features: ['对话交互', '文本生成', '代码编写', '翻译'],
+                    pricing: '免费/Plus $20/月',
+                    tags: ['聊天', '写作', '编程', '翻译'],
+                    rating: 4.8,
+                    users: '100M+',
+                    url: 'https://chat.openai.com',
+                    pros: ['易于使用', '功能全面', '社区活跃'],
+                    cons: ['免费版有限制', '可能产生错误信息'],
+                    lastUpdated: '2024-12-01'
+                }
+            ],
+            models: [],
+            agents: []
+        };
+
+        // 模拟快速详情加载器
+        const mockFastDetailLoader = {
+            async getItemDetails(id, type) {
+                if (type === 'tool') {
+                    const tool = testDatabase.tools.find(t => t.id === id);
+                    if (tool) {
+                        return tool;
+                    } else {
+                        throw new Error(`找不到ID为${id}的${type}`);
+                    }
+                }
+                throw new Error(`不支持的类型: ${type}`);
+            }
+        };
+
+        // 测试函数
+        async function runTests() {
+            addResult('info', '🔄 开始测试', '使用模拟数据库测试perplexity工具');
+
+            // 测试1: 检查工具是否存在
+            try {
+                const perplexityTool = testDatabase.tools.find(t => t.id === 'perplexity');
+                if (perplexityTool) {
+                    addResult('success', '✅ 工具存在检查', `
+                        <p>找到Perplexity工具:</p>
+                        <p><strong>ID:</strong> ${perplexityTool.id}</p>
+                        <p><strong>名称:</strong> ${perplexityTool.name}</p>
+                        <p><strong>描述:</strong> ${perplexityTool.description}</p>
+                    `);
+                } else {
+                    addResult('error', '❌ 工具不存在', '在测试数据库中未找到perplexity工具');
+                }
+            } catch (error) {
+                addResult('error', '❌ 工具检查失败', `错误: ${error.message}`);
+            }
+
+            // 测试2: 模拟详情加载器
+            try {
+                const item = await mockFastDetailLoader.getItemDetails('perplexity', 'tool');
+                addResult('success', '✅ 详情加载器测试', `
+                    <p>成功加载工具详情:</p>
+                    <p><strong>名称:</strong> ${item.name}</p>
+                    <p><strong>评分:</strong> ${item.rating}</p>
+                    <p><strong>用户数:</strong> ${item.users}</p>
+                `);
+            } catch (error) {
+                addResult('error', '❌ 详情加载器失败', `错误: ${error.message}`);
+            }
+
+            // 测试3: 模拟工具详情页面渲染
+            try {
+                const tool = testDatabase.tools.find(t => t.id === 'perplexity');
+                if (tool) {
+                    // 测试所有可能导致map错误的渲染
+                    const featuresHtml = (tool.features || []).map(f => `<li>${f}</li>`).join('');
+                    const prosHtml = (tool.pros || []).map(p => `<li>${p}</li>`).join('');
+                    const consHtml = (tool.cons || []).map(c => `<li>${c}</li>`).join('');
+                    const tagsHtml = (tool.tags || []).map(t => `<span>${t}</span>`).join('');
+
+                    addResult('success', '✅ 渲染测试成功', `
+                        <p>所有渲染测试通过:</p>
+                        <p><strong>功能数量:</strong> ${tool.features.length}</p>
+                        <p><strong>优势数量:</strong> ${tool.pros.length}</p>
+                        <p><strong>劣势数量:</strong> ${tool.cons.length}</p>
+                        <p><strong>标签数量:</strong> ${tool.tags.length}</p>
+                        <p><strong>功能列表:</strong> ${featuresHtml}</p>
+                    `);
+                }
+            } catch (error) {
+                addResult('error', '❌ 渲染测试失败', `错误: ${error.message}`);
+            }
+
+            // 测试4: 测试不存在的工具
+            try {
+                await mockFastDetailLoader.getItemDetails('nonexistent', 'tool');
+                addResult('error', '❌ 错误处理测试失败', '应该抛出错误但没有');
+            } catch (error) {
+                addResult('success', '✅ 错误处理正常', `正确抛出错误: ${error.message}`);
+            }
+
+            addResult('info', '📋 测试总结', `
+                <p><strong>结论:</strong> 如果实际数据库中有perplexity工具且结构正确，工具详情页面应该能正常工作。</p>
+                <p><strong>问题可能在于:</strong></p>
+                <ul>
+                    <li>数据库文件语法错误导致无法加载</li>
+                    <li>工具ID不匹配或不存在</li>
+                    <li>数据库结构被破坏</li>
+                </ul>
+                <p><strong>建议:</strong> 修复数据库文件的语法错误，确保perplexity工具在正确的tools数组中。</p>
+            `);
+        }
+
+        // 页面加载完成后运行测试
+        document.addEventListener('DOMContentLoaded', () => {
+            runTests();
+        });
+    </script>
+</body>
+</html>

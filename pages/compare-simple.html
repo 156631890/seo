@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具对比 - 简化版</title>
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .compare-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+        .compare-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .compare-header h1 {
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+        .selection-section {
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .item-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .item-card:hover {
+            border-color: #10b981;
+            transform: translateY(-2px);
+        }
+        .item-card.selected {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+        .item-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: #1f2937;
+        }
+        .item-card p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        .compare-btn {
+            display: block;
+            width: 200px;
+            margin: 2rem auto;
+            padding: 0.75rem 1.5rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .compare-btn:hover {
+            background: #059669;
+        }
+        .compare-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        .result-section {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,.05);
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .comparison-table th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+        .status-message {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="main-header">
+        <div class="logo"><a href="/">MyAI</a></div>
+        <nav class="site-nav desktop">
+            <a href="/">首页</a>
+            <a href="/#articles">教程</a>
+            <a href="/tools.html">工具合集</a>
+            <a href="/compare.html" class="active">对比</a>
+        </nav>
+    </header>
+
+    <div class="compare-container">
+        <div class="compare-header">
+            <h1>🔍 AI工具对比分析</h1>
+            <p>选择并对比不同的AI工具，找到最适合你需求的解决方案</p>
+        </div>
+
+        <div class="selection-section">
+            <h2>选择要对比的AI工具（最多4个）</h2>
+            <div id="status" class="status-message">正在加载工具数据...</div>
+            <div class="selection-grid" id="tools-grid" style="display: none;">
+                <!-- 工具卡片将在这里动态生成 -->
+            </div>
+        </div>
+
+        <button class="compare-btn" id="compare-btn" disabled>生成对比分析</button>
+
+        <div id="result-section" class="result-section" style="display: none;">
+            <h2>📊 对比结果</h2>
+            <div id="comparison-content">
+                <!-- 对比结果将在这里显示 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简化的AI工具数据
+        const sampleTools = [
+            {
+                id: 'chatgpt',
+                name: 'ChatGPT',
+                description: 'OpenAI开发的对话AI助手',
+                category: '文本生成',
+                pricing: 'Freemium',
+                features: ['对话交互', '代码生成', '文本创作', '问题解答'],
+                pros: ['功能强大', '响应快速', '支持多语言'],
+                cons: ['有使用限制', '需要网络连接']
+            },
+            {
+                id: 'claude',
+                name: 'Claude',
+                description: 'Anthropic开发的AI助手',
+                category: '文本生成',
+                pricing: 'Freemium',
+                features: ['长文本处理', '代码分析', '文档总结', '创意写作'],
+                pros: ['处理长文本', '安全可靠', '逻辑清晰'],
+                cons: ['访问受限', '更新较慢']
+            },
+            {
+                id: 'midjourney',
+                name: 'Midjourney',
+                description: '顶级AI图像生成工具',
+                category: '图像生成',
+                pricing: '付费',
+                features: ['艺术创作', '风格多样', '高质量输出', '社区分享'],
+                pros: ['图像质量高', '艺术风格丰富', '社区活跃'],
+                cons: ['需要付费', '需要Discord']
+            },
+            {
+                id: 'github-copilot',
+                name: 'GitHub Copilot',
+                description: 'AI代码助手',
+                category: '代码助手',
+                pricing: '付费',
+                features: ['代码补全', '函数生成', '注释生成', '多语言支持'],
+                pros: ['提高编程效率', '支持多种语言', '集成度高'],
+                cons: ['需要订阅', '依赖网络']
+            },
+            {
+                id: 'stable-diffusion',
+                name: 'Stable Diffusion',
+                description: '开源AI图像生成模型',
+                category: '图像生成',
+                pricing: '免费',
+                features: ['图像生成', '图像编辑', '风格转换', '本地运行'],
+                pros: ['完全免费', '可本地运行', '高度可定制'],
+                cons: ['需要技术知识', '硬件要求高']
+            },
+            {
+                id: 'jasper',
+                name: 'Jasper AI',
+                description: 'AI内容创作平台',
+                category: '文本生成',
+                pricing: '付费',
+                features: ['营销文案', '博客写作', '社媒内容', '邮件营销'],
+                pros: ['专业营销工具', '模板丰富', '团队协作'],
+                cons: ['价格较高', '主要面向企业']
+            }
+        ];
+
+        let selectedTools = [];
+        const maxSelections = 4;
+
+        function initializePage() {
+            const statusEl = document.getElementById('status');
+            const toolsGrid = document.getElementById('tools-grid');
+            const compareBtn = document.getElementById('compare-btn');
+
+            try {
+                // 生成工具卡片
+                sampleTools.forEach(tool => {
+                    const card = document.createElement('div');
+                    card.className = 'item-card';
+                    card.dataset.toolId = tool.id;
+                    card.innerHTML = `
+                        <h3>${tool.name}</h3>
+                        <p>${tool.description}</p>
+                        <small style="color: #10b981; font-weight: 600;">${tool.category} • ${tool.pricing}</small>
+                    `;
+                    
+                    card.addEventListener('click', () => toggleSelection(tool, card));
+                    toolsGrid.appendChild(card);
+                });
+
+                // 隐藏状态消息，显示工具网格
+                statusEl.style.display = 'none';
+                toolsGrid.style.display = 'grid';
+
+                // 绑定对比按钮事件
+                compareBtn.addEventListener('click', generateComparison);
+
+            } catch (error) {
+                statusEl.textContent = `加载失败: ${error.message}`;
+                statusEl.style.color = '#dc2626';
+            }
+        }
+
+        function toggleSelection(tool, cardElement) {
+            const toolIndex = selectedTools.findIndex(t => t.id === tool.id);
+            
+            if (toolIndex > -1) {
+                // 取消选择
+                selectedTools.splice(toolIndex, 1);
+                cardElement.classList.remove('selected');
+            } else if (selectedTools.length < maxSelections) {
+                // 添加选择
+                selectedTools.push(tool);
+                cardElement.classList.add('selected');
+            } else {
+                alert(`最多只能选择${maxSelections}个工具进行对比`);
+                return;
+            }
+
+            // 更新按钮状态
+            const compareBtn = document.getElementById('compare-btn');
+            compareBtn.disabled = selectedTools.length < 2;
+            compareBtn.textContent = selectedTools.length < 2 
+                ? '请至少选择2个工具' 
+                : `对比选中的${selectedTools.length}个工具`;
+        }
+
+        function generateComparison() {
+            if (selectedTools.length < 2) return;
+
+            const resultSection = document.getElementById('result-section');
+            const comparisonContent = document.getElementById('comparison-content');
+
+            // 生成对比表格
+            let tableHTML = `
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>特性</th>
+                            ${selectedTools.map(tool => `<th>${tool.name}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>分类</strong></td>
+                            ${selectedTools.map(tool => `<td>${tool.category}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td><strong>定价</strong></td>
+                            ${selectedTools.map(tool => `<td>${tool.pricing}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td><strong>主要功能</strong></td>
+                            ${selectedTools.map(tool => `<td>${tool.features.join('<br>')}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td><strong>优点</strong></td>
+                            ${selectedTools.map(tool => `<td style="color: #059669;">${tool.pros.join('<br>')}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td><strong>缺点</strong></td>
+                            ${selectedTools.map(tool => `<td style="color: #dc2626;">${tool.cons.join('<br>')}</td>`).join('')}
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+            // 生成推荐
+            const recommendation = generateRecommendation();
+            
+            comparisonContent.innerHTML = tableHTML + recommendation;
+            resultSection.style.display = 'block';
+            
+            // 滚动到结果区域
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateRecommendation() {
+            const categories = [...new Set(selectedTools.map(tool => tool.category))];
+            const freeTools = selectedTools.filter(tool => tool.pricing === '免费');
+            const paidTools = selectedTools.filter(tool => tool.pricing === '付费');
+            
+            let recommendation = '<div style="margin-top: 2rem; padding: 1.5rem; background: #ecfdf5; border-radius: 0.5rem;">';
+            recommendation += '<h3 style="color: #059669; margin-top: 0;">🌟 推荐建议</h3>';
+            
+            if (categories.length === 1) {
+                recommendation += `<p>你选择的都是<strong>${categories[0]}</strong>类工具，这样的对比很有针对性。</p>`;
+            } else {
+                recommendation += `<p>你选择了${categories.length}个不同类别的工具：${categories.join('、')}。</p>`;
+            }
+            
+            if (freeTools.length > 0) {
+                recommendation += `<p><strong>免费选择：</strong>${freeTools.map(t => t.name).join('、')} 适合预算有限的用户。</p>`;
+            }
+            
+            if (paidTools.length > 0) {
+                recommendation += `<p><strong>付费选择：</strong>${paidTools.map(t => t.name).join('、')} 通常功能更强大，适合专业用户。</p>`;
+            }
+            
+            recommendation += '</div>';
+            return recommendation;
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+</body>
+</html>

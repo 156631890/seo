@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快速加载器测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+        .loading { color: orange; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🚀 快速加载器测试页面</h1>
+    
+    <div class="test-section">
+        <h2>1. 基础加载测试</h2>
+        <div id="basic-test">
+            <p class="loading">正在测试基础加载...</p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. 数据获取测试</h2>
+        <div id="data-test">
+            <p class="loading">正在测试数据获取...</p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. 搜索功能测试</h2>
+        <div id="search-test">
+            <p class="loading">正在测试搜索功能...</p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. 兼容性接口测试</h2>
+        <div id="compatibility-test">
+            <p class="loading">正在测试兼容性接口...</p>
+        </div>
+    </div>
+
+    <script src="/js/simple-performance.js"></script>
+    <script src="/js/fast-loader.js"></script>
+    <script>
+        async function runTests() {
+            const startTime = Date.now();
+            
+            try {
+                // 测试1: 基础加载
+                console.log('开始基础加载测试...');
+                await window.fastAILoader.init();
+                document.getElementById('basic-test').innerHTML = `
+                    <p class="success">✅ 基础加载成功</p>
+                    <p>加载时间: ${Date.now() - startTime}ms</p>
+                `;
+
+                // 测试2: 数据获取
+                console.log('开始数据获取测试...');
+                const categories = await window.fastAILoader.getCategories();
+                const tools = await window.fastAILoader.getTools();
+                const models = await window.fastAILoader.getModels();
+                const agents = await window.fastAILoader.getAgents();
+                const stats = await window.fastAILoader.getStats();
+
+                document.getElementById('data-test').innerHTML = `
+                    <p class="success">✅ 数据获取成功</p>
+                    <ul>
+                        <li>分类数量: ${Object.keys(categories).length}</li>
+                        <li>工具数量: ${tools.length}</li>
+                        <li>模型数量: ${models.length}</li>
+                        <li>Agent数量: ${agents.length}</li>
+                        <li>统计数据: ${JSON.stringify(stats)}</li>
+                    </ul>
+                `;
+
+                // 测试3: 搜索功能
+                console.log('开始搜索功能测试...');
+                const searchResults = await window.fastAILoader.search('ChatGPT', 'tools');
+                const modelSearch = await window.fastAILoader.search('GPT', 'models');
+
+                document.getElementById('search-test').innerHTML = `
+                    <p class="success">✅ 搜索功能正常</p>
+                    <ul>
+                        <li>ChatGPT搜索结果: ${searchResults.length}个</li>
+                        <li>GPT模型搜索结果: ${modelSearch.length}个</li>
+                    </ul>
+                `;
+
+                // 测试4: 兼容性接口
+                console.log('开始兼容性接口测试...');
+                const compatTools = await window.aiToolsLoader.getTools();
+                const compatModels = await window.aiToolsLoader.getModels();
+                const compatDatabase = await window.aiToolsLoader.getDatabase();
+
+                document.getElementById('compatibility-test').innerHTML = `
+                    <p class="success">✅ 兼容性接口正常</p>
+                    <ul>
+                        <li>兼容工具数量: ${compatTools.length}</li>
+                        <li>兼容模型数量: ${compatModels.length}</li>
+                        <li>兼容数据库: ${compatDatabase ? '可用' : '不可用'}</li>
+                    </ul>
+                `;
+
+                console.log('所有测试完成！总耗时:', Date.now() - startTime, 'ms');
+
+            } catch (error) {
+                console.error('测试失败:', error);
+                document.body.innerHTML += `
+                    <div class="test-section">
+                        <h2>❌ 测试失败</h2>
+                        <p class="error">错误信息: ${error.message}</p>
+                        <pre>${error.stack}</pre>
+                    </div>
+                `;
+            }
+        }
+
+        // 页面加载完成后运行测试
+        document.addEventListener('DOMContentLoaded', runTests);
+    </script>
+</body>
+</html>

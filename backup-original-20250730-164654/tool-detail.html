@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI工具详情 • MyAI</title>
+  <meta name="description" content="查看AI工具、模型和Agent的详细信息、评测和使用指南">
+  <link rel="stylesheet" href="/partials/site-style.css">
+  <style>
+    /* 工具详情页面样式 */
+    .tool-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4rem 0; text-align: center; }
+    .tool-hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+    .tool-hero .subtitle { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }
+    .tool-hero .meta { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 0.5rem; }
+    
+    .tool-content { max-width: 1000px; margin: 0 auto; padding: 3rem 1rem; }
+    .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; margin-top: 2rem; }
+    
+    .main-content h2 { color: var(--primary); margin-top: 2rem; }
+    .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .feature-item { background: #f8fafc; padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--primary); }
+    
+    .sidebar { position: sticky; top: 2rem; }
+    .info-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; margin-bottom: 1.5rem; }
+    .info-card h3 { margin-top: 0; color: var(--primary); }
+    
+    .rating-display { display: flex; align-items: center; gap: 1rem; margin: 1rem 0; }
+    .stars { color: #fbbf24; font-size: 1.5rem; }
+    .rating-number { font-size: 1.2rem; font-weight: bold; }
+    
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .pros, .cons { padding: 1.5rem; border-radius: var(--radius); }
+    .pros { background: #f0fdf4; border-left: 4px solid #22c55e; }
+    .cons { background: #fef2f2; border-left: 4px solid #ef4444; }
+    .pros h3 { color: #16a34a; }
+    .cons h3 { color: #dc2626; }
+    
+    .cta-section { background: var(--primary); color: white; padding: 3rem; border-radius: var(--radius); text-align: center; margin: 3rem 0; }
+    .cta-btn { display: inline-block; background: white; color: var(--primary); padding: 1rem 2rem; border-radius: var(--radius); text-decoration: none; font-weight: bold; margin-top: 1rem; }
+    
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+    .tag { font-size: 0.8rem; background: #f1f5f9; color: #475569; padding: 0.25rem 0.5rem; border-radius: 12px; }
+    
+    .related-tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .related-tool-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; }
+    .related-tool-card h4 { margin-top: 0; }
+    .related-tool-card a { color: var(--primary); text-decoration: none; }
+    .related-tool-card a:hover { text-decoration: underline; }
+    
+    .screenshot { width: 100%; border-radius: var(--radius); margin: 1.5rem 0; box-shadow: var(--shadow); }
+    
+    .usage-steps { counter-reset: step; }
+    .usage-step { position: relative; padding-left: 3rem; margin-bottom: 1.5rem; }
+    .usage-step::before { 
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2rem;
+      height: 2rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    @media (max-width: 768px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .pros-cons { grid-template-columns: 1fr; }
+      .tool-hero h1 { font-size: 2rem; }
+      .tool-hero .meta { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <header class="main-header">
+    <div class="logo"><a href="/">MyAI</a></div>
+    <nav class="site-nav desktop">
+      <a href="/">首页</a>
+      <a href="/#articles">教程</a>
+      <a href="/tools.html">工具合集</a>
+      <a href="/about.html">关于</a>
+    </nav>
+  </header>
+
+  <!-- 工具标题区域 -->
+  <section class="tool-hero" id="tool-hero">
+    <!-- 工具标题将通过JavaScript动态生成 -->
+  </section>
+
+  <!-- 主要内容 -->
+  <div class="tool-content">
+    <div class="content-grid">
+      <!-- 主要内容区域 -->
+      <div class="main-content" id="main-content">
+        <!-- 工具内容将通过JavaScript动态生成 -->
+      </div>
+
+      <!-- 侧边栏 -->
+      <div class="sidebar" id="sidebar">
+        <!-- 侧边栏内容将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- 行动号召 -->
+    <div class="cta-section" id="cta-section">
+      <!-- CTA内容将通过JavaScript动态生成 -->
+    </div>
+
+    <!-- 相关工具 -->
+    <h2>🔗 相关工具</h2>
+    <div class="related-tools" id="related-tools">
+      <!-- 相关工具将通过JavaScript动态生成 -->
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer>
+    <p>© 2025 MyAI • 用 ❤️ 和 ☕ 构建</p>
+  </footer>
+
+  <!-- 引入脚本 -->
+  <script src="/js/data-chunks.js"></script>
+  <script src="/js/fast-detail-loader.js"></script>
+  <script src="/js/ai-tools-loader.js"></script>
+  <script src="/social-share.js"></script>
+  <script src="/js/tool-detail.js"></script>
+</body>
+</html>

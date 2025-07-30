@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI模型大全 - 2025年最新AI模型评测 | MyAI</title>
+    <meta name="description" content="2025年最全AI模型合集！GPT-4o、Claude 3.5、Gemini 2.0、o1等50+顶级AI模型深度评测，功能对比，使用指南。">
+    <meta name="keywords" content="AI模型,GPT-4o,Claude,Gemini,AI模型对比,大语言模型,多模态模型,AI模型评测">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .models-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .models-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .models-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        .models-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        .models-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0 3rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #10b981;
+        }
+        .stat-label {
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+        .filter-section {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .model-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 1px solid #e5e7eb;
+        }
+        .model-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .model-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .model-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+        }
+        .model-info h3 {
+            margin: 0;
+            color: #1f2937;
+            font-size: 1.25rem;
+        }
+        .model-provider {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+        .model-description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .model-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .feature-tag {
+            background: #ecfdf5;
+            color: #059669;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .model-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+        }
+        .model-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .stars {
+            color: #fbbf24;
+        }
+        .model-link {
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .model-link:hover {
+            background: #059669;
+        }
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        @media (max-width: 768px) {
+            .models-hero h1 {
+                font-size: 2rem;
+            }
+            .models-grid {
+                grid-template-columns: 1fr;
+            }
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="main-header">
+        <div class="logo"><a href="/">MyAI</a></div>
+        <nav class="site-nav desktop">
+            <a href="/">首页</a>
+            <a href="/#articles">教程</a>
+            <a href="/tools.html">工具合集</a>
+            <a href="/models-simple.html" class="active">AI模型</a>
+            <a href="/compare-simple.html">对比</a>
+        </nav>
+    </header>
+
+    <!-- Hero区域 -->
+    <section class="models-hero">
+        <h1>🧠 2025年AI模型大全</h1>
+        <p>深度评测50+顶级AI模型，从GPT-4o到Claude 3.5，从Gemini到o1，找到最适合你的AI助手</p>
+    </section>
+
+    <div class="models-container">
+        <!-- 统计信息 -->
+        <div class="models-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="total-models">50+</div>
+                <div class="stat-label">AI模型</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">AI公司</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">模型类型</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">实时更新</div>
+            </div>
+        </div>
+
+        <!-- 筛选和搜索 -->
+        <div class="filter-section">
+            <h3 style="margin-top: 0;">🔍 筛选和搜索</h3>
+            <input type="text" class="search-box" id="search-input" placeholder="搜索AI模型名称、公司或功能...">
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">全部模型</button>
+                <button class="filter-btn" data-filter="llm">大语言模型</button>
+                <button class="filter-btn" data-filter="multimodal">多模态模型</button>
+                <button class="filter-btn" data-filter="image">图像模型</button>
+                <button class="filter-btn" data-filter="audio">音频模型</button>
+                <button class="filter-btn" data-filter="video">视频模型</button>
+            </div>
+        </div>
+
+        <!-- 模型网格 -->
+        <div class="models-grid" id="models-grid">
+            <!-- 模型卡片将通过JavaScript生成 -->
+        </div>
+
+        <!-- 加载状态 -->
+        <div id="loading-state" style="text-align: center; padding: 3rem; color: #6b7280;">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🔄</div>
+            <div>正在加载AI模型数据...</div>
+        </div>
+
+        <!-- 无结果状态 -->
+        <div id="no-results" style="display: none; text-align: center; padding: 3rem; color: #6b7280;">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🔍</div>
+            <div>没有找到匹配的AI模型</div>
+            <button class="filter-btn" onclick="clearFilters()" style="margin-top: 1rem;">清除筛选条件</button>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 MyAI • 专业的AI工具评测平台</p>
+    </footer>
+
+    <script>
+        // 内置AI模型数据（避免依赖外部加载器）
+        const aiModels = [
+            {
+                id: 'gpt-4o',
+                name: 'GPT-4o',
+                provider: 'OpenAI',
+                type: 'multimodal',
+                description: 'OpenAI最新的多模态大语言模型，支持文本、图像、音频处理，推理能力显著提升。',
+                features: ['文本生成', '图像理解', '代码编写', '数学推理', '多语言支持'],
+                rating: 4.8,
+                icon: '🤖',
+                link: 'https://openai.com/gpt-4o'
+            },
+            {
+                id: 'claude-3-5-sonnet',
+                name: 'Claude 3.5 Sonnet',
+                provider: 'Anthropic',
+                type: 'llm',
+                description: 'Anthropic的旗舰模型，在推理、编程和创意写作方面表现出色，安全性高。',
+                features: ['长文本处理', '代码分析', '创意写作', '逻辑推理', '安全对话'],
+                rating: 4.7,
+                icon: '🧠',
+                link: 'https://claude.ai'
+            },
+            {
+                id: 'gemini-2-0',
+                name: 'Gemini 2.0',
+                provider: 'Google',
+                type: 'multimodal',
+                description: 'Google最新的多模态AI模型，集成了搜索、地图等Google服务。',
+                features: ['实时搜索', '多模态理解', '代码生成', '数据分析', '工具调用'],
+                rating: 4.6,
+                icon: '💎',
+                link: 'https://gemini.google.com'
+            },
+            {
+                id: 'o1-preview',
+                name: 'OpenAI o1',
+                provider: 'OpenAI',
+                type: 'llm',
+                description: '专注于复杂推理的AI模型，在数学、科学和编程问题上表现卓越。',
+                features: ['深度推理', '数学解题', '科学分析', '复杂编程', '逻辑思考'],
+                rating: 4.9,
+                icon: '🔬',
+                link: 'https://openai.com/o1'
+            },
+            {
+                id: 'midjourney-v6',
+                name: 'Midjourney V6',
+                provider: 'Midjourney',
+                type: 'image',
+                description: '顶级AI图像生成模型，艺术质量和风格多样性业界领先。',
+                features: ['艺术创作', '风格多样', '高分辨率', '细节丰富', '商业授权'],
+                rating: 4.8,
+                icon: '🎨',
+                link: 'https://midjourney.com'
+            },
+            {
+                id: 'dall-e-3',
+                name: 'DALL-E 3',
+                provider: 'OpenAI',
+                type: 'image',
+                description: 'OpenAI的图像生成模型，与ChatGPT深度集成，理解复杂提示词。',
+                features: ['文本理解', '图像生成', '风格控制', '安全过滤', 'ChatGPT集成'],
+                rating: 4.5,
+                icon: '🖼️',
+                link: 'https://openai.com/dall-e-3'
+            },
+            {
+                id: 'stable-diffusion-xl',
+                name: 'Stable Diffusion XL',
+                provider: 'Stability AI',
+                type: 'image',
+                description: '开源图像生成模型，可本地部署，高度可定制。',
+                features: ['开源免费', '本地部署', '高度定制', '社区支持', '商业友好'],
+                rating: 4.4,
+                icon: '🌟',
+                link: 'https://stability.ai/stable-diffusion'
+            },
+            {
+                id: 'sora',
+                name: 'Sora',
+                provider: 'OpenAI',
+                type: 'video',
+                description: 'OpenAI的视频生成模型，能够创建高质量的60秒视频内容。',
+                features: ['视频生成', '长时间序列', '高质量输出', '物理一致性', '创意内容'],
+                rating: 4.7,
+                icon: '🎬',
+                link: 'https://openai.com/sora'
+            },
+            {
+                id: 'runway-gen-3',
+                name: 'Runway Gen-3',
+                provider: 'Runway',
+                type: 'video',
+                description: '专业级AI视频生成和编辑工具，支持多种视频创作需求。',
+                features: ['视频编辑', '特效生成', '风格转换', '专业工具', '创作者友好'],
+                rating: 4.3,
+                icon: '🎭',
+                link: 'https://runway.com'
+            },
+            {
+                id: 'elevenlabs-voice',
+                name: 'ElevenLabs Voice',
+                provider: 'ElevenLabs',
+                type: 'audio',
+                description: '最先进的AI语音合成技术，支持多语言和情感表达。',
+                features: ['语音合成', '情感表达', '多语言', '声音克隆', '实时生成'],
+                rating: 4.6,
+                icon: '🎤',
+                link: 'https://elevenlabs.io'
+            },
+            {
+                id: 'whisper-v3',
+                name: 'Whisper V3',
+                provider: 'OpenAI',
+                type: 'audio',
+                description: '强大的语音识别模型，支持多语言转录和翻译。',
+                features: ['语音识别', '多语言支持', '实时转录', '噪音过滤', '开源可用'],
+                rating: 4.5,
+                icon: '👂',
+                link: 'https://openai.com/whisper'
+            },
+            {
+                id: 'llama-3-1',
+                name: 'Llama 3.1',
+                provider: 'Meta',
+                type: 'llm',
+                description: 'Meta的开源大语言模型，性能强大且完全免费使用。',
+                features: ['开源免费', '本地部署', '商业友好', '多语言', '高性能'],
+                rating: 4.4,
+                icon: '🦙',
+                link: 'https://llama.meta.com'
+            }
+        ];
+
+        let filteredModels = [...aiModels];
+        let currentFilter = 'all';
+
+        // 初始化页面
+        function initializePage() {
+            renderModels(aiModels);
+            bindEvents();
+            updateStats();
+        }
+
+        // 渲染模型卡片
+        function renderModels(models) {
+            const modelsGrid = document.getElementById('models-grid');
+            const loadingState = document.getElementById('loading-state');
+            const noResults = document.getElementById('no-results');
+
+            loadingState.style.display = 'none';
+
+            if (models.length === 0) {
+                modelsGrid.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            
+            modelsGrid.innerHTML = models.map(model => `
+                <div class="model-card" data-type="${model.type}">
+                    <div class="model-header">
+                        <div class="model-icon">${model.icon}</div>
+                        <div class="model-info">
+                            <h3>${model.name}</h3>
+                            <div class="model-provider">${model.provider}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="model-description">${model.description}</div>
+                    
+                    <div class="model-features">
+                        ${model.features.map(feature => 
+                            `<span class="feature-tag">${feature}</span>`
+                        ).join('')}
+                    </div>
+                    
+                    <div class="model-meta">
+                        <div class="model-rating">
+                            <span class="stars">${'★'.repeat(Math.floor(model.rating))}${'☆'.repeat(5-Math.floor(model.rating))}</span>
+                            <span>${model.rating}</span>
+                        </div>
+                        <a href="${model.link}" target="_blank" class="model-link">了解更多</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 绑定事件
+        function bindEvents() {
+            // 筛选按钮
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // 更新按钮状态
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    // 筛选模型
+                    currentFilter = e.target.dataset.filter;
+                    filterModels();
+                });
+            });
+
+            // 搜索框
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', (e) => {
+                filterModels();
+            });
+        }
+
+        // 筛选模型
+        function filterModels() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            filteredModels = aiModels.filter(model => {
+                // 类型筛选
+                const typeMatch = currentFilter === 'all' || model.type === currentFilter;
+                
+                // 搜索筛选
+                const searchMatch = searchTerm === '' || 
+                    model.name.toLowerCase().includes(searchTerm) ||
+                    model.provider.toLowerCase().includes(searchTerm) ||
+                    model.description.toLowerCase().includes(searchTerm) ||
+                    model.features.some(feature => feature.toLowerCase().includes(searchTerm));
+                
+                return typeMatch && searchMatch;
+            });
+            
+            renderModels(filteredModels);
+        }
+
+        // 清除筛选条件
+        function clearFilters() {
+            document.getElementById('search-input').value = '';
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+            currentFilter = 'all';
+            filteredModels = [...aiModels];
+            renderModels(filteredModels);
+        }
+
+        // 更新统计信息
+        function updateStats() {
+            document.getElementById('total-models').textContent = aiModels.length + '+';
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+</body>
+</html>

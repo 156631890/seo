@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>完整修复测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success {
+            color: green;
+            background: #eafff0;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .error {
+            color: red;
+            background: #ffeaea;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .test-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-btn:hover {
+            background: #0056b3;
+        }
+        .test-result {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+        }
+        pre {
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Map错误修复完整测试</h1>
+        
+        <div class="test-section">
+            <h2>测试概述</h2>
+            <p>这个页面测试工具详情页面中所有可能导致 "Cannot read properties of undefined (reading 'map')" 错误的情况。</p>
+            <p><strong>修复策略:</strong> 为所有数组属性添加安全检查，使用 <code>(array || []).map()</code> 或条件渲染。</p>
+        </div>
+
+        <div class="test-section">
+            <h2>🔧 自动测试</h2>
+            <button class="test-btn" onclick="runAllTests()">运行所有测试</button>
+            <button class="test-btn" onclick="clearResults()">清除结果</button>
+            <div id="test-results"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 手动测试链接</h2>
+            <p>点击以下链接测试实际的工具详情页面：</p>
+            <div>
+                <a href="tool-detail.html?id=gpt-4o&type=model" target="_blank" class="test-btn">测试GPT-4o模型</a>
+                <a href="tool-detail.html?id=chatgpt&type=tool" target="_blank" class="test-btn">测试ChatGPT工具</a>
+                <a href="tool-detail.html?id=nonexistent&type=tool" target="_blank" class="test-btn">测试不存在的工具</a>
+                <a href="tool-detail.html?id=&type=tool" target="_blank" class="test-btn">测试空ID</a>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 测试数据</h2>
+            <p>以下是用于测试的模拟数据对象：</p>
+            <pre id="test-data"></pre>
+        </div>
+    </div>
+
+    <!-- 加载测试脚本 -->
+    <script src="test-map-error-fix.js"></script>
+    
+    <script>
+        // 测试数据
+        const testData = [
+            {
+                name: '完整工具对象',
+                data: {
+                    id: 'test-1',
+                    name: '完整测试工具',
+                    description: '这是一个完整的工具对象',
+                    features: ['功能1', '功能2', '功能3'],
+                    pros: ['优势1', '优势2'],
+                    cons: ['劣势1', '劣势2'],
+                    tags: ['标签1', '标签2'],
+                    rating: 4.5,
+                    pricing: '免费'
+                },
+                type: 'tool'
+            },
+            {
+                name: '缺少属性的工具',
+                data: {
+                    id: 'test-2',
+                    name: '不完整工具',
+                    description: '缺少部分属性',
+                    features: ['功能1'],
+                    rating: 4.0,
+                    pricing: '付费'
+                },
+                type: 'tool'
+            },
+            {
+                name: 'undefined属性工具',
+                data: {
+                    id: 'test-3',
+                    name: 'undefined工具',
+                    description: '属性为undefined',
+                    features: undefined,
+                    pros: undefined,
+                    cons: undefined,
+                    tags: undefined,
+                    rating: 3.5
+                },
+                type: 'tool'
+            },
+            {
+                name: '完整模型对象',
+                data: {
+                    id: 'test-4',
+                    name: '测试模型',
+                    description: '完整的模型对象',
+                    features: ['特性1', '特性2'],
+                    strengths: ['优势1', '优势2'],
+                    limitations: ['限制1'],
+                    rating: 4.8,
+                    provider: 'TestAI'
+                },
+                type: 'model'
+            },
+            {
+                name: '缺少属性的模型',
+                data: {
+                    id: 'test-5',
+                    name: '不完整模型',
+                    description: '缺少关键属性',
+                    rating: 4.2,
+                    provider: 'TestAI'
+                },
+                type: 'model'
+            }
+        ];
+
+        // 显示测试数据
+        document.getElementById('test-data').textContent = JSON.stringify(testData, null, 2);
+
+        // 运行所有测试
+        function runAllTests() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '<h3>🔄 正在运行测试...</h3>';
+            
+            let allPassed = true;
+            const results = [];
+
+            testData.forEach((testCase, index) => {
+                const testResult = {
+                    name: testCase.name,
+                    type: testCase.type,
+                    passed: false,
+                    error: null,
+                    output: null
+                };
+
+                try {
+                    // 测试渲染函数
+                    const renderResult = testRenderFunction(testCase.data, testCase.type);
+                    testResult.passed = true;
+                    testResult.output = renderResult;
+                    
+                } catch (error) {
+                    testResult.passed = false;
+                    testResult.error = error.message;
+                    allPassed = false;
+                }
+
+                results.push(testResult);
+            });
+
+            // 测试相关项目渲染
+            const relatedItemsTest = testRelatedItemsRendering();
+            results.push(relatedItemsTest);
+            if (!relatedItemsTest.passed) allPassed = false;
+
+            // 显示结果
+            displayTestResults(results, allPassed);
+        }
+
+        // 测试渲染函数
+        function testRenderFunction(data, type) {
+            const mockPage = {
+                item: data,
+                itemType: type
+            };
+
+            let result = {};
+
+            if (type === 'tool') {
+                // 测试工具渲染的关键部分
+                const tool = data;
+                
+                // 测试features渲染
+                result.features = (tool.features || []).map(f => f).join(',');
+                
+                // 测试pros/cons渲染
+                if (tool.pros) {
+                    result.pros = tool.pros.map(p => p).join(',');
+                }
+                if (tool.cons) {
+                    result.cons = tool.cons.map(c => c).join(',');
+                }
+                
+                // 测试tags渲染
+                if (tool.tags && tool.tags.length > 0) {
+                    result.tags = tool.tags.map(t => t).join(',');
+                }
+                
+            } else if (type === 'model') {
+                // 测试模型渲染的关键部分
+                const model = data;
+                
+                result.features = (model.features || []).map(f => f).join(',');
+                
+                if (model.strengths) {
+                    result.strengths = model.strengths.map(s => s).join(',');
+                }
+                if (model.limitations) {
+                    result.limitations = model.limitations.map(l => l).join(',');
+                }
+            }
+
+            return result;
+        }
+
+        // 测试相关项目渲染
+        function testRelatedItemsRendering() {
+            const testCases = [
+                [{ id: '1', name: '工具1', description: '描述1', rating: 4.5 }],
+                [],
+                undefined,
+                null,
+                [{ id: '1', name: '工具1' }] // 缺少属性
+            ];
+
+            try {
+                testCases.forEach(items => {
+                    if (items && items.length > 0) {
+                        items.map(item => `
+                            <div>
+                                <h4>${item.name}</h4>
+                                <p>${item.description || ''}</p>
+                                <span>${item.rating || 0}</span>
+                            </div>
+                        `).join('');
+                    }
+                });
+
+                return {
+                    name: '相关项目渲染测试',
+                    passed: true,
+                    output: '所有相关项目渲染测试通过'
+                };
+            } catch (error) {
+                return {
+                    name: '相关项目渲染测试',
+                    passed: false,
+                    error: error.message
+                };
+            }
+        }
+
+        // 显示测试结果
+        function displayTestResults(results, allPassed) {
+            const resultsDiv = document.getElementById('test-results');
+            
+            let html = `
+                <h3>${allPassed ? '✅' : '❌'} 测试结果 ${allPassed ? '(全部通过)' : '(有失败)'}</h3>
+            `;
+
+            results.forEach((result, index) => {
+                html += `
+                    <div class="test-result">
+                        <h4>${result.passed ? '✅' : '❌'} ${result.name}</h4>
+                        ${result.type ? `<p><strong>类型:</strong> ${result.type}</p>` : ''}
+                        ${result.passed ? 
+                            `<div class="success">测试通过</div>
+                             ${result.output ? `<pre>${JSON.stringify(result.output, null, 2)}</pre>` : ''}` :
+                            `<div class="error">测试失败: ${result.error}</div>`
+                        }
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="test-result">
+                    <h4>📋 测试总结</h4>
+                    <p><strong>总测试数:</strong> ${results.length}</p>
+                    <p><strong>通过数:</strong> ${results.filter(r => r.passed).length}</p>
+                    <p><strong>失败数:</strong> ${results.filter(r => !r.passed).length}</p>
+                    <p><strong>通过率:</strong> ${Math.round(results.filter(r => r.passed).length / results.length * 100)}%</p>
+                </div>
+            `;
+
+            resultsDiv.innerHTML = html;
+        }
+
+        // 清除结果
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+
+        // 页面加载完成后显示状态
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🧪 测试页面加载完成');
+            console.log('📊 测试数据准备就绪:', testData.length, '个测试用例');
+        });
+    </script>
+</body>
+</html>

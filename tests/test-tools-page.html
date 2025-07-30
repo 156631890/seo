@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具页面测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .tab-nav { display: flex; gap: 1rem; margin: 2rem 0; }
+        .tab-btn { padding: 1rem 2rem; border: 1px solid #ddd; background: white; cursor: pointer; }
+        .tab-btn.active { background: #007bff; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+        .tool-card { border: 1px solid #ddd; padding: 1rem; border-radius: 8px; }
+        .status { padding: 1rem; margin: 1rem 0; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>🛠️ 工具页面测试</h1>
+    
+    <div id="debug-info" class="status info">正在初始化...</div>
+    
+    <!-- 标签页导航 -->
+    <div class="tab-nav">
+        <button class="tab-btn active" data-tab="tools">🛠️ AI工具</button>
+        <button class="tab-btn" data-tab="models">🧠 AI模型</button>
+        <button class="tab-btn" data-tab="agents">🤖 AI Agent</button>
+    </div>
+
+    <!-- AI工具标签页 -->
+    <div id="tools-tab" class="tab-content active">
+        <h2>AI工具</h2>
+        <div class="tools-grid" id="toolsGrid">
+            <!-- 工具卡片将通过JavaScript动态生成 -->
+        </div>
+    </div>
+
+    <!-- AI模型标签页 -->
+    <div id="models-tab" class="tab-content">
+        <h2>AI模型</h2>
+        <div class="tools-grid" id="modelsGrid">
+            <!-- 模型卡片将通过JavaScript动态生成 -->
+        </div>
+    </div>
+
+    <!-- AI Agent标签页 -->
+    <div id="agents-tab" class="tab-content">
+        <h2>AI Agent</h2>
+        <div class="tools-grid" id="agentsGrid">
+            <!-- Agent卡片将通过JavaScript动态生成 -->
+        </div>
+    </div>
+
+    <!-- 引入必要的脚本 -->
+    <script src="/js/data-chunks.js"></script>
+    <script src="/js/ai-tools-loader.js"></script>
+    <script>
+        // 简化的工具页面类
+        class SimpleToolsPage {
+            constructor() {
+                this.currentTab = 'tools';
+                this.loader = window.aiToolsLoader;
+            }
+
+            async initialize() {
+                try {
+                    const database = await this.loader.getDatabase();
+                    this.showMessage(`初始化完成: ${database.tools.length}个工具, ${database.models.length}个模型, ${database.agents.length}个Agent`, 'success');
+                    
+                    // 渲染工具
+                    await this.renderTools();
+                    
+                    // 绑定事件
+                    this.bindEvents();
+                    
+                    // 监听数据更新
+                    window.addEventListener('dataUpdated', () => {
+                        this.showMessage('数据已更新', 'info');
+                        if (this.currentTab === 'models') {
+                            this.renderModels();
+                        } else if (this.currentTab === 'agents') {
+                            this.renderAgents();
+                        }
+                    });
+                    
+                } catch (error) {
+                    this.showMessage('初始化失败: ' + error.message, 'error');
+                }
+            }
+
+            bindEvents() {
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const tabName = e.target.getAttribute('data-tab');
+                        this.showTab(tabName);
+                    });
+                });
+            }
+
+            showTab(tabName) {
+                // 更新按钮状态
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+                // 更新内容显示
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabName + '-tab').classList.add('active');
+
+                this.currentTab = tabName;
+
+                // 加载对应内容
+                if (tabName === 'models') {
+                    this.renderModels();
+                } else if (tabName === 'agents') {
+                    this.renderAgents();
+                }
+            }
+
+            async renderTools() {
+                const container = document.getElementById('toolsGrid');
+                try {
+                    const database = await this.loader.getDatabase();
+                    const tools = database.tools || [];
+                    
+                    if (tools.length === 0) {
+                        container.innerHTML = '<div>没有找到工具数据</div>';
+                        return;
+                    }
+
+                    container.innerHTML = tools.slice(0, 6).map(tool => `
+                        <div class="tool-card">
+                            <h3>${tool.name}</h3>
+                            <p>${tool.description}</p>
+                            <div>分类: ${tool.category}</div>
+                            <div>评分: ${tool.rating}</div>
+                        </div>
+                    `).join('');
+                    
+                    this.showMessage(`渲染了${tools.slice(0, 6).length}个工具`, 'success');
+                } catch (error) {
+                    container.innerHTML = '<div>加载工具失败: ' + error.message + '</div>';
+                }
+            }
+
+            async renderModels() {
+                const container = document.getElementById('modelsGrid');
+                try {
+                    const database = await this.loader.getDatabase();
+                    const models = database.models || [];
+                    
+                    this.showMessage(`开始渲染${models.length}个模型`, 'info');
+                    
+                    if (models.length === 0) {
+                        container.innerHTML = '<div>没有找到模型数据</div>';
+                        return;
+                    }
+
+                    container.innerHTML = models.map(model => `
+                        <div class="tool-card">
+                            <h3>${model.name}</h3>
+                            <p>${model.description}</p>
+                            <div>提供商: ${model.provider}</div>
+                            <div>评分: ${model.rating}</div>
+                        </div>
+                    `).join('');
+                    
+                    this.showMessage(`渲染了${models.length}个模型`, 'success');
+                } catch (error) {
+                    container.innerHTML = '<div>加载模型失败: ' + error.message + '</div>';
+                    this.showMessage('渲染模型失败: ' + error.message, 'error');
+                }
+            }
+
+            async renderAgents() {
+                const container = document.getElementById('agentsGrid');
+                try {
+                    const database = await this.loader.getDatabase();
+                    const agents = database.agents || [];
+                    
+                    this.showMessage(`开始渲染${agents.length}个Agent`, 'info');
+                    
+                    if (agents.length === 0) {
+                        container.innerHTML = '<div>没有找到Agent数据</div>';
+                        return;
+                    }
+
+                    container.innerHTML = agents.map(agent => `
+                        <div class="tool-card">
+                            <h3>${agent.name}</h3>
+                            <p>${agent.description}</p>
+                            <div>分类: ${agent.category}</div>
+                            <div>复杂度: ${agent.complexity}</div>
+                            <div>评分: ${agent.rating}</div>
+                        </div>
+                    `).join('');
+                    
+                    this.showMessage(`渲染了${agents.length}个Agent`, 'success');
+                } catch (error) {
+                    container.innerHTML = '<div>加载Agent失败: ' + error.message + '</div>';
+                    this.showMessage('渲染Agent失败: ' + error.message, 'error');
+                }
+            }
+
+            showMessage(message, type = 'info') {
+                const debugInfo = document.getElementById('debug-info');
+                let className = 'info';
+                if (type === 'success') className = 'success';
+                if (type === 'error') className = 'error';
+                
+                debugInfo.className = `status ${className}`;
+                debugInfo.textContent = message;
+            }
+        }
+
+        // 初始化页面
+        const toolsPage = new SimpleToolsPage();
+        document.addEventListener('DOMContentLoaded', () => {
+            toolsPage.initialize();
+        });
+    </script>
+</body>
+</html>

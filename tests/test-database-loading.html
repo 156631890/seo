@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库加载测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .test-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 数据库加载测试</h1>
+        
+        <div class="info">
+            <strong>测试目的:</strong> 验证修复后的数据库文件是否可以正常加载，以及是否还存在重复的工具ID。
+        </div>
+
+        <button class="test-btn" onclick="testDatabaseLoading()">测试数据库加载</button>
+        <button class="test-btn" onclick="testElevenLabsAccess()">测试ElevenLabs访问</button>
+        <button class="test-btn" onclick="findDuplicateIds()">查找重复ID</button>
+        <button class="test-btn" onclick="clearResults()">清除结果</button>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        let testResults = [];
+
+        function addResult(type, title, content) {
+            const resultsDiv = document.getElementById('results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `status ${type}`;
+            resultDiv.innerHTML = `<h3>${title}</h3><div>${content}</div>`;
+            resultsDiv.appendChild(resultDiv);
+        }
+
+        function testDatabaseLoading() {
+            addResult('info', '🔄 开始测试', '正在加载数据库文件...');
+            
+            // 动态加载数据库文件
+            const script = document.createElement('script');
+            script.src = 'ai-tools-database.js';
+            script.onload = function() {
+                try {
+                    if (typeof aiToolsDatabase !== 'undefined') {
+                        const db = aiToolsDatabase;
+                        
+                        addResult('success', '✅ 数据库加载成功', `
+                            <p><strong>工具数量:</strong> ${db.tools ? db.tools.length : 0}</p>
+                            <p><strong>模型数量:</strong> ${db.models ? db.models.length : 0}</p>
+                            <p><strong>Agent数量:</strong> ${db.agents ? db.agents.length : 0}</p>
+                            <p><strong>分类数量:</strong> ${db.categories ? Object.keys(db.categories).length : 0}</p>
+                        `);
+                        
+                        // 测试数据结构
+                        testDataStructure(db);
+                        
+                    } else {
+                        addResult('error', '❌ 数据库加载失败', 'aiToolsDatabase 未定义');
+                    }
+                } catch (error) {
+                    addResult('error', '❌ 数据库加载错误', `
+                        <p><strong>错误信息:</strong> ${error.message}</p>
+                        <pre>${error.stack}</pre>
+                    `);
+                }
+            };
+            script.onerror = function() {
+                addResult('error', '❌ 脚本加载失败', '无法加载 ai-tools-database.js 文件');
+            };
+            document.head.appendChild(script);
+        }
+
+        function testDataStructure(db) {
+            try {
+                // 测试工具数组
+                if (db.tools && Array.isArray(db.tools)) {
+                    const toolsWithoutId = db.tools.filter(tool => !tool.id);
+                    const toolsWithoutName = db.tools.filter(tool => !tool.name);
+                    
+                    if (toolsWithoutId.length > 0 || toolsWithoutName.length > 0) {
+                        addResult('error', '⚠️ 工具数据问题', `
+                            <p>缺少ID的工具: ${toolsWithoutId.length}</p>
+                            <p>缺少名称的工具: ${toolsWithoutName.length}</p>
+                        `);
+                    } else {
+                        addResult('success', '✅ 工具数据结构正常', `所有 ${db.tools.length} 个工具都有ID和名称`);
+                    }
+                } else {
+                    addResult('error', '❌ 工具数组问题', 'tools 不是数组或不存在');
+                }
+
+                // 测试模型数组
+                if (db.models && Array.isArray(db.models)) {
+                    addResult('success', '✅ 模型数据结构正常', `模型数组包含 ${db.models.length} 个模型`);
+                } else {
+                    addResult('error', '❌ 模型数组问题', 'models 不是数组或不存在');
+                }
+
+                // 测试Agent数组
+                if (db.agents && Array.isArray(db.agents)) {
+                    addResult('success', '✅ Agent数据结构正常', `Agent数组包含 ${db.agents.length} 个Agent`);
+                } else {
+                    addResult('error', '❌ Agent数组问题', 'agents 不是数组或不存在');
+                }
+
+            } catch (error) {
+                addResult('error', '❌ 数据结构测试失败', `
+                    <p><strong>错误:</strong> ${error.message}</p>
+                `);
+            }
+        }
+
+        function testElevenLabsAccess() {
+            if (typeof aiToolsDatabase === 'undefined') {
+                addResult('error', '❌ 数据库未加载', '请先运行数据库加载测试');
+                return;
+            }
+
+            try {
+                const db = aiToolsDatabase;
+                const elevenLabsTools = db.tools.filter(tool => tool.id === 'elevenlabs');
+                
+                if (elevenLabsTools.length === 0) {
+                    addResult('error', '❌ ElevenLabs未找到', '数据库中没有找到ID为elevenlabs的工具');
+                } else if (elevenLabsTools.length === 1) {
+                    const tool = elevenLabsTools[0];
+                    addResult('success', '✅ ElevenLabs找到', `
+                        <p><strong>名称:</strong> ${tool.name}</p>
+                        <p><strong>提供商:</strong> ${tool.provider}</p>
+                        <p><strong>描述:</strong> ${tool.description}</p>
+                        <p><strong>评分:</strong> ${tool.rating}</p>
+                        <p><strong>URL:</strong> ${tool.url}</p>
+                    `);
+                } else {
+                    addResult('error', '⚠️ ElevenLabs重复', `
+                        <p>找到 ${elevenLabsTools.length} 个重复的ElevenLabs工具</p>
+                        <pre>${JSON.stringify(elevenLabsTools.map(t => ({id: t.id, name: t.name, provider: t.provider})), null, 2)}</pre>
+                    `);
+                }
+            } catch (error) {
+                addResult('error', '❌ ElevenLabs测试失败', `错误: ${error.message}`);
+            }
+        }
+
+        function findDuplicateIds() {
+            if (typeof aiToolsDatabase === 'undefined') {
+                addResult('error', '❌ 数据库未加载', '请先运行数据库加载测试');
+                return;
+            }
+
+            try {
+                const db = aiToolsDatabase;
+                const allItems = [
+                    ...(db.tools || []).map(item => ({...item, type: 'tool'})),
+                    ...(db.models || []).map(item => ({...item, type: 'model'})),
+                    ...(db.agents || []).map(item => ({...item, type: 'agent'}))
+                ];
+
+                const idCounts = {};
+                allItems.forEach(item => {
+                    if (item.id) {
+                        idCounts[item.id] = (idCounts[item.id] || []);
+                        idCounts[item.id].push(item);
+                    }
+                });
+
+                const duplicates = Object.entries(idCounts)
+                    .filter(([id, items]) => items.length > 1)
+                    .sort((a, b) => b[1].length - a[1].length);
+
+                if (duplicates.length === 0) {
+                    addResult('success', '✅ 没有重复ID', '所有工具、模型和Agent的ID都是唯一的');
+                } else {
+                    const duplicateList = duplicates.map(([id, items]) => 
+                        `<li><strong>${id}</strong>: ${items.length}次 (${items.map(i => i.type).join(', ')})</li>`
+                    ).join('');
+                    
+                    addResult('error', '⚠️ 发现重复ID', `
+                        <p>找到 ${duplicates.length} 个重复的ID:</p>
+                        <ul>${duplicateList}</ul>
+                    `);
+                }
+            } catch (error) {
+                addResult('error', '❌ 重复ID检查失败', `错误: ${error.message}`);
+            }
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+
+        // 页面加载完成后的提示
+        document.addEventListener('DOMContentLoaded', () => {
+            addResult('info', '📋 测试说明', `
+                <p>1. 点击"测试数据库加载"来验证数据库文件是否可以正常加载</p>
+                <p>2. 点击"测试ElevenLabs访问"来验证elevenlabs工具是否可以正常访问</p>
+                <p>3. 点击"查找重复ID"来检查是否还有重复的工具ID</p>
+            `);
+        });
+    </script>
+</body>
+</html>

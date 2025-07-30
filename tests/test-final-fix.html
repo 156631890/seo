@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最终修复测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .test-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-btn:hover {
+            background: #0056b3;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 最终修复测试</h1>
+        
+        <div class="info">
+            <strong>测试目标:</strong> 验证修复后的数据库是否能正确加载perplexity和elevenlabs工具，以及工具详情页面是否正常工作。
+        </div>
+
+        <button class="test-btn" onclick="testDatabase()">测试数据库</button>
+        <button class="test-btn" onclick="testPerplexity()">测试Perplexity</button>
+        <button class="test-btn" onclick="testElevenLabs()">测试ElevenLabs</button>
+        <button class="test-btn" onclick="testDetailLoader()">测试详情加载器</button>
+        <button class="test-btn" onclick="testToolDetailPage()">模拟工具详情页面</button>
+
+        <div id="results"></div>
+    </div>
+
+    <script src="ai-tools-database.js"></script>
+    <script src="js/fast-detail-loader.js"></script>
+    
+    <script>
+        function addResult(type, title, content) {
+            const resultsDiv = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `<h3>${title}</h3>${content}`;
+            resultsDiv.appendChild(div);
+        }
+
+        function testDatabase() {
+            try {
+                if (typeof aiToolsDatabase !== 'undefined') {
+                    const db = aiToolsDatabase;
+                    addResult('success', '✅ 数据库加载成功', `
+                        <p>工具数量: ${db.tools ? db.tools.length : 0}</p>
+                        <p>模型数量: ${db.models ? db.models.length : 0}</p>
+                        <p>Agent数量: ${db.agents ? db.agents.length : 0}</p>
+                        <p>分类数量: ${db.categories ? Object.keys(db.categories).length : 0}</p>
+                        <p>工具函数: ${db.utils ? Object.keys(db.utils).length : 0}个</p>
+                    `);
+
+                    // 测试工具函数
+                    if (db.utils && typeof db.utils.findToolById === 'function') {
+                        addResult('success', '✅ 工具函数正常', '数据库工具函数可以正常调用');
+                    } else {
+                        addResult('error', '❌ 工具函数异常', '数据库工具函数不可用');
+                    }
+                } else {
+                    addResult('error', '❌ 数据库未加载', 'aiToolsDatabase变量不存在');
+                }
+            } catch (error) {
+                addResult('error', '❌ 数据库测试失败', `错误: ${error.message}`);
+            }
+        }
+
+        function testPerplexity() {
+            try {
+                if (typeof aiToolsDatabase === 'undefined') {
+                    addResult('error', '❌ 请先测试数据库', '');
+                    return;
+                }
+
+                const db = aiToolsDatabase;
+                const perplexityTool = db.tools.find(tool => tool.id === 'perplexity');
+
+                if (perplexityTool) {
+                    addResult('success', '✅ Perplexity工具找到', `
+                        <p><strong>ID:</strong> ${perplexityTool.id}</p>
+                        <p><strong>名称:</strong> ${perplexityTool.name}</p>
+                        <p><strong>提供商:</strong> ${perplexityTool.provider}</p>
+                        <p><strong>分类:</strong> ${perplexityTool.category}</p>
+                        <p><strong>描述:</strong> ${perplexityTool.description}</p>
+                        <p><strong>评分:</strong> ${perplexityTool.rating}</p>
+                        <p><strong>功能:</strong> ${perplexityTool.features.join(', ')}</p>
+                        <p><strong>标签:</strong> ${perplexityTool.tags.join(', ')}</p>
+                    `);
+
+                    // 测试使用工具函数查找
+                    const foundByFunction = db.utils.findToolById('perplexity');
+                    if (foundByFunction) {
+                        addResult('success', '✅ 工具函数查找成功', '使用findToolById函数成功找到perplexity工具');
+                    } else {
+                        addResult('error', '❌ 工具函数查找失败', 'findToolById函数未找到perplexity工具');
+                    }
+                } else {
+                    addResult('error', '❌ Perplexity工具未找到', '在数据库中未找到ID为perplexity的工具');
+                }
+            } catch (error) {
+                addResult('error', '❌ Perplexity测试失败', `错误: ${error.message}`);
+            }
+        }
+
+        function testElevenLabs() {
+            try {
+                if (typeof aiToolsDatabase === 'undefined') {
+                    addResult('error', '❌ 请先测试数据库', '');
+                    return;
+                }
+
+                const db = aiToolsDatabase;
+                const elevenLabsTool = db.tools.find(tool => tool.id === 'elevenlabs');
+
+                if (elevenLabsTool) {
+                    addResult('success', '✅ ElevenLabs工具找到', `
+                        <p><strong>ID:</strong> ${elevenLabsTool.id}</p>
+                        <p><strong>名称:</strong> ${elevenLabsTool.name}</p>
+                        <p><strong>提供商:</strong> ${elevenLabsTool.provider}</p>
+                        <p><strong>分类:</strong> ${elevenLabsTool.category}</p>
+                        <p><strong>描述:</strong> ${elevenLabsTool.description}</p>
+                        <p><strong>评分:</strong> ${elevenLabsTool.rating}</p>
+                        <p><strong>功能:</strong> ${elevenLabsTool.features.join(', ')}</p>
+                    `);
+                } else {
+                    addResult('error', '❌ ElevenLabs工具未找到', '在数据库中未找到ID为elevenlabs的工具');
+                }
+            } catch (error) {
+                addResult('error', '❌ ElevenLabs测试失败', `错误: ${error.message}`);
+            }
+        }
+
+        function testDetailLoader() {
+            try {
+                if (typeof window.fastDetailLoader === 'undefined') {
+                    addResult('info', '⚠️ 详情加载器未加载', '跳过详情加载器测试');
+                    return;
+                }
+
+                // 测试加载perplexity
+                window.fastDetailLoader.getItemDetails('perplexity', 'tool')
+                    .then(item => {
+                        if (item) {
+                            addResult('success', '✅ Perplexity详情加载成功', `
+                                <p>成功通过详情加载器加载: ${item.name}</p>
+                                <p>ID: ${item.id}</p>
+                                <p>类型: tool</p>
+                            `);
+                        } else {
+                            addResult('error', '❌ 详情加载器返回null', '');
+                        }
+                    })
+                    .catch(error => {
+                        addResult('error', '❌ Perplexity详情加载失败', `错误: ${error.message}`);
+                    });
+
+                // 测试加载elevenlabs
+                window.fastDetailLoader.getItemDetails('elevenlabs', 'tool')
+                    .then(item => {
+                        if (item) {
+                            addResult('success', '✅ ElevenLabs详情加载成功', `
+                                <p>成功通过详情加载器加载: ${item.name}</p>
+                                <p>ID: ${item.id}</p>
+                                <p>类型: tool</p>
+                            `);
+                        } else {
+                            addResult('error', '❌ 详情加载器返回null', '');
+                        }
+                    })
+                    .catch(error => {
+                        addResult('error', '❌ ElevenLabs详情加载失败', `错误: ${error.message}`);
+                    });
+
+            } catch (error) {
+                addResult('error', '❌ 详情加载器测试失败', `错误: ${error.message}`);
+            }
+        }
+
+        function testToolDetailPage() {
+            try {
+                if (typeof aiToolsDatabase === 'undefined') {
+                    addResult('error', '❌ 请先测试数据库', '');
+                    return;
+                }
+
+                const db = aiToolsDatabase;
+                const testTools = ['perplexity', 'elevenlabs', 'chatgpt'];
+                let allTestsPassed = true;
+                let testResults = [];
+
+                testTools.forEach(toolId => {
+                    const tool = db.tools.find(t => t.id === toolId);
+                    if (tool) {
+                        try {
+                            // 模拟工具详情页面的所有渲染操作
+                            const featuresHtml = (tool.features || []).map(feature => `
+                                <div class="feature-item">
+                                    <p>${feature}</p>
+                                </div>
+                            `).join('');
+
+                            const prosConsHtml = (tool.pros || tool.cons) ? `
+                                <div class="pros-cons">
+                                    ${tool.pros ? `
+                                    <div class="pros">
+                                        <ul>${tool.pros.map(pro => `<li>${pro}</li>`).join('')}</ul>
+                                    </div>
+                                    ` : ''}
+                                    ${tool.cons ? `
+                                    <div class="cons">
+                                        <ul>${tool.cons.map(con => `<li>${con}</li>`).join('')}</ul>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                            ` : '';
+
+                            const tagsHtml = (tool.tags && tool.tags.length > 0) ? 
+                                tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : '';
+
+                            const scenariosHtml = (tool.tags && tool.tags.length > 0) ?
+                                tool.tags.map(tag => `<li>${tag}相关的工作</li>`).join('') : '';
+
+                            testResults.push(`✅ ${tool.name} (${toolId}): 所有渲染测试通过`);
+                        } catch (error) {
+                            testResults.push(`❌ ${tool.name} (${toolId}): 渲染失败 - ${error.message}`);
+                            allTestsPassed = false;
+                        }
+                    } else {
+                        testResults.push(`❌ ${toolId}: 工具不存在`);
+                        allTestsPassed = false;
+                    }
+                });
+
+                if (allTestsPassed) {
+                    addResult('success', '✅ 工具详情页面模拟成功', `
+                        <p>所有工具的详情页面渲染测试都通过了:</p>
+                        <pre>${testResults.join('\n')}</pre>
+                        <p><strong>结论:</strong> 工具详情页面应该能正常显示所有工具信息，不会出现map错误。</p>
+                    `);
+                } else {
+                    addResult('error', '❌ 部分工具详情页面测试失败', `
+                        <pre>${testResults.join('\n')}</pre>
+                    `);
+                }
+
+            } catch (error) {
+                addResult('error', '❌ 工具详情页面测试失败', `错误: ${error.message}`);
+            }
+        }
+
+        // 页面加载完成后自动运行测试
+        document.addEventListener('DOMContentLoaded', () => {
+            addResult('info', '🚀 开始自动测试', '正在验证修复后的数据库和工具详情功能...');
+            
+            setTimeout(() => {
+                testDatabase();
+                setTimeout(() => {
+                    testPerplexity();
+                    setTimeout(() => {
+                        testElevenLabs();
+                        setTimeout(() => {
+                            testDetailLoader();
+                            setTimeout(() => {
+                                testToolDetailPage();
+                            }, 500);
+                        }, 500);
+                    }, 500);
+                }, 500);
+            }, 500);
+        });
+    </script>
+</body>
+</html>

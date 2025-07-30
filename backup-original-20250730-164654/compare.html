@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI工具对比 • MyAI</title>
+  <meta name="description" content="对比不同的AI工具、模型和Agent，找到最适合你需求的AI解决方案">
+  <link rel="stylesheet" href="/partials/site-style.css">
+  
+  <!-- 预加载关键资源 -->
+  <link rel="preload" href="/js/ai-tools-loader.js" as="script">
+  <link rel="preload" href="/js/compare.js" as="script">
+  <style>
+    /* 对比页面样式 */
+    .compare-header {
+      text-align: center;
+      margin: 2rem 0 3rem;
+    }
+
+    .compare-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .compare-header p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .compare-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .selection-area {
+      background: #f8fafc;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .selection-title {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: #10b981;
+    }
+
+    .selection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .item-selector {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .item-selector:hover {
+      border-color: #10b981;
+    }
+
+    .item-selector.selected {
+      border-color: #10b981;
+      background: #e0f2fe;
+    }
+
+    .item-selector h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .item-selector p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .compare-btn {
+      display: block;
+      width: 200px;
+      margin: 2rem auto;
+      padding: 0.75rem 1.5rem;
+      background: #10b981;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .compare-btn:hover {
+      background: #2563eb;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      overflow-x: auto;
+      display: block;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .comparison-table th {
+      background: #f8fafc;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .comparison-table th:first-child {
+      width: 200px;
+    }
+
+    .comparison-table td {
+      vertical-align: top;
+    }
+
+    .comparison-table tr:hover {
+      background: #f8fafc;
+    }
+
+    .feature-yes {
+      color: #16a34a;
+    }
+
+    .feature-no {
+      color: #dc2626;
+    }
+
+    .comparison-card {
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,.05);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .comparison-card h2 {
+      color: #10b981;
+      margin-top: 0;
+    }
+
+    .recommendation-section {
+      background: #ecfdf5;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      margin: 3rem 0;
+    }
+
+    .recommendation-section h2 {
+      color: #16a34a;
+    }
+
+    @media (max-width: 768px) {
+      .compare-header h1 {
+        font-size: 2rem;
+      }
+
+      .selection-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison-table {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <header class="main-header">
+    <div class="logo"><a href="/">MyAI</a></div>
+    <nav class="site-nav desktop">
+      <a href="/">首页</a>
+      <a href="/#articles">教程</a>
+      <a href="/tools.html">工具合集</a>
+      <a href="/compare.html" class="active">对比</a>
+      <a href="/about.html">关于</a>
+    </nav>
+  </header>
+
+  <main class="compare-container">
+    <!-- 页面标题 -->
+    <div class="compare-header">
+      <h1>🔍 AI工具对比分析</h1>
+      <p>选择并对比不同的AI工具、模型和Agent，找到最适合你需求的AI解决方案</p>
+    </div>
+
+    <!-- 对比类型选择 -->
+    <div class="comparison-card">
+      <h2>选择对比类型</h2>
+      <div class="selection-grid">
+        <div class="item-selector type-selector selected" data-type="tools">
+          <h3>🛠️ AI工具对比</h3>
+          <p>对比不同的AI应用和工具，如ChatGPT、Midjourney等</p>
+        </div>
+        <div class="item-selector type-selector" data-type="models">
+          <h3>🧠 AI模型对比</h3>
+          <p>对比不同的AI模型，如GPT-4o、Claude 3.5等</p>
+        </div>
+        <div class="item-selector type-selector" data-type="agents">
+          <h3>🤖 AI Agent对比</h3>
+          <p>对比不同的AI代理框架，如AutoGPT、LangChain等</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI工具选择 -->
+    <div id="tools-selection" class="selection-area">
+      <h2 class="selection-title">选择要对比的AI工具（最多4个）</h2>
+      <div class="selection-grid" id="tools-grid">
+        <!-- 工具选择器将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- AI模型选择 -->
+    <div id="models-selection" class="selection-area" style="display: none;">
+      <h2 class="selection-title">选择要对比的AI模型（最多4个）</h2>
+      <div class="selection-grid" id="models-grid">
+        <!-- 模型选择器将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- AI Agent选择 -->
+    <div id="agents-selection" class="selection-area" style="display: none;">
+      <h2 class="selection-title">选择要对比的AI Agent（最多4个）</h2>
+      <div class="selection-grid" id="agents-grid">
+        <!-- Agent选择器将通过JavaScript动态生成 -->
+      </div>
+    </div>
+
+    <!-- 对比按钮 -->
+    <button class="compare-btn">生成对比</button>
+
+    <!-- 对比结果 -->
+    <div id="comparison-result">
+      <!-- 对比结果将通过JavaScript动态生成 -->
+    </div>
+
+    <!-- 推荐区域 -->
+    <div class="recommendation-section" id="recommendation-section" style="display: none;">
+      <h2>🌟 基于你的选择，我们推荐</h2>
+      <div id="recommendation-content">
+        <!-- 推荐内容将通过JavaScript动态生成 -->
+      </div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer>
+    <p>© 2025 MyAI • 用 ❤️ 和 ☕ 构建</p>
+  </footer>
+
+  <!-- 引入脚本 -->
+  <script src="/js/data-chunks.js"></script>
+  <script src="/js/ai-tools-loader.js"></script>
+  <script src="/js/compare.js"></script>
+</body>
+
+</html>

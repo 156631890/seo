@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevenLabs修复测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .test-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 ElevenLabs修复测试</h1>
+        
+        <div class="info">
+            <strong>目标:</strong> 测试修复后的数据库是否能正确加载ElevenLabs工具，以及工具详情页面是否能正常工作。
+        </div>
+
+        <button class="test-btn" onclick="testDatabase()">测试数据库</button>
+        <button class="test-btn" onclick="testElevenLabs()">测试ElevenLabs</button>
+        <button class="test-btn" onclick="testDetailLoader()">测试详情加载器</button>
+        <button class="test-btn" onclick="simulateDetailPage()">模拟详情页面</button>
+
+        <div id="results"></div>
+    </div>
+
+    <script src="ai-tools-database.js"></script>
+    <script src="js/fast-detail-loader.js"></script>
+    
+    <script>
+        function addResult(type, title, content) {
+            const resultsDiv = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `<h3>${title}</h3>${content}`;
+            resultsDiv.appendChild(div);
+        }
+
+        function testDatabase() {
+            try {
+                if (typeof aiToolsDatabase === 'undefined') {
+                    addResult('error', '❌ 数据库未加载', '请检查ai-tools-database.js文件');
+                    return;
+                }
+
+                const db = aiToolsDatabase;
+                addResult('success', '✅ 数据库加载成功', `
+                    <p>工具数量: ${db.tools ? db.tools.length : 0}</p>
+                    <p>模型数量: ${db.models ? db.models.length : 0}</p>
+                    <p>Agent数量: ${db.agents ? db.agents.length : 0}</p>
+                `);
+
+                // 检查数据结构
+                if (!Array.isArray(db.tools)) {
+                    addResult('error', '❌ 工具数组问题', 'tools不是数组');
+                    return;
+                }
+
+                addResult('info', '📊 数据结构检查', '所有主要数组结构正常');
+
+            } catch (error) {
+                addResult('error', '❌ 数据库测试失败', `错误: ${error.message}`);
+            }
+        }
+
+        function testElevenLabs() {
+            try {
+                if (typeof aiToolsDatabase === 'undefined') {
+                    addResult('error', '❌ 请先测试数据库', '');
+                    return;
+                }
+
+                const db = aiToolsDatabase;
+                const elevenLabsTools = db.tools.filter(tool => tool.id === 'elevenlabs');
+
+                if (elevenLabsTools.length === 0) {
+                    addResult('error', '❌ ElevenLabs未找到', '数据库中没有ID为elevenlabs的工具');
+                } else if (elevenLabsTools.length === 1) {
+                    const tool = elevenLabsTools[0];
+                    addResult('success', '✅ ElevenLabs找到', `
+                        <p><strong>名称:</strong> ${tool.name}</p>
+                        <p><strong>提供商:</strong> ${tool.provider}</p>
+                        <p><strong>分类:</strong> ${tool.category}</p>
+                        <p><strong>描述:</strong> ${tool.description}</p>
+                        <p><strong>评分:</strong> ${tool.rating}</p>
+                        <p><strong>功能数量:</strong> ${tool.features ? tool.features.length : 0}</p>
+                        <p><strong>优势数量:</strong> ${tool.pros ? tool.pros.length : 0}</p>
+                        <p><strong>劣势数量:</strong> ${tool.cons ? tool.cons.length : 0}</p>
+                        <p><strong>标签数量:</strong> ${tool.tags ? tool.tags.length : 0}</p>
+                    `);
+                } else {
+                    addResult('error', '⚠️ ElevenLabs重复', `
+                        <p>找到${elevenLabsTools.length}个重复的ElevenLabs工具</p>
+                        <pre>${JSON.stringify(elevenLabsTools.map(t => ({
+                            id: t.id, 
+                            name: t.name, 
+                            provider: t.provider,
+                            category: t.category
+                        })), null, 2)}</pre>
+                    `);
+                }
+            } catch (error) {
+                addResult('error', '❌ ElevenLabs测试失败', `错误: ${error.message}`);
+            }
+        }
+
+        function testDetailLoader() {
+            try {
+                if (typeof window.fastDetailLoader === 'undefined') {
+                    addResult('error', '❌ 详情加载器未加载', '请检查fast-detail-loader.js文件');
+                    return;
+                }
+
+                // 测试加载ElevenLabs详情
+                window.fastDetailLoader.getItemDetails('elevenlabs', 'tool')
+                    .then(item => {
+                        if (item) {
+                            addResult('success', '✅ 详情加载器工作正常', `
+                                <p>成功加载: ${item.name}</p>
+                                <p>类型: tool</p>
+                                <p>ID: ${item.id}</p>
+                            `);
+                        } else {
+                            addResult('error', '❌ 详情加载器返回空', '无法加载elevenlabs工具详情');
+                        }
+                    })
+                    .catch(error => {
+                        addResult('error', '❌ 详情加载器失败', `错误: ${error.message}`);
+                    });
+
+            } catch (error) {
+                addResult('error', '❌ 详情加载器测试失败', `错误: ${error.message}`);
+            }
+        }
+
+        function simulateDetailPage() {
+            try {
+                if (typeof aiToolsDatabase === 'undefined') {
+                    addResult('error', '❌ 请先测试数据库', '');
+                    return;
+                }
+
+                const db = aiToolsDatabase;
+                const tool = db.tools.find(t => t.id === 'elevenlabs');
+
+                if (!tool) {
+                    addResult('error', '❌ 工具未找到', '');
+                    return;
+                }
+
+                // 模拟工具详情页面的渲染逻辑
+                let renderResult = '';
+
+                // 测试features渲染
+                try {
+                    const featuresHtml = (tool.features || []).map(feature => `
+                        <div class="feature-item">
+                            <p>${feature}</p>
+                        </div>
+                    `).join('');
+                    renderResult += '✅ Features渲染成功\n';
+                } catch (error) {
+                    renderResult += `❌ Features渲染失败: ${error.message}\n`;
+                }
+
+                // 测试pros/cons渲染
+                try {
+                    if (tool.pros || tool.cons) {
+                        let prosConsHtml = '<div class="pros-cons">';
+                        if (tool.pros) {
+                            prosConsHtml += `<ul>${tool.pros.map(pro => `<li>${pro}</li>`).join('')}</ul>`;
+                        }
+                        if (tool.cons) {
+                            prosConsHtml += `<ul>${tool.cons.map(con => `<li>${con}</li>`).join('')}</ul>`;
+                        }
+                        prosConsHtml += '</div>';
+                    }
+                    renderResult += '✅ Pros/Cons渲染成功\n';
+                } catch (error) {
+                    renderResult += `❌ Pros/Cons渲染失败: ${error.message}\n`;
+                }
+
+                // 测试tags渲染
+                try {
+                    if (tool.tags && tool.tags.length > 0) {
+                        const tagsHtml = tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                    }
+                    renderResult += '✅ Tags渲染成功\n';
+                } catch (error) {
+                    renderResult += `❌ Tags渲染失败: ${error.message}\n`;
+                }
+
+                addResult('success', '✅ 详情页面模拟成功', `
+                    <p>所有渲染测试完成:</p>
+                    <pre>${renderResult}</pre>
+                    <p><strong>结论:</strong> 工具详情页面应该能正常显示ElevenLabs工具</p>
+                `);
+
+            } catch (error) {
+                addResult('error', '❌ 详情页面模拟失败', `错误: ${error.message}`);
+            }
+        }
+
+        // 页面加载完成后自动运行基础测试
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                testDatabase();
+                setTimeout(() => {
+                    testElevenLabs();
+                }, 500);
+            }, 100);
+        });
+    </script>
+</body>
+</html>

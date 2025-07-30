@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库诊断工具</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 1000px; 
+            margin: 2rem auto; 
+            padding: 1rem; 
+            background: #f8fafc;
+        }
+        .diagnostic-card { 
+            background: white; 
+            border-radius: 8px; 
+            padding: 1.5rem; 
+            margin: 1rem 0; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { border-left: 4px solid #10b981; }
+        .error { border-left: 4px solid #ef4444; }
+        .warning { border-left: 4px solid #f59e0b; }
+        .info { border-left: 4px solid #3b82f6; }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .stat-item {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #10b981;
+        }
+        .fix-button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+        .fix-button:hover { background: #059669; }
+        .fix-button.warning { background: #f59e0b; }
+        .fix-button.warning:hover { background: #d97706; }
+        pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+        .sample-data {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 AI工具数据库诊断报告</h1>
+    
+    <div class="diagnostic-card info">
+        <h2>📊 数据库概览</h2>
+        <div id="database-overview">正在加载数据库...</div>
+    </div>
+
+    <div class="diagnostic-card" id="data-stats">
+        <h2>📈 数据统计</h2>
+        <div class="stat-grid" id="stats-grid">
+            <!-- 统计数据将在这里显示 -->
+        </div>
+    </div>
+
+    <div class="diagnostic-card" id="issues-card" style="display: none;">
+        <h2>⚠️ 发现的问题</h2>
+        <div id="issues-list">
+            <!-- 问题列表将在这里显示 -->
+        </div>
+    </div>
+
+    <div class="diagnostic-card success" id="solutions-card" style="display: none;">
+        <h2>🛠️ 解决方案</h2>
+        <div id="solutions-list">
+            <!-- 解决方案将在这里显示 -->
+        </div>
+    </div>
+
+    <div class="diagnostic-card info">
+        <h2>💡 为什么不需要购买数据库？</h2>
+        <p><strong>你的网站使用的是静态文件数据库，这有很多优势：</strong></p>
+        <ul>
+            <li>✅ <strong>完全免费</strong> - 无需支付数据库费用</li>
+            <li>✅ <strong>高性能</strong> - 直接从CDN加载，速度极快</li>
+            <li>✅ <strong>无服务器</strong> - 可以部署到任何静态托管平台</li>
+            <li>✅ <strong>易于维护</strong> - 数据存储在JavaScript文件中</li>
+            <li>✅ <strong>版本控制</strong> - 可以用Git跟踪数据变化</li>
+            <li>✅ <strong>离线访问</strong> - 数据缓存在用户浏览器中</li>
+        </ul>
+        
+        <p><strong>适合的场景：</strong></p>
+        <ul>
+            <li>📚 内容展示网站（如你的AI工具合集）</li>
+            <li>🔍 搜索和筛选功能</li>
+            <li>📊 数据对比和分析</li>
+            <li>📱 移动端友好的轻量级应用</li>
+        </ul>
+    </div>
+
+    <div class="diagnostic-card warning">
+        <h2>🚨 常见问题及解决方案</h2>
+        <div id="common-issues">
+            <h3>问题1: 模型页面打不开</h3>
+            <p><strong>可能原因：</strong></p>
+            <ul>
+                <li>数据文件加载失败</li>
+                <li>JavaScript错误阻止页面渲染</li>
+                <li>路由配置问题</li>
+            </ul>
+            
+            <h3>问题2: 数据显示不完整</h3>
+            <p><strong>可能原因：</strong></p>
+            <ul>
+                <li>数据文件损坏或格式错误</li>
+                <li>异步加载问题</li>
+                <li>缓存问题</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="/ai-tools-database.js"></script>
+    <script>
+        let diagnosticResults = {
+            database: null,
+            issues: [],
+            solutions: [],
+            stats: {}
+        };
+
+        function runDiagnostics() {
+            const overviewEl = document.getElementById('database-overview');
+            const statsGrid = document.getElementById('stats-grid');
+            const issuesCard = document.getElementById('issues-card');
+            const issuesList = document.getElementById('issues-list');
+            const solutionsCard = document.getElementById('solutions-card');
+            const solutionsList = document.getElementById('solutions-list');
+
+            try {
+                // 检查数据库是否加载
+                if (typeof window.aiToolsDatabase === 'undefined') {
+                    throw new Error('数据库未加载 - ai-tools-database.js文件可能有问题');
+                }
+
+                const db = window.aiToolsDatabase;
+                diagnosticResults.database = db;
+
+                // 基础统计
+                const stats = {
+                    categories: Object.keys(db.categories || {}).length,
+                    tools: (db.tools || []).length,
+                    models: (db.models || []).length,
+                    agents: (db.agents || []).length,
+                    modelTypes: Object.keys(db.modelTypes || {}).length,
+                    agentTypes: Object.keys(db.agentTypes || {}).length
+                };
+
+                diagnosticResults.stats = stats;
+
+                // 显示概览
+                overviewEl.innerHTML = `
+                    <div class="success">
+                        ✅ 数据库加载成功！<br>
+                        📁 数据库大小: ${JSON.stringify(db).length.toLocaleString()} 字符<br>
+                        🕒 加载时间: ${Date.now() - window.performance.timing.navigationStart}ms
+                    </div>
+                `;
+
+                // 显示统计
+                statsGrid.innerHTML = `
+                    <div class="stat-item">
+                        <div class="stat-number">${stats.categories}</div>
+                        <div>工具分类</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${stats.tools}</div>
+                        <div>AI工具</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${stats.models}</div>
+                        <div>AI模型</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${stats.agents}</div>
+                        <div>AI代理</div>
+                    </div>
+                `;
+
+                // 检查数据完整性
+                checkDataIntegrity(db, stats);
+
+                // 显示问题和解决方案
+                if (diagnosticResults.issues.length > 0) {
+                    issuesCard.style.display = 'block';
+                    issuesList.innerHTML = diagnosticResults.issues.map(issue => 
+                        `<div class="error">❌ ${issue}</div>`
+                    ).join('');
+                }
+
+                if (diagnosticResults.solutions.length > 0) {
+                    solutionsCard.style.display = 'block';
+                    solutionsList.innerHTML = diagnosticResults.solutions.map(solution => 
+                        `<div class="info">💡 ${solution}</div>`
+                    ).join('');
+                }
+
+                // 生成修复建议
+                generateFixSuggestions();
+
+            } catch (error) {
+                overviewEl.innerHTML = `
+                    <div class="error">
+                        ❌ 数据库加载失败: ${error.message}<br>
+                        <button class="fix-button warning" onclick="location.reload()">重新加载页面</button>
+                    </div>
+                `;
+                console.error('诊断失败:', error);
+            }
+        }
+
+        function checkDataIntegrity(db, stats) {
+            // 检查数据完整性
+            if (stats.tools === 0) {
+                diagnosticResults.issues.push('工具数据为空 - 可能需要运行数据生成脚本');
+                diagnosticResults.solutions.push('运行 generate-52-tools.js 脚本生成工具数据');
+            }
+
+            if (stats.models === 0) {
+                diagnosticResults.issues.push('模型数据为空 - 可能需要运行数据生成脚本');
+                diagnosticResults.solutions.push('运行 generate-24-models.js 脚本生成模型数据');
+            }
+
+            if (stats.agents === 0) {
+                diagnosticResults.issues.push('代理数据为空 - 可能需要运行数据生成脚本');
+                diagnosticResults.solutions.push('运行 generate-29-agents.js 脚本生成代理数据');
+            }
+
+            // 检查数据结构
+            if (db.tools && db.tools.length > 0) {
+                const sampleTool = db.tools[0];
+                const requiredFields = ['id', 'name', 'description', 'category'];
+                const missingFields = requiredFields.filter(field => !sampleTool[field]);
+                
+                if (missingFields.length > 0) {
+                    diagnosticResults.issues.push(`工具数据缺少必要字段: ${missingFields.join(', ')}`);
+                }
+            }
+
+            // 检查模型数据结构
+            if (db.models && db.models.length > 0) {
+                const sampleModel = db.models[0];
+                const requiredFields = ['id', 'name', 'provider', 'type'];
+                const missingFields = requiredFields.filter(field => !sampleModel[field]);
+                
+                if (missingFields.length > 0) {
+                    diagnosticResults.issues.push(`模型数据缺少必要字段: ${missingFields.join(', ')}`);
+                }
+            }
+        }
+
+        function generateFixSuggestions() {
+            const solutionsList = document.getElementById('solutions-list');
+            
+            let fixButtons = '';
+            
+            if (diagnosticResults.stats.tools === 0) {
+                fixButtons += '<button class="fix-button" onclick="generateTools()">🛠️ 生成工具数据</button>';
+            }
+            
+            if (diagnosticResults.stats.models === 0) {
+                fixButtons += '<button class="fix-button" onclick="generateModels()">🧠 生成模型数据</button>';
+            }
+            
+            if (diagnosticResults.stats.agents === 0) {
+                fixButtons += '<button class="fix-button" onclick="generateAgents()">🤖 生成代理数据</button>';
+            }
+
+            fixButtons += '<button class="fix-button warning" onclick="showDataSample()">📋 查看数据样本</button>';
+            fixButtons += '<button class="fix-button" onclick="testPages()">🧪 测试页面功能</button>';
+
+            if (solutionsList && fixButtons) {
+                solutionsList.innerHTML += `<div style="margin-top: 1rem;">${fixButtons}</div>`;
+            }
+        }
+
+        function generateTools() {
+            alert('正在生成工具数据...\n请在控制台运行: node generate-52-tools.js');
+            window.open('/generate-52-tools.js', '_blank');
+        }
+
+        function generateModels() {
+            alert('正在生成模型数据...\n请在控制台运行: node generate-24-models.js');
+            window.open('/generate-24-models.js', '_blank');
+        }
+
+        function generateAgents() {
+            alert('正在生成代理数据...\n请在控制台运行: node generate-29-agents.js');
+            window.open('/generate-29-agents.js', '_blank');
+        }
+
+        function showDataSample() {
+            const db = diagnosticResults.database;
+            const sampleData = {
+                categories: Object.keys(db.categories || {}).slice(0, 3),
+                tools: (db.tools || []).slice(0, 2),
+                models: (db.models || []).slice(0, 2),
+                agents: (db.agents || []).slice(0, 2)
+            };
+
+            const popup = window.open('', '_blank', 'width=800,height=600');
+            popup.document.write(`
+                <html>
+                <head><title>数据样本</title></head>
+                <body style="font-family: monospace; padding: 20px;">
+                    <h2>数据库样本</h2>
+                    <pre>${JSON.stringify(sampleData, null, 2)}</pre>
+                </body>
+                </html>
+            `);
+        }
+
+        function testPages() {
+            const testUrls = [
+                '/tools.html',
+                '/compare-simple.html',
+                '/tool-detail.html',
+                '/test-tools-page.html'
+            ];
+
+            testUrls.forEach(url => {
+                window.open(url, '_blank');
+            });
+        }
+
+        // 页面加载完成后运行诊断
+        window.addEventListener('load', () => {
+            setTimeout(runDiagnostics, 500);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>性能测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .warning { background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <h1>工具页面性能测试</h1>
+    <div id="results"></div>
+    
+    <script src="/js/performance-monitor.js"></script>
+    <script src="/js/data-chunks.js"></script>
+    <script>
+        async function runPerformanceTest() {
+            const results = document.getElementById('results');
+            const startTime = performance.now();
+            
+            // 测试数据分块加载
+            results.innerHTML += '<div class="info">开始测试数据分块加载...</div>';
+            
+            const dataChunks = new DataChunks();
+            
+            // 测试分类数据加载
+            const categoriesStart = performance.now();
+            const categories = await dataChunks.loadCategories();
+            const categoriesTime = performance.now() - categoriesStart;
+            results.innerHTML += `<div class="success">分类数据加载: ${categoriesTime.toFixed(2)}ms (${Object.keys(categories).length}个分类)</div>`;
+            
+            // 测试首批工具加载
+            const toolsStart = performance.now();
+            const toolsFirst = await dataChunks.loadToolsFirstBatch();
+            const toolsTime = performance.now() - toolsStart;
+            results.innerHTML += `<div class="success">首批工具加载: ${toolsTime.toFixed(2)}ms (${toolsFirst.length}个工具)</div>`;
+            
+            // 测试完整数据加载
+            const fullStart = performance.now();
+            await dataChunks.loadFullData();
+            const fullTime = performance.now() - fullStart;
+            results.innerHTML += `<div class="info">完整数据加载: ${fullTime.toFixed(2)}ms</div>`;
+            
+            const totalTime = performance.now() - startTime;
+            results.innerHTML += `<div class="success">总测试时间: ${totalTime.toFixed(2)}ms</div>`;
+            
+            // 性能评估
+            if (categoriesTime < 5 && toolsTime < 10) {
+                results.innerHTML += '<div class="success">🚀 性能优秀！首屏数据加载极快</div>';
+            } else if (categoriesTime < 20 && toolsTime < 50) {
+                results.innerHTML += '<div class="warning">⚡ 性能良好，可以进一步优化</div>';
+            } else {
+                results.innerHTML += '<div class="warning">⚠️ 性能需要优化</div>';
+            }
+        }
+        
+        // 运行测试
+        runPerformanceTest().catch(error => {
+            document.getElementById('results').innerHTML += `<div style="background:#f8d7da;color:#721c24;padding:10px;margin:10px 0;">错误: ${error.message}</div>`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="siteTitle">多语言测试页面</title>
+  <meta name="description" data-i18n="siteDescription" content="测试多语言功能">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .test-section {
+      background: #f5f5f5;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+    
+    .language-info {
+      background: #e0f2fe;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+    
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      background: white;
+    }
+    
+    button:hover {
+      background: #f0f0f0;
+    }
+    
+    .current-lang {
+      background: #10b981;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1 data-i18n="tools.title">🚀 多语言测试页面</h1>
+  <p data-i18n="tools.subtitle">这是一个测试多语言功能的页面</p>
+  
+  <div class="language-info">
+    <h3>当前语言信息</h3>
+    <p>当前语言: <span id="current-language">加载中...</span></p>
+    <p>浏览器语言: <span id="browser-language">加载中...</span></p>
+    <p>URL参数: <span id="url-param">加载中...</span></p>
+    <p>本地存储: <span id="local-storage">加载中...</span></p>
+  </div>
+  
+  <div class="test-section">
+    <h3>快速语言切换</h3>
+    <div id="language-buttons">
+      <!-- 语言按钮将通过JavaScript生成 -->
+    </div>
+  </div>
+  
+  <div class="test-section">
+    <h3>翻译测试</h3>
+    <p data-i18n="nav.home">首页</p>
+    <p data-i18n="nav.tutorials">教程</p>
+    <p data-i18n="nav.tools">工具合集</p>
+    <p data-i18n="nav.about">关于</p>
+    <p data-i18n="tools.searchPlaceholder">搜索工具名称、功能或标签...</p>
+    <p data-i18n="tools.searchButton">搜索</p>
+    <p data-i18n="common.loading">加载中...</p>
+    <p data-i18n="common.error">出错了</p>
+    <p data-i18n="common.success">成功</p>
+  </div>
+  
+  <div class="test-section">
+    <h3>分类翻译测试</h3>
+    <p data-i18n="categories.text-generation.name">文本生成</p>
+    <p data-i18n="categories.image-generation.name">图像生成</p>
+    <p data-i18n="categories.code-assistant.name">代码助手</p>
+    <p data-i18n="categories.productivity.name">效率工具</p>
+  </div>
+  
+  <!-- 引入脚本 -->
+  <script src="/js/i18n.js"></script>
+  <script src="/js/language-switcher.js"></script>
+  <script src="/js/init-i18n.js"></script>
+  <script src="/js/debug-language.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 等待i18n加载完成
+      function updateLanguageInfo() {
+        if (!window.i18n || !window.i18nConfig) {
+          setTimeout(updateLanguageInfo, 100);
+          return;
+        }
+        
+        // 更新语言信息
+        document.getElementById('current-language').textContent = window.i18n.getCurrentLanguage();
+        document.getElementById('browser-language').textContent = navigator.language || navigator.userLanguage;
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('url-param').textContent = urlParams.get('lang') || '无';
+        document.getElementById('local-storage').textContent = localStorage.getItem('preferred-language') || '无';
+        
+        // 生成语言切换按钮
+        const buttonContainer = document.getElementById('language-buttons');
+        const currentLang = window.i18n.getCurrentLanguage();
+        
+        Object.entries(window.i18nConfig.supportedLanguages).forEach(([code, lang]) => {
+          const button = document.createElement('button');
+          button.textContent = `${lang.flag} ${lang.name}`;
+          button.className = code === currentLang ? 'current-lang' : '';
+          
+          button.addEventListener('click', () => {
+            window.i18n.setLanguage(code);
+            window.location.reload();
+          });
+          
+          buttonContainer.appendChild(button);
+        });
+      }
+      
+      updateLanguageInfo();
+    });
+  </script>
+</body>
+</html>
