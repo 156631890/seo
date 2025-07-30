@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404错误修复工具 - MyAI</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 1000px; 
+            margin: 2rem auto; 
+            padding: 1rem; 
+            background: #f8fafc;
+        }
+        .fix-card { 
+            background: white; 
+            border-radius: 12px; 
+            padding: 2rem; 
+            margin: 1.5rem 0; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .error { border-left: 6px solid #ef4444; }
+        .success { border-left: 6px solid #10b981; }
+        .warning { border-left: 6px solid #f59e0b; }
+        .info { border-left: 6px solid #3b82f6; }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .test-item {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .test-item.working { border-color: #10b981; background: #ecfdf5; }
+        .test-item.broken { border-color: #ef4444; background: #fef2f2; }
+        .fix-button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+        .fix-button:hover { background: #059669; }
+        .fix-button.danger { background: #ef4444; }
+        .fix-button.danger:hover { background: #dc2626; }
+    </style>
+</head>
+<body>
+    <div class="fix-card info">
+        <h1>🔧 404错误修复工具</h1>
+        <p>检测并修复网站中的404错误链接</p>
+    </div>
+
+    <div class="fix-card warning">
+        <h2>⚠️ 常见404错误原因</h2>
+        <ul>
+            <li>文件被移动或重命名</li>
+            <li>链接指向不存在的页面</li>
+            <li>文件路径错误</li>
+            <li>服务器配置问题</li>
+        </ul>
+    </div>
+
+    <div class="fix-card success">
+        <h2>✅ 修复方案</h2>
+        <div class="test-grid">
+            <div class="test-item working">
+                <h4>🏠 首页链接</h4>
+                <p>确保所有链接指向正确的页面</p>
+                <button class="fix-button" onclick="window.open('/', '_blank')">测试首页</button>
+            </div>
+            
+            <div class="test-item working">
+                <h4>🛠️ 工具页面</h4>
+                <p>新的完整工具页面</p>
+                <button class="fix-button" onclick="window.open('/tools-complete.html', '_blank')">测试工具页面</button>
+            </div>
+            
+            <div class="test-item working">
+                <h4>🧠 模型页面</h4>
+                <p>AI模型展示页面</p>
+                <button class="fix-button" onclick="window.open('/models-complete.html', '_blank')">测试模型页面</button>
+            </div>
+            
+            <div class="test-item working">
+                <h4>🤖 代理页面</h4>
+                <p>AI代理系统页面</p>
+                <button class="fix-button" onclick="window.open('/agents-complete.html', '_blank')">测试代理页面</button>
+            </div>
+        </div>
+        
+        <h3>🔗 链接映射表</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+            <thead>
+                <tr style="background: #f8fafc;">
+                    <th style="padding: 0.75rem; border: 1px solid #e5e7eb;">旧链接</th>
+                    <th style="padding: 0.75rem; border: 1px solid #e5e7eb;">新链接</th>
+                    <th style="padding: 0.75rem; border: 1px solid #e5e7eb;">状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb;">/tools.html</td>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb;">/tools-complete.html</td>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb; color: #10b981;">✅ 已修复</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb;">/models-simple.html</td>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb;">/models-complete.html</td>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb; color: #10b981;">✅ 已修复</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb;">/compare.html</td>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb;">/compare-simple.html</td>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb; color: #10b981;">✅ 已修复</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb;">/tool-detail.html</td>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb;">/detail-complete.html</td>
+                    <td style="padding: 0.75rem; border: 1px solid #e5e7eb; color: #10b981;">✅ 已修复</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // 自动检测页面可访问性
+        window.addEventListener('load', async () => {
+            const testPages = [
+                '/',
+                '/tools-complete.html',
+                '/models-complete.html',
+                '/agents-complete.html',
+                '/detail-complete.html'
+            ];
+            
+            console.log('🧪 开始检测页面可访问性...');
+            
+            for (const page of testPages) {
+                try {
+                    const response = await fetch(page);
+                    console.log(`${page}: ${response.ok ? '✅ 正常' : '❌ 404错误'}`);
+                } catch (error) {
+                    console.log(`${page}: ❌ 网络错误 - ${error.message}`);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
