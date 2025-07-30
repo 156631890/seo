@@ -53,6 +53,102 @@
             transition: all 0.3s;
         }
         .tool-card:hover { transform: translateY(-4px); }
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+        }
+        .tool-category {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+        .tool-description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .tool-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .feature-tag {
+            background: #ecfdf5;
+            color: #059669;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .tool-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+        }
+        .tool-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .stars {
+            color: #fbbf24;
+        }
+        .tool-pricing {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .tool-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .tool-link {
+            flex: 1;
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .tool-link:hover {
+            background: #059669;
+        }
+        .tool-detail-btn {
+            background: #f3f4f6;
+            color: #374151;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .tool-detail-btn:hover {
+            background: #e5e7eb;
+        }
     </style>
 </head>
 <body>
@@ -85,38 +181,199 @@
         </div>
     </div>
 
+    <script src="/data/ai-tools-database.js"></script>
     <script>
-        // 内置完整的AI工具数据
-        const aiTools = [
-            {
-                id: 'chatgpt',
-                name: 'ChatGPT',
-                category: 'text-generation',
-                description: 'OpenAI开发的强大对话AI助手',
-                features: ['对话交互', '代码生成', '文本创作'],
-                pricing: 'Freemium',
-                rating: 4.8,
-                link: 'https://chat.openai.com'
+        // 使用完整的AI工具数据库
+        let aiTools = [];
+        
+        // 从数据库加载工具数据
+        function loadToolsFromDatabase() {
+            if (typeof window.aiToolsDatabase !== 'undefined' && window.aiToolsDatabase.tools) {
+                aiTools = window.aiToolsDatabase.tools;
+            } else {
+                // 如果数据库未加载，使用备用数据
+                aiTools = [
+                    {
+                        id: 'chatgpt',
+                        name: 'ChatGPT',
+                        category: 'text-generation',
+                        description: 'OpenAI开发的强大对话AI助手，能够进行自然语言对话、代码生成、文本创作等多种任务。',
+                        features: ['对话交互', '代码生成', '文本创作', '问题解答', '多语言支持'],
+                        pricing: 'Freemium',
+                        rating: 4.8,
+                        link: 'https://chat.openai.com',
+                        icon: '💬'
+                    },
+                    {
+                        id: 'midjourney',
+                        name: 'Midjourney',
+                        category: 'image-generation',
+                        description: '顶级AI图像生成工具，以其出色的艺术质量和风格多样性著称。',
+                        features: ['艺术创作', '风格多样', '高分辨率', '细节丰富', '商业授权'],
+                        pricing: '付费',
+                        rating: 4.8,
+                        link: 'https://midjourney.com',
+                        icon: '🎨'
+                    },
+                    {
+                        id: 'claude',
+                        name: 'Claude',
+                        category: 'text-generation',
+                        description: 'Anthropic开发的AI助手，在推理、编程和创意写作方面表现出色。',
+                        features: ['长文本处理', '代码分析', '创意写作', '逻辑推理', '安全对话'],
+                        pricing: 'Freemium',
+                        rating: 4.7,
+                        link: 'https://claude.ai',
+                        icon: '🧠'
+                    },
+                    {
+                        id: 'github-copilot',
+                        name: 'GitHub Copilot',
+                        category: 'code-assistant',
+                        description: 'AI代码助手，帮助开发者提高编程效率。',
+                        features: ['代码补全', '函数生成', '注释生成', '多语言支持', 'IDE集成'],
+                        pricing: '付费',
+                        rating: 4.5,
+                        link: 'https://github.com/features/copilot',
+                        icon: '💻'
+                    },
+                    {
+                        id: 'stable-diffusion',
+                        name: 'Stable Diffusion',
+                        category: 'image-generation',
+                        description: '开源AI图像生成模型，可本地部署，高度可定制。',
+                        features: ['开源免费', '本地部署', '高度定制', '社区支持', '商业友好'],
+                        pricing: '免费',
+                        rating: 4.4,
+                        link: 'https://stability.ai/stable-diffusion',
+                        icon: '🌟'
+                    },
+                    {
+                        id: 'jasper',
+                        name: 'Jasper AI',
+                        category: 'text-generation',
+                        description: 'AI内容创作平台，专注于营销和商业写作。',
+                        features: ['营销文案', '博客写作', '社媒内容', '邮件营销', '品牌声音'],
+                        pricing: '付费',
+                        rating: 4.3,
+                        link: 'https://jasper.ai',
+                        icon: '✍️'
+                    },
+                    {
+                        id: 'notion-ai',
+                        name: 'Notion AI',
+                        category: 'productivity',
+                        description: '集成在Notion中的AI助手，提升工作效率。',
+                        features: ['文档写作', '内容总结', '翻译', '头脑风暴', '任务管理'],
+                        pricing: 'Freemium',
+                        rating: 4.2,
+                        link: 'https://notion.so/ai',
+                        icon: '📝'
+                    },
+                    {
+                        id: 'canva-ai',
+                        name: 'Canva AI',
+                        category: 'design',
+                        description: 'AI驱动的设计工具，让设计变得简单。',
+                        features: ['智能设计', '背景移除', '图像增强', '模板推荐', '品牌套件'],
+                        pricing: 'Freemium',
+                        rating: 4.1,
+                        link: 'https://canva.com/ai',
+                        icon: '🎯'
+                    },
+                    {
+                        id: 'grammarly',
+                        name: 'Grammarly',
+                        category: 'text-generation',
+                        description: 'AI写作助手，提供语法检查和写作建议。',
+                        features: ['语法检查', '拼写纠正', '风格建议', '抄袭检测', '语调分析'],
+                        pricing: 'Freemium',
+                        rating: 4.0,
+                        link: 'https://grammarly.com',
+                        icon: '📚'
+                    },
+                    {
+                        id: 'copy-ai',
+                        name: 'Copy.ai',
+                        category: 'text-generation',
+                        description: 'AI文案生成工具，快速创建营销内容。',
+                        features: ['广告文案', '产品描述', '邮件主题', '社交媒体', '博客创意'],
+                        pricing: 'Freemium',
+                        rating: 3.9,
+                        link: 'https://copy.ai',
+                        icon: '📢'
+                    }
+                ];
             }
-            // 更多工具数据将在后续添加
-        ];
+        }
 
         function initializeToolsPage() {
+            loadToolsFromDatabase();
             renderTools(aiTools);
             bindEvents();
+            updateStats();
         }
 
         function renderTools(tools) {
             const toolsGrid = document.getElementById('tools-grid');
             toolsGrid.innerHTML = tools.map(tool => `
                 <div class="tool-card">
-                    <h3>${tool.name}</h3>
-                    <p>${tool.description}</p>
-                    <div style="margin-top: 1rem;">
-                        <a href="${tool.link}" target="_blank" style="background: #10b981; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none;">了解更多</a>
+                    <div class="tool-header">
+                        <div class="tool-icon">${tool.icon || '🤖'}</div>
+                        <div>
+                            <h3>${tool.name}</h3>
+                            <div class="tool-category">${getCategoryName(tool.category)}</div>
+                        </div>
+                    </div>
+                    <p class="tool-description">${tool.description}</p>
+                    <div class="tool-features">
+                        ${(tool.features || []).slice(0, 3).map(feature => 
+                            `<span class="feature-tag">${feature}</span>`
+                        ).join('')}
+                    </div>
+                    <div class="tool-meta">
+                        <div class="tool-rating">
+                            <span class="stars">${'★'.repeat(Math.floor(tool.rating || 4))}${'☆'.repeat(5-Math.floor(tool.rating || 4))}</span>
+                            <span>${tool.rating || '4.0'}</span>
+                        </div>
+                        <div class="tool-pricing">${tool.pricing || 'Freemium'}</div>
+                    </div>
+                    <div class="tool-actions">
+                        <a href="${tool.link}" target="_blank" class="tool-link">了解更多</a>
+                        <button onclick="viewToolDetail('${tool.id}')" class="tool-detail-btn">查看详情</button>
                     </div>
                 </div>
             `).join('');
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'text-generation': '文本生成',
+                'image-generation': '图像生成',
+                'code-assistant': '代码助手',
+                'productivity': '效率工具',
+                'design': '设计工具',
+                'data-analysis': '数据分析',
+                'voice-audio': '语音音频',
+                'video-creation': '视频创作',
+                'automation': '自动化',
+                'research': '研究助手',
+                'education': '教育学习',
+                'marketing': '营销工具',
+                'customer-service': '客户服务',
+                'translation': '翻译工具',
+                'music': '音乐创作'
+            };
+            return categories[category] || '其他工具';
+        }
+
+        function viewToolDetail(toolId) {
+            window.open(`/pages/detail-complete.html?type=tool&id=${toolId}`, '_blank');
+        }
+
+        function updateStats() {
+            const totalTools = aiTools.length;
+            document.querySelector('.hero p').textContent = `精选${totalTools}+最佳AI工具，提升工作效率10倍`;
         }
 
         function bindEvents() {

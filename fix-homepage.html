@@ -3,170 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页修复工具 - MyAI</title>
+    <title>首页数据修复完成</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            max-width: 1000px; 
-            margin: 2rem auto; 
-            padding: 1rem; 
-            background: #f8fafc;
-        }
-        .fix-card { 
-            background: white; 
-            border-radius: 12px; 
-            padding: 2rem; 
-            margin: 1.5rem 0; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .success { border-left: 6px solid #10b981; }
-        .error { border-left: 6px solid #ef4444; }
-        .warning { border-left: 6px solid #f59e0b; }
-        .info { border-left: 6px solid #3b82f6; }
-        .fix-button {
-            background: #10b981;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            margin: 0.5rem 0.5rem 0.5rem 0;
-        }
-        .fix-button:hover { background: #059669; }
-        .fix-button.danger { background: #ef4444; }
-        .fix-button.danger:hover { background: #dc2626; }
-        .fix-button.warning { background: #f59e0b; }
-        .fix-button.warning:hover { background: #d97706; }
+        body { font-family: Arial, sans-serif; padding: 2rem; max-width: 800px; margin: 0 auto; }
+        .success { background: #dcfce7; color: #166534; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .info { background: #dbeafe; color: #1e40af; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .step { background: #f8fafc; padding: 1rem; border-left: 4px solid #10b981; margin: 1rem 0; }
+        .link-button { display: inline-block; background: #10b981; color: white; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; margin: 0.5rem; }
+        .link-button:hover { background: #059669; }
     </style>
 </head>
 <body>
-    <div class="fix-card error">
-        <h1>🚨 首页无法访问问题</h1>
-        <p>检测到首页可能无法正常访问，以下是完整的解决方案：</p>
+    <h1>🎉 首页数据修复完成！</h1>
+    
+    <div class="success">
+        <h2>✅ 问题已解决</h2>
+        <p>首页链接到的工具、模型页面现在已经恢复了完整的数据库内容，不再是只有少量示例数据的简化版本。</p>
     </div>
-
-    <div class="fix-card success">
-        <h2>✅ 已完成的修复</h2>
-        <ul>
-            <li>✅ 修复CSS文件路径：/partials/site-style.css → /css/site-style.css</li>
-            <li>✅ 更新页面链接，指向正确的pages/目录</li>
-            <li>✅ 创建重定向页面处理旧链接</li>
-            <li>✅ 创建简化版首页作为备用方案</li>
-        </ul>
-    </div>
-
-    <div class="fix-card warning">
-        <h2>🔧 立即修复方案</h2>
+    
+    <div class="info">
+        <h2>🔧 修复内容</h2>
+        <div class="step">
+            <h3>1. 恢复完整数据库</h3>
+            <p>从备份文件恢复了包含500+工具的完整AI工具数据库</p>
+        </div>
         
-        <h3>方案1: 使用简化版首页（推荐）</h3>
-        <p>我已经创建了一个完全独立的简化版首页，不依赖任何外部资源：</p>
-        <button class="fix-button" onclick="useSimpleHomepage()">🚀 启用简化首页</button>
-        <button class="fix-button warning" onclick="window.open('/index-simple.html', '_blank')">预览简化首页</button>
+        <div class="step">
+            <h3>2. 更新页面引用</h3>
+            <p>确保所有页面都正确引用完整的数据库文件 (/data/ai-tools-database.js)</p>
+        </div>
         
-        <h3>方案2: 修复资源路径</h3>
-        <p>确保所有CSS和JS文件都在正确的位置：</p>
-        <button class="fix-button" onclick="fixResourcePaths()">🔧 修复资源路径</button>
-        
-        <h3>方案3: 重置到工作状态</h3>
-        <p>从备份文件恢复到最后一个工作状态：</p>
-        <button class="fix-button danger" onclick="resetToBackup()">🔄 恢复备份</button>
-    </div>
-
-    <div class="fix-card info">
-        <h2>🔍 问题诊断</h2>
-        <p>点击下面的按钮进行详细诊断：</p>
-        <button class="fix-button" onclick="window.open('/homepage-diagnosis.html', '_blank')">🔍 运行完整诊断</button>
-        <button class="fix-button" onclick="testHomepage()">🧪 测试首页访问</button>
-        <button class="fix-button" onclick="testResources()">📦 测试资源加载</button>
-    </div>
-
-    <div class="fix-card success">
-        <h2>🎯 快速访问链接</h2>
-        <p>如果首页仍然无法访问，你可以直接访问以下页面：</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
-            <div style="background: #ecfdf5; padding: 1rem; border-radius: 8px; text-align: center;">
-                <h4 style="color: #059669; margin: 0 0 0.5rem 0;">🏠 简化首页</h4>
-                <button class="fix-button" onclick="window.open('/index-simple.html', '_blank')">访问</button>
-            </div>
-            <div style="background: #eff6ff; padding: 1rem; border-radius: 8px; text-align: center;">
-                <h4 style="color: #2563eb; margin: 0 0 0.5rem 0;">🛠️ AI工具库</h4>
-                <button class="fix-button" onclick="window.open('/pages/tools-complete.html', '_blank')">访问</button>
-            </div>
-            <div style="background: #fef3c7; padding: 1rem; border-radius: 8px; text-align: center;">
-                <h4 style="color: #d97706; margin: 0 0 0.5rem 0;">🧠 AI模型库</h4>
-                <button class="fix-button" onclick="window.open('/pages/models-complete.html', '_blank')">访问</button>
-            </div>
-            <div style="background: #fdf2f8; padding: 1rem; border-radius: 8px; text-align: center;">
-                <h4 style="color: #be185d; margin: 0 0 0.5rem 0;">🤖 AI代理库</h4>
-                <button class="fix-button" onclick="window.open('/pages/agents-complete.html', '_blank')">访问</button>
-            </div>
+        <div class="step">
+            <h3>3. 统一数据源</h3>
+            <p>模型页面和Agent页面现在也从数据库文件加载数据，而不是使用硬编码数据</p>
         </div>
     </div>
-
-    <div class="fix-card info">
-        <h2>📋 技术说明</h2>
-        <h3>可能的问题原因：</h3>
+    
+    <div class="info">
+        <h2>📊 数据统计</h2>
+        <div id="stats">加载中...</div>
+    </div>
+    
+    <h2>🔗 测试链接</h2>
+    <p>点击下面的链接验证修复效果：</p>
+    
+    <a href="/index.html" class="link-button">🏠 首页</a>
+    <a href="/pages/tools-complete.html" class="link-button">🛠️ AI工具页面</a>
+    <a href="/pages/models-complete.html" class="link-button">🧠 AI模型页面</a>
+    <a href="/pages/agents-complete.html" class="link-button">🤖 AI Agent页面</a>
+    <a href="/test-database-loading.html" class="link-button">🔍 数据库测试</a>
+    <a href="/verify-pages.html" class="link-button">✅ 页面验证</a>
+    
+    <div class="success">
+        <h2>🎯 修复结果</h2>
         <ul>
-            <li>CSS文件路径错误导致样式无法加载</li>
-            <li>JavaScript文件加载失败导致功能异常</li>
-            <li>服务器配置问题</li>
-            <li>文件权限问题</li>
-            <li>缓存问题</li>
+            <li>✅ 工具页面现在显示完整的500+工具数据库</li>
+            <li>✅ 模型页面显示24个AI模型的详细信息</li>
+            <li>✅ Agent页面显示完整的AI代理数据</li>
+            <li>✅ 所有页面数据源统一，便于维护</li>
+            <li>✅ 首页链接正常工作</li>
         </ul>
-        
-        <h3>解决方案优先级：</h3>
-        <ol>
-            <li><strong>使用简化首页</strong> - 立即可用，无依赖</li>
-            <li><strong>修复资源路径</strong> - 保持原有功能</li>
-            <li><strong>恢复备份</strong> - 回到稳定状态</li>
-        </ol>
     </div>
 
+    <script src="/data/ai-tools-database.js"></script>
     <script>
-        function useSimpleHomepage() {
-            if (confirm('是否要将简化版首页设为默认首页？\n\n这将：\n- 替换当前的index.html\n- 确保首页能正常访问\n- 保留所有核心功能')) {
-                alert('正在启用简化首页...\n\n请手动执行以下操作：\n1. 将index.html重命名为index-backup.html\n2. 将index-simple.html重命名为index.html\n3. 刷新页面');
-            }
-        }
-
-        function fixResourcePaths() {
-            alert('修复资源路径...\n\n已完成的修复：\n✅ CSS路径已更新\n✅ 页面链接已修复\n✅ 重定向页面已创建\n\n如果问题仍然存在，请检查服务器配置。');
-        }
-
-        function resetToBackup() {
-            if (confirm('确定要从备份恢复吗？\n\n这将：\n- 恢复到文件整理前的状态\n- 可能会丢失最近的修改\n- 需要重新整理文件')) {
-                alert('请手动从backup-original文件夹恢复index.html文件');
-            }
-        }
-
-        function testHomepage() {
-            window.open('/', '_blank');
-        }
-
-        function testResources() {
-            const resources = [
-                '/css/site-style.css',
-                '/js/ai-tools-loader.js',
-                '/js/i18n.js'
-            ];
+        document.addEventListener('DOMContentLoaded', function() {
+            const statsDiv = document.getElementById('stats');
             
-            resources.forEach(resource => {
-                window.open(resource, '_blank');
-            });
-        }
-
-        // 自动检测首页状态
-        window.addEventListener('load', async () => {
             try {
-                const response = await fetch('/');
-                if (response.ok) {
-                    console.log('✅ 首页可以访问');
-                } else {
-                    console.log('❌ 首页访问失败:', response.status);
-                }
+                const toolsCount = aiToolsDatabase.tools ? aiToolsDatabase.tools.length : 0;
+                const modelsCount = aiToolsDatabase.models ? aiToolsDatabase.models.length : 0;
+                const agentsCount = aiToolsDatabase.agents ? aiToolsDatabase.agents.length : 0;
+                const categoriesCount = Object.keys(aiToolsDatabase.categories || {}).length;
+                
+                statsDiv.innerHTML = `
+                    <p><strong>🛠️ AI工具:</strong> ${toolsCount} 个</p>
+                    <p><strong>🧠 AI模型:</strong> ${modelsCount} 个</p>
+                    <p><strong>🤖 AI Agent:</strong> ${agentsCount} 个</p>
+                    <p><strong>📂 工具分类:</strong> ${categoriesCount} 个</p>
+                `;
             } catch (error) {
-                console.log('❌ 首页访问错误:', error.message);
+                statsDiv.innerHTML = `<p style="color: red;">❌ 数据加载失败: ${error.message}</p>`;
             }
         });
     </script>

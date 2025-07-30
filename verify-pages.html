@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面验证</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2rem; }
+        .page-link { display: block; padding: 1rem; margin: 0.5rem 0; background: #f0f9ff; border-radius: 6px; text-decoration: none; color: #1e40af; }
+        .page-link:hover { background: #dbeafe; }
+        .status { padding: 0.5rem; border-radius: 4px; margin-left: 1rem; }
+        .success { background: #dcfce7; color: #166534; }
+        .error { background: #fef2f2; color: #dc2626; }
+    </style>
+</head>
+<body>
+    <h1>页面验证</h1>
+    <p>点击下面的链接测试各个页面是否正常工作：</p>
+    
+    <a href="/index.html" class="page-link">🏠 首页</a>
+    <a href="/pages/tools-complete.html" class="page-link">🛠️ AI工具页面</a>
+    <a href="/pages/models-complete.html" class="page-link">🧠 AI模型页面</a>
+    <a href="/pages/agents-complete.html" class="page-link">🤖 AI Agent页面</a>
+    <a href="/test-database-loading.html" class="page-link">🔍 数据库测试页面</a>
+    
+    <h2>数据库状态检查</h2>
+    <div id="database-status">检查中...</div>
+
+    <script src="/data/ai-tools-database.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusDiv = document.getElementById('database-status');
+            
+            try {
+                const toolsCount = aiToolsDatabase.tools ? aiToolsDatabase.tools.length : 0;
+                const modelsCount = aiToolsDatabase.models ? aiToolsDatabase.models.length : 0;
+                const agentsCount = aiToolsDatabase.agents ? aiToolsDatabase.agents.length : 0;
+                
+                statusDiv.innerHTML = `
+                    <div class="status success">
+                        ✅ 数据库加载成功<br>
+                        📊 工具: ${toolsCount} 个<br>
+                        🧠 模型: ${modelsCount} 个<br>
+                        🤖 Agent: ${agentsCount} 个
+                    </div>
+                `;
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <div class="status error">
+                        ❌ 数据库加载失败: ${error.message}
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

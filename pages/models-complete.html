@@ -69,27 +69,141 @@
         </div>
     </div>
 
+    <script src="/data/ai-tools-database.js"></script>
     <script>
-        const aiModels = [
+        // 使用完整的AI模型数据库
+        const aiModels = aiToolsDatabase.models || [
             {
                 id: 'gpt-4o',
                 name: 'GPT-4o',
                 provider: 'OpenAI',
-                description: 'OpenAI最新的多模态大语言模型',
-                features: ['文本生成', '图像理解', '代码编写'],
+                type: 'multimodal',
+                description: 'OpenAI最新的多模态大语言模型，支持文本、图像、音频处理，推理能力显著提升。',
+                features: ['文本生成', '图像理解', '代码编写', '数学推理', '多语言支持'],
                 rating: 4.8,
                 icon: '🤖',
                 link: 'https://openai.com/gpt-4o'
             },
             {
-                id: 'claude-3-5',
+                id: 'claude-3-5-sonnet',
                 name: 'Claude 3.5 Sonnet',
                 provider: 'Anthropic',
-                description: 'Anthropic的旗舰模型，推理能力强',
-                features: ['长文本处理', '代码分析', '创意写作'],
+                type: 'llm',
+                description: 'Anthropic的旗舰模型，在推理、编程和创意写作方面表现出色，安全性高。',
+                features: ['长文本处理', '代码分析', '创意写作', '逻辑推理', '安全对话'],
                 rating: 4.7,
                 icon: '🧠',
                 link: 'https://claude.ai'
+            },
+            {
+                id: 'gemini-2-0',
+                name: 'Gemini 2.0',
+                provider: 'Google',
+                type: 'multimodal',
+                description: 'Google最新的多模态AI模型，集成了搜索、地图等Google服务。',
+                features: ['实时搜索', '多模态理解', '代码生成', '数据分析', '工具调用'],
+                rating: 4.6,
+                icon: '💎',
+                link: 'https://gemini.google.com'
+            },
+            {
+                id: 'o1-preview',
+                name: 'OpenAI o1',
+                provider: 'OpenAI',
+                type: 'llm',
+                description: '专注于复杂推理的AI模型，在数学、科学和编程问题上表现卓越。',
+                features: ['深度推理', '数学解题', '科学分析', '复杂编程', '逻辑思考'],
+                rating: 4.9,
+                icon: '🔬',
+                link: 'https://openai.com/o1'
+            },
+            {
+                id: 'llama-3-1',
+                name: 'Llama 3.1',
+                provider: 'Meta',
+                type: 'llm',
+                description: 'Meta的开源大语言模型，性能强大且完全免费使用。',
+                features: ['开源免费', '本地部署', '商业友好', '多语言', '高性能'],
+                rating: 4.4,
+                icon: '🦙',
+                link: 'https://llama.meta.com'
+            },
+            {
+                id: 'grok-2',
+                name: 'Grok-2',
+                provider: 'xAI',
+                type: 'llm',
+                description: 'Elon Musk的xAI公司开发的AI模型，具有独特的幽默感和实时信息获取能力。',
+                features: ['实时信息', '幽默对话', '批判思维', '多角度分析', '创新思考'],
+                rating: 4.3,
+                icon: '🚀',
+                link: 'https://grok.x.ai'
+            },
+            {
+                id: 'qwen-2-5',
+                name: '通义千问 2.5',
+                provider: '阿里巴巴',
+                type: 'llm',
+                description: '阿里巴巴开发的大语言模型，在中文理解和生成方面表现优秀。',
+                features: ['中文优化', '多模态', '代码生成', '数学推理', '知识问答'],
+                rating: 4.2,
+                icon: '🇨🇳',
+                link: 'https://tongyi.aliyun.com'
+            },
+            {
+                id: 'ernie-4',
+                name: '文心一言 4.0',
+                provider: '百度',
+                type: 'llm',
+                description: '百度开发的大语言模型，具有强大的中文理解和生成能力。',
+                features: ['中文理解', '创意写作', '知识问答', '代码生成', '多轮对话'],
+                rating: 4.1,
+                icon: '🐼',
+                link: 'https://yiyan.baidu.com'
+            },
+            {
+                id: 'chatglm-4',
+                name: 'ChatGLM-4',
+                provider: '智谱AI',
+                type: 'llm',
+                description: '智谱AI开发的对话语言模型，支持中英双语，具有强大的推理能力。',
+                features: ['中英双语', '逻辑推理', '代码理解', '数学计算', '知识问答'],
+                rating: 4.0,
+                icon: '🎓',
+                link: 'https://chatglm.cn'
+            },
+            {
+                id: 'deepseek-v2',
+                name: 'DeepSeek-V2',
+                provider: 'DeepSeek',
+                type: 'llm',
+                description: 'DeepSeek开发的大语言模型，在代码生成和数学推理方面表现出色。',
+                features: ['代码生成', '数学推理', '逻辑分析', '多语言', '开源友好'],
+                rating: 3.9,
+                icon: '🔍',
+                link: 'https://deepseek.com'
+            },
+            {
+                id: 'moonshot-v1',
+                name: 'Moonshot-v1',
+                provider: 'Moonshot AI',
+                type: 'llm',
+                description: 'Moonshot AI开发的长文本处理模型，支持超长上下文理解。',
+                features: ['长文本', '上下文理解', '文档分析', '信息提取', '内容总结'],
+                rating: 3.8,
+                icon: '🌙',
+                link: 'https://moonshot.cn'
+            },
+            {
+                id: 'yi-large',
+                name: 'Yi-Large',
+                provider: '零一万物',
+                type: 'llm',
+                description: '零一万物开发的大语言模型，在多个基准测试中表现优异。',
+                features: ['高性能', '多语言', '推理能力', '代码生成', '知识问答'],
+                rating: 3.7,
+                icon: '🔥',
+                link: 'https://01.ai'
             }
         ];
 

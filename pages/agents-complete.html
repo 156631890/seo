@@ -69,8 +69,10 @@
         </div>
     </div>
 
+    <script src="/data/ai-tools-database.js"></script>
     <script>
-        const aiAgents = [
+        // 使用完整的AI Agent数据库
+        const aiAgents = aiToolsDatabase.agents || [
             {
                 id: 'autogpt',
                 name: 'AutoGPT',
