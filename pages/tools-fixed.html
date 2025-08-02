@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具大全 - 500+最佳AI工具推荐 | MyAI</title>
+    <meta name="description" content="2025年最全AI工具合集！500+精选AI工具，涵盖ChatGPT、Midjourney、Claude等热门工具，专业评测，免费使用指南。">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .tools-hero {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .tools-hero h1 { 
+            font-size: 3rem; 
+            margin-bottom: 1rem; 
+            font-weight: 800;
+        }
+        .tools-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .tools-container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 3rem 1rem; 
+        }
+        .filter-section {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .filter-section h3 {
+            margin-bottom: 1rem;
+            color: #1f2937;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .search-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+            transform: translateY(-2px);
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid #f1f5f9;
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+        .tool-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            font-weight: bold;
+        }
+        .tool-info h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        .tool-category {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+            font-weight: 500;
+        }
+        .tool-description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+        .tool-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .feature-tag {
+            background: #ecfdf5;
+            color: #059669;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .tool-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+        }
+        .tool-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .stars {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+        .rating-number {
+            font-weight: 700;
+            color: #1f2937;
+        }
+        .tool-pricing {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .tool-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .tool-link {
+            flex: 1;
+            background: #10b981;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .tool-link:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+        .tool-detail-btn {
+            background: #f3f4f6;
+            color: #374151;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .tool-detail-btn:hover {
+            background: #e5e7eb;
+        }
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+        .no-results-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            .tool-actions {
+                flex-direction: column;
+            }
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">
+                <a href="/" style="font-size: 1.8rem; font-weight: 800; color: #667eea; text-decoration: none;">MyAI</a>
+            </div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-fixed.html" class="active">AI工具</a>
+                <a href="/pages/models-fixed.html">AI模型</a>
+                <a href="/pages/agents-fixed.html">AI代理</a>
+            </nav>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <section class="tools-hero">
+        <h1>🛠️ AI工具大全</h1>
+        <p>精选<span id="tools-total">500+</span>最佳AI工具，提升工作效率10倍</p>
+    </section>
+
+    <div class="tools-container">
+        <div class="filter-section">
+            <h3>🔍 筛选工具</h3>
+            <input type="text" id="search-input" class="search-input" placeholder="搜索AI工具名称、描述或标签...">
+            <div class="filter-buttons" id="filter-buttons">
+                <button class="filter-btn active" data-filter="all">全部工具</button>
+                <!-- 分类按钮将通过JavaScript生成 -->
+            </div>
+        </div>
+
+        <div id="loading" class="loading">
+            <div>正在加载AI工具数据...</div>
+        </div>
+
+        <div class="tools-grid" id="tools-grid" style="display: none;">
+            <!-- 工具卡片将通过JavaScript生成 -->
+        </div>
+
+        <div id="no-results" class="no-results" style="display: none;">
+            <div class="no-results-icon">🔍</div>
+            <h3>未找到匹配的工具</h3>
+            <p>请尝试调整搜索条件或选择其他分类</p>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MyAI</h3>
+                    <p>探索AI的无限可能，发现最适合您的智能工具。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="/pages/tools-fixed.html">AI工具</a></li>
+                        <li><a href="/pages/models-fixed.html">AI模型</a></li>
+                        <li><a href="/pages/agents-fixed.html">AI代理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyAI. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/data/ai-database-complete.js"></script>
+    <script>
+        // 全局变量
+        let allTools = [];
+        let filteredTools = [];
+        let currentCategory = 'all';
+
+        // 分类名称映射
+        const categoryNames = {
+            'text-generation': '文本生成',
+            'image-generation': '图像生成',
+            'code-assistant': '代码助手',
+            'productivity': '效率工具',
+            'data-analysis': '数据分析',
+            'voice-audio': '语音音频',
+            'video-creation': '视频创作',
+            'automation': '自动化',
+            'research': '研究助手',
+            'design': '设计工具',
+            'education': '教育学习',
+            'marketing': '营销工具',
+            'customer-service': '客户服务',
+            'translation': '翻译工具',
+            'music': '音乐创作'
+        };
+
+        // 获取分类名称
+        function getCategoryName(category) {
+            return categoryNames[category] || category;
+        }
+
+        // 生成工具图标
+        function getToolIcon(tool) {
+            const iconMap = {
+                'chatgpt': '💬',
+                'claude': '🧠',
+                'midjourney': '🎨',
+                'github-copilot': '💻',
+                'stable-diffusion': '🌟',
+                'jasper': '✍️',
+                'notion-ai': '📝',
+                'canva-ai': '🎯',
+                'elevenlabs': '🎵',
+                'runway': '🎬'
+            };
+            return iconMap[tool.id] || '🤖';
+        }
+
+        // 生成星级评分
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            let stars = '★'.repeat(fullStars);
+            if (hasHalfStar) stars += '☆';
+            return stars.padEnd(5, '☆');
+        }
+
+        // 渲染工具卡片
+        function renderTools(tools) {
+            const toolsGrid = document.getElementById('tools-grid');
+            const loading = document.getElementById('loading');
+            const noResults = document.getElementById('no-results');
+
+            loading.style.display = 'none';
+            
+            if (tools.length === 0) {
+                toolsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            toolsGrid.style.display = 'grid';
+
+            toolsGrid.innerHTML = tools.map(tool => `
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">${getToolIcon(tool)}</div>
+                        <div class="tool-info">
+                            <h3>${tool.name}</h3>
+                            <div class="tool-category">${getCategoryName(tool.category)}</div>
+                        </div>
+                    </div>
+                    <p class="tool-description">${tool.description}</p>
+                    <div class="tool-features">
+                        ${(tool.features || []).slice(0, 4).map(feature => 
+                            `<span class="feature-tag">${feature}</span>`
+                        ).join('')}
+                    </div>
+                    <div class="tool-meta">
+                        <div class="tool-rating">
+                            <span class="stars">${generateStars(tool.rating || 4.0)}</span>
+                            <span class="rating-number">${tool.rating || '4.0'}</span>
+                        </div>
+                        <div class="tool-pricing">${tool.pricing || 'Freemium'}</div>
+                    </div>
+                    <div class="tool-actions">
+                        <a href="${tool.url}" target="_blank" class="tool-link">访问工具</a>
+                        <button onclick="showToolDetail('${tool.id}')" class="tool-detail-btn">查看详情</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 生成分类按钮
+        function generateCategoryButtons() {
+            const filterButtons = document.getElementById('filter-buttons');
+            const categories = [...new Set(allTools.map(tool => tool.category))];
+            
+            const buttonsHTML = [
+                '<button class="filter-btn active" data-filter="all">全部工具</button>',
+                ...categories.map(cat => 
+                    `<button class="filter-btn" data-filter="${cat}">${getCategoryName(cat)}</button>`
+                )
+            ].join('');
+            
+            filterButtons.innerHTML = buttonsHTML;
+        }
+
+        // 筛选工具
+        function filterTools(category = 'all', searchQuery = '') {
+            let filtered = allTools;
+
+            // 按分类筛选
+            if (category !== 'all') {
+                filtered = filtered.filter(tool => tool.category === category);
+            }
+
+            // 按搜索词筛选
+            if (searchQuery) {
+                const query = searchQuery.toLowerCase();
+                filtered = filtered.filter(tool =>
+                    tool.name.toLowerCase().includes(query) ||
+                    tool.description.toLowerCase().includes(query) ||
+                    (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(query))) ||
+                    (tool.features && tool.features.some(feature => feature.toLowerCase().includes(query)))
+                );
+            }
+
+            filteredTools = filtered;
+            renderTools(filteredTools);
+        }
+
+        // 显示工具详情
+        function showToolDetail(toolId) {
+            const tool = allTools.find(t => t.id === toolId);
+            if (tool) {
+                alert(`${tool.name}\n\n${tool.description}\n\n特性：${(tool.features || []).join(', ')}\n\n评分：${tool.rating || '4.0'}/5.0\n\n价格：${tool.pricing || 'Freemium'}`);
+            }
+        }
+
+        // 绑定事件
+        function bindEvents() {
+            // 搜索功能
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', function(e) {
+                const query = e.target.value;
+                filterTools(currentCategory, query);
+            });
+
+            // 分类筛选
+            const filterButtons = document.getElementById('filter-buttons');
+            filterButtons.addEventListener('click', function(e) {
+                if (e.target.classList.contains('filter-btn')) {
+                    // 更新按钮状态
+                    filterButtons.querySelectorAll('.filter-btn').forEach(btn => 
+                        btn.classList.remove('active')
+                    );
+                    e.target.classList.add('active');
+
+                    // 筛选工具
+                    currentCategory = e.target.dataset.filter;
+                    const searchQuery = searchInput.value;
+                    filterTools(currentCategory, searchQuery);
+                }
+            });
+
+            // 移动端菜单
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const siteNav = document.querySelector('.site-nav');
+            
+            if (mobileToggle && siteNav) {
+                mobileToggle.addEventListener('click', function() {
+                    siteNav.classList.toggle('active');
+                });
+            }
+        }
+
+        // 初始化页面
+        function initializePage() {
+            console.log('初始化AI工具页面...');
+            
+            // 检查数据库
+            if (typeof aiToolsDatabase === 'undefined') {
+                console.error('AI工具数据库未加载');
+                document.getElementById('loading').innerHTML = '<div style="color: #ef4444;">❌ 数据库加载失败，请刷新页面重试</div>';
+                return;
+            }
+
+            // 加载工具数据
+            allTools = aiToolsDatabase.tools || [];
+            console.log(`加载了 ${allTools.length} 个AI工具`);
+
+            if (allTools.length === 0) {
+                document.getElementById('loading').innerHTML = '<div style="color: #f59e0b;">⚠️ 暂无工具数据</div>';
+                return;
+            }
+
+            // 更新统计数据
+            document.getElementById('tools-total').textContent = allTools.length + '+';
+
+            // 生成分类按钮
+            generateCategoryButtons();
+
+            // 渲染所有工具
+            filterTools('all', '');
+
+            // 绑定事件
+            bindEvents();
+
+            console.log('AI工具页面初始化完成');
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initializePage);
+
+        // 全局函数，供HTML调用
+        window.showToolDetail = showToolDetail;
+    </script>
+</body>
+</html>

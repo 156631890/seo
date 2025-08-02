@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI代理大全 - 30+智能代理系统 | MyAI</title>
+    <meta name="description" content="2025年最全AI代理合集！AutoGPT、LangChain、CrewAI等30+智能代理系统深度评测。">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .agents-hero {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .agents-hero h1 { 
+            font-size: 3rem; 
+            margin-bottom: 1rem; 
+            font-weight: 800;
+        }
+        .agents-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .agents-container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 3rem 1rem; 
+        }
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+        .agent-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid #f1f5f9;
+            position: relative;
+            overflow: hidden;
+        }
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+        .agent-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .agent-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            font-weight: bold;
+        }
+        .agent-info h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        .agent-type {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+            font-weight: 500;
+        }
+        .agent-category {
+            background: #fdf2f8;
+            color: #be185d;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+        .agent-description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            font-size: 1rem;
+        }
+        .agent-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .feature-tag {
+            background: #fef7ff;
+            color: #a21caf;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .agent-specs {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .spec-row:last-child {
+            margin-bottom: 0;
+        }
+        .spec-label {
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+        .spec-value {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        .agent-rating {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+        }
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .stars {
+            color: #fbbf24;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .rating-number {
+            font-weight: 700;
+            color: #1f2937;
+            font-size: 1.1rem;
+        }
+        .agent-pricing {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .agent-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .agent-link {
+            flex: 1;
+            background: #f093fb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .agent-link:hover {
+            background: #e879f9;
+            transform: translateY(-1px);
+        }
+        .agent-detail-btn {
+            background: #f3f4f6;
+            color: #374151;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .agent-detail-btn:hover {
+            background: #e5e7eb;
+        }
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+        @media (max-width: 768px) {
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+            .agent-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">
+                <a href="/" style="font-size: 1.8rem; font-weight: 800; color: #667eea; text-decoration: none;">MyAI</a>
+            </div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-fixed.html">AI工具</a>
+                <a href="/pages/models-fixed.html">AI模型</a>
+                <a href="/pages/agents-fixed.html" class="active">AI代理</a>
+            </nav>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <section class="agents-hero">
+        <h1>🤖 AI代理大全</h1>
+        <p>探索<span id="agents-total">30+</span>智能代理系统，实现任务自动化</p>
+    </section>
+
+    <div class="agents-container">
+        <div id="loading" class="loading">
+            <div>正在加载AI代理数据...</div>
+        </div>
+
+        <div class="agents-grid" id="agents-grid" style="display: none;">
+            <!-- 代理卡片将通过JavaScript生成 -->
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MyAI</h3>
+                    <p>探索AI的无限可能，发现最适合您的智能工具。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="/pages/tools-fixed.html">AI工具</a></li>
+                        <li><a href="/pages/models-fixed.html">AI模型</a></li>
+                        <li><a href="/pages/agents-fixed.html">AI代理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyAI. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/data/ai-database-complete.js"></script>
+    <script>
+        // 全局变量
+        let allAgents = [];
+
+        // 代理类型名称映射
+        const typeNames = {
+            'autonomous': '自主代理',
+            'framework': '开发框架',
+            'multi-agent': '多代理系统',
+            'assistant': '助手代理'
+        };
+
+        // 生成代理图标
+        function getAgentIcon(agent) {
+            const iconMap = {
+                'autogpt': '🚀',
+                'langchain': '🔗',
+                'crewai': '👥',
+                'superagent': '⚡',
+                'agent-gpt': '🌐'
+            };
+            return iconMap[agent.id] || '🤖';
+        }
+
+        // 生成星级评分
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            let stars = '★'.repeat(fullStars);
+            if (hasHalfStar) stars += '☆';
+            return stars.padEnd(5, '☆');
+        }
+
+        // 渲染代理卡片
+        function renderAgents(agents) {
+            const agentsGrid = document.getElementById('agents-grid');
+            const loading = document.getElementById('loading');
+
+            loading.style.display = 'none';
+            agentsGrid.style.display = 'grid';
+
+            agentsGrid.innerHTML = agents.map(agent => `
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">${getAgentIcon(agent)}</div>
+                        <div class="agent-info">
+                            <h3>${agent.name}</h3>
+                            <div class="agent-type">${typeNames[agent.type] || agent.type}</div>
+                            <div class="agent-category">${agent.category}</div>
+                        </div>
+                    </div>
+                    <p class="agent-description">${agent.description}</p>
+                    <div class="agent-features">
+                        ${(agent.features || []).slice(0, 4).map(feature => 
+                            `<span class="feature-tag">${feature}</span>`
+                        ).join('')}
+                    </div>
+                    <div class="agent-specs">
+                        <div class="spec-row">
+                            <span class="spec-label">代理类型</span>
+                            <span class="spec-value">${typeNames[agent.type] || agent.type}</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">用户规模</span>
+                            <span class="spec-value">${agent.users || '未知'}</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">定价模式</span>
+                            <span class="spec-value">${agent.pricing}</span>
+                        </div>
+                    </div>
+                    <div class="agent-rating">
+                        <div class="rating-display">
+                            <span class="stars">${generateStars(agent.rating || 4.0)}</span>
+                            <span class="rating-number">${agent.rating || '4.0'}</span>
+                        </div>
+                        <div class="agent-pricing">${agent.pricing}</div>
+                    </div>
+                    <div class="agent-actions">
+                        <a href="${agent.url}" target="_blank" class="agent-link">访问代理</a>
+                        <button onclick="showAgentDetail('${agent.id}')" class="agent-detail-btn">查看详情</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 显示代理详情
+        function showAgentDetail(agentId) {
+            const agent = allAgents.find(a => a.id === agentId);
+            if (agent) {
+                const pros = (agent.pros || []).join('\n• ');
+                const cons = (agent.cons || []).join('\n• ');
+                
+                alert(`${agent.name} - ${agent.provider}\n\n${agent.description}\n\n✅ 优势：\n• ${pros}\n\n⚠️ 限制：\n• ${cons}\n\n评分：${agent.rating || '4.0'}/5.0\n定价：${agent.pricing}\n用户：${agent.users || '未知'}`);
+            }
+        }
+
+        // 初始化页面
+        function initializePage() {
+            console.log('初始化AI代理页面...');
+            
+            // 检查数据库
+            if (typeof aiToolsDatabase === 'undefined') {
+                console.error('AI工具数据库未加载');
+                document.getElementById('loading').innerHTML = '<div style="color: #ef4444;">❌ 数据库加载失败，请刷新页面重试</div>';
+                return;
+            }
+
+            // 加载代理数据
+            allAgents = aiToolsDatabase.agents || [];
+            console.log(`加载了 ${allAgents.length} 个AI代理`);
+
+            if (allAgents.length === 0) {
+                document.getElementById('loading').innerHTML = '<div style="color: #f59e0b;">⚠️ 暂无代理数据</div>';
+                return;
+            }
+
+            // 更新统计数据
+            document.getElementById('agents-total').textContent = allAgents.length + '+';
+
+            // 渲染所有代理
+            renderAgents(allAgents);
+
+            // 移动端菜单
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const siteNav = document.querySelector('.site-nav');
+            
+            if (mobileToggle && siteNav) {
+                mobileToggle.addEventListener('click', function() {
+                    siteNav.classList.toggle('active');
+                });
+            }
+
+            console.log('AI代理页面初始化完成');
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initializePage);
+
+        // 全局函数，供HTML调用
+        window.showAgentDetail = showAgentDetail;
+    </script>
+</body>
+</html>
