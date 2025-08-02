@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyAI 最终测试页面</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+            font-weight: 800;
+        }
+        .test-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .test-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .status-success { background: #10b981; }
+        .status-error { background: #ef4444; }
+        .status-warning { background: #f59e0b; }
+        .status-loading { background: #6b7280; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .test-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+        }
+        .test-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1f2937;
+            font-weight: 600;
+        }
+        .test-result {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        .navigation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .nav-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: block;
+        }
+        .nav-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .nav-card h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        .nav-card p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .stat-card {
+            background: #f0f9ff;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            border: 1px solid #e0f2fe;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0369a1;
+            display: block;
+        }
+        .stat-label {
+            color: #0c4a6e;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .progress-section {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: white;
+            transition: width 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>🚀 MyAI 最终功能测试</h1>
+            <p>全面检测网站功能和数据完整性</p>
+        </div>
+
+        <!-- 数据库状态 -->
+        <div class="test-section">
+            <h2 class="test-title">
+                <span class="status-indicator status-loading" id="db-status"></span>
+                📊 数据库加载状态
+            </h2>
+            <div id="database-info">正在检测数据库...</div>
+            <div class="stats-grid" id="stats-grid">
+                <!-- 统计数据将在这里显示 -->
+            </div>
+        </div>
+
+        <!-- 页面测试 -->
+        <div class="test-section">
+            <h2 class="test-title">
+                <span class="status-indicator status-success"></span>
+                🧭 页面导航测试
+            </h2>
+            <p>点击下面的链接测试各个页面是否正常工作：</p>
+            <div class="navigation-grid">
+                <a href="/debug-data-loading.html" class="nav-card">
+                    <h4>🔍 数据加载调试</h4>
+                    <p>检查数据库加载状态</p>
+                </a>
+                <a href="/tools-simple-test.html" class="nav-card">
+                    <h4>🛠️ 工具页面测试</h4>
+                    <p>测试AI工具显示功能</p>
+                </a>
+                <a href="/models-simple-test.html" class="nav-card">
+                    <h4>🧠 模型页面测试</h4>
+                    <p>测试AI模型显示功能</p>
+                </a>
+                <a href="/agents-simple-test.html" class="nav-card">
+                    <h4>🤖 代理页面测试</h4>
+                    <p>测试AI代理显示功能</p>
+                </a>
+                <a href="/index-beautiful.html" class="nav-card">
+                    <h4>🏠 美化版首页</h4>
+                    <p>查看新设计的首页</p>
+                </a>
+                <a href="/test-all-pages.html" class="nav-card">
+                    <h4>✅ 完整测试页面</h4>
+                    <p>综合功能验证</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 功能测试结果 -->
+        <div class="test-section">
+            <h2 class="test-title">
+                <span class="status-indicator status-loading" id="func-status"></span>
+                ⚙️ 功能测试结果
+            </h2>
+            <div class="test-grid" id="function-tests">
+                <!-- 功能测试结果将在这里显示 -->
+            </div>
+        </div>
+
+        <!-- 项目完成度 -->
+        <div class="progress-section">
+            <h2>🎯 项目完成度</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%;">0%</div>
+            </div>
+            <div id="completion-status">正在评估项目完成度...</div>
+        </div>
+
+        <!-- 问题诊断 -->
+        <div class="test-section">
+            <h2 class="test-title">
+                <span class="status-indicator status-warning"></span>
+                🔧 问题诊断与解决方案
+            </h2>
+            <div id="diagnosis-results">
+                <div class="test-card">
+                    <h4>🚨 如果数据不显示，请检查：</h4>
+                    <div class="test-result">
+                        <ol>
+                            <li>浏览器控制台是否有JavaScript错误</li>
+                            <li>数据库文件路径是否正确 (/data/ai-database-complete.js)</li>
+                            <li>网络请求是否被阻止（CORS问题）</li>
+                            <li>文件是否存在于正确位置</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="test-card">
+                    <h4>💡 推荐解决方案：</h4>
+                    <div class="test-result">
+                        <ul>
+                            <li>使用简单测试页面（内嵌数据）</li>
+                            <li>检查浏览器开发者工具</li>
+                            <li>确保文件服务器正常运行</li>
+                            <li>尝试不同浏览器测试</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载数据库 -->
+    <script src="/data/ai-database-complete.js"></script>
+    <script>
+        // 测试管理器
+        class FinalTestManager {
+            constructor() {
+                this.tests = {
+                    database: false,
+                    tools: false,
+                    models: false,
+                    agents: false,
+                    navigation: true
+                };
+                this.startTime = Date.now();
+            }
+
+            // 测试数据库
+            testDatabase() {
+                const dbStatus = document.getElementById('db-status');
+                const dbInfo = document.getElementById('database-info');
+                const statsGrid = document.getElementById('stats-grid');
+
+                try {
+                    if (typeof aiToolsDatabase === 'undefined') {
+                        throw new Error('数据库未加载');
+                    }
+
+                    const tools = aiToolsDatabase.tools || [];
+                    const models = aiToolsDatabase.models || [];
+                    const agents = aiToolsDatabase.agents || [];
+
+                    // 更新状态指示器
+                    dbStatus.className = 'status-indicator status-success';
+
+                    // 显示数据库信息
+                    dbInfo.innerHTML = `
+                        <div style="color: #10b981; font-weight: 600;">✅ 数据库加载成功！</div>
+                        <p>数据库已正确加载，包含完整的AI资源数据。</p>
+                    `;
+
+                    // 显示统计数据
+                    statsGrid.innerHTML = `
+                        <div class="stat-card">
+                            <span class="stat-number">${tools.length}</span>
+                            <div class="stat-label">AI工具</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">${models.length}</span>
+                            <div class="stat-label">AI模型</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">${agents.length}</span>
+                            <div class="stat-label">AI代理</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">${Object.keys(aiToolsDatabase.categories || {}).length}</span>
+                            <div class="stat-label">工具分类</div>
+                        </div>
+                    `;
+
+                    this.tests.database = true;
+                    this.tests.tools = tools.length > 0;
+                    this.tests.models = models.length > 0;
+                    this.tests.agents = agents.length > 0;
+
+                } catch (error) {
+                    dbStatus.className = 'status-indicator status-error';
+                    dbInfo.innerHTML = `
+                        <div style="color: #ef4444; font-weight: 600;">❌ 数据库加载失败</div>
+                        <p><strong>错误：</strong>${error.message}</p>
+                        <p>请检查数据库文件是否存在于正确位置。</p>
+                    `;
+
+                    statsGrid.innerHTML = `
+                        <div class="stat-card">
+                            <span class="stat-number">0</span>
+                            <div class="stat-label">AI工具</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">0</span>
+                            <div class="stat-label">AI模型</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">0</span>
+                            <div class="stat-label">AI代理</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">0</span>
+                            <div class="stat-label">工具分类</div>
+                        </div>
+                    `;
+                }
+            }
+
+            // 测试功能
+            testFunctions() {
+                const funcStatus = document.getElementById('func-status');
+                const functionTests = document.getElementById('function-tests');
+
+                const results = [];
+
+                // 数据访问测试
+                if (this.tests.database) {
+                    results.push({
+                        title: '数据库访问',
+                        status: '✅ 正常',
+                        description: '数据库可以正常访问'
+                    });
+                } else {
+                    results.push({
+                        title: '数据库访问',
+                        status: '❌ 失败',
+                        description: '数据库无法访问'
+                    });
+                }
+
+                // 工具数据测试
+                if (this.tests.tools) {
+                    results.push({
+                        title: 'AI工具数据',
+                        status: '✅ 正常',
+                        description: `包含 ${aiToolsDatabase.tools.length} 个工具`
+                    });
+                } else {
+                    results.push({
+                        title: 'AI工具数据',
+                        status: '❌ 缺失',
+                        description: '工具数据为空或不存在'
+                    });
+                }
+
+                // 模型数据测试
+                if (this.tests.models) {
+                    results.push({
+                        title: 'AI模型数据',
+                        status: '✅ 正常',
+                        description: `包含 ${aiToolsDatabase.models.length} 个模型`
+                    });
+                } else {
+                    results.push({
+                        title: 'AI模型数据',
+                        status: '❌ 缺失',
+                        description: '模型数据为空或不存在'
+                    });
+                }
+
+                // 代理数据测试
+                if (this.tests.agents) {
+                    results.push({
+                        title: 'AI代理数据',
+                        status: '✅ 正常',
+                        description: `包含 ${aiToolsDatabase.agents.length} 个代理`
+                    });
+                } else {
+                    results.push({
+                        title: 'AI代理数据',
+                        status: '❌ 缺失',
+                        description: '代理数据为空或不存在'
+                    });
+                }
+
+                // 搜索功能测试
+                try {
+                    const searchTest = aiToolsDatabase.tools.filter(tool => 
+                        tool.name.toLowerCase().includes('chat')
+                    );
+                    results.push({
+                        title: '搜索功能',
+                        status: '✅ 正常',
+                        description: `搜索测试成功，找到 ${searchTest.length} 个结果`
+                    });
+                } catch (error) {
+                    results.push({
+                        title: '搜索功能',
+                        status: '❌ 异常',
+                        description: '搜索功能测试失败'
+                    });
+                }
+
+                // 分类功能测试
+                try {
+                    const categories = new Set(aiToolsDatabase.tools.map(tool => tool.category));
+                    results.push({
+                        title: '分类功能',
+                        status: '✅ 正常',
+                        description: `包含 ${categories.size} 个分类`
+                    });
+                } catch (error) {
+                    results.push({
+                        title: '分类功能',
+                        status: '❌ 异常',
+                        description: '分类功能测试失败'
+                    });
+                }
+
+                // 更新状态
+                const passedTests = results.filter(r => r.status.includes('✅')).length;
+                if (passedTests === results.length) {
+                    funcStatus.className = 'status-indicator status-success';
+                } else if (passedTests > 0) {
+                    funcStatus.className = 'status-indicator status-warning';
+                } else {
+                    funcStatus.className = 'status-indicator status-error';
+                }
+
+                // 显示结果
+                functionTests.innerHTML = results.map(result => `
+                    <div class="test-card">
+                        <h4>${result.title}</h4>
+                        <div class="test-result">
+                            <strong>${result.status}</strong><br>
+                            ${result.description}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // 更新完成度
+            updateProgress() {
+                const passedTests = Object.values(this.tests).filter(test => test).length;
+                const totalTests = Object.keys(this.tests).length;
+                const progressPercent = Math.round((passedTests / totalTests) * 100);
+
+                const progressFill = document.getElementById('progress-fill');
+                const completionStatus = document.getElementById('completion-status');
+
+                progressFill.style.width = progressPercent + '%';
+                progressFill.textContent = progressPercent + '%';
+
+                let statusText = '';
+                if (progressPercent >= 90) {
+                    statusText = '🎉 项目状态优秀！所有功能正常运行。';
+                } else if (progressPercent >= 70) {
+                    statusText = '⚠️ 项目状态良好，部分功能需要检查。';
+                } else {
+                    statusText = '❌ 项目存在问题，需要修复关键功能。';
+                }
+
+                completionStatus.innerHTML = `
+                    <p style="font-size: 1.1rem; margin: 1rem 0;">${statusText}</p>
+                    <p>完成度：${progressPercent}% (${passedTests}/${totalTests} 项测试通过)</p>
+                `;
+            }
+
+            // 运行所有测试
+            runAllTests() {
+                console.log('开始最终测试...');
+                
+                setTimeout(() => this.testDatabase(), 100);
+                setTimeout(() => this.testFunctions(), 300);
+                setTimeout(() => this.updateProgress(), 500);
+            }
+        }
+
+        // 页面加载完成后运行测试
+        document.addEventListener('DOMContentLoaded', function() {
+            const testManager = new FinalTestManager();
+            testManager.runAllTests();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI代理测试页面</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin: 0 0 1rem 0;
+        }
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+        .agent-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .agent-card:hover {
+            transform: translateY(-5px);
+        }
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .agent-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        .agent-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+            color: #1f2937;
+        }
+        .agent-provider {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        .agent-type {
+            background: #fdf2f8;
+            color: #be185d;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+        .agent-description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+        .agent-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .feature-tag {
+            background: #fef7ff;
+            color: #a21caf;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .agent-specs {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .spec-row:last-child {
+            margin-bottom: 0;
+        }
+        .spec-label {
+            font-weight: 600;
+            color: #374151;
+        }
+        .spec-value {
+            color: #6b7280;
+        }
+        .agent-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+        }
+        .agent-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .stars {
+            color: #fbbf24;
+        }
+        .agent-link {
+            background: #f093fb;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .agent-link:hover {
+            background: #e879f9;
+        }
+        .debug-info {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>🤖 AI代理测试页面</h1>
+            <p>测试代理数据显示功能</p>
+        </div>
+
+        <div class="debug-info">
+            <h3>🔍 调试信息</h3>
+            <div id="debug-content">正在加载...</div>
+        </div>
+
+        <div class="agents-grid" id="agents-grid">
+            <!-- 代理卡片将在这里显示 -->
+        </div>
+    </div>
+
+    <script>
+        // 直接内嵌测试数据
+        const testAgents = [
+            {
+                id: 'autogpt',
+                name: 'AutoGPT',
+                provider: 'Significant Gravitas',
+                type: 'autonomous',
+                category: 'automation',
+                description: '自主执行任务的AI代理，可以分解复杂任务并独立完成',
+                features: ['任务分解', '自主执行', '工具调用', '长期记忆'],
+                pricing: '开源免费',
+                rating: 4.1,
+                users: '500K+',
+                url: 'https://github.com/Significant-Gravitas/AutoGPT'
+            },
+            {
+                id: 'langchain',
+                name: 'LangChain',
+                provider: 'LangChain',
+                type: 'framework',
+                category: 'automation',
+                description: '强大的AI应用开发框架，支持多种模型集成和链式调用',
+                features: ['模型集成', '链式调用', '记忆管理', '工具调用'],
+                pricing: '开源免费',
+                rating: 4.7,
+                users: '2M+',
+                url: 'https://langchain.com'
+            },
+            {
+                id: 'crewai',
+                name: 'CrewAI',
+                provider: 'CrewAI',
+                type: 'multi-agent',
+                category: 'automation',
+                description: '多代理协作系统，让多个AI代理协同完成复杂任务',
+                features: ['多代理协作', '角色分工', '任务编排', '结果整合'],
+                pricing: '开源免费',
+                rating: 4.4,
+                users: '200K+',
+                url: 'https://crewai.com'
+            }
+        ];
+
+        // 代理类型名称映射
+        const typeNames = {
+            'autonomous': '自主代理',
+            'framework': '开发框架',
+            'multi-agent': '多代理系统',
+            'assistant': '助手代理'
+        };
+
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            let stars = '★'.repeat(fullStars);
+            if (hasHalfStar) stars += '☆';
+            return stars.padEnd(5, '☆');
+        }
+
+        function renderAgents(agents) {
+            const agentsGrid = document.getElementById('agents-grid');
+            
+            if (!agents || agents.length === 0) {
+                agentsGrid.innerHTML = '<div style="text-align: center; padding: 2rem; color: #6b7280;">没有找到代理数据</div>';
+                return;
+            }
+
+            agentsGrid.innerHTML = agents.map(agent => `
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">🤖</div>
+                        <div>
+                            <h3 class="agent-name">${agent.name}</h3>
+                            <div class="agent-provider">${agent.provider}</div>
+                            <div class="agent-type">${typeNames[agent.type] || agent.type}</div>
+                        </div>
+                    </div>
+                    <p class="agent-description">${agent.description}</p>
+                    <div class="agent-features">
+                        ${(agent.features || []).map(feature => 
+                            `<span class="feature-tag">${feature}</span>`
+                        ).join('')}
+                    </div>
+                    <div class="agent-specs">
+                        <div class="spec-row">
+                            <span class="spec-label">代理类型</span>
+                            <span class="spec-value">${typeNames[agent.type] || agent.type}</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">用户规模</span>
+                            <span class="spec-value">${agent.users || '未知'}</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">定价</span>
+                            <span class="spec-value">${agent.pricing}</span>
+                        </div>
+                    </div>
+                    <div class="agent-footer">
+                        <div class="agent-rating">
+                            <span class="stars">${generateStars(agent.rating || 4.0)}</span>
+                            <span>${agent.rating || '4.0'}</span>
+                        </div>
+                        <a href="${agent.url}" target="_blank" class="agent-link">访问代理</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateDebugInfo() {
+            const debugContent = document.getElementById('debug-content');
+            
+            let info = [];
+            info.push(`✅ 内嵌测试数据: ${testAgents.length} 个代理`);
+            
+            // 检查外部数据库
+            if (typeof aiToolsDatabase !== 'undefined') {
+                info.push(`✅ 外部数据库已加载`);
+                info.push(`📊 外部代理数量: ${aiToolsDatabase.agents?.length || 0}`);
+            } else {
+                info.push(`❌ 外部数据库未加载`);
+            }
+            
+            debugContent.innerHTML = info.join('<br>');
+        }
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成，开始渲染代理...');
+            
+            // 先显示内嵌数据
+            renderAgents(testAgents);
+            updateDebugInfo();
+            
+            // 检查是否有外部数据库
+            setTimeout(() => {
+                if (typeof aiToolsDatabase !== 'undefined' && aiToolsDatabase.agents) {
+                    console.log('发现外部数据库，使用外部数据');
+                    renderAgents(aiToolsDatabase.agents);
+                }
+                updateDebugInfo();
+            }, 500);
+        });
+    </script>
+
+    <!-- 尝试加载外部数据库 -->
+    <script src="/data/ai-database-complete.js"></script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具测试页面</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin: 0 0 1rem 0;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        .tool-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+            color: #1f2937;
+        }
+        .tool-provider {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        .tool-description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .tool-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .feature-tag {
+            background: #ecfdf5;
+            color: #059669;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .tool-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+        }
+        .tool-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .stars {
+            color: #fbbf24;
+        }
+        .tool-link {
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .tool-link:hover {
+            background: #059669;
+        }
+        .debug-info {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>🛠️ AI工具测试页面</h1>
+            <p>测试数据显示功能</p>
+        </div>
+
+        <div class="debug-info">
+            <h3>🔍 调试信息</h3>
+            <div id="debug-content">正在加载...</div>
+        </div>
+
+        <div class="tools-grid" id="tools-grid">
+            <!-- 工具卡片将在这里显示 -->
+        </div>
+    </div>
+
+    <script>
+        // 直接内嵌测试数据
+        const testTools = [
+            {
+                id: 'chatgpt',
+                name: 'ChatGPT',
+                provider: 'OpenAI',
+                description: '最受欢迎的AI聊天机器人，适用于各种文本任务',
+                features: ['对话交互', '文本生成', '代码编写', '翻译'],
+                rating: 4.8,
+                url: 'https://chat.openai.com'
+            },
+            {
+                id: 'claude',
+                name: 'Claude',
+                provider: 'Anthropic',
+                description: 'Anthropic开发的AI助手，擅长长文本处理和分析',
+                features: ['长文本处理', '代码分析', '创意写作', '逻辑推理'],
+                rating: 4.7,
+                url: 'https://claude.ai'
+            },
+            {
+                id: 'midjourney',
+                name: 'Midjourney',
+                provider: 'Midjourney Inc.',
+                description: '顶级AI图像生成工具，以艺术性和创意著称',
+                features: ['艺术创作', '概念设计', '风格多样', '高质量输出'],
+                rating: 4.8,
+                url: 'https://midjourney.com'
+            }
+        ];
+
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            let stars = '★'.repeat(fullStars);
+            if (hasHalfStar) stars += '☆';
+            return stars.padEnd(5, '☆');
+        }
+
+        function renderTools(tools) {
+            const toolsGrid = document.getElementById('tools-grid');
+            
+            if (!tools || tools.length === 0) {
+                toolsGrid.innerHTML = '<div style="text-align: center; padding: 2rem; color: #6b7280;">没有找到工具数据</div>';
+                return;
+            }
+
+            toolsGrid.innerHTML = tools.map(tool => `
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🤖</div>
+                        <div>
+                            <h3 class="tool-name">${tool.name}</h3>
+                            <div class="tool-provider">${tool.provider}</div>
+                        </div>
+                    </div>
+                    <p class="tool-description">${tool.description}</p>
+                    <div class="tool-features">
+                        ${(tool.features || []).map(feature => 
+                            `<span class="feature-tag">${feature}</span>`
+                        ).join('')}
+                    </div>
+                    <div class="tool-footer">
+                        <div class="tool-rating">
+                            <span class="stars">${generateStars(tool.rating || 4.0)}</span>
+                            <span>${tool.rating || '4.0'}</span>
+                        </div>
+                        <a href="${tool.url}" target="_blank" class="tool-link">访问工具</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateDebugInfo() {
+            const debugContent = document.getElementById('debug-content');
+            
+            let info = [];
+            info.push(`✅ 内嵌测试数据: ${testTools.length} 个工具`);
+            
+            // 检查外部数据库
+            if (typeof aiToolsDatabase !== 'undefined') {
+                info.push(`✅ 外部数据库已加载`);
+                info.push(`📊 外部工具数量: ${aiToolsDatabase.tools?.length || 0}`);
+                info.push(`📊 外部模型数量: ${aiToolsDatabase.models?.length || 0}`);
+                info.push(`📊 外部代理数量: ${aiToolsDatabase.agents?.length || 0}`);
+            } else {
+                info.push(`❌ 外部数据库未加载`);
+            }
+            
+            debugContent.innerHTML = info.join('<br>');
+        }
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成，开始渲染工具...');
+            
+            // 先显示内嵌数据
+            renderTools(testTools);
+            updateDebugInfo();
+            
+            // 检查是否有外部数据库
+            setTimeout(() => {
+                if (typeof aiToolsDatabase !== 'undefined' && aiToolsDatabase.tools) {
+                    console.log('发现外部数据库，使用外部数据');
+                    renderTools(aiToolsDatabase.tools);
+                }
+                updateDebugInfo();
+            }, 500);
+        });
+    </script>
+
+    <!-- 尝试加载外部数据库 -->
+    <script src="/data/ai-database-complete.js"></script>
+</body>
+</html>
