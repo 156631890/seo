@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,20 +14,32 @@
             padding: 4rem 1rem;
             text-align: center;
         }
-        .tools-hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-        .tools-container { max-width: 1200px; margin: 0 auto; padding: 3rem 1rem; }
+
+        .tools-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tools-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
         .filter-section {
             background: #f8fafc;
             padding: 1.5rem;
             border-radius: 0.75rem;
             margin-bottom: 2rem;
         }
+
         .filter-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-top: 1rem;
         }
+
         .filter-btn {
             padding: 0.5rem 1rem;
             border: 1px solid #e5e7eb;
@@ -35,30 +48,39 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .filter-btn:hover, .filter-btn.active {
+
+        .filter-btn:hover,
+        .filter-btn.active {
             background: #10b981;
             color: white;
             border-color: #10b981;
         }
+
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 1.5rem;
         }
+
         .tool-card {
             background: white;
             border-radius: 0.75rem;
             padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
         }
-        .tool-card:hover { transform: translateY(-4px); }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+        }
+
         .tool-header {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1rem;
         }
+
         .tool-icon {
             width: 50px;
             height: 50px;
@@ -70,22 +92,26 @@
             background: linear-gradient(135deg, #10b981, #34d399);
             color: white;
         }
+
         .tool-category {
             color: #6b7280;
             font-size: 0.9rem;
             margin-top: 0.25rem;
         }
+
         .tool-description {
             color: #4b5563;
             line-height: 1.6;
             margin-bottom: 1rem;
         }
+
         .tool-features {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-bottom: 1rem;
         }
+
         .feature-tag {
             background: #ecfdf5;
             color: #059669;
@@ -94,6 +120,7 @@
             font-size: 0.8rem;
             font-weight: 500;
         }
+
         .tool-meta {
             display: flex;
             justify-content: space-between;
@@ -102,14 +129,17 @@
             padding-top: 1rem;
             border-top: 1px solid #f3f4f6;
         }
+
         .tool-rating {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
+
         .stars {
             color: #fbbf24;
         }
+
         .tool-pricing {
             background: #f3f4f6;
             color: #374151;
@@ -118,10 +148,12 @@
             font-size: 0.8rem;
             font-weight: 500;
         }
+
         .tool-actions {
             display: flex;
             gap: 0.5rem;
         }
+
         .tool-link {
             flex: 1;
             background: #10b981;
@@ -133,9 +165,11 @@
             font-weight: 600;
             transition: background 0.2s;
         }
+
         .tool-link:hover {
             background: #059669;
         }
+
         .tool-detail-btn {
             background: #f3f4f6;
             color: #374151;
@@ -146,19 +180,21 @@
             font-weight: 600;
             transition: background 0.2s;
         }
+
         .tool-detail-btn:hover {
             background: #e5e7eb;
         }
     </style>
 </head>
+
 <body>
     <header class="main-header">
         <div class="logo"><a href="/">MyAI</a></div>
         <nav class="site-nav desktop">
             <a href="/">首页</a>
-            <a href="/tools-complete.html" class="active">AI工具</a>
-            <a href="/models-complete.html">AI模型</a>
-            <a href="/agents-complete.html">AI代理</a>
+            <a href="/pages/tools-complete.html" class="active">AI工具</a>
+            <a href="/pages/models-complete.html">AI模型</a>
+            <a href="/pages/agents-complete.html">AI代理</a>
         </nav>
     </header>
 
@@ -170,7 +206,8 @@
     <div class="tools-container">
         <div class="filter-section">
             <h3>🔍 筛选工具</h3>
-            <input type="text" id="search-input" placeholder="搜索AI工具..." style="width: 100%; max-width: 400px; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; margin-bottom: 1rem;">
+            <input type="text" id="search-input" placeholder="搜索AI工具..."
+                style="width: 100%; max-width: 400px; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; margin-bottom: 1rem;">
             <div class="filter-buttons" id="filter-buttons">
                 <button class="filter-btn active" data-filter="all">全部工具</button>
             </div>
@@ -181,11 +218,13 @@
         </div>
     </div>
 
-    <script src="/data/ai-tools-database.js"></script>
+    <script src="/data/ai-tools-database-enhanced.js"></script>
     <script>
         // 使用完整的AI工具数据库
+        console.log('数据库加载状态:', typeof aiToolsDatabase);
+        console.log('工具数量:', aiToolsDatabase?.tools?.length || 0);
         let aiTools = [];
-        
+
         // 从数据库加载工具数据
         function loadToolsFromDatabase() {
             if (typeof window.aiToolsDatabase !== 'undefined' && window.aiToolsDatabase.tools) {
@@ -327,13 +366,13 @@
                     </div>
                     <p class="tool-description">${tool.description}</p>
                     <div class="tool-features">
-                        ${(tool.features || []).slice(0, 3).map(feature => 
-                            `<span class="feature-tag">${feature}</span>`
-                        ).join('')}
+                        ${(tool.features || []).slice(0, 3).map(feature =>
+                `<span class="feature-tag">${feature}</span>`
+            ).join('')}
                     </div>
                     <div class="tool-meta">
                         <div class="tool-rating">
-                            <span class="stars">${'★'.repeat(Math.floor(tool.rating || 4))}${'☆'.repeat(5-Math.floor(tool.rating || 4))}</span>
+                            <span class="stars">${'★'.repeat(Math.floor(tool.rating || 4))}${'☆'.repeat(5 - Math.floor(tool.rating || 4))}</span>
                             <span>${tool.rating || '4.0'}</span>
                         </div>
                         <div class="tool-pricing">${tool.pricing || 'Freemium'}</div>
@@ -377,10 +416,48 @@
         }
 
         function bindEvents() {
-            // 搜索和筛选事件
+            // 搜索功能
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', function (e) {
+                    const query = e.target.value.toLowerCase();
+                    const filteredTools = aiTools.filter(tool =>
+                        tool.name.toLowerCase().includes(query) ||
+                        tool.description.toLowerCase().includes(query) ||
+                        (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(query)))
+                    );
+                    renderTools(filteredTools);
+                });
+            }
+
+            // 分类筛选
+            const filterButtons = document.getElementById('filter-buttons');
+            if (filterButtons) {
+                // 生成分类按钮
+                const categories = ['all', ...new Set(aiTools.map(tool => tool.category))];
+                filterButtons.innerHTML = categories.map(cat => {
+                    const categoryName = cat === 'all' ? '全部工具' : getCategoryName(cat);
+                    return `<button class="filter-btn ${cat === 'all' ? 'active' : ''}" data-filter="${cat}">${categoryName}</button>`;
+                }).join('');
+
+                // 绑定筛选事件
+                filterButtons.addEventListener('click', function (e) {
+                    if (e.target.classList.contains('filter-btn')) {
+                        // 更新按钮状态
+                        filterButtons.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+
+                        // 筛选工具
+                        const category = e.target.dataset.filter;
+                        const filteredTools = category === 'all' ? aiTools : aiTools.filter(tool => tool.category === category);
+                        renderTools(filteredTools);
+                    }
+                });
+            }
         }
 
         document.addEventListener('DOMContentLoaded', initializeToolsPage);
     </script>
 </body>
+
 </html>

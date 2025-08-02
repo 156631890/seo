@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面未找到 - MyAI</title>
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .error-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+        }
+        .error-content {
+            max-width: 600px;
+            padding: 2rem;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            margin: 0;
+            opacity: 0.8;
+            line-height: 1;
+        }
+        .error-title {
+            font-size: 2.5rem;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+        .error-description {
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .error-btn {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .error-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .error-suggestions {
+            background: rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        .suggestions-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .suggestions-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .suggestions-list li {
+            margin: 0.5rem 0;
+            padding: 0.5rem 0;
+        }
+        .suggestions-list a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+        .suggestions-list a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo"><a href="/">MyAI</a></div>
+        <nav class="site-nav desktop">
+            <a href="/">首页</a>
+            <a href="/pages/tools-complete.html">AI工具</a>
+            <a href="/pages/models-complete.html">AI模型</a>
+            <a href="/pages/agents-complete.html">AI代理</a>
+        </nav>
+    </header>
+
+    <div class="error-container">
+        <div class="error-content">
+            <div class="error-code">404</div>
+            <h1 class="error-title">页面未找到</h1>
+            <p class="error-description">
+                抱歉，您访问的页面不存在。可能是链接错误、页面已被移动，或者您输入了错误的网址。
+            </p>
+            
+            <div class="error-actions">
+                <a href="/" class="error-btn">🏠 返回首页</a>
+                <a href="/pages/tools-complete.html" class="error-btn">🛠️ 浏览AI工具</a>
+                <a href="/pages/models-complete.html" class="error-btn">🧠 查看AI模型</a>
+            </div>
+
+            <div class="error-suggestions">
+                <h3 class="suggestions-title">🔍 您可能在寻找：</h3>
+                <ul class="suggestions-list">
+                    <li>📊 <a href="/pages/tools-complete.html">AI工具大全 - 500+精选工具</a></li>
+                    <li>🤖 <a href="/pages/models-complete.html">AI模型评测 - 50+顶级模型</a></li>
+                    <li>🚀 <a href="/pages/agents-complete.html">智能代理系统 - 30+代理平台</a></li>
+                    <li>📝 <a href="/posts/ai-revolution-2025-comprehensive-analysis.html">2025年AI革命全景分析</a></li>
+                    <li>💡 <a href="/posts/ai-tools-database-2025-comprehensive-guide.html">AI工具使用指南</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MyAI</h3>
+                    <p>探索AI的无限可能，发现最适合您的智能工具。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="/pages/tools-complete.html">AI工具</a></li>
+                        <li><a href="/pages/models-complete.html">AI模型</a></li>
+                        <li><a href="/pages/agents-complete.html">AI代理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyAI. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
