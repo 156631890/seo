@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>详情页面链接测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2rem; }
+        .test-section { margin-bottom: 2rem; padding: 1rem; border: 1px solid #ddd; border-radius: 0.5rem; }
+        .test-link { display: inline-block; margin: 0.5rem; padding: 0.5rem 1rem; background: #667eea; color: white; text-decoration: none; border-radius: 0.25rem; }
+        .test-link:hover { background: #5a67d8; }
+    </style>
+</head>
+<body>
+    <h1>详情页面链接测试</h1>
+    
+    <div class="test-section">
+        <h2>AI工具详情测试</h2>
+        <a href="/detail.html?type=tool&id=chatgpt" class="test-link" target="_blank">ChatGPT详情</a>
+        <a href="/detail.html?type=tool&id=midjourney" class="test-link" target="_blank">Midjourney详情</a>
+        <a href="/detail.html?type=tool&id=claude" class="test-link" target="_blank">Claude详情</a>
+        <a href="/detail.html?type=tool&id=github-copilot" class="test-link" target="_blank">GitHub Copilot详情</a>
+        <a href="/detail.html?type=tool&id=notion-ai" class="test-link" target="_blank">Notion AI详情</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>AI模型详情测试</h2>
+        <a href="/detail.html?type=model&id=gpt-4o" class="test-link" target="_blank">GPT-4o详情</a>
+        <a href="/detail.html?type=model&id=claude-3-5-sonnet" class="test-link" target="_blank">Claude 3.5 Sonnet详情</a>
+        <a href="/detail.html?type=model&id=gemini-2-0-flash" class="test-link" target="_blank">Gemini 2.0详情</a>
+        <a href="/detail.html?type=model&id=o1-preview" class="test-link" target="_blank">OpenAI o1详情</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>AI代理详情测试</h2>
+        <a href="/detail.html?type=agent&id=autogpt" class="test-link" target="_blank">AutoGPT详情</a>
+        <a href="/detail.html?type=agent&id=langchain" class="test-link" target="_blank">LangChain详情</a>
+        <a href="/detail.html?type=agent&id=crewai" class="test-link" target="_blank">CrewAI详情</a>
+        <a href="/detail.html?type=agent&id=superagent" class="test-link" target="_blank">SuperAgent详情</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>错误测试</h2>
+        <a href="/detail.html?type=tool&id=nonexistent" class="test-link" target="_blank">不存在的工具</a>
+        <a href="/detail.html?type=model" class="test-link" target="_blank">缺少ID参数</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>返回主页面</h2>
+        <a href="/pages/tools-complete.html" class="test-link">AI工具页面</a>
+        <a href="/pages/models-complete.html" class="test-link">AI模型页面</a>
+        <a href="/pages/agents-complete.html" class="test-link">AI代理页面</a>
+    </div>
+</body>
+</html>

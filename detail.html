@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">AI产品详情 | MyAI</title>
+    <meta name="description" id="page-description" content="详细了解AI产品的功能、特点、价格和使用指南。">
+    <meta name="keywords" id="page-keywords" content="AI工具,AI模型,AI代理,人工智能,详情,使用指南">
+    <meta name="author" content="MyAI">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" id="canonical-url" href="https://myai.com/detail.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" id="og-url" content="https://myai.com/detail.html">
+    <meta property="og:title" id="og-title" content="AI产品详情">
+    <meta property="og:description" id="og-description" content="详细了解AI产品的功能、特点、价格和使用指南。">
+    <meta property="og:image" id="og-image" content="https://myai.com/images/default-og.jpg">
+    <meta property="og:site_name" content="MyAI">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" id="twitter-url" content="https://myai.com/detail.html">
+    <meta property="twitter:title" id="twitter-title" content="AI产品详情">
+    <meta property="twitter:description" id="twitter-description" content="详细了解AI产品的功能、特点、价格和使用指南。">
+    <meta property="twitter:image" id="twitter-image" content="https://myai.com/images/default-twitter.jpg">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json" id="structured-data">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "AI产品",
+      "description": "AI产品详细信息",
+      "url": "https://myai.com/detail.html",
+      "applicationCategory": "AI工具",
+      "operatingSystem": "Web"
+    }
+    </script>
+    
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .detail-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .detail-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .detail-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .detail-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .detail-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            text-align: center;
+        }
+        
+        .meta-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .main-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        
+        .advantages-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .advantages-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .advantage-icon {
+            font-size: 1.2rem;
+            margin-top: 0.1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-experience {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin: 2rem 0;
+        }
+        
+        .experience-scores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .score-item {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 0.5rem;
+        }
+        
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .score-label {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .btn-primary-large {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary-large:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary-large {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary-large:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 2rem;
+            color: #6b7280;
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 0.5rem;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .error-message {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #ef4444;
+        }
+        
+        .error-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-title {
+                font-size: 2rem;
+            }
+            
+            .detail-meta {
+                gap: 1rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-large {
+                min-width: auto;
+            }
+            
+            .experience-scores {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">
+                <a href="/">MyAI</a>
+            </div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-complete.html">AI工具</a>
+                <a href="/pages/models-complete.html">AI模型</a>
+                <a href="/pages/agents-complete.html">AI代理</a>
+            </nav>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <div class="detail-container">
+        <!-- 面包屑导航 -->
+        <nav class="breadcrumb">
+            <a href="/">首页</a> > 
+            <span id="breadcrumb-category">产品详情</span> > 
+            <span id="breadcrumb-name">加载中...</span>
+        </nav>
+
+        <!-- 产品头部 -->
+        <div class="detail-hero">
+            <h1 class="detail-title" id="product-name">
+                <div class="loading-skeleton" style="height: 3rem; width: 300px; margin: 0 auto;"></div>
+            </h1>
+            <p class="detail-subtitle" id="product-description">
+                <div class="loading-skeleton" style="height: 1.5rem; width: 500px; margin: 0 auto;"></div>
+            </p>
+            
+            <div class="detail-meta">
+                <div class="meta-item">
+                    <div class="meta-label">评分</div>
+                    <div class="meta-value" id="product-rating">-</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">提供商</div>
+                    <div class="meta-value" id="product-provider">-</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">类型</div>
+                    <div class="meta-value" id="product-type">-</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">价格</div>
+                    <div class="meta-value" id="product-pricing">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要内容 -->
+        <div class="detail-content">
+            <div class="main-content">
+                <h2 class="section-title">🌟 主要优势</h2>
+                <ul class="advantages-list" id="product-advantages">
+                    <li><div class="loading-skeleton" style="height: 20px; width: 100%;"></div></li>
+                    <li><div class="loading-skeleton" style="height: 20px; width: 100%;"></div></li>
+                    <li><div class="loading-skeleton" style="height: 20px; width: 100%;"></div></li>
+                </ul>
+
+                <h2 class="section-title">🔧 核心功能</h2>
+                <div class="features-grid" id="product-features">
+                    <div class="feature-card">
+                        <div class="loading-skeleton" style="height: 80px;"></div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="loading-skeleton" style="height: 80px;"></div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">📊 用户体验评价</h2>
+                <div class="user-experience">
+                    <div class="experience-scores" id="user-experience-scores">
+                        <div class="score-item">
+                            <div class="loading-skeleton" style="height: 60px;"></div>
+                        </div>
+                        <div class="score-item">
+                            <div class="loading-skeleton" style="height: 60px;"></div>
+                        </div>
+                        <div class="score-item">
+                            <div class="loading-skeleton" style="height: 60px;"></div>
+                        </div>
+                    </div>
+                    <p id="user-experience-description">
+                        <div class="loading-skeleton" style="height: 60px;"></div>
+                    </p>
+                </div>
+
+                <h2 class="section-title">📝 详细介绍</h2>
+                <div id="detailed-description">
+                    <div class="loading-skeleton" style="height: 100px; margin-bottom: 1rem;"></div>
+                    <div class="loading-skeleton" style="height: 100px;"></div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="action-buttons">
+                    <a href="#" id="product-url" class="btn-large btn-primary-large" target="_blank">
+                        🚀 立即使用
+                    </a>
+                    <a href="#" id="compare-btn" class="btn-large btn-secondary-large">
+                        📊 产品对比
+                    </a>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4>🎯 适用场景</h4>
+                    <p id="primary-use-case" style="margin-top: 0.5rem; color: #6b7280;">
+                        <div class="loading-skeleton" style="height: 40px;"></div>
+                    </p>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4>👥 目标用户</h4>
+                    <p id="target-audience" style="margin-top: 0.5rem; color: #6b7280;">
+                        <div class="loading-skeleton" style="height: 40px;"></div>
+                    </p>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4>📅 最后更新</h4>
+                    <p id="last-updated" style="margin-top: 0.5rem; color: #6b7280;">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MyAI</h3>
+                    <p>探索AI的无限可能，发现最适合您的智能工具。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="/pages/tools-complete.html">AI工具</a></li>
+                        <li><a href="/pages/models-complete.html">AI模型</a></li>
+                        <li><a href="/pages/agents-complete.html">AI代理</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyAI. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 加载数据库和脚本 -->
+    <script src="/data/ai-tools-database-enhanced.js"></script>
+    <script>
+        class ProductDetailPage {
+            constructor() {
+                this.productId = null;
+                this.productType = 'tool';
+                this.productData = null;
+            }
+
+            async init() {
+                // 获取URL参数
+                const urlParams = new URLSearchParams(window.location.search);
+                this.productId = urlParams.get('id');
+                this.productType = urlParams.get('type') || 'tool';
+
+                if (!this.productId) {
+                    this.showError('未指定产品ID');
+                    return;
+                }
+
+                try {
+                    // 等待数据库加载
+                    await this.waitForDatabase();
+                    
+                    // 加载产品数据
+                    await this.loadProductData();
+                    
+                    // 渲染页面
+                    this.renderProductDetail();
+                    
+                } catch (error) {
+                    console.error('加载产品详情失败:', error);
+                    this.showError('加载失败，请刷新页面重试');
+                }
+            }
+
+            async waitForDatabase() {
+                return new Promise((resolve) => {
+                    const checkDatabase = () => {
+                        if (typeof aiToolsDatabase !== 'undefined') {
+                            resolve();
+                        } else {
+                            setTimeout(checkDatabase, 100);
+                        }
+                    };
+                    checkDatabase();
+                });
+            }
+
+            async loadProductData() {
+                let data = [];
+                
+                if (this.productType === 'model') {
+                    data = aiToolsDatabase.models || [];
+                } else if (this.productType === 'agent') {
+                    data = aiToolsDatabase.agents || [];
+                } else {
+                    data = aiToolsDatabase.tools || [];
+                }
+                
+                this.productData = data.find(item => item.id === this.productId);
+                
+                if (!this.productData) {
+                    throw new Error('未找到指定的产品');
+                }
+            }
+
+            renderProductDetail() {
+                const product = this.productData;
+                
+                // 更新页面标题和meta
+                this.updatePageMeta(product);
+                
+                // 更新面包屑
+                this.updateBreadcrumb(product);
+                
+                // 更新产品基本信息
+                document.getElementById('product-name').textContent = product.name;
+                document.getElementById('product-description').textContent = product.description;
+                document.getElementById('product-rating').textContent = product.rating || '-';
+                document.getElementById('product-provider').textContent = product.provider || '-';
+                document.getElementById('product-type').textContent = product.type || this.getTypeName(this.productType);
+                document.getElementById('product-pricing').textContent = product.pricing || '-';
+                
+                // 更新主要优势
+                this.renderAdvantages(product.mainAdvantages || []);
+                
+                // 更新核心功能
+                this.renderFeatures(product.features || []);
+                
+                // 更新用户体验
+                this.renderUserExperience(product.userExperience);
+                
+                // 更新详细描述
+                document.getElementById('detailed-description').innerHTML = 
+                    product.detailedDescription || product.description || '暂无详细描述';
+                
+                // 更新侧边栏信息
+                document.getElementById('product-url').href = product.url || product.link || '#';
+                document.getElementById('primary-use-case').textContent = product.primaryUseCase || '多种应用场景';
+                document.getElementById('target-audience').textContent = product.targetAudience || '广泛用户群体';
+                document.getElementById('last-updated').textContent = product.lastUpdated || '2025-02-08';
+            }
+
+            updatePageMeta(product) {
+                const title = `${product.name} - ${product.description} | MyAI`;
+                const description = `${product.name}：${product.description}。了解功能特点、价格、优缺点和使用指南。`;
+                const keywords = `${product.name},${this.productType},AI工具,${(product.tags || []).join(',')}`;
+                const url = `https://myai.com/detail.html?id=${product.id}&type=${this.productType}`;
+                
+                document.title = title;
+                document.getElementById('page-title').content = title;
+                document.getElementById('page-description').content = description;
+                document.getElementById('page-keywords').content = keywords;
+                document.getElementById('canonical-url').href = url;
+                
+                // 更新Open Graph
+                document.getElementById('og-url').content = url;
+                document.getElementById('og-title').content = title;
+                document.getElementById('og-description').content = description;
+                
+                // 更新Twitter
+                document.getElementById('twitter-url').content = url;
+                document.getElementById('twitter-title').content = title;
+                document.getElementById('twitter-description').content = description;
+            }
+
+            updateBreadcrumb(product) {
+                const categoryNames = {
+                    'tool': 'AI工具',
+                    'model': 'AI模型',
+                    'agent': 'AI代理'
+                };
+                
+                const categoryLinks = {
+                    'tool': '/pages/tools-complete.html',
+                    'model': '/pages/models-complete.html',
+                    'agent': '/pages/agents-complete.html'
+                };
+                
+                document.getElementById('breadcrumb-category').innerHTML = 
+                    `<a href="${categoryLinks[this.productType] || '/'}">${categoryNames[this.productType] || 'AI产品'}</a>`;
+                document.getElementById('breadcrumb-name').textContent = product.name;
+            }
+
+            renderAdvantages(advantages) {
+                const container = document.getElementById('product-advantages');
+                if (advantages.length === 0) {
+                    container.innerHTML = '<li>暂无优势信息</li>';
+                    return;
+                }
+                
+                container.innerHTML = advantages.map(advantage => {
+                    const icon = advantage.match(/^([🌟🎯⚡💻🌍🛡️📚🎨🔍💻🤖🔗📚💾🆓]+)/)?.[1] || '✓';
+                    const text = advantage.replace(/^[🌟🎯⚡💻🌍🛡️📚🎨🔍💻🤖🔗📚💾🆓]+\s*/, '');
+                    return `
+                        <li>
+                            <div class="advantage-icon">${icon}</div>
+                            <div>${text}</div>
+                        </li>
+                    `;
+                }).join('');
+            }
+
+            renderFeatures(features) {
+                const container = document.getElementById('product-features');
+                if (features.length === 0) {
+                    container.innerHTML = '<div class="feature-card">暂无功能信息</div>';
+                    return;
+                }
+                
+                container.innerHTML = features.map(feature => `
+                    <div class="feature-card">
+                        <div class="feature-icon">🔧</div>
+                        <div>${feature}</div>
+                    </div>
+                `).join('');
+            }
+
+            renderUserExperience(userExperience) {
+                const scoresContainer = document.getElementById('user-experience-scores');
+                const descriptionContainer = document.getElementById('user-experience-description');
+                
+                if (!userExperience) {
+                    scoresContainer.innerHTML = '<div class="score-item">暂无用户体验数据</div>';
+                    descriptionContainer.textContent = '暂无用户体验描述';
+                    return;
+                }
+                
+                scoresContainer.innerHTML = `
+                    <div class="score-item">
+                        <div class="score-value">${userExperience.easeOfUse || '-'}</div>
+                        <div class="score-label">易用性</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">${userExperience.responseQuality || '-'}</div>
+                        <div class="score-label">质量</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">${userExperience.reliability || '-'}</div>
+                        <div class="score-label">可靠性</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">${userExperience.learningCurve || '-'}</div>
+                        <div class="score-label">学习成本</div>
+                    </div>
+                `;
+                
+                descriptionContainer.textContent = userExperience.description || '暂无用户体验描述';
+            }
+
+            getTypeName(type) {
+                const typeNames = {
+                    'tool': 'AI工具',
+                    'model': 'AI模型',
+                    'agent': 'AI代理'
+                };
+                return typeNames[type] || 'AI产品';
+            }
+
+            showError(message) {
+                document.querySelector('.detail-container').innerHTML = `
+                    <div class="error-message">
+                        <div class="error-icon">❌</div>
+                        <h2>加载失败</h2>
+                        <p>${message}</p>
+                        <div style="margin-top: 2rem;">
+                            <a href="/" class="btn-large btn-primary-large">返回首页</a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // 初始化页面
+        const productDetailPage = new ProductDetailPage();
+        document.addEventListener('DOMContentLoaded', () => {
+            productDetailPage.init();
+        });
+
+        // 移动端菜单
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.site-nav').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
