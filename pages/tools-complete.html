@@ -387,24 +387,56 @@
                         <div class="tool-icon">${tool.icon || '🤖'}</div>
                         <div>
                             <h3>${tool.name}</h3>
-                            <div class="tool-category">${getCategoryName(tool.category)}</div>
+                            <div class="tool-category">${getCategoryName(tool.category)} • ${tool.provider || '未知'}</div>
                         </div>
                     </div>
                     <p class="tool-description">${tool.description}</p>
+                    
+                    ${tool.mainAdvantages ? `
+                        <div style="margin: 1rem 0;">
+                            <h4 style="font-size: 0.9rem; color: #374151; margin-bottom: 0.5rem;">🌟 主要优势</h4>
+                            <div style="font-size: 0.8rem; color: #6b7280;">
+                                ${tool.mainAdvantages.slice(0, 2).map(advantage => 
+                                    `<div style="margin-bottom: 0.25rem;">• ${advantage.replace(/^[🌟🎯⚡💻🌍🛡️📚🎨🔍💻]+\s*/, '')}</div>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
                     <div class="tool-features">
-                        ${(tool.features || []).slice(0, 3).map(feature =>
+                        ${(tool.features || []).slice(0, 4).map(feature =>
                 `<span class="feature-tag">${feature}</span>`
             ).join('')}
                     </div>
+                    
+                    ${tool.primaryUseCase ? `
+                        <div style="margin: 1rem 0; padding: 0.75rem; background: #f8fafc; border-radius: 0.5rem;">
+                            <div style="font-size: 0.8rem; color: #374151;">
+                                <strong>适用场景：</strong>${tool.primaryUseCase}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${tool.userExperience ? `
+                        <div style="margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #6b7280;">
+                                <span>易用性: ${tool.userExperience.easeOfUse}/10</span>
+                                <span>质量: ${tool.userExperience.responseQuality}/10</span>
+                                <span>学习成本: ${tool.userExperience.learningCurve}</span>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
                     <div class="tool-meta">
                         <div class="tool-rating">
                             <span class="stars">${'★'.repeat(Math.floor(tool.rating || 4))}${'☆'.repeat(5 - Math.floor(tool.rating || 4))}</span>
                             <span>${tool.rating || '4.0'}</span>
+                            ${tool.users ? `<span style="font-size: 0.8rem; color: #6b7280; margin-left: 0.5rem;">(${tool.users})</span>` : ''}
                         </div>
                         <div class="tool-pricing">${tool.pricing || 'Freemium'}</div>
                     </div>
                     <div class="tool-actions">
-                        <a href="${tool.link}" target="_blank" class="tool-link">了解更多</a>
+                        <a href="${tool.url || tool.link}" target="_blank" class="tool-link">立即使用</a>
                         <button onclick="viewToolDetail('${tool.id}')" class="tool-detail-btn">查看详情</button>
                     </div>
                 </div>

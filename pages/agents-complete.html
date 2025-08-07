@@ -203,20 +203,57 @@
                         <div class="agent-icon">${agent.icon || '🤖'}</div>
                         <div>
                             <h3 style="margin: 0;">${agent.name}</h3>
-                            <div style="color: #6b7280; font-size: 0.9rem;">${agent.type || '智能代理'}</div>
+                            <div style="color: #6b7280; font-size: 0.9rem;">${agent.type || '智能代理'} • ${agent.provider || '开源'}</div>
                         </div>
                     </div>
-                    <p>${agent.description}</p>
+                    <p style="line-height: 1.6; margin: 1rem 0;">${agent.description}</p>
+                    
+                    ${agent.mainAdvantages ? `
+                        <div style="margin: 1rem 0;">
+                            <h4 style="font-size: 0.9rem; color: #374151; margin-bottom: 0.5rem;">🌟 主要优势</h4>
+                            <div style="font-size: 0.8rem; color: #6b7280;">
+                                ${agent.mainAdvantages.slice(0, 2).map(advantage => 
+                                    `<div style="margin-bottom: 0.25rem;">• ${advantage.replace(/^[🌟🎯⚡💻🌍🛡️📚🎨🔍💻🤖🔗📚💾🆓]+\s*/, '')}</div>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
                     <div style="margin: 1rem 0;">
-                        ${(agent.features || []).map(feature => 
-                            `<span style="background: #fdf2f8; color: #be185d; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem;">${feature}</span>`
-                        ).join('')}
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                        <div style="color: #fbbf24;">
-                            ${'★'.repeat(Math.floor(agent.rating || 4))}${'☆'.repeat(5 - Math.floor(agent.rating || 4))} ${agent.rating || '4.0'}
+                        <h4 style="font-size: 0.9rem; color: #374151; margin-bottom: 0.5rem;">🔧 核心功能</h4>
+                        <div>
+                            ${(agent.features || []).slice(0, 4).map(feature => 
+                                `<span style="background: #fdf2f8; color: #be185d; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem; margin-bottom: 0.5rem; display: inline-block;">${feature}</span>`
+                            ).join('')}
                         </div>
-                        <a href="${agent.link || agent.url || '#'}" target="_blank" style="background: #f093fb; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none;">了解更多</a>
+                    </div>
+                    
+                    ${agent.primaryUseCase ? `
+                        <div style="margin: 1rem 0; padding: 0.75rem; background: #f8fafc; border-radius: 0.5rem;">
+                            <div style="font-size: 0.8rem; color: #374151;">
+                                <strong>适用场景：</strong>${agent.primaryUseCase}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${agent.userExperience ? `
+                        <div style="margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #6b7280;">
+                                <span>易用性: ${agent.userExperience.easeOfUse}/10</span>
+                                <span>可靠性: ${agent.userExperience.reliability}/10</span>
+                                <span>学习成本: ${agent.userExperience.learningCurve}</span>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f3f4f6;">
+                        <div>
+                            <div style="color: #fbbf24; font-size: 0.9rem;">
+                                ${'★'.repeat(Math.floor(agent.rating || 4))}${'☆'.repeat(5 - Math.floor(agent.rating || 4))} ${agent.rating || '4.0'}
+                            </div>
+                            <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.25rem;">${agent.pricing || '开源免费'}</div>
+                        </div>
+                        <a href="${agent.url || agent.link || '#'}" target="_blank" style="background: #f093fb; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-size: 0.9rem;">了解更多</a>
                     </div>
                 </div>
             `).join('');

@@ -273,21 +273,61 @@
             modelsGrid.innerHTML = models.map(model => `
                 <div class="model-card">
                     <div class="model-header">
-                        <div class="model-icon">${model.icon}</div>
+                        <div class="model-icon">${model.icon || '🤖'}</div>
                         <div>
                             <h3 style="margin: 0;">${model.name}</h3>
-                            <div style="color: #6b7280; font-size: 0.9rem;">${model.provider}</div>
+                            <div style="color: #6b7280; font-size: 0.9rem;">${model.provider} • ${model.type || 'AI模型'}</div>
                         </div>
                     </div>
-                    <p>${model.description}</p>
-                    <div style="margin: 1rem 0;">
-                        ${model.features.map(feature =>
-                `<span style="background: #ecfdf5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem;">${feature}</span>`
+                    
+                    <p style="margin: 1rem 0; line-height: 1.6;">${model.description}</p>
+                    
+                    ${model.mainAdvantages ? `
+                        <div style="margin: 1rem 0;">
+                            <h4 style="font-size: 0.9rem; color: #374151; margin-bottom: 0.5rem;">🌟 主要优势</h4>
+                            <div style="font-size: 0.8rem; color: #6b7280;">
+                                ${model.mainAdvantages.slice(0, 2).map(advantage =>
+                `<div style="margin-bottom: 0.25rem;">• ${advantage.replace(/^[🌟🎯⚡💻🌍🛡️📚🎨🔍💻]+\s*/, '')}</div>`
             ).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div style="margin: 1rem 0;">
+                        <h4 style="font-size: 0.9rem; color: #374151; margin-bottom: 0.5rem;">🔧 核心功能</h4>
+                        <div>
+                            ${(model.features || []).slice(0, 4).map(feature =>
+                `<span style="background: #ecfdf5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem; margin-bottom: 0.5rem; display: inline-block;">${feature}</span>`
+            ).join('')}
+                        </div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                        <div style="color: #fbbf24;">★★★★★ ${model.rating}</div>
-                        <a href="${model.link}" target="_blank" style="background: #667eea; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none;">了解更多</a>
+                    
+                    ${model.primaryUseCase ? `
+                        <div style="margin: 1rem 0; padding: 0.75rem; background: #f8fafc; border-radius: 0.5rem;">
+                            <div style="font-size: 0.8rem; color: #374151;">
+                                <strong>适用场景：</strong>${model.primaryUseCase}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${model.userExperience ? `
+                        <div style="margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #6b7280;">
+                                <span>易用性: ${model.userExperience.easeOfUse}/10</span>
+                                <span>质量: ${model.userExperience.responseQuality}/10</span>
+                                <span>可靠性: ${model.userExperience.reliability}/10</span>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f3f4f6;">
+                        <div>
+                            <div style="color: #fbbf24; font-size: 0.9rem;">
+                                ${'★'.repeat(Math.floor(model.rating))}${'☆'.repeat(5 - Math.floor(model.rating))} ${model.rating}
+                            </div>
+                            <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.25rem;">${model.pricing || '价格详询'}</div>
+                        </div>
+                        <a href="${model.url || model.link}" target="_blank" style="background: #667eea; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-size: 0.9rem;">了解更多</a>
                     </div>
                 </div>
             `).join('');
