@@ -1,10 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI模型大全 - 50+顶级AI模型评测 | MyAI</title>
-    <meta name="description" content="2025年最全AI模型合集！GPT-4o、Claude、Gemini等50+顶级AI模型深度评测，功能对比，使用指南。">
+    <title>AI模型大全 - 50+顶级AI模型深度评测与对比 | MyAI 2025</title>
+    <meta name="description" content="2025年最全AI模型合集！GPT-4o、Claude 3.5、Gemini 2.0等50+顶级AI模型深度评测，性能对比，使用指南，帮您选择最适合的AI助手。">
+    <meta name="keywords" content="AI模型,GPT-4o,Claude,Gemini,AI模型对比,大语言模型,AI模型评测,人工智能模型,LLM">
+    <meta name="author" content="MyAI">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://myai.com/pages/models-complete.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://myai.com/pages/models-complete.html">
+    <meta property="og:title" content="AI模型大全 - 50+顶级AI模型深度评测与对比">
+    <meta property="og:description" content="2025年最全AI模型合集！GPT-4o、Claude 3.5、Gemini 2.0等50+顶级AI模型深度评测，性能对比，使用指南。">
+    <meta property="og:image" content="https://myai.com/images/models-og.jpg">
+
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "AI模型大全",
+      "description": "50+顶级AI模型深度评测与对比",
+      "url": "https://myai.com/pages/models-complete.html",
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": "AI模型列表",
+        "numberOfItems": 50,
+        "itemListElement": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "GPT-4o",
+            "applicationCategory": "AI模型",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "按使用量计费"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
     <link rel="stylesheet" href="/partials/site-style.css">
     <style>
         .models-hero {
@@ -13,27 +54,43 @@
             padding: 4rem 1rem;
             text-align: center;
         }
-        .models-hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-        .models-container { max-width: 1200px; margin: 0 auto; padding: 3rem 1rem; }
+
+        .models-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .models-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
         .models-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 1.5rem;
         }
+
         .model-card {
             background: white;
             border-radius: 0.75rem;
             padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
         }
-        .model-card:hover { transform: translateY(-4px); }
+
+        .model-card:hover {
+            transform: translateY(-4px);
+        }
+
         .model-header {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1rem;
         }
+
         .model-icon {
             width: 50px;
             height: 50px;
@@ -47,6 +104,7 @@
         }
     </style>
 </head>
+
 <body>
     <header class="main-header">
         <div class="logo"><a href="/">MyAI</a></div>
@@ -69,10 +127,9 @@
         </div>
     </div>
 
-    <script src="/data/ai-tools-database-enhanced.js"></script>
     <script>
-        // 使用完整的AI模型数据库
-        const aiModels = aiToolsDatabase.models || [
+        // 直接内嵌AI模型数据，确保能正常显示
+        const aiModels = [
             {
                 id: 'gpt-4o',
                 name: 'GPT-4o',
@@ -224,9 +281,9 @@
                     </div>
                     <p>${model.description}</p>
                     <div style="margin: 1rem 0;">
-                        ${model.features.map(feature => 
-                            `<span style="background: #ecfdf5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem;">${feature}</span>`
-                        ).join('')}
+                        ${model.features.map(feature =>
+                `<span style="background: #ecfdf5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem;">${feature}</span>`
+            ).join('')}
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
                         <div style="color: #fbbf24;">★★★★★ ${model.rating}</div>
@@ -239,4 +296,5 @@
         document.addEventListener('DOMContentLoaded', initializeModelsPage);
     </script>
 </body>
+
 </html>

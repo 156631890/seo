@@ -2,24 +2,34 @@ User-agent: *
 Allow: /
 
 # 优先抓取重要页面
-Allow: /tools.html
+Allow: /pages/
 Allow: /posts/
-Allow: /search.html
+Allow: /tool-detail.html
 Allow: /compare.html
 
-# 阻止抓取不重要的页面
-Disallow: /js/debug-language.js
-Disallow: /test-i18n.html
-Disallow: /test-search.html
-Disallow: /*.json$
+# 阻止抓取测试和调试文件
+Disallow: /js/debug-*
+Disallow: /test-*
+Disallow: /*-test.html
+Disallow: /*-debug.html
+Disallow: /verify-*
+Disallow: /fix-*
+Disallow: /debug-*
+Disallow: /final-*
+Disallow: /homepage-*
+Disallow: /project-*
+Disallow: /reorganize-*
+Disallow: /*.bat
+Disallow: /*.ps1
+Disallow: /scripts/
 
 # 网站地图位置
-Sitemap: https://www.aiblogs.tech/sitemap.xml
+Sitemap: https://myai.com/sitemap.xml
 
-# 爬取延迟（毫秒）
+# 爬取延迟优化
 Crawl-delay: 1
 
-# 特定搜索引擎优化
+# 搜索引擎特定优化
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
@@ -29,5 +39,9 @@ Allow: /
 Crawl-delay: 1
 
 User-agent: Baiduspider
+Allow: /
+Crawl-delay: 1
+
+User-agent: Yandexbot
 Allow: /
 Crawl-delay: 2

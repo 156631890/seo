@@ -5,8 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyAI - 2025年最全AI工具、模型与代理平台 | 500+精选AI资源</title>
     <meta name="description" content="MyAI是2025年最权威的AI资源平台，提供500+精选AI工具、50+顶级AI模型、30+智能代理系统的深度评测与使用指南。包含ChatGPT、Claude、Midjourney等热门工具的详细分析。">
-    <meta name="keywords" content="AI工具,人工智能,ChatGPT,Claude,Midjourney,AI模型,AI代理,机器学习,深度学习">
+    <meta name="keywords" content="AI工具,人工智能,ChatGPT,Claude,Midjourney,AI模型,AI代理,机器学习,深度学习,AI工具导航,AI资源平台">
+    <meta name="author" content="MyAI">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://myai.com/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://myai.com/">
+    <meta property="og:title" content="MyAI - 2025年最全AI工具、模型与代理平台 | 500+精选AI资源">
+    <meta property="og:description" content="MyAI是2025年最权威的AI资源平台，提供500+精选AI工具、50+顶级AI模型、30+智能代理系统的深度评测与使用指南。">
+    <meta property="og:image" content="https://myai.com/images/og-image.jpg">
+    <meta property="og:site_name" content="MyAI">
+    <meta property="og:locale" content="zh_CN">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://myai.com/">
+    <meta property="twitter:title" content="MyAI - 2025年最全AI工具、模型与代理平台">
+    <meta property="twitter:description" content="探索AI的无限可能，发现最适合您的智能工具。500+精选AI工具，50+顶级AI模型，30+智能代理系统。">
+    <meta property="twitter:image" content="https://myai.com/images/twitter-image.jpg">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "MyAI",
+      "description": "2025年最权威的AI资源平台，提供500+精选AI工具、50+顶级AI模型、30+智能代理系统的深度评测与使用指南",
+      "url": "https://myai.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://myai.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MyAI",
+        "url": "https://myai.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://myai.com/images/logo.png"
+        }
+      }
+    }
+    </script>
+    
     <link rel="stylesheet" href="/partials/site-style.css">
     <style>
         /* 现代化首页样式 */
@@ -540,25 +584,75 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="/data/ai-tools-database-enhanced.js"></script>
+    <!-- 优化的JavaScript加载 -->
+    <script src="/js/fast-loader-optimized.js" defer></script>
+    <script src="/js/performance-monitor.js" defer></script>
+    <script src="/js/seo-analytics.js" defer></script>
+    
     <script>
-        // 动态更新统计数据
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof aiToolsDatabase !== 'undefined') {
-                const toolsCount = aiToolsDatabase.tools ? aiToolsDatabase.tools.length : 0;
-                const modelsCount = aiToolsDatabase.models ? aiToolsDatabase.models.length : 0;
-                const agentsCount = aiToolsDatabase.agents ? aiToolsDatabase.agents.length : 0;
-                
-                document.getElementById('tools-count').textContent = toolsCount + '+';
-                document.getElementById('models-count').textContent = modelsCount + '+';
-                document.getElementById('agents-count').textContent = agentsCount + '+';
+        // 立即执行的关键脚本
+        (function() {
+            // 动态更新统计数据
+            function updateStats() {
+                // 使用快速加载器获取统计数据
+                if (window.fastAILoader) {
+                    window.fastAILoader.getStats().then(stats => {
+                        document.getElementById('tools-count').textContent = stats.totalTools + '+';
+                        document.getElementById('models-count').textContent = stats.totalModels + '+';
+                        document.getElementById('agents-count').textContent = stats.totalAgents + '+';
+                    }).catch(error => {
+                        console.error('更新统计数据失败:', error);
+                        // 使用默认值
+                        document.getElementById('tools-count').textContent = '500+';
+                        document.getElementById('models-count').textContent = '50+';
+                        document.getElementById('agents-count').textContent = '30+';
+                    });
+                } else {
+                    // 备用方案：使用默认值
+                    document.getElementById('tools-count').textContent = '500+';
+                    document.getElementById('models-count').textContent = '50+';
+                    document.getElementById('agents-count').textContent = '30+';
+                }
             }
-        });
 
-        // 移动端菜单切换
-        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
-            document.querySelector('.site-nav').classList.toggle('active');
+            // 移动端菜单切换
+            function setupMobileMenu() {
+                const toggle = document.querySelector('.mobile-menu-toggle');
+                const nav = document.querySelector('.site-nav');
+                
+                if (toggle && nav) {
+                    toggle.addEventListener('click', function() {
+                        nav.classList.toggle('active');
+                    });
+                }
+            }
+
+            // DOM加载完成后执行
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    updateStats();
+                    setupMobileMenu();
+                });
+            } else {
+                updateStats();
+                setupMobileMenu();
+            }
+
+            // 监听快速加载器初始化完成
+            window.addEventListener('fastLoaderReady', updateStats);
+        })();
+    </script>
+    
+    <!-- Google Analytics (示例) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            page_title: document.title,
+            page_location: window.location.href,
+            custom_map: {'custom_parameter_1': 'ai_tools_homepage'}
         });
     </script>
 </body>

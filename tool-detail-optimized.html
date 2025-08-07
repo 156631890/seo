@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">AI工具详情 | MyAI</title>
+    <meta name="description" id="page-description" content="详细了解AI工具的功能、特点、价格和使用指南。">
+    <meta name="keywords" id="page-keywords" content="AI工具,人工智能,工具详情,使用指南">
+    <meta name="author" content="MyAI">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" id="canonical-url" href="https://myai.com/tool-detail.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" id="og-url" content="https://myai.com/tool-detail.html">
+    <meta property="og:title" id="og-title" content="AI工具详情">
+    <meta property="og:description" id="og-description" content="详细了解AI工具的功能、特点、价格和使用指南。">
+    <meta property="og:image" id="og-image" content="https://myai.com/images/tool-default.jpg">
+    <meta property="og:site_name" content="MyAI">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" id="twitter-url" content="https://myai.com/tool-detail.html">
+    <meta property="twitter:title" id="twitter-title" content="AI工具详情">
+    <meta property="twitter:description" id="twitter-description" content="详细了解AI工具的功能、特点、价格和使用指南。">
+    <meta property="twitter:image" id="twitter-image" content="https://myai.com/images/tool-default.jpg">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json" id="structured-data">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "AI工具",
+      "description": "AI工具详细信息",
+      "url": "https://myai.com/tool-detail.html",
+      "applicationCategory": "AI工具",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "reviewCount": "100"
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .tool-detail-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .tool-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .tool-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .tool-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .tool-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            text-align: center;
+        }
+        
+        .meta-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .tool-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .main-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .features-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .features-list li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .pros, .cons {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+        
+        .pros {
+            border-left: 4px solid #10b981;
+        }
+        
+        .cons {
+            border-left: 4px solid #ef4444;
+        }
+        
+        .pros h4 {
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+        
+        .cons h4 {
+            color: #ef4444;
+            margin-bottom: 1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .btn-primary-large {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary-large:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary-large {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary-large:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .stars {
+            color: #fbbf24;
+            font-size: 1.2rem;
+        }
+        
+        .rating-text {
+            color: #6b7280;
+        }
+        
+        .tags-container {
+            margin: 1.5rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #ecfdf5;
+            color: #059669;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin: 0.25rem 0.5rem 0.25rem 0;
+        }
+        
+        .related-tools {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .related-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #374151;
+            transition: all 0.2s;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .related-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            color: #667eea;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 2rem;
+            color: #6b7280;
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .tool-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .tool-title {
+                font-size: 2rem;
+            }
+            
+            .tool-meta {
+                gap: 1rem;
+            }
+            
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-large {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">
+                <a href="/">MyAI</a>
+            </div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-complete.html">AI工具</a>
+                <a href="/pages/models-complete.html">AI模型</a>
+                <a href="/pages/agents-complete.html">AI代理</a>
+            </nav>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <div class="tool-detail-container">
+        <!-- 面包屑导航 -->
+        <nav class="breadcrumb">
+            <a href="/">首页</a> > 
+            <a href="/pages/tools-complete.html">AI工具</a> > 
+            <span id="breadcrumb-tool">工具详情</span>
+        </nav>
+
+        <!-- 工具头部 -->
+        <div class="tool-header">
+            <h1 class="tool-title" id="tool-name">加载中...</h1>
+            <p class="tool-subtitle" id="tool-description">正在加载工具信息...</p>
+            
+            <div class="tool-meta">
+                <div class="meta-item">
+                    <div class="meta-label">评分</div>
+                    <div class="meta-value" id="tool-rating">-</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">用户数</div>
+                    <div class="meta-value" id="tool-users">-</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">分类</div>
+                    <div class="meta-value" id="tool-category">-</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">价格</div>
+                    <div class="meta-value" id="tool-pricing">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要内容 -->
+        <div class="tool-content">
+            <div class="main-content">
+                <h2 class="section-title">功能特点</h2>
+                <ul class="features-list" id="tool-features">
+                    <li class="loading-skeleton" style="height: 20px; margin: 10px 0;"></li>
+                    <li class="loading-skeleton" style="height: 20px; margin: 10px 0;"></li>
+                    <li class="loading-skeleton" style="height: 20px; margin: 10px 0;"></li>
+                </ul>
+
+                <h2 class="section-title">优缺点分析</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✅ 优点</h4>
+                        <ul id="tool-pros">
+                            <li class="loading-skeleton" style="height: 15px; margin: 5px 0;"></li>
+                            <li class="loading-skeleton" style="height: 15px; margin: 5px 0;"></li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>❌ 缺点</h4>
+                        <ul id="tool-cons">
+                            <li class="loading-skeleton" style="height: 15px; margin: 5px 0;"></li>
+                            <li class="loading-skeleton" style="height: 15px; margin: 5px 0;"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-title">使用指南</h2>
+                <div id="usage-guide">
+                    <p>正在加载使用指南...</p>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="action-buttons">
+                    <a href="#" id="tool-url" class="btn-large btn-primary-large" target="_blank">
+                        🚀 立即使用
+                    </a>
+                    <a href="#" id="compare-btn" class="btn-large btn-secondary-large">
+                        📊 对比工具
+                    </a>
+                </div>
+
+                <div class="rating-display">
+                    <span class="stars" id="rating-stars">★★★★★</span>
+                    <span class="rating-text" id="rating-detail">4.5 (1000+ 评价)</span>
+                </div>
+
+                <div class="tags-container">
+                    <h4>标签</h4>
+                    <div id="tool-tags">
+                        <span class="tag loading-skeleton" style="width: 60px; height: 20px;"></span>
+                        <span class="tag loading-skeleton" style="width: 80px; height: 20px;"></span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4>提供商</h4>
+                    <p id="tool-provider" style="margin-top: 0.5rem; color: #6b7280;">-</p>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4>最后更新</h4>
+                    <p id="tool-updated" style="margin-top: 0.5rem; color: #6b7280;">-</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 相关工具推荐 -->
+        <div class="related-tools">
+            <h2 class="section-title">相关工具推荐</h2>
+            <div class="related-grid" id="related-tools">
+                <!-- 相关工具将通过JavaScript加载 -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MyAI</h3>
+                    <p>探索AI的无限可能，发现最适合您的智能工具。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="/pages/tools-complete.html">AI工具</a></li>
+                        <li><a href="/pages/models-complete.html">AI模型</a></li>
+                        <li><a href="/pages/agents-complete.html">AI代理</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyAI. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 加载优化的JavaScript -->
+    <script src="/js/fast-loader-optimized.js"></script>
+    <script>
+        class ToolDetailPage {
+            constructor() {
+                this.toolId = null;
+                this.toolType = 'tool';
+                this.toolData = null;
+                this.loader = null;
+            }
+
+            async init() {
+                // 获取URL参数
+                const urlParams = new URLSearchParams(window.location.search);
+                this.toolId = urlParams.get('id');
+                this.toolType = urlParams.get('type') || 'tool';
+
+                if (!this.toolId) {
+                    this.showError('未指定工具ID');
+                    return;
+                }
+
+                try {
+                    // 使用快速加载器
+                    this.loader = window.fastAILoader;
+                    await this.loader.init();
+                    
+                    // 加载工具数据
+                    await this.loadToolData();
+                    
+                    // 渲染页面
+                    this.renderToolDetail();
+                    
+                    // 加载相关工具
+                    this.loadRelatedTools();
+                    
+                } catch (error) {
+                    console.error('加载工具详情失败:', error);
+                    this.showError('加载失败，请刷新页面重试');
+                }
+            }
+
+            async loadToolData() {
+                let data = [];
+                
+                if (this.toolType === 'model') {
+                    data = await this.loader.getModels();
+                } else if (this.toolType === 'agent') {
+                    data = await this.loader.getAgents();
+                } else {
+                    data = await this.loader.getTools();
+                }
+                
+                this.toolData = data.find(item => item.id === this.toolId);
+                
+                if (!this.toolData) {
+                    throw new Error('未找到指定的工具');
+                }
+            }
+
+            renderToolDetail() {
+                const tool = this.toolData;
+                
+                // 更新页面标题和meta
+                this.updatePageMeta(tool);
+                
+                // 更新工具信息
+                document.getElementById('tool-name').textContent = tool.name;
+                document.getElementById('tool-description').textContent = tool.description;
+                document.getElementById('tool-rating').textContent = tool.rating || '-';
+                document.getElementById('tool-users').textContent = tool.users || '-';
+                document.getElementById('tool-category').textContent = this.getCategoryName(tool.category);
+                document.getElementById('tool-pricing').textContent = tool.pricing || '-';
+                document.getElementById('tool-provider').textContent = tool.provider || '-';
+                document.getElementById('tool-updated').textContent = tool.lastUpdated || '2025-02-08';
+                
+                // 更新面包屑
+                document.getElementById('breadcrumb-tool').textContent = tool.name;
+                
+                // 更新功能列表
+                this.renderFeatures(tool.features || []);
+                
+                // 更新优缺点
+                this.renderProsAndCons(tool);
+                
+                // 更新标签
+                this.renderTags(tool.tags || []);
+                
+                // 更新评分显示
+                this.renderRating(tool.rating);
+                
+                // 更新操作按钮
+                document.getElementById('tool-url').href = tool.url || '#';
+                
+                // 更新使用指南
+                this.renderUsageGuide(tool);
+            }
+
+            updatePageMeta(tool) {
+                const title = `${tool.name} - ${tool.description} | MyAI`;
+                const description = `${tool.name}：${tool.description}。了解功能特点、价格、优缺点和使用指南。`;
+                const keywords = `${tool.name},${tool.category},AI工具,${(tool.tags || []).join(',')}`;
+                const url = `https://myai.com/tool-detail.html?id=${tool.id}&type=${this.toolType}`;
+                
+                document.title = title;
+                document.getElementById('page-title').content = title;
+                document.getElementById('page-description').content = description;
+                document.getElementById('page-keywords').content = keywords;
+                document.getElementById('canonical-url').href = url;
+                
+                // 更新Open Graph
+                document.getElementById('og-url').content = url;
+                document.getElementById('og-title').content = title;
+                document.getElementById('og-description').content = description;
+                
+                // 更新Twitter
+                document.getElementById('twitter-url').content = url;
+                document.getElementById('twitter-title').content = title;
+                document.getElementById('twitter-description').content = description;
+                
+                // 更新结构化数据
+                const structuredData = {
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    "name": tool.name,
+                    "description": tool.description,
+                    "url": url,
+                    "applicationCategory": this.getCategoryName(tool.category),
+                    "operatingSystem": "Web",
+                    "offers": {
+                        "@type": "Offer",
+                        "price": this.extractPrice(tool.pricing),
+                        "priceCurrency": "USD"
+                    },
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": tool.rating || "4.5",
+                        "reviewCount": this.extractReviewCount(tool.users)
+                    },
+                    "provider": {
+                        "@type": "Organization",
+                        "name": tool.provider || "Unknown"
+                    }
+                };
+                
+                document.getElementById('structured-data').textContent = JSON.stringify(structuredData);
+            }
+
+            renderFeatures(features) {
+                const container = document.getElementById('tool-features');
+                container.innerHTML = features.map(feature => `<li>${feature}</li>`).join('');
+            }
+
+            renderProsAndCons(tool) {
+                const prosContainer = document.getElementById('tool-pros');
+                const consContainer = document.getElementById('tool-cons');
+                
+                const pros = tool.pros || tool.strengths || ['功能强大', '易于使用'];
+                const cons = tool.cons || tool.limitations || ['价格较高', '学习成本'];
+                
+                prosContainer.innerHTML = pros.map(pro => `<li>${pro}</li>`).join('');
+                consContainer.innerHTML = cons.map(con => `<li>${con}</li>`).join('');
+            }
+
+            renderTags(tags) {
+                const container = document.getElementById('tool-tags');
+                container.innerHTML = tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+            }
+
+            renderRating(rating) {
+                const stars = document.getElementById('rating-stars');
+                const detail = document.getElementById('rating-detail');
+                
+                if (rating) {
+                    const fullStars = Math.floor(rating);
+                    const emptyStars = 5 - fullStars;
+                    stars.textContent = '★'.repeat(fullStars) + '☆'.repeat(emptyStars);
+                    detail.textContent = `${rating} (${this.toolData.users || '1000+'} 用户)`;
+                }
+            }
+
+            renderUsageGuide(tool) {
+                const container = document.getElementById('usage-guide');
+                
+                let guide = `
+                    <h3>如何使用 ${tool.name}</h3>
+                    <ol>
+                        <li>访问官方网站：<a href="${tool.url}" target="_blank">${tool.url}</a></li>
+                        <li>注册账户或直接开始使用</li>
+                        <li>根据需求选择合适的功能</li>
+                        <li>参考官方文档获取更多帮助</li>
+                    </ol>
+                    
+                    <h3>适用场景</h3>
+                    <p>${tool.description}</p>
+                    
+                    <h3>价格信息</h3>
+                    <p>${tool.pricing || '请访问官网查看最新价格'}</p>
+                `;
+                
+                container.innerHTML = guide;
+            }
+
+            async loadRelatedTools() {
+                try {
+                    const allTools = await this.loader.getTools();
+                    const related = allTools
+                        .filter(t => t.id !== this.toolId && t.category === this.toolData.category)
+                        .slice(0, 4);
+                    
+                    const container = document.getElementById('related-tools');
+                    container.innerHTML = related.map(tool => `
+                        <a href="/tool-detail.html?id=${tool.id}&type=tool" class="related-card">
+                            <h4>${tool.name}</h4>
+                            <p style="font-size: 0.9rem; color: #6b7280; margin-top: 0.5rem;">${tool.description}</p>
+                            <div style="margin-top: 1rem;">
+                                <span style="color: #fbbf24;">★</span>
+                                <span style="font-size: 0.9rem;">${tool.rating}</span>
+                            </div>
+                        </a>
+                    `).join('');
+                } catch (error) {
+                    console.error('加载相关工具失败:', error);
+                }
+            }
+
+            getCategoryName(category) {
+                const categories = {
+                    'text-generation': '文本生成',
+                    'image-generation': '图像生成',
+                    'code-assistant': '代码助手',
+                    'productivity': '效率工具',
+                    'data-analysis': '数据分析'
+                };
+                return categories[category] || category;
+            }
+
+            extractPrice(pricing) {
+                if (!pricing) return "0";
+                const match = pricing.match(/\$(\d+)/);
+                return match ? match[1] : "0";
+            }
+
+            extractReviewCount(users) {
+                if (!users) return "100";
+                const match = users.match(/(\d+)/);
+                return match ? match[1] : "100";
+            }
+
+            showError(message) {
+                document.getElementById('tool-name').textContent = '加载失败';
+                document.getElementById('tool-description').textContent = message;
+            }
+        }
+
+        // 初始化页面
+        const toolDetailPage = new ToolDetailPage();
+        document.addEventListener('DOMContentLoaded', () => {
+            toolDetailPage.init();
+        });
+
+        // 移动端菜单
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.site-nav').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -22,6 +22,23 @@
     --radius: 0.5rem;
     --radius-lg: 0.75rem;
     --radius-xl: 1rem;
+    
+    /* 性能优化变量 */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* 性能优化：减少重绘和回流 */
+* {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
 }
 
 * {

@@ -31,9 +31,15 @@ class ToolsPage {
     const startTime = Date.now();
 
     try {
-      // 使用快速加载器，立即可用
-      this.loader = window.fastAILoader;
-      await this.loader.init();
+      // 使用优化的快速加载器
+      this.loader = window.fastAILoader || window.aiToolsLoader;
+      
+      if (this.loader && this.loader.init) {
+        await this.loader.init();
+      } else {
+        console.warn('快速加载器不可用，使用备用方案');
+        this.loader = this.createFallbackLoader();
+      }
       
       if (window.performanceMonitor) {
         window.performanceMonitor.mark('DatabaseLoaded');
@@ -44,6 +50,9 @@ class ToolsPage {
 
       // 绑定事件
       this.bindEvents();
+      
+      // 设置数据更新监听器
+      this.setupDataUpdateListener();
 
       this.isInitialized = true;
 
@@ -52,8 +61,78 @@ class ToolsPage {
       
     } catch (error) {
       console.error('初始化页面出错:', error);
-      this.showMessage('数据加载失败: ' + error.message, 'error');
+      this.showMessage('数据加载失败，正在重试...', 'error');
+      
+      // 重试机制
+      setTimeout(() => {
+        this.initializeFallback();
+      }, 1000);
     }
+  }
+
+  /**
+   * 备用初始化方案
+   */
+  async initializeFallback() {
+    try {
+      this.loader = this.createFallbackLoader();
+      await this.renderFirstScreen();
+      this.bindEvents();
+      this.isInitialized = true;
+      this.showMessage('使用备用方案加载成功', 'success');
+    } catch (error) {
+      console.error('备用初始化也失败:', error);
+      this.showMessage('加载失败，请刷新页面重试', 'error');
+    }
+  }
+
+  /**
+   * 创建备用加载器
+   */
+  createFallbackLoader() {
+    return {
+      async getCategories() {
+        return {
+          'text-generation': { name: '文本生成', icon: '✍️' },
+          'image-generation': { name: '图像生成', icon: '🎨' },
+          'code-assistant': { name: '代码助手', icon: '💻' },
+          'productivity': { name: '效率工具', icon: '⚡' }
+        };
+      },
+      async getStats() {
+        return {
+          totalTools: 500,
+          totalModels: 50,
+          totalAgents: 30,
+          totalCategories: 15
+        };
+      },
+      async getTools() {
+        return [
+          {
+            id: 'chatgpt',
+            name: 'ChatGPT',
+            category: 'text-generation',
+            description: '最受欢迎的AI聊天机器人',
+            rating: 4.8,
+            pricing: '免费/Plus $20/月',
+            tags: ['聊天', '写作'],
+            url: 'https://chat.openai.com',
+            users: '100M+'
+          }
+        ];
+      },
+      async getModels() { return []; },
+      async getAgents() { return []; },
+      async searchTools(query, category) {
+        const tools = await this.getTools();
+        return tools.filter(tool => 
+          !query || tool.name.toLowerCase().includes(query.toLowerCase())
+        );
+      },
+      async searchModels() { return []; },
+      async searchAgents() { return []; }
+    };
   }
 
   /**
