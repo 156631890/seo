@@ -214,22 +214,25 @@
         </div>
 
         <div class="tools-grid" id="tools-grid">
-            <!-- 工具卡片将通过JavaScript生成 -->
+            <div style="text-align: center; padding: 2rem; color: #6b7280;">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">🔄</div>
+                <div>正在加载AI工具数据...</div>
+            </div>
         </div>
     </div>
 
     <script src="/data/ai-tools-database-enhanced.js"></script>
     <script>
-        // 使用完整的AI工具数据库
-        console.log('数据库加载状态:', typeof aiToolsDatabase);
-        console.log('工具数量:', aiToolsDatabase?.tools?.length || 0);
         let aiTools = [];
 
         // 从数据库加载工具数据
         function loadToolsFromDatabase() {
-            if (typeof window.aiToolsDatabase !== 'undefined' && window.aiToolsDatabase.tools) {
-                aiTools = window.aiToolsDatabase.tools;
+            // 等待数据库加载完成
+            if (typeof aiToolsDatabase !== 'undefined' && aiToolsDatabase.tools) {
+                aiTools = aiToolsDatabase.tools;
+                console.log('从数据库加载了', aiTools.length, '个工具');
             } else {
+                console.log('数据库未加载，使用备用数据');
                 // 如果数据库未加载，使用备用数据
                 aiTools = [
                     {
@@ -348,13 +351,36 @@
 
         function initializeToolsPage() {
             loadToolsFromDatabase();
-            renderTools(aiTools);
-            bindEvents();
-            updateStats();
+            
+            // 如果没有工具数据，延迟重试
+            if (aiTools.length === 0) {
+                console.log('工具数据为空，1秒后重试...');
+                setTimeout(() => {
+                    loadToolsFromDatabase();
+                    if (aiTools.length > 0) {
+                        renderTools(aiTools);
+                        bindEvents();
+                        updateStats();
+                    } else {
+                        console.error('无法加载工具数据');
+                        document.getElementById('tools-grid').innerHTML = '<div style="text-align: center; padding: 2rem; color: #6b7280;">正在加载工具数据...</div>';
+                    }
+                }, 1000);
+            } else {
+                renderTools(aiTools);
+                bindEvents();
+                updateStats();
+            }
         }
 
         function renderTools(tools) {
             const toolsGrid = document.getElementById('tools-grid');
+            
+            if (!tools || tools.length === 0) {
+                toolsGrid.innerHTML = '<div style="text-align: center; padding: 2rem; color: #6b7280;">暂无AI工具数据</div>';
+                return;
+            }
+            
             toolsGrid.innerHTML = tools.map(tool => `
                 <div class="tool-card">
                     <div class="tool-header">
@@ -383,6 +409,8 @@
                     </div>
                 </div>
             `).join('');
+            
+            console.log('渲染了', tools.length, '个AI工具');
         }
 
         function getCategoryName(category) {
@@ -412,7 +440,10 @@
 
         function updateStats() {
             const totalTools = aiTools.length;
-            document.querySelector('.hero p').textContent = `精选${totalTools}+最佳AI工具，提升工作效率10倍`;
+            const heroText = document.querySelector('.tools-hero p');
+            if (heroText) {
+                heroText.textContent = `精选${totalTools}+最佳AI工具，提升工作效率10倍`;
+            }
         }
 
         function bindEvents() {
@@ -456,7 +487,45 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', initializeToolsPage);
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM加载完成，开始初始化工具页面');
+            
+            // 延迟一点时间确保数据库脚本加载完成
+            setTimeout(() => {
+                console.log('数据库类型:', typeof aiToolsDatabase);
+                if (typeof aiToolsDatabase !== 'undefined') {
+                    console.log('数据库对象存在，开始初始化');
+                    initializeToolsPage();
+                } else {
+                    console.log('数据库对象不存在，再等待1秒');
+                    setTimeout(() => {
+                        if (typeof aiToolsDatabase !== 'undefined') {
+                            initializeToolsPage();
+                        } else {
+                            console.error('数据库加载失败，使用备用数据');
+                            // 强制使用备用数据
+                            aiTools = [
+                                {
+                                    id: 'chatgpt',
+                                    name: 'ChatGPT',
+                                    category: 'text-generation',
+                                    description: 'OpenAI开发的强大对话AI助手',
+                                    features: ['对话交互', '代码生成', '文本创作'],
+                                    pricing: 'Freemium',
+                                    rating: 4.8,
+                                    link: 'https://chat.openai.com',
+                                    icon: '💬'
+                                }
+                            ];
+                            renderTools(aiTools);
+                            bindEvents();
+                            updateStats();
+                        }
+                    }, 1000);
+                }
+            }, 500);
+        });
     </script>
 </body>
 

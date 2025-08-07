@@ -65,66 +65,201 @@
 
     <div class="agents-container">
         <div class="agents-grid" id="agents-grid">
-            <!-- 代理卡片将通过JavaScript生成 -->
+            <div style="text-align: center; padding: 2rem; color: #6b7280;">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">🔄</div>
+                <div>正在加载AI代理数据...</div>
+            </div>
         </div>
     </div>
 
     <script src="/data/ai-tools-database-enhanced.js"></script>
     <script>
-        // 使用完整的AI Agent数据库
-        const aiAgents = aiToolsDatabase.agents || [
-            {
-                id: 'autogpt',
-                name: 'AutoGPT',
-                type: 'autonomous',
-                description: '自主执行任务的AI代理，能够独立完成复杂目标',
-                features: ['自主决策', '任务分解', '工具调用'],
-                rating: 4.6,
-                icon: '🚀',
-                link: 'https://github.com/Significant-Gravitas/AutoGPT'
-            },
-            {
-                id: 'langchain',
-                name: 'LangChain',
-                type: 'framework',
-                description: '强大的AI应用开发框架，支持多种模型集成',
-                features: ['模型集成', '链式调用', '记忆管理'],
-                rating: 4.7,
-                icon: '🔗',
-                link: 'https://langchain.com'
+        let aiAgents = [];
+
+        // 从数据库加载代理数据
+        function loadAgentsFromDatabase() {
+            if (typeof aiToolsDatabase !== 'undefined' && aiToolsDatabase.agents) {
+                aiAgents = aiToolsDatabase.agents;
+                console.log('从数据库加载了', aiAgents.length, '个AI代理');
+            } else {
+                console.log('数据库未加载，使用备用数据');
+                // 备用数据
+                aiAgents = [
+                    {
+                        id: 'autogpt',
+                        name: 'AutoGPT',
+                        type: 'autonomous',
+                        description: '自主执行任务的AI代理，能够独立完成复杂目标，具有记忆和规划能力',
+                        features: ['自主决策', '任务分解', '工具调用', '记忆管理'],
+                        rating: 4.6,
+                        icon: '🚀',
+                        link: 'https://github.com/Significant-Gravitas/AutoGPT'
+                    },
+                    {
+                        id: 'langchain',
+                        name: 'LangChain',
+                        type: 'framework',
+                        description: '强大的AI应用开发框架，支持多种模型集成和链式调用',
+                        features: ['模型集成', '链式调用', '记忆管理', '工具集成'],
+                        rating: 4.7,
+                        icon: '🔗',
+                        link: 'https://langchain.com'
+                    },
+                    {
+                        id: 'crewai',
+                        name: 'CrewAI',
+                        type: 'multi-agent',
+                        description: '多代理协作框架，让AI代理团队协作完成复杂任务',
+                        features: ['多代理协作', '角色分工', '任务编排', '结果整合'],
+                        rating: 4.5,
+                        icon: '👥',
+                        link: 'https://crewai.com'
+                    },
+                    {
+                        id: 'superagi',
+                        name: 'SuperAGI',
+                        type: 'autonomous',
+                        description: '开源的自主AI代理框架，支持多种工具和模型',
+                        features: ['开源免费', '工具集成', '自主执行', '可扩展'],
+                        rating: 4.3,
+                        icon: '⚡',
+                        link: 'https://superagi.com'
+                    },
+                    {
+                        id: 'babyagi',
+                        name: 'BabyAGI',
+                        type: 'task-driven',
+                        description: '任务驱动的自主AI代理，能够创建、优先排序和执行任务',
+                        features: ['任务创建', '优先排序', '自主执行', '目标导向'],
+                        rating: 4.2,
+                        icon: '👶',
+                        link: 'https://github.com/yoheinakajima/babyagi'
+                    },
+                    {
+                        id: 'agentgpt',
+                        name: 'AgentGPT',
+                        type: 'web-based',
+                        description: '基于Web的自主AI代理，在浏览器中运行',
+                        features: ['Web界面', '无需安装', '目标设定', '自主执行'],
+                        rating: 4.1,
+                        icon: '🌐',
+                        link: 'https://agentgpt.reworkd.ai'
+                    },
+                    {
+                        id: 'semantic-kernel',
+                        name: 'Semantic Kernel',
+                        type: 'framework',
+                        description: 'Microsoft开发的AI编排框架，支持多种编程语言',
+                        features: ['多语言支持', '插件系统', '规划器', '记忆存储'],
+                        rating: 4.4,
+                        icon: '🧠',
+                        link: 'https://github.com/microsoft/semantic-kernel'
+                    },
+                    {
+                        id: 'haystack',
+                        name: 'Haystack',
+                        type: 'nlp-framework',
+                        description: '端到端的NLP框架，用于构建搜索和问答系统',
+                        features: ['文档搜索', '问答系统', '管道构建', '模型集成'],
+                        rating: 4.0,
+                        icon: '🔍',
+                        link: 'https://haystack.deepset.ai'
+                    }
+                ];
             }
-        ];
+        }
 
         function initializeAgentsPage() {
-            renderAgents(aiAgents);
+            loadAgentsFromDatabase();
+            
+            // 如果没有代理数据，延迟重试
+            if (aiAgents.length === 0) {
+                console.log('代理数据为空，1秒后重试...');
+                setTimeout(() => {
+                    loadAgentsFromDatabase();
+                    if (aiAgents.length > 0) {
+                        renderAgents(aiAgents);
+                    } else {
+                        console.error('无法加载代理数据');
+                        document.getElementById('agents-grid').innerHTML = '<div style="text-align: center; padding: 2rem; color: #6b7280;">正在加载AI代理数据...</div>';
+                    }
+                }, 1000);
+            } else {
+                renderAgents(aiAgents);
+            }
         }
 
         function renderAgents(agents) {
             const agentsGrid = document.getElementById('agents-grid');
+            
+            if (!agents || agents.length === 0) {
+                agentsGrid.innerHTML = '<div style="text-align: center; padding: 2rem; color: #6b7280;">暂无AI代理数据</div>';
+                return;
+            }
+            
             agentsGrid.innerHTML = agents.map(agent => `
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">${agent.icon}</div>
+                        <div class="agent-icon">${agent.icon || '🤖'}</div>
                         <div>
                             <h3 style="margin: 0;">${agent.name}</h3>
-                            <div style="color: #6b7280; font-size: 0.9rem;">${agent.type}</div>
+                            <div style="color: #6b7280; font-size: 0.9rem;">${agent.type || '智能代理'}</div>
                         </div>
                     </div>
                     <p>${agent.description}</p>
                     <div style="margin: 1rem 0;">
-                        ${agent.features.map(feature => 
+                        ${(agent.features || []).map(feature => 
                             `<span style="background: #fdf2f8; color: #be185d; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem;">${feature}</span>`
                         ).join('')}
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                        <div style="color: #fbbf24;">★★★★★ ${agent.rating}</div>
-                        <a href="${agent.link}" target="_blank" style="background: #f093fb; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none;">了解更多</a>
+                        <div style="color: #fbbf24;">
+                            ${'★'.repeat(Math.floor(agent.rating || 4))}${'☆'.repeat(5 - Math.floor(agent.rating || 4))} ${agent.rating || '4.0'}
+                        </div>
+                        <a href="${agent.link || agent.url || '#'}" target="_blank" style="background: #f093fb; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none;">了解更多</a>
                     </div>
                 </div>
             `).join('');
+            
+            console.log('渲染了', agents.length, '个AI代理');
         }
 
-        document.addEventListener('DOMContentLoaded', initializeAgentsPage);
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM加载完成，开始初始化代理页面');
+            
+            // 延迟一点时间确保数据库脚本加载完成
+            setTimeout(() => {
+                console.log('数据库类型:', typeof aiToolsDatabase);
+                if (typeof aiToolsDatabase !== 'undefined') {
+                    console.log('数据库对象存在，开始初始化');
+                    initializeAgentsPage();
+                } else {
+                    console.log('数据库对象不存在，再等待1秒');
+                    setTimeout(() => {
+                        if (typeof aiToolsDatabase !== 'undefined') {
+                            initializeAgentsPage();
+                        } else {
+                            console.error('数据库加载失败，使用备用数据');
+                            // 强制使用备用数据
+                            aiAgents = [
+                                {
+                                    id: 'autogpt',
+                                    name: 'AutoGPT',
+                                    type: 'autonomous',
+                                    description: '自主执行任务的AI代理',
+                                    features: ['自主决策', '任务分解', '工具调用'],
+                                    rating: 4.6,
+                                    icon: '🚀',
+                                    link: 'https://github.com/Significant-Gravitas/AutoGPT'
+                                }
+                            ];
+                            renderAgents(aiAgents);
+                        }
+                    }, 1000);
+                }
+            }, 500);
+        });
     </script>
 </body>
 </html>

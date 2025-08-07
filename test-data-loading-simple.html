@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据加载测试</title>
+</head>
+<body>
+    <h1>数据加载测试</h1>
+    <div id="status">正在加载...</div>
+    <div id="results"></div>
+
+    <script src="/data/ai-tools-database-enhanced.js"></script>
+    <script>
+        function testDataLoading() {
+            const status = document.getElementById('status');
+            const results = document.getElementById('results');
+            
+            console.log('测试数据加载...');
+            console.log('aiToolsDatabase类型:', typeof aiToolsDatabase);
+            
+            if (typeof aiToolsDatabase !== 'undefined') {
+                console.log('数据库对象:', aiToolsDatabase);
+                console.log('工具数量:', aiToolsDatabase.tools ? aiToolsDatabase.tools.length : 0);
+                console.log('模型数量:', aiToolsDatabase.models ? aiToolsDatabase.models.length : 0);
+                console.log('代理数量:', aiToolsDatabase.agents ? aiToolsDatabase.agents.length : 0);
+                
+                status.innerHTML = '✅ 数据库加载成功';
+                results.innerHTML = `
+                    <h3>数据统计:</h3>
+                    <ul>
+                        <li>工具数量: ${aiToolsDatabase.tools ? aiToolsDatabase.tools.length : 0}</li>
+                        <li>模型数量: ${aiToolsDatabase.models ? aiToolsDatabase.models.length : 0}</li>
+                        <li>代理数量: ${aiToolsDatabase.agents ? aiToolsDatabase.agents.length : 0}</li>
+                        <li>分类数量: ${aiToolsDatabase.categories ? Object.keys(aiToolsDatabase.categories).length : 0}</li>
+                    </ul>
+                    
+                    <h3>前5个工具:</h3>
+                    <ul>
+                        ${aiToolsDatabase.tools ? aiToolsDatabase.tools.slice(0, 5).map(tool => 
+                            `<li>${tool.name} - ${tool.description}</li>`
+                        ).join('') : '无数据'}
+                    </ul>
+                    
+                    <h3>前5个代理:</h3>
+                    <ul>
+                        ${aiToolsDatabase.agents ? aiToolsDatabase.agents.slice(0, 5).map(agent => 
+                            `<li>${agent.name} - ${agent.description}</li>`
+                        ).join('') : '无数据'}
+                    </ul>
+                `;
+            } else {
+                status.innerHTML = '❌ 数据库加载失败';
+                results.innerHTML = '<p>数据库对象未定义</p>';
+            }
+        }
+
+        // 等待DOM加载完成
+        document.addEventListener('DOMContentLoaded', function() {
+            // 延迟一点时间确保脚本加载完成
+            setTimeout(testDataLoading, 500);
+        });
+    </script>
+</body>
+</html>
