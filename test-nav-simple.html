@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航居中测试</title>
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        body { margin: 0; padding: 0; }
+        .test-content {
+            padding: 2rem;
+            text-align: center;
+        }
+        .highlight {
+            background: #fef2f2;
+            border: 2px dashed #dc2626;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            color: #dc2626;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .success {
+            background: #f0fdf4;
+            border: 2px solid #22c55e;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            color: #15803d;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="/">MyAI</a>
+            </div>
+            <nav class="site-nav desktop">
+                <a href="/" class="active">首页</a>
+                <a href="/pages/tools-complete.html">AI工具</a>
+                <a href="/pages/models-complete.html">AI模型</a>
+                <a href="/pages/agents-complete.html">AI代理</a>
+            </nav>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <div class="test-content">
+        <h1>🎯 导航居中测试</h1>
+        
+        <div class="success">
+            ✅ 如果上方的导航菜单（首页、AI工具、AI模型、AI代理）显示在页面中央，则测试成功！
+        </div>
+        
+        <div class="highlight">
+            📍 请检查：<br>
+            • Logo "MyAI" 在左侧<br>
+            • 导航菜单在中央<br>
+            • 移动端有汉堡菜单（缩小窗口测试）
+        </div>
+        
+        <h2>🔧 当前CSS设置</h2>
+        <pre style="background: #f8f9fa; padding: 1rem; border-radius: 6px; text-align: left; max-width: 600px; margin: 0 auto;">
+.main-header .container {
+    display: flex;
+    justify-content: center;  /* 居中 */
+    align-items: center;
+    position: relative;
+}
+
+.main-header .logo {
+    position: absolute;       /* 绝对定位到左侧 */
+    left: 1rem;
+}
+
+.mobile-menu-toggle {
+    position: absolute;       /* 绝对定位到右侧 */
+    right: 1rem;
+}
+        </pre>
+        
+        <div style="margin-top: 2rem;">
+            <p><strong>测试不同页面：</strong></p>
+            <a href="/" style="margin: 0 1rem; color: #667eea;">首页</a>
+            <a href="/pages/tools-complete.html" style="margin: 0 1rem; color: #667eea;">AI工具</a>
+            <a href="/pages/models-complete.html" style="margin: 0 1rem; color: #667eea;">AI模型</a>
+            <a href="/pages/agents-complete.html" style="margin: 0 1rem; color: #667eea;">AI代理</a>
+        </div>
+    </div>
+
+    <script>
+        // 移动端菜单切换
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            const nav = document.querySelector('.site-nav');
+            nav.classList.toggle('active');
+        });
+        
+        // 检查CSS应用情况
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.main-header .container');
+            const computedStyle = window.getComputedStyle(container);
+            
+            console.log('🔧 Container styles:');
+            console.log('justify-content:', computedStyle.justifyContent);
+            console.log('position:', computedStyle.position);
+            
+            const logo = document.querySelector('.main-header .logo');
+            const logoStyle = window.getComputedStyle(logo);
+            console.log('🏷️ Logo styles:');
+            console.log('position:', logoStyle.position);
+            console.log('left:', logoStyle.left);
+            
+            if (computedStyle.justifyContent === 'center') {
+                console.log('✅ 导航容器已正确设置为居中');
+            } else {
+                console.log('❌ 导航容器未正确设置为居中');
+            }
+        });
+    </script>
+</body>
+</html>
