@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试新工具显示</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .tool-card { 
+            border: 1px solid #ddd; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .new-badge { 
+            background: #ff4444; 
+            color: white; 
+            padding: 2px 8px; 
+            border-radius: 12px; 
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .rating { color: #ff9500; }
+        .provider { color: #666; }
+        .status { 
+            background: #4CAF50; 
+            color: white; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            font-size: 11px;
+        }
+        .tags { margin: 5px 0; }
+        .tag { 
+            background: #e3f2fd; 
+            color: #1976d2; 
+            padding: 2px 6px; 
+            border-radius: 12px; 
+            font-size: 11px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🛠️ 2025年最新AI工具测试</h1>
+    <div id="tools-container"></div>
+
+    <script src="ai-tools-database.js"></script>
+    <script>
+        // 显示前10个工具（包含新工具）
+        const toolsContainer = document.getElementById('tools-container');
+        const tools = aiToolsDatabase.tools.slice(0, 10);
+        
+        tools.forEach(tool => {
+            const toolCard = document.createElement('div');
+            toolCard.className = 'tool-card';
+            
+            const tagsHtml = tool.tags ? tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : '';
+            
+            toolCard.innerHTML = `
+                <h3>
+                    ${tool.name}
+                    ${tool.isNew ? '<span class="new-badge">🆕 NEW</span>' : ''}
+                    <span class="rating">⭐ ${tool.rating}</span>
+                </h3>
+                <p class="provider">提供商: ${tool.provider}</p>
+                <p>${tool.description}</p>
+                <p><strong>主要功能:</strong> ${tool.features.slice(0, 3).join(', ')}</p>
+                <p><strong>定价:</strong> ${tool.pricing}</p>
+                <div class="tags">${tagsHtml}</div>
+                ${tool.releaseStatus ? `<span class="status">${tool.releaseStatus}</span>` : ''}
+                <p><small>用户数: ${tool.users} | 更新时间: ${tool.lastUpdated}</small></p>
+            `;
+            
+            toolsContainer.appendChild(toolCard);
+        });
+        
+        // 统计信息
+        const newTools = aiToolsDatabase.tools.filter(t => t.isNew).length;
+        const totalTools = aiToolsDatabase.tools.length;
+        
+        console.log(`✅ 数据库加载成功！`);
+        console.log(`📊 总工具数量: ${totalTools}`);
+        console.log(`🆕 新工具数量: ${newTools}`);
+        console.log(`🎯 新工具列表:`, aiToolsDatabase.tools.filter(t => t.isNew).map(t => t.name));
+    </script>
+</body>
+</html>
