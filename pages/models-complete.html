@@ -128,8 +128,86 @@
     </div>
 
     <script>
-        // 直接内嵌AI模型数据，确保能正常显示
+        // 直接内嵌AI模型数据，确保能正常显示 - 2025年最新版本
         const aiModels = [
+            {
+                id: 'gpt-5',
+                name: 'GPT-5',
+                provider: 'OpenAI',
+                type: 'multimodal',
+                description: 'OpenAI的下一代旗舰模型，具备革命性的推理和创造能力',
+                features: ['超强推理能力', '多模态理解', '长期记忆', '复杂任务规划', '实时学习'],
+                rating: 4.9,
+                icon: '🚀',
+                link: 'https://openai.com/gpt-5',
+                isNew: true,
+                releaseStatus: '即将发布'
+            },
+            {
+                id: 'grok-4',
+                name: 'Grok-4',
+                provider: 'xAI',
+                type: 'llm',
+                description: 'xAI最新的第四代模型，具备更强的推理和实时信息处理能力',
+                features: ['实时信息获取', '增强推理能力', '多模态理解', '幽默对话风格', 'X平台深度集成'],
+                rating: 4.6,
+                icon: '🔥',
+                link: 'https://x.ai/grok',
+                isNew: true,
+                releaseStatus: '测试阶段'
+            },
+            {
+                id: 'gemini-2-5',
+                name: 'Gemini 2.5',
+                provider: 'Google',
+                type: 'multimodal',
+                description: 'Google最新的Gemini系列模型，在多模态理解和推理方面有重大突破',
+                features: ['超长上下文', '多模态融合', '实时处理', '科学计算', '代码生成优化'],
+                rating: 4.7,
+                icon: '⭐',
+                link: 'https://gemini.google.com',
+                isNew: true,
+                releaseStatus: '公开测试'
+            },
+            {
+                id: 'claude-4',
+                name: 'Claude 4',
+                provider: 'Anthropic',
+                type: 'llm',
+                description: 'Anthropic最新的Claude系列模型，在安全性和推理能力方面达到新高度',
+                features: ['宪法AI增强', '超长上下文', '安全对齐', '复杂推理', '多语言精通'],
+                rating: 4.8,
+                icon: '🛡️',
+                link: 'https://claude.ai',
+                isNew: true,
+                releaseStatus: '内测阶段'
+            },
+            {
+                id: 'sora-2',
+                name: 'Sora 2.0',
+                provider: 'OpenAI',
+                type: 'video',
+                description: 'OpenAI最新的视频生成模型，能够创建更长、更高质量的视频内容',
+                features: ['长视频生成', '4K高清输出', '物理规律理解', '角色一致性', '音频同步'],
+                rating: 4.9,
+                icon: '🎬',
+                link: 'https://openai.com/sora',
+                isNew: true,
+                releaseStatus: '限量测试'
+            },
+            {
+                id: 'deepseek-v4',
+                name: 'DeepSeek V4',
+                provider: 'DeepSeek',
+                type: 'llm',
+                description: '深度求索最新模型，在数学和代码推理方面达到新的高度',
+                features: ['数学推理突破', '代码生成优化', '逻辑分析增强', '多语言支持', '开源友好'],
+                rating: 4.7,
+                icon: '💎',
+                link: 'https://deepseek.com',
+                isNew: true,
+                releaseStatus: '公开发布'
+            },
             {
                 id: 'gpt-4o',
                 name: 'GPT-4o',
@@ -275,8 +353,14 @@
                     <div class="model-header">
                         <div class="model-icon">${model.icon || '🤖'}</div>
                         <div>
-                            <h3 style="margin: 0;">${model.name}</h3>
-                            <div style="color: #6b7280; font-size: 0.9rem;">${model.provider} • ${model.type || 'AI模型'}</div>
+                            <h3 style="margin: 0;">
+                                ${model.name}
+                                ${model.isNew ? '<span style="background: #ff4444; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-left: 8px;">🆕 NEW</span>' : ''}
+                            </h3>
+                            <div style="color: #6b7280; font-size: 0.9rem;">
+                                ${model.provider} • ${model.type || 'AI模型'}
+                                ${model.releaseStatus ? ` • <span style="background: #4CAF50; color: white; padding: 1px 6px; border-radius: 4px; font-size: 10px;">${model.releaseStatus}</span>` : ''}
+                            </div>
                         </div>
                     </div>
                     

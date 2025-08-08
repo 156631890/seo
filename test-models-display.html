@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试新模型显示</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .test-container { max-width: 1200px; margin: 0 auto; }
+        .model-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .model-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+        .model-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .model-icon { width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .new-badge { background: #ff4444; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-left: 8px; }
+        .status-badge { background: #4CAF50; color: white; padding: 1px 6px; border-radius: 4px; font-size: 10px; }
+        .rating { color: #ff9500; font-weight: bold; }
+        .features { margin: 1rem 0; }
+        .feature-tag { background: #ecfdf5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem; margin-bottom: 0.5rem; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🚀 2025年最新AI模型显示测试</h1>
+        <p>测试新模型是否正确显示在页面上，包括NEW标识和发布状态。</p>
+        
+        <div id="models-container"></div>
+        
+        <div style="margin-top: 2rem; padding: 1rem; background: white; border-radius: 8px;">
+            <h3>📊 统计信息</h3>
+            <div id="stats"></div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟从models-complete.html页面获取的数据
+        const aiModels = [
+            {
+                id: 'gpt-5',
+                name: 'GPT-5',
+                provider: 'OpenAI',
+                type: 'multimodal',
+                description: 'OpenAI的下一代旗舰模型，具备革命性的推理和创造能力',
+                features: ['超强推理能力', '多模态理解', '长期记忆', '复杂任务规划', '实时学习'],
+                rating: 4.9,
+                icon: '🚀',
+                link: 'https://openai.com/gpt-5',
+                isNew: true,
+                releaseStatus: '即将发布'
+            },
+            {
+                id: 'grok-4',
+                name: 'Grok-4',
+                provider: 'xAI',
+                type: 'llm',
+                description: 'xAI最新的第四代模型，具备更强的推理和实时信息处理能力',
+                features: ['实时信息获取', '增强推理能力', '多模态理解', '幽默对话风格', 'X平台深度集成'],
+                rating: 4.6,
+                icon: '🔥',
+                link: 'https://x.ai/grok',
+                isNew: true,
+                releaseStatus: '测试阶段'
+            },
+            {
+                id: 'gemini-2-5',
+                name: 'Gemini 2.5',
+                provider: 'Google',
+                type: 'multimodal',
+                description: 'Google最新的Gemini系列模型，在多模态理解和推理方面有重大突破',
+                features: ['超长上下文', '多模态融合', '实时处理', '科学计算', '代码生成优化'],
+                rating: 4.7,
+                icon: '⭐',
+                link: 'https://gemini.google.com',
+                isNew: true,
+                releaseStatus: '公开测试'
+            },
+            {
+                id: 'claude-4',
+                name: 'Claude 4',
+                provider: 'Anthropic',
+                type: 'llm',
+                description: 'Anthropic最新的Claude系列模型，在安全性和推理能力方面达到新高度',
+                features: ['宪法AI增强', '超长上下文', '安全对齐', '复杂推理', '多语言精通'],
+                rating: 4.8,
+                icon: '🛡️',
+                link: 'https://claude.ai',
+                isNew: true,
+                releaseStatus: '内测阶段'
+            },
+            {
+                id: 'sora-2',
+                name: 'Sora 2.0',
+                provider: 'OpenAI',
+                type: 'video',
+                description: 'OpenAI最新的视频生成模型，能够创建更长、更高质量的视频内容',
+                features: ['长视频生成', '4K高清输出', '物理规律理解', '角色一致性', '音频同步'],
+                rating: 4.9,
+                icon: '🎬',
+                link: 'https://openai.com/sora',
+                isNew: true,
+                releaseStatus: '限量测试'
+            },
+            {
+                id: 'deepseek-v4',
+                name: 'DeepSeek V4',
+                provider: 'DeepSeek',
+                type: 'llm',
+                description: '深度求索最新模型，在数学和代码推理方面达到新的高度',
+                features: ['数学推理突破', '代码生成优化', '逻辑分析增强', '多语言支持', '开源友好'],
+                rating: 4.7,
+                icon: '💎',
+                link: 'https://deepseek.com',
+                isNew: true,
+                releaseStatus: '公开发布'
+            },
+            {
+                id: 'gpt-4o',
+                name: 'GPT-4o',
+                provider: 'OpenAI',
+                type: 'multimodal',
+                description: 'OpenAI的多模态大语言模型，支持文本、图像、音频处理',
+                features: ['多模态理解', '高级推理', '代码生成', '数学解题', '创意写作'],
+                rating: 4.8,
+                icon: '🤖',
+                link: 'https://openai.com/gpt-4o',
+                isNew: false
+            }
+        ];
+
+        function renderModels(models) {
+            const container = document.getElementById('models-container');
+            container.innerHTML = models.map(model => `
+                <div class="model-card">
+                    <div class="model-header">
+                        <div class="model-icon">${model.icon || '🤖'}</div>
+                        <div style="flex: 1;">
+                            <h3 style="margin: 0;">
+                                ${model.name}
+                                ${model.isNew ? '<span class="new-badge">🆕 NEW</span>' : ''}
+                                <span class="rating">⭐ ${model.rating}</span>
+                            </h3>
+                            <div style="color: #6b7280; font-size: 0.9rem;">
+                                ${model.provider} • ${model.type || 'AI模型'}
+                                ${model.releaseStatus ? ` • <span class="status-badge">${model.releaseStatus}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="margin: 1rem 0; line-height: 1.6; color: #374151;">${model.description}</p>
+                    
+                    <div class="features">
+                        <h4 style="font-size: 0.9rem; color: #374151; margin-bottom: 0.5rem;">🔧 核心功能</h4>
+                        <div>
+                            ${(model.features || []).slice(0, 4).map(feature =>
+                                `<span class="feature-tag">${feature}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+                        <a href="${model.link}" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 500;">
+                            访问官网 →
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showStats() {
+            const totalModels = aiModels.length;
+            const newModels = aiModels.filter(m => m.isNew).length;
+            const avgRating = (aiModels.reduce((sum, m) => sum + m.rating, 0) / totalModels).toFixed(1);
+            
+            document.getElementById('stats').innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="text-align: center; padding: 1rem; background: #f0f9ff; border-radius: 8px;">
+                        <div style="font-size: 2rem; font-weight: bold; color: #0ea5e9;">${totalModels}</div>
+                        <div style="color: #6b7280;">总模型数量</div>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: #fef2f2; border-radius: 8px;">
+                        <div style="font-size: 2rem; font-weight: bold; color: #dc2626;">${newModels}</div>
+                        <div style="color: #6b7280;">新模型数量</div>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: #fffbeb; border-radius: 8px;">
+                        <div style="font-size: 2rem; font-weight: bold; color: #d97706;">${avgRating}</div>
+                        <div style="color: #6b7280;">平均评分</div>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <h4>🆕 新模型列表：</h4>
+                    <ul style="color: #374151;">
+                        ${aiModels.filter(m => m.isNew).map(m => 
+                            `<li><strong>${m.name}</strong> (${m.provider}) - ${m.releaseStatus}</li>`
+                        ).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        // 页面加载完成后渲染
+        document.addEventListener('DOMContentLoaded', function() {
+            renderModels(aiModels);
+            showStats();
+            
+            console.log('✅ 测试页面加载完成');
+            console.log(`📊 总模型数量: ${aiModels.length}`);
+            console.log(`🆕 新模型数量: ${aiModels.filter(m => m.isNew).length}`);
+            console.log('🎯 新模型列表:', aiModels.filter(m => m.isNew).map(m => m.name));
+        });
+    </script>
+</body>
+</html>
