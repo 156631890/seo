@@ -19,8 +19,42 @@ const aiToolsDatabase = {
         'music': { name: '音乐创作', icon: '🎹', description: 'AI音乐生成和编辑工具' }
     },
 
-    // AI模型数据 (56个) - 包含2025年最新模型
+    // AI模型数据 (56个) - 包含2025年最新模型，新模型分布在中间位置
     models: [
+        {
+            id: 'gpt-4o',
+            name: 'GPT-4o',
+            provider: 'OpenAI',
+            type: '多模态大语言模型',
+            category: 'text-generation',
+            description: 'OpenAI最新的多模态模型，支持文本、图像、音频处理，推理能力显著提升',
+            features: ['文本生成', '图像理解', '代码编写', '数学推理'],
+            pricing: '按token计费',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['推理能力强', '多模态支持', '代码能力优秀'],
+            limitations: ['成本较高', '有使用限制'],
+            rating: 4.8,
+            url: 'https://openai.com/gpt-4o',
+            lastUpdated: '2024-12-20'
+        },
+        {
+            id: 'claude-3-5-sonnet',
+            name: 'Claude 3.5 Sonnet',
+            provider: 'Anthropic',
+            type: '大语言模型',
+            category: 'text-generation',
+            description: 'Anthropic的高性能语言模型',
+            features: ['长文本处理', '代码分析', '创意写作', '逻辑推理'],
+            pricing: '按token计费',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['安全性高', '长上下文', '分析能力强'],
+            limitations: ['图像处理有限', '可用性受限'],
+            rating: 4.7,
+            url: 'https://claude.ai',
+            lastUpdated: '2024-12-20'
+        },
         {
             id: 'gpt-5',
             name: 'GPT-5',

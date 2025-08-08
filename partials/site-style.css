@@ -71,8 +71,14 @@ body {
     margin: 0 auto;
     padding: 0 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+.main-header .logo {
+    position: absolute;
+    left: 1rem;
 }
 
 .logo {
