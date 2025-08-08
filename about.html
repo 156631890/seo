@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于MyAI - 专业的AI工具评测平台 | MyAI</title>
+    <meta name="description" content="MyAI是2025年最权威的AI资源平台，致力于为用户提供500+精选AI工具、50+顶级AI模型、30+智能代理系统的专业评测与使用指南。">
+    <meta name="keywords" content="关于MyAI,AI工具平台,AI评测,人工智能导航,AI资源">
+    <meta name="author" content="MyAI">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://myai.com/about.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://myai.com/about.html">
+    <meta property="og:title" content="关于MyAI - 专业的AI工具评测平台">
+    <meta property="og:description" content="MyAI是2025年最权威的AI资源平台，致力于为用户提供专业的AI工具评测与使用指南。">
+    <meta property="og:image" content="https://myai.com/images/about-og.jpg">
+    <meta property="og:site_name" content="MyAI">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://myai.com/about.html">
+    <meta property="twitter:title" content="关于MyAI - 专业的AI工具评测平台">
+    <meta property="twitter:description" content="MyAI是2025年最权威的AI资源平台，致力于为用户提供专业的AI工具评测与使用指南。">
+    <meta property="twitter:image" content="https://myai.com/images/about-twitter.jpg">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "MyAI",
+      "description": "专业的AI工具评测平台，提供500+精选AI工具、50+顶级AI模型、30+智能代理系统的深度评测",
+      "url": "https://myai.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://myai.com/images/logo.png"
+      },
+      "foundingDate": "2024",
+      "sameAs": [
+        "https://twitter.com/myai",
+        "https://github.com/myai"
+      ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        
+        .about-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .about-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        
+        .about-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+            text-align: center;
+        }
+        
+        .section-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4b5563;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            border: 1px solid #f3f4f6;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .value-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .value-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        
+        .value-description {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        
+        .team-section {
+            background: #f8fafc;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            margin: 3rem 0;
+        }
+        
+        .timeline {
+            max-width: 600px;
+            margin: 3rem auto;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-date {
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            min-width: 100px;
+            text-align: center;
+            margin-right: 1.5rem;
+        }
+        
+        .timeline-content {
+            flex: 1;
+        }
+        
+        .timeline-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-description {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+        
+        .contact-cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .contact-cta h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-cta p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .timeline-date {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">
+                <a href="/">MyAI</a>
+            </div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-complete.html">AI工具</a>
+                <a href="/pages/models-complete.html">AI模型</a>
+                <a href="/pages/agents-complete.html">AI代理</a>
+                <a href="/about.html" class="active">关于我们</a>
+            </nav>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <section class="about-hero">
+        <h1>关于MyAI</h1>
+        <p>我们致力于成为全球最权威的AI资源平台，为用户提供最专业的AI工具评测与使用指南</p>
+    </section>
+
+    <div class="about-container">
+        <!-- 使命愿景 -->
+        <section class="about-section">
+            <h2 class="section-title">🚀 我们的使命</h2>
+            <div class="section-content">
+                <p>在AI技术飞速发展的时代，我们的使命是帮助每个人找到最适合的AI工具，让人工智能真正为人类服务。我们相信，通过专业的评测和详细的指南，可以降低AI技术的使用门槛，让更多人享受到AI带来的便利。</p>
+            </div>
+        </section>
+
+        <!-- 数据统计 -->
+        <section class="about-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">精选AI工具</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">顶级AI模型</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">智能代理系统</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-label">月活跃用户</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心价值 -->
+        <section class="about-section">
+            <h2 class="section-title">💎 我们的价值观</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3 class="value-title">专业客观</h3>
+                    <p class="value-description">我们坚持客观、专业的评测标准，每个工具都经过严格测试和深度分析，为用户提供真实可靠的信息。</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌟</div>
+                    <h3 class="value-title">用户至上</h3>
+                    <p class="value-description">用户的需求是我们前进的动力，我们持续优化产品体验，让每个用户都能轻松找到合适的AI工具。</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🚀</div>
+                    <h3 class="value-title">持续创新</h3>
+                    <p class="value-description">我们紧跟AI技术发展趋势，不断更新内容，为用户带来最新、最前沿的AI工具信息。</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3 class="value-title">开放共享</h3>
+                    <p class="value-description">我们相信知识共享的力量，致力于构建开放的AI社区，让每个人都能参与到AI的发展中来。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 发展历程 -->
+        <section class="about-section">
+            <h2 class="section-title">📈 发展历程</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2024年3月</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">项目启动</div>
+                        <div class="timeline-description">MyAI项目正式启动，开始收集和整理AI工具信息</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024年6月</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">平台上线</div>
+                        <div class="timeline-description">网站正式上线，首批收录100+优质AI工具</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024年9月</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">功能升级</div>
+                        <div class="timeline-description">新增AI模型和智能代理评测，完善搜索和筛选功能</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024年12月</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">内容丰富</div>
+                        <div class="timeline-description">平台收录工具数量突破500+，用户数量达到100万+</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2025年2月</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">全面升级</div>
+                        <div class="timeline-description">网站全面改版，新增详细评测和用户体验评分系统</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 团队介绍 -->
+        <section class="about-section">
+            <div class="team-section">
+                <h2 class="section-title">👥 我们的团队</h2>
+                <div class="section-content">
+                    <p>MyAI团队由一群热爱AI技术的专业人士组成，包括AI研究员、产品经理、设计师和工程师。我们来自不同的背景，但都有一个共同的目标：让AI技术更好地服务于人类。</p>
+                    <br>
+                    <p>我们的团队成员具有丰富的AI行业经验，深度了解各类AI工具的技术原理和应用场景。正是这样的专业背景，让我们能够为用户提供最权威、最实用的AI工具评测。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系我们 -->
+        <section class="about-section">
+            <div class="contact-cta">
+                <h3>🤝 加入我们的AI之旅</h3>
+                <p>如果您有任何建议、合作意向或想要推荐优质的AI工具，欢迎与我们联系</p>
+                <a href="/contact.html" class="cta-button">联系我们</a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MyAI</h3>
+                    <p>探索AI的无限可能，发现最适合您的智能工具。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="/pages/tools-complete.html">AI工具</a></li>
+                        <li><a href="/pages/models-complete.html">AI模型</a></li>
+                        <li><a href="/pages/agents-complete.html">AI代理</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="/about.html">关于MyAI</a></li>
+                        <li><a href="/contact.html">联系我们</a></li>
+                        <li><a href="/privacy.html">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyAI. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.site-nav').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

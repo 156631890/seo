@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - MyAI专业AI工具评测平台</title>
+    <meta name="description" content="联系MyAI团队，获取AI工具推荐、商务合作、技术支持。我们致力于为用户提供最专业的AI工具评测服务。">
+    <meta name="keywords" content="联系MyAI,AI工具推荐,商务合作,技术支持,AI咨询">
+    <meta name="author" content="MyAI">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://myai.com/contact.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://myai.com/contact.html">
+    <meta property="og:title" content="联系我们 - MyAI专业AI工具评测平台">
+    <meta property="og:description" content="联系MyAI团队，获取AI工具推荐、商务合作、技术支持。">
+    <meta property="og:image" content="https://myai.com/images/contact-og.jpg">
+    <meta property="og:site_name" content="MyAI">
+    
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .contact-hero {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        
+        .contact-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 0.75rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .contact-details h4 {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+        
+        .contact-details p {
+            color: #6b7280;
+            margin: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .faq-section {
+            background: #f8fafc;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            margin: 3rem 0;
+        }
+        
+        .faq-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #1f2937;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        
+        .faq-question:hover {
+            background: #f9fafb;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #6b7280;
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        
+        .faq-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+        
+        .faq-toggle.active {
+            transform: rotate(180deg);
+        }
+        
+        .response-time {
+            background: #ecfdf5;
+            border: 1px solid #d1fae5;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .response-time-text {
+            color: #065f46;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-icon {
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">
+                <a href="/">MyAI</a>
+            </div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-complete.html">AI工具</a>
+                <a href="/pages/models-complete.html">AI模型</a>
+                <a href="/pages/agents-complete.html">AI代理</a>
+                <a href="/about.html">关于我们</a>
+            </nav>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <section class="contact-hero">
+        <h1>联系我们</h1>
+        <p>我们很乐意听到您的声音！无论是建议、合作还是技术支持，我们都会认真对待每一条消息</p>
+    </section>
+
+    <div class="contact-container">
+        <div class="contact-grid">
+            <!-- 联系信息 -->
+            <div class="contact-info">
+                <h2 class="section-title">📞 联系方式</h2>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <h4>邮箱联系</h4>
+                        <p>hello@myai.com</p>
+                        <p>business@myai.com (商务合作)</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-details">
+                        <h4>在线客服</h4>
+                        <p>工作日 9:00-18:00</p>
+                        <p>周末 10:00-16:00</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">🌐</div>
+                    <div class="contact-details">
+                        <h4>社交媒体</h4>
+                        <p>关注我们获取最新AI资讯</p>
+                        <p>微信公众号：MyAI工具</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">🏢</div>
+                    <div class="contact-details">
+                        <h4>办公地址</h4>
+                        <p>北京市海淀区中关村</p>
+                        <p>科技创新中心</p>
+                    </div>
+                </div>
+                
+                <div class="response-time">
+                    <div class="response-time-text">
+                        ⚡ 我们通常在24小时内回复您的消息
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 联系表单 -->
+            <div class="contact-form">
+                <h2 class="section-title">✉️ 发送消息</h2>
+                
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label class="form-label" for="name">姓名 *</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">邮箱 *</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="subject">主题 *</label>
+                        <select id="subject" name="subject" class="form-select" required>
+                            <option value="">请选择主题</option>
+                            <option value="tool-recommendation">工具推荐</option>
+                            <option value="business-cooperation">商务合作</option>
+                            <option value="technical-support">技术支持</option>
+                            <option value="content-feedback">内容反馈</option>
+                            <option value="bug-report">问题报告</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="message">消息内容 *</label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="请详细描述您的问题或建议..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        发送消息
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- 常见问题 -->
+        <div class="faq-section">
+            <h2 class="faq-title">❓ 常见问题</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>如何推荐新的AI工具？</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    您可以通过上方的联系表单向我们推荐新的AI工具。请提供工具的名称、官网链接、主要功能和您的使用体验。我们会认真评估每一个推荐，符合标准的工具将被收录到我们的数据库中。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>如何与MyAI进行商务合作？</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    我们欢迎各种形式的商务合作，包括但不限于：工具推广、内容合作、技术合作等。请发送邮件至 business@myai.com 或通过联系表单选择"商务合作"主题，我们会尽快与您联系。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>网站信息有误怎么办？</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    如果您发现网站上的工具信息有误或过时，请通过联系表单告知我们具体的错误内容。我们会及时核实并更正信息，确保为用户提供准确的内容。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>是否提供AI工具使用培训？</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    目前我们主要通过网站内容和文章提供AI工具的使用指南。如果您有企业培训需求，可以通过商务合作渠道联系我们，我们会根据具体需求提供定制化的培训方案。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>如何获取最新的AI工具资讯？</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    您可以关注我们的微信公众号"MyAI工具"，我们会定期发布最新的AI工具资讯、使用技巧和行业动态。同时，我们的网站也会持续更新最新的工具信息。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MyAI</h3>
+                    <p>探索AI的无限可能，发现最适合您的智能工具。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="/pages/tools-complete.html">AI工具</a></li>
+                        <li><a href="/pages/models-complete.html">AI模型</a></li>
+                        <li><a href="/pages/agents-complete.html">AI代理</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="/about.html">关于MyAI</a></li>
+                        <li><a href="/contact.html">联系我们</a></li>
+                        <li><a href="/privacy.html">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyAI. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.site-nav').classList.toggle('active');
+        });
+        
+        // FAQ切换
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                toggle.classList.remove('active');
+            } else {
+                // 关闭其他FAQ
+                document.querySelectorAll('.faq-answer.active').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelectorAll('.faq-toggle.active').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // 打开当前FAQ
+                answer.classList.add('active');
+                toggle.classList.add('active');
+            }
+        }
+        
+        // 表单提交
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            // 显示提交状态
+            submitBtn.disabled = true;
+            submitBtn.textContent = '发送中...';
+            
+            // 模拟提交过程
+            setTimeout(() => {
+                alert('消息发送成功！我们会在24小时内回复您。');
+                this.reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
