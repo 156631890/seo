@@ -29,22 +29,10 @@
     
     <!-- 核心功能页面 -->
     <url>
-        <loc>https://myai.com/tool-detail.html</loc>
+        <loc>https://myai.com/detail.html</loc>
         <lastmod>2025-02-08</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://myai.com/compare.html</loc>
-        <lastmod>2025-02-08</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://myai.com/submit-tool.html</loc>
-        <lastmod>2025-02-08</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
     </url>
 
     <!-- 高质量原创文章 -->
