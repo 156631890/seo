@@ -23,6 +23,20 @@ Disallow: /*.bat
 Disallow: /*.ps1
 Disallow: /scripts/
 
+# 阻止抓取低价值内容
+Disallow: /*-enhanced.html
+Disallow: /*-optimized.html
+Disallow: /*-new.html
+Disallow: /*-simple.html
+Disallow: /*-beautiful.html
+Disallow: /*-diagnosis.html
+Disallow: /*-verification.html
+Disallow: /*-statistics.html
+Disallow: /*.md
+Disallow: /error-fallback.html
+Disallow: /quick-test.html
+Disallow: /private/
+
 # 网站地图位置
 Sitemap: https://myai.com/sitemap.xml
 
