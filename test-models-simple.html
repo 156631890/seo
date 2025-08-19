@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简化模型测试</title>
+    <style>
+        .model-card {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI模型测试页面</h1>
+    <div id="models-grid">加载中...</div>
+
+    <script src="/data/ai-database-2025-enhanced.js"></script>
+    <script>
+        let aiModels = [];
+
+        function loadModels() {
+            console.log('开始加载模型数据');
+            console.log('数据库类型:', typeof aiDatabase2025);
+            
+            if (typeof aiDatabase2025 !== 'undefined' && aiDatabase2025.models) {
+                aiModels = aiDatabase2025.models;
+                console.log('从数据库加载了', aiModels.length, '个模型');
+            } else {
+                console.log('数据库未找到，使用备用数据');
+                aiModels = [
+                    {
+                        id: 'test-model',
+                        name: '测试模型',
+                        provider: '测试公司',
+                        description: '这是一个测试模型',
+                        rating: 4.5,
+                        icon: '🤖'
+                    }
+                ];
+            }
+        }
+
+        function renderModels() {
+            const grid = document.getElementById('models-grid');
+            if (aiModels.length === 0) {
+                grid.innerHTML = '<p>没有找到模型数据</p>';
+                return;
+            }
+
+            grid.innerHTML = aiModels.map(model => `
+                <div class="model-card">
+                    <h3>${model.icon} ${model.name}</h3>
+                    <p><strong>提供商:</strong> ${model.provider}</p>
+                    <p><strong>描述:</strong> ${model.description}</p>
+                    <p><strong>评分:</strong> ${model.rating}</p>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成');
+            
+            setTimeout(() => {
+                loadModels();
+                renderModels();
+                console.log('渲染完成，模型数量:', aiModels.length);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -323,8 +323,226 @@ const aiDatabase2025 = {
 
     // AI模型数据 (50+)
     models: [
-        // 这里包含之前的模型数据，已经比较完整了
-        // 可以从之前的数据库文件中复制
+        {
+            id: 'gpt-5',
+            name: 'GPT-5',
+            provider: 'OpenAI',
+            type: '下一代多模态大语言模型',
+            category: 'text-generation',
+            description: 'OpenAI的下一代旗舰模型，具备革命性的推理和创造能力，代表了AI技术的最新突破',
+            detailedDescription: 'GPT-5是OpenAI即将发布的下一代人工智能模型，预计将在推理能力、多模态理解、长期记忆和任务规划方面实现质的飞跃。该模型不仅能够处理更复杂的任务，还具备了前所未有的学习和适应能力，能够在对话过程中持续学习和改进。',
+            features: ['超强推理能力', '多模态理解', '长期记忆', '复杂任务规划', '实时学习', '高级创作', '科学计算', '代码架构'],
+            mainAdvantages: [
+                '🧠 推理革命：推理能力相比GPT-4o提升10倍以上',
+                '🔄 长期记忆：支持跨会话的长期记忆和学习',
+                '🎯 任务规划：能够制定和执行复杂的多步骤任务',
+                '🌟 创造力：在艺术创作和创新思维方面达到新高度',
+                '⚡ 实时学习：能够从对话中实时学习和适应'
+            ],
+            primaryUseCase: '复杂科学研究、高级创作、企业级AI助手、教育培训',
+            targetAudience: '科研人员、企业决策者、高级开发者、创意专业人士',
+            userExperience: {
+                easeOfUse: 10,
+                responseQuality: 10,
+                reliability: 10,
+                learningCurve: '中等',
+                interfaceRating: 10,
+                description: '革命性的用户体验，能够理解最复杂的需求并提供超越期望的解决方案。具备情感智能和个性化适应能力。'
+            },
+            pricing: '按token计费（预计更高）',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['推理能力质的飞跃', '多模态能力全面提升', '长上下文处理', '任务规划能力强'],
+            limitations: ['成本预计很高', '计算资源需求大', '发布时间待定'],
+            rating: 4.9,
+            url: 'https://openai.com/gpt-5',
+            lastUpdated: '2025-02-08',
+            isNew: true,
+            releaseStatus: '即将发布',
+            icon: '🚀'
+        },
+        {
+            id: 'gpt-4o',
+            name: 'GPT-4o',
+            provider: 'OpenAI',
+            type: '多模态大语言模型',
+            category: 'text-generation',
+            description: 'OpenAI最新的多模态大语言模型，支持文本、图像、音频处理，推理能力显著提升',
+            detailedDescription: 'GPT-4o是OpenAI发布的最新旗舰模型，"o"代表"omni"（全能），支持文本、图像、音频的多模态处理。相比GPT-4，它在推理能力、响应速度和成本效率方面都有显著提升，是目前最强大的通用AI模型之一。',
+            features: ['文本生成', '图像理解', '代码编写', '数学推理', '多语言支持', '音频处理', '实时对话', '复杂推理'],
+            mainAdvantages: [
+                '🚀 性能提升：相比GPT-4推理能力提升50%',
+                '💰 成本优化：API调用成本降低50%',
+                '⚡ 响应更快：处理速度提升2倍',
+                '🎨 多模态：原生支持文本、图像、音频',
+                '🧠 推理强化：在数学和逻辑推理方面表现卓越'
+            ],
+            primaryUseCase: '内容创作、编程辅助、数据分析、教育培训、商业咨询',
+            targetAudience: '开发者、内容创作者、研究人员、企业用户',
+            userExperience: {
+                easeOfUse: 9,
+                responseQuality: 9,
+                reliability: 9,
+                learningCurve: '低',
+                interfaceRating: 9,
+                description: '用户体验显著提升，响应更快更准确。多模态能力让交互更自然，是目前最实用的AI助手。'
+            },
+            pricing: 'API按token计费，ChatGPT Plus包含',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['性能全面提升', '成本效率高', '多模态支持', '生态完善'],
+            limitations: ['仍有使用限制', '部分功能需等待', '高级功能需付费'],
+            rating: 4.8,
+            url: 'https://openai.com/gpt-4o',
+            lastUpdated: '2025-02-08',
+            icon: '🤖'
+        },
+        {
+            id: 'claude-3-5-sonnet',
+            name: 'Claude 3.5 Sonnet',
+            provider: 'Anthropic',
+            type: '大语言模型',
+            category: 'text-generation',
+            description: 'Anthropic的旗舰模型，在推理、编程和创意写作方面表现出色，安全性业界最高',
+            detailedDescription: 'Claude 3.5 Sonnet是Anthropic基于宪法AI理念开发的最新模型，在保持高安全性的同时，在推理能力、代码生成、创意写作等方面都达到了业界顶级水平。特别适合需要高质量、可靠输出的专业场景。',
+            features: ['长文本处理', '代码分析', '创意写作', '逻辑推理', '安全对话', '文档分析', '学术写作', '多语言精通'],
+            mainAdvantages: [
+                '🛡️ 安全性最高：业界最严格的安全和伦理标准',
+                '📚 长文本专家：支持20万token的超长上下文',
+                '💻 编程能力强：代码理解和生成能力顶级',
+                '🎓 学术专业：在学术写作和研究方面表现卓越',
+                '🔍 分析深度：深度文档分析和逻辑推理'
+            ],
+            primaryUseCase: '学术研究、法律分析、代码审查、长文档处理、专业咨询',
+            targetAudience: '学者、律师、开发者、研究人员、专业顾问',
+            userExperience: {
+                easeOfUse: 9,
+                responseQuality: 10,
+                reliability: 10,
+                learningCurve: '低',
+                interfaceRating: 8,
+                description: '最值得信赖的AI助手，回复质量极高且负责任。特别适合处理重要和敏感的专业任务。'
+            },
+            pricing: 'API按token计费，Claude Pro $20/月',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['安全性业界最高', '长文本处理优秀', '专业能力强', '回复质量高'],
+            limitations: ['创意表达相对保守', '图像功能有限', '部分地区不可用'],
+            rating: 4.7,
+            url: 'https://claude.ai',
+            lastUpdated: '2025-02-08',
+            icon: '🧠'
+        },
+        {
+            id: 'gemini-2-0',
+            name: 'Gemini 2.0',
+            provider: 'Google',
+            type: '多模态AI模型',
+            category: 'text-generation',
+            description: 'Google最新的多模态AI模型，深度集成Google生态，支持超长上下文和实时信息',
+            detailedDescription: 'Gemini 2.0是Google DeepMind开发的最新多模态AI模型，具备业界领先的上下文长度和与Google服务的深度集成。它不仅能处理文本、图像、音频，还能实时获取最新信息，是Google AI生态的核心。',
+            features: ['实时搜索', '多模态理解', '代码生成', '数据分析', '工具调用', '超长上下文', 'Google集成', '科学计算'],
+            mainAdvantages: [
+                '📏 上下文最长：支持200万token的超长上下文',
+                '🔍 实时信息：与Google搜索实时集成',
+                '🌐 生态集成：与Gmail、Drive、Maps等无缝连接',
+                '💰 性价比高：相比竞品价格更优惠',
+                '🚀 响应快速：基于Google强大的基础设施'
+            ],
+            primaryUseCase: '信息检索、文档处理、数据分析、研究辅助、生产力提升',
+            targetAudience: 'Google用户、研究人员、商务人士、学生',
+            userExperience: {
+                easeOfUse: 9,
+                responseQuality: 8,
+                reliability: 8,
+                learningCurve: '低',
+                interfaceRating: 8,
+                description: '与Google服务集成良好，特别适合已使用Google生态的用户。长文本处理能力突出。'
+            },
+            pricing: 'Gemini Advanced $19.99/月，API按使用计费',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['上下文长度业界领先', 'Google生态集成', '价格优势', '实时信息获取'],
+            limitations: ['模型能力相对较弱', '创意性不足', '部分功能不稳定'],
+            rating: 4.6,
+            url: 'https://gemini.google.com',
+            lastUpdated: '2025-02-08',
+            icon: '💎'
+        },
+        {
+            id: 'o1-preview',
+            name: 'OpenAI o1',
+            provider: 'OpenAI',
+            type: '推理专用模型',
+            category: 'text-generation',
+            description: '专注于复杂推理的AI模型，在数学、科学和编程问题上表现卓越，推理能力业界最强',
+            detailedDescription: 'OpenAI o1是专门为复杂推理任务设计的AI模型，采用了全新的"思维链"训练方法。它在数学、物理、化学、编程等需要深度思考的领域表现卓越，能够像人类专家一样进行多步骤推理。',
+            features: ['深度推理', '数学解题', '科学分析', '复杂编程', '逻辑思考', '多步推理', '问题分解', '验证检查'],
+            mainAdvantages: [
+                '🧮 数学专家：在数学竞赛中达到金牌水平',
+                '🔬 科学推理：在物理、化学等科学问题上表现卓越',
+                '💻 编程高手：复杂算法和系统设计能力强',
+                '🎯 逻辑严密：推理过程清晰，结论可靠',
+                '🔍 深度思考：能够进行多层次的复杂分析'
+            ],
+            primaryUseCase: '数学解题、科学研究、算法设计、逻辑分析、学术研究',
+            targetAudience: '数学家、科学家、研究人员、工程师、学生',
+            userExperience: {
+                easeOfUse: 7,
+                responseQuality: 10,
+                reliability: 9,
+                learningCurve: '中等',
+                interfaceRating: 8,
+                description: '在复杂推理任务上表现惊人，但需要明确的问题描述。适合需要深度思考的专业用户。'
+            },
+            pricing: 'API按token计费（价格较高），ChatGPT Plus包含',
+            apiAccess: true,
+            webInterface: true,
+            strengths: ['推理能力最强', '数学科学专业', '逻辑严密', '结果可靠'],
+            limitations: ['成本较高', '响应较慢', '适用场景相对窄', '需要专业知识'],
+            rating: 4.9,
+            url: 'https://openai.com/o1',
+            lastUpdated: '2025-02-08',
+            icon: '🔬'
+        },
+        {
+            id: 'llama-3-1',
+            name: 'Llama 3.1',
+            provider: 'Meta',
+            type: '开源大语言模型',
+            category: 'text-generation',
+            description: 'Meta的开源大语言模型，性能强大且完全免费使用，是开源AI的标杆',
+            detailedDescription: 'Llama 3.1是Meta发布的最新开源大语言模型，在保持完全免费和开源的同时，性能已经接近甚至超越了许多商业模型。它支持本地部署，对隐私保护和定制化需求友好。',
+            features: ['开源免费', '本地部署', '商业友好', '多语言支持', '高性能', '可定制', '隐私保护', '社区支持'],
+            mainAdvantages: [
+                '🆓 完全免费：开源模型，无使用费用',
+                '🏠 本地部署：可在自己的服务器上运行',
+                '💼 商业友好：允许商业使用和修改',
+                '🔒 隐私保护：数据不会发送到外部服务器',
+                '🛠️ 高度定制：可根据需求进行微调'
+            ],
+            primaryUseCase: '企业内部部署、隐私敏感应用、研究开发、教育培训',
+            targetAudience: '企业开发者、研究人员、隐私敏感用户、开源爱好者',
+            userExperience: {
+                easeOfUse: 6,
+                responseQuality: 8,
+                reliability: 8,
+                learningCurve: '高',
+                interfaceRating: 6,
+                description: '需要一定技术能力部署和使用，但提供了完全的控制权和隐私保护。'
+            },
+            pricing: '完全免费（需要自己的计算资源）',
+            apiAccess: false,
+            webInterface: false,
+            openSource: true,
+            selfHosted: true,
+            strengths: ['完全免费', '开源透明', '隐私保护', '可定制性强'],
+            limitations: ['需要技术能力', '硬件要求高', '缺少官方支持', '生态相对小'],
+            rating: 4.4,
+            url: 'https://llama.meta.com',
+            lastUpdated: '2025-02-08',
+            icon: '🦙'
+        }
     ],
 
     // AI代理数据 (30+)
