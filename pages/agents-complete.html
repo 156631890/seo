@@ -74,15 +74,18 @@
         </div>
     </div>
 
-    <script src="/data/ai-tools-database-enhanced.js"></script>
+    <script src="/data/ai-database-2025-enhanced.js"></script>
     <script>
         let aiAgents = [];
 
-        // 从数据库加载代理数据
+        // 从增强数据库加载代理数据
         function loadAgentsFromDatabase() {
-            if (typeof aiToolsDatabase !== 'undefined' && aiToolsDatabase.agents) {
+            if (typeof aiDatabase2025 !== 'undefined' && aiDatabase2025.agents) {
+                aiAgents = aiDatabase2025.agents;
+                console.log('从增强数据库加载了', aiAgents.length, '个AI代理');
+            } else if (typeof aiToolsDatabase !== 'undefined' && aiToolsDatabase.agents) {
                 aiAgents = aiToolsDatabase.agents;
-                console.log('从数据库加载了', aiAgents.length, '个AI代理');
+                console.log('从旧数据库加载了', aiAgents.length, '个AI代理');
             } else {
                 console.log('数据库未加载，使用备用数据');
                 // 备用数据
@@ -276,28 +279,34 @@
             
             // 延迟一点时间确保数据库脚本加载完成
             setTimeout(() => {
-                console.log('数据库类型:', typeof aiToolsDatabase);
-                if (typeof aiToolsDatabase !== 'undefined') {
-                    console.log('数据库对象存在，开始初始化');
+                console.log('增强数据库类型:', typeof aiDatabase2025);
+                console.log('旧数据库类型:', typeof aiToolsDatabase);
+                
+                if (typeof aiDatabase2025 !== 'undefined') {
+                    console.log('增强数据库对象存在，开始初始化');
+                    initializeAgentsPage();
+                } else if (typeof aiToolsDatabase !== 'undefined') {
+                    console.log('旧数据库对象存在，开始初始化');
                     initializeAgentsPage();
                 } else {
                     console.log('数据库对象不存在，再等待1秒');
                     setTimeout(() => {
-                        if (typeof aiToolsDatabase !== 'undefined') {
+                        if (typeof aiDatabase2025 !== 'undefined' || typeof aiToolsDatabase !== 'undefined') {
                             initializeAgentsPage();
                         } else {
                             console.error('数据库加载失败，使用备用数据');
                             // 强制使用备用数据
                             aiAgents = [
                                 {
-                                    id: 'autogpt',
-                                    name: 'AutoGPT',
+                                    id: 'autogpt-v2',
+                                    name: 'AutoGPT v2.0',
                                     type: 'autonomous',
-                                    description: '自主执行任务的AI代理',
-                                    features: ['自主决策', '任务分解', '工具调用'],
-                                    rating: 4.6,
+                                    description: '最强自主AI代理，能够独立完成复杂任务',
+                                    features: ['自主任务执行', '智能规划', '工具集成', '记忆管理'],
+                                    rating: 4.3,
                                     icon: '🚀',
-                                    link: 'https://github.com/Significant-Gravitas/AutoGPT'
+                                    link: 'https://github.com/Significant-Gravitas/AutoGPT',
+                                    openSource: true
                                 }
                             ];
                             renderAgents(aiAgents);

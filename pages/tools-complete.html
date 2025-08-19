@@ -223,16 +223,19 @@
         </div>
     </div>
 
-    <script src="/data/ai-tools-database-enhanced.js"></script>
+    <script src="/data/ai-database-2025-enhanced.js"></script>
     <script>
         let aiTools = [];
 
-        // 从数据库加载工具数据
+        // 从增强数据库加载工具数据
         function loadToolsFromDatabase() {
             // 等待数据库加载完成
-            if (typeof aiToolsDatabase !== 'undefined' && aiToolsDatabase.tools) {
+            if (typeof aiDatabase2025 !== 'undefined' && aiDatabase2025.tools) {
+                aiTools = aiDatabase2025.tools;
+                console.log('从增强数据库加载了', aiTools.length, '个工具');
+            } else if (typeof aiToolsDatabase !== 'undefined' && aiToolsDatabase.tools) {
                 aiTools = aiToolsDatabase.tools;
-                console.log('从数据库加载了', aiTools.length, '个工具');
+                console.log('从旧数据库加载了', aiTools.length, '个工具');
             } else {
                 console.log('数据库未加载，使用备用数据');
                 // 如果数据库未加载，使用备用数据
@@ -353,7 +356,7 @@
 
         function initializeToolsPage() {
             loadToolsFromDatabase();
-            
+
             // 如果没有工具数据，延迟重试
             if (aiTools.length === 0) {
                 console.log('工具数据为空，1秒后重试...');
@@ -377,12 +380,12 @@
 
         function renderTools(tools) {
             const toolsGrid = document.getElementById('tools-grid');
-            
+
             if (!tools || tools.length === 0) {
                 toolsGrid.innerHTML = '<div style="text-align: center; padding: 2rem; color: #6b7280;">暂无AI工具数据</div>';
                 return;
             }
-            
+
             toolsGrid.innerHTML = tools.map(tool => `
                 <div class="tool-card">
                     <div class="tool-header">
@@ -396,35 +399,61 @@
                     
                     ${tool.mainAdvantages ? `
                         <div style="margin: 1rem 0;">
-                            <h4 style="font-size: 0.9rem; color: #374151; margin-bottom: 0.5rem;">🌟 主要优势</h4>
+                            <h4 style="font-size: 0.9rem; color: #374151; margin-bottom: 0.5rem;">🌟 核心优势</h4>
                             <div style="font-size: 0.8rem; color: #6b7280;">
-                                ${tool.mainAdvantages.slice(0, 2).map(advantage => 
-                                    `<div style="margin-bottom: 0.25rem;">• ${advantage.replace(/^[🌟🎯⚡💻🌍🛡️📚🎨🔍💻]+\s*/, '')}</div>`
-                                ).join('')}
+                                ${tool.mainAdvantages.slice(0, 3).map(advantage =>
+                `<div style="margin-bottom: 0.25rem; padding-left: 0.5rem; border-left: 2px solid #10b981;">• ${advantage.replace(/^[🌟🎯⚡💻🌍🛡️📚🎨🔍💻💬🧠💎🔍🖼️💻🎯🤖🔗📚💾🆓]+\s*/, '')}</div>`
+            ).join('')}
                             </div>
                         </div>
                     ` : ''}
                     
                     <div class="tool-features">
-                        ${(tool.features || []).slice(0, 4).map(feature =>
+                        ${(tool.features || []).slice(0, 6).map(feature =>
                 `<span class="feature-tag">${feature}</span>`
             ).join('')}
                     </div>
                     
                     ${tool.primaryUseCase ? `
-                        <div style="margin: 1rem 0; padding: 0.75rem; background: #f8fafc; border-radius: 0.5rem;">
+                        <div style="margin: 1rem 0; padding: 0.75rem; background: #f0f9ff; border-left: 3px solid #0ea5e9; border-radius: 0.5rem;">
                             <div style="font-size: 0.8rem; color: #374151;">
-                                <strong>适用场景：</strong>${tool.primaryUseCase}
+                                <strong>🎯 适用场景：</strong>${tool.primaryUseCase}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${tool.targetAudience ? `
+                        <div style="margin: 1rem 0; padding: 0.5rem; background: #fef3c7; border-radius: 0.5rem;">
+                            <div style="font-size: 0.8rem; color: #92400e;">
+                                <strong>👥 目标用户：</strong>${tool.targetAudience}
                             </div>
                         </div>
                     ` : ''}
                     
                     ${tool.userExperience ? `
-                        <div style="margin: 1rem 0;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #6b7280;">
-                                <span>易用性: ${tool.userExperience.easeOfUse}/10</span>
-                                <span>质量: ${tool.userExperience.responseQuality}/10</span>
-                                <span>学习成本: ${tool.userExperience.learningCurve}</span>
+                        <div style="margin: 1rem 0; padding: 0.75rem; background: #f3f4f6; border-radius: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #6b7280; margin-bottom: 0.5rem;">
+                                <span>易用性: <strong>${tool.userExperience.easeOfUse}/10</strong></span>
+                                <span>质量: <strong>${tool.userExperience.responseQuality || tool.userExperience.reliability || 8}/10</strong></span>
+                                <span>学习成本: <strong>${tool.userExperience.learningCurve}</strong></span>
+                            </div>
+                            ${tool.userExperience.description ? `<div style="font-size: 0.75rem; color: #6b7280; font-style: italic;">${tool.userExperience.description}</div>` : ''}
+                        </div>
+                    ` : ''}
+                    
+                    ${tool.strengths && tool.limitations ? `
+                        <div style="margin: 1rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                            <div style="padding: 0.5rem; background: #ecfdf5; border-radius: 0.5rem;">
+                                <div style="font-size: 0.8rem; font-weight: 600; color: #059669; margin-bottom: 0.25rem;">✅ 优势</div>
+                                <div style="font-size: 0.7rem; color: #065f46;">
+                                    ${tool.strengths.slice(0, 2).map(strength => `• ${strength}`).join('<br>')}
+                                </div>
+                            </div>
+                            <div style="padding: 0.5rem; background: #fef2f2; border-radius: 0.5rem;">
+                                <div style="font-size: 0.8rem; font-weight: 600; color: #dc2626; margin-bottom: 0.25rem;">⚠️ 限制</div>
+                                <div style="font-size: 0.7rem; color: #991b1b;">
+                                    ${tool.limitations.slice(0, 2).map(limitation => `• ${limitation}`).join('<br>')}
+                                </div>
                             </div>
                         </div>
                     ` : ''}
@@ -435,15 +464,23 @@
                             <span>${tool.rating || '4.0'}</span>
                             ${tool.users ? `<span style="font-size: 0.8rem; color: #6b7280; margin-left: 0.5rem;">(${tool.users})</span>` : ''}
                         </div>
-                        <div class="tool-pricing">${tool.pricing || 'Freemium'}</div>
+                        <div class="tool-pricing" style="font-weight: 600; ${tool.freeVersion ? 'color: #059669;' : 'color: #dc2626;'}">${tool.pricing || 'Freemium'}</div>
                     </div>
+                    
+                    <div style="margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                        ${tool.freeVersion ? '<span style="background: #dcfce7; color: #166534; padding: 0.125rem 0.5rem; border-radius: 8px; font-size: 0.7rem;">免费版</span>' : ''}
+                        ${tool.apiAccess ? '<span style="background: #dbeafe; color: #1e40af; padding: 0.125rem 0.5rem; border-radius: 8px; font-size: 0.7rem;">API</span>' : ''}
+                        ${tool.mobileApp ? '<span style="background: #fce7f3; color: #be185d; padding: 0.125rem 0.5rem; border-radius: 8px; font-size: 0.7rem;">移动端</span>' : ''}
+                        ${tool.openSource ? '<span style="background: #f3e8ff; color: #7c3aed; padding: 0.125rem 0.5rem; border-radius: 8px; font-size: 0.7rem;">开源</span>' : ''}
+                    </div>
+                    
                     <div class="tool-actions">
                         <a href="${tool.url || tool.link}" target="_blank" class="tool-link">立即使用</a>
                         <button onclick="viewToolDetail('${tool.id}')" class="tool-detail-btn">查看详情</button>
                     </div>
                 </div>
             `).join('');
-            
+
             console.log('渲染了', tools.length, '个AI工具');
         }
 
@@ -522,19 +559,24 @@
         }
 
         // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             console.log('DOM加载完成，开始初始化工具页面');
-            
+
             // 延迟一点时间确保数据库脚本加载完成
             setTimeout(() => {
-                console.log('数据库类型:', typeof aiToolsDatabase);
-                if (typeof aiToolsDatabase !== 'undefined') {
-                    console.log('数据库对象存在，开始初始化');
+                console.log('增强数据库类型:', typeof aiDatabase2025);
+                console.log('旧数据库类型:', typeof aiToolsDatabase);
+
+                if (typeof aiDatabase2025 !== 'undefined') {
+                    console.log('增强数据库对象存在，开始初始化');
+                    initializeToolsPage();
+                } else if (typeof aiToolsDatabase !== 'undefined') {
+                    console.log('旧数据库对象存在，开始初始化');
                     initializeToolsPage();
                 } else {
                     console.log('数据库对象不存在，再等待1秒');
                     setTimeout(() => {
-                        if (typeof aiToolsDatabase !== 'undefined') {
+                        if (typeof aiDatabase2025 !== 'undefined' || typeof aiToolsDatabase !== 'undefined') {
                             initializeToolsPage();
                         } else {
                             console.error('数据库加载失败，使用备用数据');
@@ -542,14 +584,17 @@
                             aiTools = [
                                 {
                                     id: 'chatgpt',
-                                    name: 'ChatGPT',
+                                    name: 'ChatGPT Plus',
                                     category: 'text-generation',
-                                    description: 'OpenAI开发的强大对话AI助手',
-                                    features: ['对话交互', '代码生成', '文本创作'],
-                                    pricing: 'Freemium',
+                                    description: 'OpenAI的旗舰对话AI，支持GPT-4o模型',
+                                    features: ['GPT-4o模型', '图像理解', '代码生成', '数据分析'],
+                                    pricing: '$20/月',
                                     rating: 4.8,
                                     link: 'https://chat.openai.com',
-                                    icon: '💬'
+                                    icon: '💬',
+                                    freeVersion: true,
+                                    apiAccess: true,
+                                    mobileApp: true
                                 }
                             ];
                             renderTools(aiTools);

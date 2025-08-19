@@ -129,9 +129,19 @@
         </div>
     </div>
 
+    <script src="/data/ai-database-2025-enhanced.js"></script>
     <script>
-        // 直接内嵌AI模型数据，确保能正常显示 - 2025年最新版本
-        const aiModels = [
+        let aiModels = [];
+
+        // 从增强数据库加载模型数据
+        function loadModelsFromDatabase() {
+            if (typeof aiDatabase2025 !== 'undefined' && aiDatabase2025.models) {
+                aiModels = aiDatabase2025.models;
+                console.log('从增强数据库加载了', aiModels.length, '个模型');
+            } else {
+                console.log('使用内嵌模型数据');
+                // 内嵌的模型数据作为备用
+                aiModels = [
             {
                 id: 'gpt-5',
                 name: 'GPT-5',
@@ -345,6 +355,7 @@
         ];
 
         function initializeModelsPage() {
+            loadModelsFromDatabase();
             renderModels(aiModels);
         }
 
@@ -426,7 +437,14 @@
             window.open(`/detail.html?type=model&id=${modelId}`, '_blank');
         }
 
-        document.addEventListener('DOMContentLoaded', initializeModelsPage);
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM加载完成，开始初始化模型页面');
+            
+            setTimeout(() => {
+                console.log('增强数据库类型:', typeof aiDatabase2025);
+                initializeModelsPage();
+            }, 500);
+        });
     </script>
 </body>
 

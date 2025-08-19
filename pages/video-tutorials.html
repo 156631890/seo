@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具视频教程 - 从入门到精通 | MyAI</title>
+    <meta name="description" content="最全AI工具视频教程！ChatGPT、Claude、Midjourney等热门工具的详细使用教程，手把手教你成为AI专家。">
+    <meta name="keywords" content="AI教程,ChatGPT教程,Midjourney教程,AI工具使用,视频教程,人工智能学习">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <link rel="stylesheet" href="/css/video-tutorials.css">
+    <style>
+        .tutorials-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .tutorials-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .tutorials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        .tutorial-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-3px);
+        }
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+        }
+        .play-button {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .play-button:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+        .video-content {
+            padding: 1.5rem;
+        }
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+        .video-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+        .difficulty-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .difficulty-beginner {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .difficulty-intermediate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .difficulty-advanced {
+            background: #fecaca;
+            color: #991b1b;
+        }
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        .tutorial-steps {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        .step-content h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1f2937;
+        }
+        .step-content p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        .tips-box {
+            background: #fffbeb;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .tips-box h4 {
+            color: #92400e;
+            margin: 0 0 0.5rem 0;
+        }
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .filter-tab {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-tab.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><a href="/">MyAI</a></div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-complete.html">AI工具</a>
+                <a href="/pages/models-complete.html">AI模型</a>
+                <a href="/pages/agents-complete.html">AI代理</a>
+                <a href="/pages/video-tutorials.html" class="active">视频教程</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="tutorials-hero">
+        <h1>🎬 AI工具视频教程</h1>
+        <p>手把手教你掌握最热门的AI工具，从入门到精通</p>
+    </section>
+
+    <div class="tutorials-container">
+        <!-- 搜索和筛选 -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <input type="text" class="search-box" placeholder="搜索教程..." id="searchBox">
+            <div class="filter-tabs" id="filterTabs">
+                <div class="filter-tab active" data-category="all">全部教程</div>
+                <div class="filter-tab" data-category="text-generation">文本生成</div>
+                <div class="filter-tab" data-category="image-generation">图像生成</div>
+                <div class="filter-tab" data-category="code-assistant">代码助手</div>
+                <div class="filter-tab" data-category="productivity">效率工具</div>
+            </div>
+        </div>
+
+        <!-- 教程分类概览 -->
+        <div class="tutorial-categories">
+            <div class="category-card">
+                <div class="category-icon">💬</div>
+                <h3>文本生成工具</h3>
+                <p>ChatGPT、Claude、Gemini等对话AI的使用技巧</p>
+                <div style="margin-top: 1rem;">
+                    <span style="background: #ecfdf5; color: #059669; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">12个教程</span>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">🎨</div>
+                <h3>图像生成工具</h3>
+                <p>Midjourney、DALL-E、Stable Diffusion绘画教程</p>
+                <div style="margin-top: 1rem;">
+                    <span style="background: #ecfdf5; color: #059669; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">8个教程</span>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">💻</div>
+                <h3>代码助手工具</h3>
+                <p>GitHub Copilot、Cursor等编程助手使用指南</p>
+                <div style="margin-top: 1rem;">
+                    <span style="background: #ecfdf5; color: #059669; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">6个教程</span>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">⚡</div>
+                <h3>效率工具</h3>
+                <p>Notion AI、Zapier等生产力工具教程</p>
+                <div style="margin-top: 1rem;">
+                    <span style="background: #ecfdf5; color: #059669; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">5个教程</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 视频教程网格 -->
+        <div class="video-grid" id="videoGrid">
+            <!-- 视频卡片将通过JavaScript生成 -->
+        </div>
+    </div>
+
+    <!-- 视频模态框 -->
+    <div class="video-modal" id="videoModal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div class="modal-content" id="modalContent">
+            <!-- 模态框内容将通过JavaScript生成 -->
+        </div>
+    </div>
+
+    <script>
+        // 视频教程数据
+        const videoTutorials = [
+            {
+                id: 'chatgpt-basics',
+                title: 'ChatGPT基础使用教程',
+                category: 'text-generation',
+                description: '从注册到基本对话，全面了解ChatGPT的基础功能和使用技巧',
+                duration: '15分钟',
+                difficulty: 'beginner',
+                views: '50万+',
+                thumbnail: '💬',
+                steps: [
+                    { title: '注册ChatGPT账户', content: '访问chat.openai.com，使用邮箱或Google账户注册' },
+                    { title: '了解界面布局', content: '熟悉聊天界面、历史记录、设置选项等功能区域' },
+                    { title: '基础对话技巧', content: '学习如何提出清晰的问题，获得更好的回答' },
+                    { title: '常用功能介绍', content: '代码生成、文本总结、翻译等实用功能演示' }
+                ],
+                tips: [
+                    '提问时要具体明确，避免模糊的表述',
+                    '可以要求ChatGPT扮演特定角色来获得专业建议',
+                    '利用对话历史功能，保存重要的对话记录'
+                ]
+            },
+            {
+                id: 'chatgpt-advanced',
+                title: 'ChatGPT高级技巧与提示词工程',
+                category: 'text-generation',
+                description: '深入学习提示词工程、角色扮演、复杂任务分解等高级使用技巧',
+                duration: '25分钟',
+                difficulty: 'advanced',
+                views: '30万+',
+                thumbnail: '🧠',
+                steps: [
+                    { title: '提示词工程基础', content: '学习如何构造有效的提示词，提高AI回答质量' },
+                    { title: '角色扮演技巧', content: '让ChatGPT扮演专家、老师、顾问等不同角色' },
+                    { title: '复杂任务分解', content: '将大任务分解为小步骤，逐步完成复杂工作' },
+                    { title: '链式思考方法', content: '使用CoT（Chain of Thought）提升推理能力' }
+                ],
+                tips: [
+                    '使用"让我们一步步思考"来激发更好的推理',
+                    '提供具体的输出格式要求',
+                    '使用示例来指导AI的回答风格'
+                ]
+            },
+            {
+                id: 'midjourney-basics',
+                title: 'Midjourney入门教程',
+                category: 'image-generation',
+                description: '从零开始学习Midjourney，掌握基本的图像生成和提示词技巧',
+                duration: '20分钟',
+                difficulty: 'beginner',
+                views: '80万+',
+                thumbnail: '🎨',
+                steps: [
+                    { title: '加入Discord服务器', content: '注册Discord账户，加入Midjourney官方服务器' },
+                    { title: '订阅Midjourney服务', content: '选择合适的订阅计划，了解不同套餐的区别' },
+                    { title: '第一次生成图像', content: '使用/imagine命令生成你的第一张AI图像' },
+                    { title: '基础提示词语法', content: '学习描述主体、风格、参数等基本语法' }
+                ],
+                tips: [
+                    '从简单的描述开始，逐步增加细节',
+                    '使用--ar参数控制图像比例',
+                    '参考社区优秀作品学习提示词技巧'
+                ]
+            },
+            {
+                id: 'midjourney-advanced',
+                title: 'Midjourney高级技巧与风格控制',
+                category: 'image-generation',
+                description: '掌握高级参数、风格参考、图像编辑等专业技巧',
+                duration: '30分钟',
+                difficulty: 'advanced',
+                views: '45万+',
+                thumbnail: '🎭',
+                steps: [
+                    { title: '高级参数详解', content: '深入了解--stylize、--chaos、--quality等参数' },
+                    { title: '风格参考技巧', content: '使用图像URL作为风格参考，控制生成风格' },
+                    { title: '图像编辑功能', content: '学习Vary、Upscale、Pan等编辑功能' },
+                    { title: '批量生成策略', content: '高效管理和组织大量图像生成任务' }
+                ],
+                tips: [
+                    '保存常用的提示词模板',
+                    '建立自己的风格参考库',
+                    '合理使用Fast和Relax模式'
+                ]
+            },
+            {
+                id: 'github-copilot',
+                title: 'GitHub Copilot编程助手教程',
+                category: 'code-assistant',
+                description: '学习如何使用GitHub Copilot提升编程效率，掌握AI辅助编程技巧',
+                duration: '18分钟',
+                difficulty: 'intermediate',
+                views: '25万+',
+                thumbnail: '💻',
+                steps: [
+                    { title: '安装和配置', content: '在VS Code中安装Copilot插件，完成账户认证' },
+                    { title: '基础代码补全', content: '体验智能代码补全，学习接受和拒绝建议' },
+                    { title: '函数生成技巧', content: '通过注释描述需求，让Copilot生成完整函数' },
+                    { title: '代码优化建议', content: '利用Copilot改进现有代码，提升代码质量' }
+                ],
+                tips: [
+                    '写清晰的注释来引导代码生成',
+                    '使用有意义的变量和函数名',
+                    '定期审查生成的代码质量'
+                ]
+            },
+            {
+                id: 'claude-document-analysis',
+                title: 'Claude文档分析与长文本处理',
+                category: 'text-generation',
+                description: '利用Claude的长上下文能力，处理大型文档和复杂分析任务',
+                duration: '22分钟',
+                difficulty: 'intermediate',
+                views: '20万+',
+                thumbnail: '📚',
+                steps: [
+                    { title: '上传文档功能', content: '学习如何上传PDF、Word等文档到Claude' },
+                    { title: '文档总结技巧', content: '快速提取文档要点，生成结构化总结' },
+                    { title: '深度分析方法', content: '进行文档对比、趋势分析、关键信息提取' },
+                    { title: '批量处理策略', content: '高效处理多个文档的分析任务' }
+                ],
+                tips: [
+                    '明确分析目标和输出格式',
+                    '利用Claude的安全性处理敏感文档',
+                    '结合表格和图表展示分析结果'
+                ]
+            },
+            {
+                id: 'notion-ai-productivity',
+                title: 'Notion AI生产力提升教程',
+                category: 'productivity',
+                description: '掌握Notion AI的各种功能，打造个人知识管理和工作流系统',
+                duration: '16分钟',
+                difficulty: 'beginner',
+                views: '35万+',
+                thumbnail: '📝',
+                steps: [
+                    { title: '启用Notion AI', content: '在Notion中开启AI功能，了解基本操作' },
+                    { title: '内容生成功能', content: '使用AI生成文章、总结、翻译等内容' },
+                    { title: '数据库增强', content: '利用AI自动填充和分析数据库内容' },
+                    { title: '工作流自动化', content: '创建AI驱动的模板和自动化流程' }
+                ],
+                tips: [
+                    '建立标准化的页面模板',
+                    '合理使用AI避免过度依赖',
+                    '定期整理和优化知识库结构'
+                ]
+            },
+            {
+                id: 'stable-diffusion-local',
+                title: 'Stable Diffusion本地部署教程',
+                category: 'image-generation',
+                description: '学习在本地电脑上安装和使用Stable Diffusion，实现免费AI绘画',
+                duration: '35分钟',
+                difficulty: 'advanced',
+                views: '60万+',
+                thumbnail: '🖥️',
+                steps: [
+                    { title: '系统要求检查', content: '确认电脑配置，准备必要的硬件和软件环境' },
+                    { title: '安装WebUI', content: '下载并安装Automatic1111 WebUI界面' },
+                    { title: '模型下载配置', content: '获取和配置各种AI绘画模型' },
+                    { title: '高级功能使用', content: '掌握ControlNet、LoRA等高级功能' }
+                ],
+                tips: [
+                    '确保显卡内存足够（建议8GB+）',
+                    '从Civitai等平台下载优质模型',
+                    '学习使用负面提示词提升质量'
+                ]
+            }
+        ];
+
+        // 渲染视频网格
+        function renderVideos(videos = videoTutorials) {
+            const videoGrid = document.getElementById('videoGrid');
+            videoGrid.innerHTML = videos.map(video => `
+                <div class="video-card" data-category="${video.category}">
+                    <div class="video-thumbnail" onclick="openVideoModal('${video.id}')">
+                        <div style="font-size: 4rem;">${video.thumbnail}</div>
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">${video.title}</h3>
+                        <p class="video-description">${video.description}</p>
+                        <div class="video-meta">
+                            <span>⏱️ ${video.duration}</span>
+                            <span>👁️ ${video.views}</span>
+                            <span class="difficulty-badge difficulty-${video.difficulty}">
+                                ${video.difficulty === 'beginner' ? '入门' : 
+                                  video.difficulty === 'intermediate' ? '进阶' : '高级'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 打开视频模态框
+        function openVideoModal(videoId) {
+            const video = videoTutorials.find(v => v.id === videoId);
+            if (!video) return;
+
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <h2>${video.title}</h2>
+                <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                    <p><strong>时长：</strong>${video.duration} | <strong>难度：</strong>${video.difficulty === 'beginner' ? '入门' : video.difficulty === 'intermediate' ? '进阶' : '高级'} | <strong>观看量：</strong>${video.views}</p>
+                    <p>${video.description}</p>
+                </div>
+
+                <div class="tutorial-steps">
+                    <h3>📋 教程步骤</h3>
+                    ${video.steps.map((step, index) => `
+                        <div class="step">
+                            <div class="step-number">${index + 1}</div>
+                            <div class="step-content">
+                                <h4>${step.title}</h4>
+                                <p>${step.content}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="tips-box">
+                    <h4>💡 实用技巧</h4>
+                    <ul>
+                        ${video.tips.map(tip => `<li>${tip}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button onclick="startTutorial('${video.id}')" style="background: #667eea; color: white; border: none; padding: 1rem 2rem; border-radius: 8px; font-size: 1rem; cursor: pointer;">
+                        🎬 开始学习
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('videoModal').style.display = 'flex';
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            document.getElementById('videoModal').style.display = 'none';
+        }
+
+        // 开始教程
+        function startTutorial(videoId) {
+            closeModal();
+            // 使用视频播放器播放教程
+            if (typeof videoPlayer !== 'undefined') {
+                videoPlayer.playVideo(videoId, 'interactive');
+            } else {
+                // 备用方案：跳转到详细教程页面
+                window.open(`/tutorial/${videoId}`, '_blank');
+            }
+        }
+
+        // 筛选功能
+        function setupFilters() {
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const searchBox = document.getElementById('searchBox');
+
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 更新活跃状态
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    // 筛选视频
+                    const category = tab.dataset.category;
+                    filterVideos(category, searchBox.value);
+                });
+            });
+
+            searchBox.addEventListener('input', (e) => {
+                const activeCategory = document.querySelector('.filter-tab.active').dataset.category;
+                filterVideos(activeCategory, e.target.value);
+            });
+        }
+
+        // 筛选视频
+        function filterVideos(category, searchTerm) {
+            let filteredVideos = videoTutorials;
+
+            // 按分类筛选
+            if (category !== 'all') {
+                filteredVideos = filteredVideos.filter(video => video.category === category);
+            }
+
+            // 按搜索词筛选
+            if (searchTerm) {
+                filteredVideos = filteredVideos.filter(video => 
+                    video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    video.description.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+
+            renderVideos(filteredVideos);
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            renderVideos();
+            setupFilters();
+        });
+
+        // 点击模态框外部关闭
+        document.getElementById('videoModal').addEventListener('click', (e) => {
+            if (e.target.id === 'videoModal') {
+                closeModal();
+            }
+        });
+    </script>
+    
+    <!-- 加载视频播放器 -->
+    <script src="/js/video-player.js"></script>
+</body>
+</html>
