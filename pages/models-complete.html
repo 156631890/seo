@@ -1,51 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI模型大全 - 50+顶级AI模型深度评测与对比 | MyAI 2025</title>
-    <meta name="description" content="2025年最全AI模型合集！GPT-4o、Claude 3.5、Gemini 2.0等50+顶级AI模型深度评测，性能对比，使用指南，帮您选择最适合的AI助手。">
-    <meta name="keywords" content="AI模型,GPT-4o,Claude,Gemini,AI模型对比,大语言模型,AI模型评测,人工智能模型,LLM">
-    <meta name="author" content="MyAI">
-    <meta name="robots" content="index, follow, max-image-preview:large">
-    <link rel="canonical" href="https://myai.com/pages/models-complete.html">
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://myai.com/pages/models-complete.html">
-    <meta property="og:title" content="AI模型大全 - 50+顶级AI模型深度评测与对比">
-    <meta property="og:description" content="2025年最全AI模型合集！GPT-4o、Claude 3.5、Gemini 2.0等50+顶级AI模型深度评测，性能对比，使用指南。">
-    <meta property="og:image" content="https://myai.com/images/models-og.jpg">
-
-    <!-- 结构化数据 -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "AI模型大全",
-      "description": "50+顶级AI模型深度评测与对比",
-      "url": "https://myai.com/pages/models-complete.html",
-      "mainEntity": {
-        "@type": "ItemList",
-        "name": "AI模型列表",
-        "numberOfItems": 50,
-        "itemListElement": [
-          {
-            "@type": "SoftwareApplication",
-            "name": "GPT-4o",
-            "applicationCategory": "AI模型",
-            "operatingSystem": "Web",
-            "offers": {
-              "@type": "Offer",
-              "price": "按使用量计费"
-            }
-          }
-        ]
-      }
-    }
-    </script>
-
+    <meta name="description" content="2025年最全AI模型合集！GPT-4o、Claude 3.5、Gemini 2.0等50+顶级AI模型深度评测，性能对比，使用指南。">
     <link rel="stylesheet" href="/partials/site-style.css">
     <style>
         .models-hero {
@@ -54,24 +13,13 @@
             padding: 4rem 1rem;
             text-align: center;
         }
-
-        .models-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .models-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 1rem;
-        }
-
+        .models-hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .models-container { max-width: 1200px; margin: 0 auto; padding: 3rem 1rem; }
         .models-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 1.5rem;
         }
-
         .model-card {
             background: white;
             border-radius: 0.75rem;
@@ -79,18 +27,13 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
         }
-
-        .model-card:hover {
-            transform: translateY(-4px);
-        }
-
+        .model-card:hover { transform: translateY(-4px); }
         .model-header {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1rem;
         }
-
         .model-icon {
             width: 50px;
             height: 50px;
@@ -102,9 +45,26 @@
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
         }
+        .new-badge {
+            background: #ff4444;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-left: 8px;
+        }
+        .feature-tag {
+            background: #ecfdf5;
+            color: #059669;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
     </style>
 </head>
-
 <body>
     <header class="main-header">
         <div class="container">
@@ -125,352 +85,224 @@
 
     <div class="models-container">
         <div class="models-grid" id="models-grid">
-            <!-- 模型卡片将通过JavaScript生成 -->
+            <!-- 模型卡片 -->
         </div>
     </div>
 
     <script>
-        let aiModels = [];
-
-        // 从增强数据库加载模型数据
-        function loadModelsFromDatabase() {
-            // 先尝试从全局变量加载
-            if (typeof window.aiDatabase2025 !== 'undefined' && window.aiDatabase2025.models) {
-                aiModels = window.aiDatabase2025.models;
-                console.log('从全局数据库加载了', aiModels.length, '个模型');
-                return;
+        // 直接内嵌模型数据，确保显示
+        const aiModels = [
+            {
+                id: 'gpt-4o',
+                name: 'GPT-4o',
+                provider: 'OpenAI',
+                type: '多模态大语言模型',
+                description: 'OpenAI最新的多模态大语言模型，支持文本、图像、音频处理，推理能力显著提升',
+                features: ['文本生成', '图像理解', '代码编写', '数学推理', '多语言支持'],
+                rating: 4.8,
+                pricing: 'API按token计费',
+                icon: '🤖',
+                url: 'https://openai.com/gpt-4o',
+                isNew: false
+            },
+            {
+                id: 'gpt-5',
+                name: 'GPT-5',
+                provider: 'OpenAI',
+                type: '下一代多模态模型',
+                description: 'OpenAI的下一代旗舰模型，具备革命性的推理和创造能力',
+                features: ['超强推理', '多模态理解', '长期记忆', '任务规划', '实时学习'],
+                rating: 4.9,
+                pricing: '即将发布',
+                icon: '🚀',
+                url: 'https://openai.com/gpt-5',
+                isNew: true
+            },
+            {
+                id: 'claude-3-5-sonnet',
+                name: 'Claude 3.5 Sonnet',
+                provider: 'Anthropic',
+                type: '大语言模型',
+                description: 'Anthropic的旗舰模型，在推理、编程和创意写作方面表现出色，安全性高',
+                features: ['长文本处理', '代码分析', '创意写作', '逻辑推理', '安全对话'],
+                rating: 4.7,
+                pricing: '$20/月',
+                icon: '🧠',
+                url: 'https://claude.ai',
+                isNew: false
+            },
+            {
+                id: 'gemini-2-0',
+                name: 'Gemini 2.0',
+                provider: 'Google',
+                type: '多模态AI模型',
+                description: 'Google最新的多模态AI模型，集成了搜索、地图等Google服务',
+                features: ['实时搜索', '多模态理解', '代码生成', '数据分析', '工具调用'],
+                rating: 4.6,
+                pricing: '$19.99/月',
+                icon: '💎',
+                url: 'https://gemini.google.com',
+                isNew: false
+            },
+            {
+                id: 'o1-preview',
+                name: 'OpenAI o1',
+                provider: 'OpenAI',
+                type: '推理专用模型',
+                description: '专注于复杂推理的AI模型，在数学、科学和编程问题上表现卓越',
+                features: ['深度推理', '数学解题', '科学分析', '复杂编程', '逻辑思考'],
+                rating: 4.9,
+                pricing: 'ChatGPT Plus包含',
+                icon: '🔬',
+                url: 'https://openai.com/o1',
+                isNew: false
+            },
+            {
+                id: 'llama-3-1',
+                name: 'Llama 3.1',
+                provider: 'Meta',
+                type: '开源大语言模型',
+                description: 'Meta的开源大语言模型，性能强大且完全免费使用',
+                features: ['开源免费', '本地部署', '商业友好', '多语言', '高性能'],
+                rating: 4.4,
+                pricing: '完全免费',
+                icon: '🦙',
+                url: 'https://llama.meta.com',
+                isNew: false
+            },
+            {
+                id: 'grok-2',
+                name: 'Grok-2',
+                provider: 'xAI',
+                type: '大语言模型',
+                description: 'Elon Musk的xAI公司开发的AI模型，具有独特的幽默感和实时信息获取能力',
+                features: ['实时信息', '幽默对话', '批判思维', '多角度分析', '创新思考'],
+                rating: 4.3,
+                pricing: 'X Premium订阅',
+                icon: '🚀',
+                url: 'https://grok.x.ai',
+                isNew: false
+            },
+            {
+                id: 'qwen-2-5',
+                name: '通义千问 2.5',
+                provider: '阿里巴巴',
+                type: '大语言模型',
+                description: '阿里巴巴开发的大语言模型，在中文理解和生成方面表现优秀',
+                features: ['中文优化', '多模态', '代码生成', '数学推理', '知识问答'],
+                rating: 4.2,
+                pricing: '免费/付费版',
+                icon: '🇨🇳',
+                url: 'https://tongyi.aliyun.com',
+                isNew: false
+            },
+            {
+                id: 'ernie-4',
+                name: '文心一言 4.0',
+                provider: '百度',
+                type: '大语言模型',
+                description: '百度开发的大语言模型，具有强大的中文理解和生成能力',
+                features: ['中文理解', '创意写作', '知识问答', '代码生成', '多轮对话'],
+                rating: 4.1,
+                pricing: '免费/付费版',
+                icon: '🐼',
+                url: 'https://yiyan.baidu.com',
+                isNew: false
+            },
+            {
+                id: 'chatglm-4',
+                name: 'ChatGLM-4',
+                provider: '智谱AI',
+                type: '对话语言模型',
+                description: '智谱AI开发的对话语言模型，支持中英双语，具有强大的推理能力',
+                features: ['中英双语', '逻辑推理', '代码理解', '数学计算', '知识问答'],
+                rating: 4.0,
+                pricing: '免费/付费版',
+                icon: '🎓',
+                url: 'https://chatglm.cn',
+                isNew: false
+            },
+            {
+                id: 'deepseek-v2',
+                name: 'DeepSeek-V2',
+                provider: 'DeepSeek',
+                type: '大语言模型',
+                description: 'DeepSeek开发的大语言模型，在代码生成和数学推理方面表现出色',
+                features: ['代码生成', '数学推理', '逻辑分析', '多语言', '开源友好'],
+                rating: 3.9,
+                pricing: '开源免费',
+                icon: '🔍',
+                url: 'https://deepseek.com',
+                isNew: false
+            },
+            {
+                id: 'moonshot-v1',
+                name: 'Moonshot-v1',
+                provider: 'Moonshot AI',
+                type: '长文本模型',
+                description: 'Moonshot AI开发的长文本处理模型，支持超长上下文理解',
+                features: ['长文本', '上下文理解', '文档分析', '信息提取', '内容总结'],
+                rating: 3.8,
+                pricing: 'API计费',
+                icon: '🌙',
+                url: 'https://moonshot.cn',
+                isNew: false
             }
+        ];
 
-            console.log('全局数据库未找到，使用内嵌模型数据');
-            // 内嵌的模型数据作为备用
-            aiModels = [
-                {
-                    id: 'gpt-5',
-                    name: 'GPT-5',
-                    provider: 'OpenAI',
-                    type: 'multimodal',
-                    description: 'OpenAI的下一代旗舰模型，具备革命性的推理和创造能力',
-                    features: ['超强推理能力', '多模态理解', '长期记忆', '复杂任务规划', '实时学习'],
-                    rating: 4.9,
-                    icon: '🚀',
-                    link: 'https://openai.com/gpt-5',
-                    isNew: true,
-                    releaseStatus: '即将发布'
-                },
-                {
-                    id: 'grok-4',
-                    name: 'Grok-4',
-                    provider: 'xAI',
-                    type: 'llm',
-                    description: 'xAI最新的第四代模型，具备更强的推理和实时信息处理能力',
-                    features: ['实时信息获取', '增强推理能力', '多模态理解', '幽默对话风格', 'X平台深度集成'],
-                    rating: 4.6,
-                    icon: '🔥',
-                    link: 'https://x.ai/grok',
-                    isNew: true,
-                    releaseStatus: '测试阶段'
-                },
-                {
-                    id: 'gemini-2-5',
-                    name: 'Gemini 2.5',
-                    provider: 'Google',
-                    type: 'multimodal',
-                    description: 'Google最新的Gemini系列模型，在多模态理解和推理方面有重大突破',
-                    features: ['超长上下文', '多模态融合', '实时处理', '科学计算', '代码生成优化'],
-                    rating: 4.7,
-                    icon: '⭐',
-                    link: 'https://gemini.google.com',
-                    isNew: true,
-                    releaseStatus: '公开测试'
-                },
-                {
-                    id: 'claude-4',
-                    name: 'Claude 4',
-                    provider: 'Anthropic',
-                    type: 'llm',
-                    description: 'Anthropic最新的Claude系列模型，在安全性和推理能力方面达到新高度',
-                    features: ['宪法AI增强', '超长上下文', '安全对齐', '复杂推理', '多语言精通'],
-                    rating: 4.8,
-                    icon: '🛡️',
-                    link: 'https://claude.ai',
-                    isNew: true,
-                    releaseStatus: '内测阶段'
-                },
-                {
-                    id: 'sora-2',
-                    name: 'Sora 2.0',
-                    provider: 'OpenAI',
-                    type: 'video',
-                    description: 'OpenAI最新的视频生成模型，能够创建更长、更高质量的视频内容',
-                    features: ['长视频生成', '4K高清输出', '物理规律理解', '角色一致性', '音频同步'],
-                    rating: 4.9,
-                    icon: '🎬',
-                    link: 'https://openai.com/sora',
-                    isNew: true,
-                    releaseStatus: '限量测试'
-                },
-                {
-                    id: 'deepseek-v4',
-                    name: 'DeepSeek V4',
-                    provider: 'DeepSeek',
-                    type: 'llm',
-                    description: '深度求索最新模型，在数学和代码推理方面达到新的高度',
-                    features: ['数学推理突破', '代码生成优化', '逻辑分析增强', '多语言支持', '开源友好'],
-                    rating: 4.7,
-                    icon: '💎',
-                    link: 'https://deepseek.com',
-                    isNew: true,
-                    releaseStatus: '公开发布'
-                },
-                {
-                    id: 'gpt-4o',
-                    name: 'GPT-4o',
-                    provider: 'OpenAI',
-                    type: 'multimodal',
-                    description: 'OpenAI最新的多模态大语言模型，支持文本、图像、音频处理，推理能力显著提升。',
-                    features: ['文本生成', '图像理解', '代码编写', '数学推理', '多语言支持'],
-                    rating: 4.8,
-                    icon: '🤖',
-                    link: 'https://openai.com/gpt-4o'
-                },
-                {
-                    id: 'claude-3-5-sonnet',
-                    name: 'Claude 3.5 Sonnet',
-                    provider: 'Anthropic',
-                    type: 'llm',
-                    description: 'Anthropic的旗舰模型，在推理、编程和创意写作方面表现出色，安全性高。',
-                    features: ['长文本处理', '代码分析', '创意写作', '逻辑推理', '安全对话'],
-                    rating: 4.7,
-                    icon: '🧠',
-                    link: 'https://claude.ai'
-                },
-                {
-                    id: 'gemini-2-0',
-                    name: 'Gemini 2.0',
-                    provider: 'Google',
-                    type: 'multimodal',
-                    description: 'Google最新的多模态AI模型，集成了搜索、地图等Google服务。',
-                    features: ['实时搜索', '多模态理解', '代码生成', '数据分析', '工具调用'],
-                    rating: 4.6,
-                    icon: '💎',
-                    link: 'https://gemini.google.com'
-                },
-                {
-                    id: 'o1-preview',
-                    name: 'OpenAI o1',
-                    provider: 'OpenAI',
-                    type: 'llm',
-                    description: '专注于复杂推理的AI模型，在数学、科学和编程问题上表现卓越。',
-                    features: ['深度推理', '数学解题', '科学分析', '复杂编程', '逻辑思考'],
-                    rating: 4.9,
-                    icon: '🔬',
-                    link: 'https://openai.com/o1'
-                },
-                {
-                    id: 'llama-3-1',
-                    name: 'Llama 3.1',
-                    provider: 'Meta',
-                    type: 'llm',
-                    description: 'Meta的开源大语言模型，性能强大且完全免费使用。',
-                    features: ['开源免费', '本地部署', '商业友好', '多语言', '高性能'],
-                    rating: 4.4,
-                    icon: '🦙',
-                    link: 'https://llama.meta.com'
-                },
-                {
-                    id: 'grok-2',
-                    name: 'Grok-2',
-                    provider: 'xAI',
-                    type: 'llm',
-                    description: 'Elon Musk的xAI公司开发的AI模型，具有独特的幽默感和实时信息获取能力。',
-                    features: ['实时信息', '幽默对话', '批判思维', '多角度分析', '创新思考'],
-                    rating: 4.3,
-                    icon: '🚀',
-                    link: 'https://grok.x.ai'
-                },
-                {
-                    id: 'qwen-2-5',
-                    name: '通义千问 2.5',
-                    provider: '阿里巴巴',
-                    type: 'llm',
-                    description: '阿里巴巴开发的大语言模型，在中文理解和生成方面表现优秀。',
-                    features: ['中文优化', '多模态', '代码生成', '数学推理', '知识问答'],
-                    rating: 4.2,
-                    icon: '🇨🇳',
-                    link: 'https://tongyi.aliyun.com'
-                },
-                {
-                    id: 'ernie-4',
-                    name: '文心一言 4.0',
-                    provider: '百度',
-                    type: 'llm',
-                    description: '百度开发的大语言模型，具有强大的中文理解和生成能力。',
-                    features: ['中文理解', '创意写作', '知识问答', '代码生成', '多轮对话'],
-                    rating: 4.1,
-                    icon: '🐼',
-                    link: 'https://yiyan.baidu.com'
-                },
-                {
-                    id: 'chatglm-4',
-                    name: 'ChatGLM-4',
-                    provider: '智谱AI',
-                    type: 'llm',
-                    description: '智谱AI开发的对话语言模型，支持中英双语，具有强大的推理能力。',
-                    features: ['中英双语', '逻辑推理', '代码理解', '数学计算', '知识问答'],
-                    rating: 4.0,
-                    icon: '🎓',
-                    link: 'https://chatglm.cn'
-                },
-                {
-                    id: 'deepseek-v2',
-                    name: 'DeepSeek-V2',
-                    provider: 'DeepSeek',
-                    type: 'llm',
-                    description: 'DeepSeek开发的大语言模型，在代码生成和数学推理方面表现出色。',
-                    features: ['代码生成', '数学推理', '逻辑分析', '多语言', '开源友好'],
-                    rating: 3.9,
-                    icon: '🔍',
-                    link: 'https://deepseek.com'
-                },
-                {
-                    id: 'moonshot-v1',
-                    name: 'Moonshot-v1',
-                    provider: 'Moonshot AI',
-                    type: 'llm',
-                    description: 'Moonshot AI开发的长文本处理模型，支持超长上下文理解。',
-                    features: ['长文本', '上下文理解', '文档分析', '信息提取', '内容总结'],
-                    rating: 3.8,
-                    icon: '🌙',
-                    link: 'https://moonshot.cn'
-                },
-                {
-                    id: 'yi-large',
-                    name: 'Yi-Large',
-                    provider: '零一万物',
-                    type: 'llm',
-                    description: '零一万物开发的大语言模型，在多个基准测试中表现优异。',
-                    features: ['高性能', '多语言', '推理能力', '代码生成', '知识问答'],
-                    rating: 3.7,
-                    icon: '🔥',
-                    link: 'https://01.ai'
-                }
-            ];
-        }
-        }
-
-        function initializeModelsPage() {
-            loadModelsFromDatabase();
-            renderModels(aiModels);
-        }
-
-        function renderModels(models) {
-            const modelsGrid = document.getElementById('models-grid');
-            modelsGrid.innerHTML = models.map(model => `
+        function renderModels() {
+            const grid = document.getElementById('models-grid');
+            grid.innerHTML = aiModels.map(model => `
                 <div class="model-card">
                     <div class="model-header">
-                        <div class="model-icon">${model.icon || '🤖'}</div>
+                        <div class="model-icon">${model.icon}</div>
                         <div>
                             <h3 style="margin: 0;">
                                 ${model.name}
-                                ${model.isNew ? '<span style="background: #ff4444; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-left: 8px;">🆕 NEW</span>' : ''}
+                                ${model.isNew ? '<span class="new-badge">🆕 NEW</span>' : ''}
                             </h3>
                             <div style="color: #6b7280; font-size: 0.9rem;">
-                                ${model.provider} • ${model.type || 'AI模型'}
-                                ${model.releaseStatus ? ` • <span style="background: #4CAF50; color: white; padding: 1px 6px; border-radius: 4px; font-size: 10px;">${model.releaseStatus}</span>` : ''}
+                                ${model.provider} • ${model.type}
                             </div>
                         </div>
                     </div>
                     
-                    <p style="margin: 1rem 0; line-height: 1.6;">${model.description}</p>
-                    
-                    ${model.mainAdvantages ? `
-                        <div style="margin: 1rem 0;">
-                            <h4 style="font-size: 0.9rem; color: #374151; margin-bottom: 0.5rem;">🌟 主要优势</h4>
-                            <div style="font-size: 0.8rem; color: #6b7280;">
-                                ${model.mainAdvantages.slice(0, 2).map(advantage =>
-                `<div style="margin-bottom: 0.25rem;">• ${advantage.replace(/^[🌟🎯⚡💻🌍🛡️📚🎨🔍💻]+\s*/, '')}</div>`
-            ).join('')}
-                            </div>
-                        </div>
-                    ` : ''}
+                    <p style="margin: 1rem 0; line-height: 1.6; color: #4b5563;">${model.description}</p>
                     
                     <div style="margin: 1rem 0;">
                         <h4 style="font-size: 0.9rem; color: #374151; margin-bottom: 0.5rem;">🔧 核心功能</h4>
                         <div>
-                            ${(model.features || []).slice(0, 4).map(feature =>
-                `<span style="background: #ecfdf5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem; margin-bottom: 0.5rem; display: inline-block;">${feature}</span>`
-            ).join('')}
+                            ${model.features.slice(0, 4).map(feature => 
+                                `<span class="feature-tag">${feature}</span>`
+                            ).join('')}
                         </div>
                     </div>
-                    
-                    ${model.primaryUseCase ? `
-                        <div style="margin: 1rem 0; padding: 0.75rem; background: #f8fafc; border-radius: 0.5rem;">
-                            <div style="font-size: 0.8rem; color: #374151;">
-                                <strong>适用场景：</strong>${model.primaryUseCase}
-                            </div>
-                        </div>
-                    ` : ''}
-                    
-                    ${model.userExperience ? `
-                        <div style="margin: 1rem 0;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #6b7280;">
-                                <span>易用性: ${model.userExperience.easeOfUse}/10</span>
-                                <span>质量: ${model.userExperience.responseQuality}/10</span>
-                                <span>可靠性: ${model.userExperience.reliability}/10</span>
-                            </div>
-                        </div>
-                    ` : ''}
                     
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f3f4f6;">
                         <div>
                             <div style="color: #fbbf24; font-size: 0.9rem;">
                                 ${'★'.repeat(Math.floor(model.rating))}${'☆'.repeat(5 - Math.floor(model.rating))} ${model.rating}
                             </div>
-                            <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.25rem;">${model.pricing || '价格详询'}</div>
+                            <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.25rem;">${model.pricing}</div>
                         </div>
                         <div style="display: flex; gap: 0.5rem;">
-                            <a href="${model.url || model.link}" target="_blank" style="background: #667eea; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-size: 0.9rem;">官网</a>
-                            <button onclick="viewModelDetail('${model.id}')" style="background: #f3f4f6; color: #374151; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-size: 0.9rem;">详情</button>
+                            <a href="${model.url}" target="_blank" style="background: #667eea; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-size: 0.9rem;">官网</a>
+                            <button onclick="viewDetail('${model.id}')" style="background: #f3f4f6; color: #374151; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-size: 0.9rem;">详情</button>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        function viewModelDetail(modelId) {
+        function viewDetail(modelId) {
             window.open(`/detail.html?type=model&id=${modelId}`, '_blank');
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('DOM加载完成，开始初始化模型页面');
-
-            setTimeout(() => {
-                console.log('增强数据库类型:', typeof aiDatabase2025);
-                console.log('全局数据库类型:', typeof window.aiDatabase2025);
-
-                if (typeof aiDatabase2025 !== 'undefined') {
-                    console.log('数据库对象存在');
-                    console.log('模型数据:', aiDatabase2025.models ? aiDatabase2025.models.length : '未找到');
-                } else if (typeof window.aiDatabase2025 !== 'undefined') {
-                    console.log('全局数据库对象存在');
-                    console.log('模型数据:', window.aiDatabase2025.models ? window.aiDatabase2025.models.length : '未找到');
-                } else {
-                    console.log('数据库对象不存在');
-                }
-
-                initializeModelsPage();
-
-                // 调试信息
-                console.log('最终模型数组长度:', aiModels.length);
-                if (aiModels.length === 0) {
-                    document.getElementById('models-grid').innerHTML = '<div style="text-align: center; padding: 2rem; color: #dc2626;">⚠️ 模型数据加载失败，请刷新页面重试</div>';
-                }
-            }, 1000);
+        // 页面加载完成后立即渲染
+        document.addEventListener('DOMContentLoaded', function() {
+            renderModels();
+            console.log('AI模型页面加载完成，显示了', aiModels.length, '个模型');
         });
     </script>
-
-    <!-- 加载数据库 -->
-    <script src="/data/ai-database-2025-enhanced.js"></script>
 </body>
-
 </html>
