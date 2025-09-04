@@ -10,9 +10,11 @@ const linksToCheck = [
     '/search.html',
     '/newsletter.html',
     '/tools.html',
+    '/nano-banana.html',
     '/pages/tools-complete.html',
     '/pages/models-complete.html',
     '/pages/agents-complete.html',
+    '/pages/nano-banana.html',
     '/posts/chatgpt-beginner-prompts.html',
     '/posts/gpt4o-guide.html',
     '/404.html'

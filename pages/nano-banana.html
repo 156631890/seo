@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano Banana - 免费AI图像生成工具 | MyAI</title>
+    <meta name="description" content="Nano Banana是Google推出的免费AI图像生成工具，速度快、质量高、完全免费。立即体验最佳的AI作图工具！">
+    <meta name="keywords" content="Nano Banana,AI图像生成,免费AI工具,Google AI,AI作图,人工智能绘画">
+    <link rel="canonical" href="https://www.aiblogs.tech/pages/nano-banana.html">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .cta-button {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .cta-primary {
+            background: white;
+            color: #f59e0b;
+        }
+        
+        .cta-primary:hover {
+            background: #f3f4f6;
+            transform: translateY(-2px);
+        }
+        
+        .cta-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .cta-secondary:hover {
+            background: white;
+            color: #f59e0b;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .features-section {
+            padding: 4rem 0;
+            background: #f8fafc;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f59e0b;
+            margin-bottom: 1rem;
+        }
+        
+        .specs-section {
+            padding: 4rem 0;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .spec-item {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .spec-label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        .spec-value {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+        
+        .tutorial-section {
+            padding: 4rem 0;
+            background: #f8fafc;
+        }
+        
+        .tutorial-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .step-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.1);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #f59e0b;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .comparison-section {
+            padding: 4rem 0;
+        }
+        
+        .comparison-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+            margin-top: 2rem;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .comparison-table th {
+            background: #f59e0b;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .comparison-table .highlight {
+            background: #fef3c7;
+            font-weight: 600;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #f59e0b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 200px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-icon">🍌</div>
+            <h1 class="hero-title">Nano Banana</h1>
+            <p class="hero-subtitle">Google推出的免费AI图像生成工具，速度快、质量高、完全免费。让AI创作变得简单有趣！</p>
+            
+            <div class="cta-buttons">
+                <a href="https://labs.google.com/nano-banana" target="_blank" class="cta-button cta-primary">
+                    🚀 立即体验
+                </a>
+                <a href="#tutorial" class="cta-button cta-secondary">
+                    📚 使用教程
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">✨ 核心特色</h2>
+            <p style="text-align: center; color: #6b7280; font-size: 1.1rem;">为什么选择Nano Banana？</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">超快生成</h3>
+                    <p>平均3-5秒生成高质量图像，比传统AI工具快10倍以上。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">完全免费</h3>
+                    <p>Google提供的免费服务，无需付费，无使用限制，人人都能享受AI创作。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">高质量输出</h3>
+                    <p>基于最新的Imagen 3.0模型，生成的图像细节丰富，色彩鲜艳。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">多语言支持</h3>
+                    <p>支持中文、英文等多种语言提示词，理解准确，创作自由。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">跨平台使用</h3>
+                    <p>支持网页、手机、平板等多种设备，随时随地进行AI创作。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">隐私保护</h3>
+                    <p>Google级别的隐私保护，你的创作内容安全可靠。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Specifications -->
+    <section class="specs-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">📊 技术规格</h2>
+            
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">AI模型</div>
+                    <div class="spec-value">Google Imagen 3.0</div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-label">生成速度</div>
+                    <div class="spec-value">3-5秒</div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-label">图像分辨率</div>
+                    <div class="spec-value">最高4K (4096x4096)</div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-label">支持格式</div>
+                    <div class="spec-value">PNG, JPG, WebP</div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-label">价格</div>
+                    <div class="spec-value">完全免费</div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-label">使用限制</div>
+                    <div class="spec-value">无限制</div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-label">语言支持</div>
+                    <div class="spec-value">50+种语言</div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-label">更新频率</div>
+                    <div class="spec-value">每月更新</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Tutorial Section -->
+    <section class="tutorial-section" id="tutorial">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">📚 使用教程</h2>
+            <p style="text-align: center; color: #6b7280; font-size: 1.1rem;">4步轻松上手Nano Banana</p>
+            
+            <div class="tutorial-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">访问官网</h3>
+                    <p>打开 <a href="https://labs.google.com/nano-banana" target="_blank" style="color: #f59e0b;">labs.google.com/nano-banana</a>，使用Google账号登录。</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">输入提示词</h3>
+                    <p>在输入框中描述你想要的图像，支持中文和英文，越详细效果越好。</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">选择参数</h3>
+                    <p>选择图像尺寸、风格等参数，新手可以使用默认设置。</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">生成下载</h3>
+                    <p>点击生成按钮，等待3-5秒即可获得高质量图像，支持直接下载。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">⚖️ 对比分析</h2>
+            <p style="text-align: center; color: #6b7280; font-size: 1.1rem;">Nano Banana vs 其他AI图像工具</p>
+            
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>特性</th>
+                            <th class="highlight">Nano Banana</th>
+                            <th>Midjourney</th>
+                            <th>DALL-E 3</th>
+                            <th>Stable Diffusion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>价格</strong></td>
+                            <td class="highlight">免费</td>
+                            <td>$10-60/月</td>
+                            <td>$20/月</td>
+                            <td>免费/付费</td>
+                        </tr>
+                        <tr>
+                            <td><strong>生成速度</strong></td>
+                            <td class="highlight">3-5秒</td>
+                            <td>30-60秒</td>
+                            <td>10-20秒</td>
+                            <td>5-15秒</td>
+                        </tr>
+                        <tr>
+                            <td><strong>图像质量</strong></td>
+                            <td class="highlight">优秀</td>
+                            <td>优秀</td>
+                            <td>优秀</td>
+                            <td>良好</td>
+                        </tr>
+                        <tr>
+                            <td><strong>易用性</strong></td>
+                            <td class="highlight">非常简单</td>
+                            <td>中等</td>
+                            <td>简单</td>
+                            <td>复杂</td>
+                        </tr>
+                        <tr>
+                            <td><strong>中文支持</strong></td>
+                            <td class="highlight">优秀</td>
+                            <td>良好</td>
+                            <td>良好</td>
+                            <td>一般</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section style="background: #f59e0b; color: white; padding: 3rem 1rem; text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">🎨 开始你的AI创作之旅</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.95;">
+                加入数百万用户，体验最快最好用的免费AI图像生成工具
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="https://labs.google.com/nano-banana" target="_blank" class="cta-button cta-primary">
+                    🚀 立即开始创作
+                </a>
+                <a href="/pages/tools-complete.html" class="cta-button cta-secondary">
+                    🛠️ 探索更多AI工具
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Navigation -->
+    <div style="padding: 2rem 1rem; text-align: center; background: #f8fafc;">
+        <div class="container">
+            <a href="/pages/tools-complete.html" class="back-link">← 返回AI工具库</a>
+            <span style="margin: 0 1rem; color: #6b7280;">|</span>
+            <a href="/" class="back-link">🏠 返回首页</a>
+        </div>
+    </div>
+</body>
+</html>
