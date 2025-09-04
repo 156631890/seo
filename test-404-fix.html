@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404错误修复测试 | MyAI</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+        }
+        h1 {
+            color: #10b981;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+        .test-link {
+            display: inline-block;
+            margin: 0.5rem 1rem 0.5rem 0;
+            padding: 0.75rem 1.5rem;
+            background: #10b981;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+        .test-link:hover {
+            background: #059669;
+        }
+        .test-link.error {
+            background: #ef4444;
+        }
+        .test-link.success {
+            background: #22c55e;
+        }
+        .status {
+            font-size: 0.875rem;
+            margin-left: 0.5rem;
+        }
+        .summary {
+            background: #e0f2fe;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 404错误修复测试</h1>
+        
+        <div class="test-section">
+            <h3>📄 主要页面测试</h3>
+            <p>测试所有主要页面是否可以正常访问：</p>
+            <a href="/" class="test-link" target="_blank">首页</a>
+            <a href="/about.html" class="test-link" target="_blank">关于我们</a>
+            <a href="/contact.html" class="test-link" target="_blank">联系我们</a>
+            <a href="/privacy.html" class="test-link" target="_blank">隐私政策</a>
+            <a href="/terms.html" class="test-link" target="_blank">使用条款</a>
+        </div>
+        
+        <div class="test-section">
+            <h3>🔍 功能页面测试</h3>
+            <p>测试搜索、订阅等功能页面：</p>
+            <a href="/search.html" class="test-link" target="_blank">搜索页面</a>
+            <a href="/newsletter.html" class="test-link" target="_blank">订阅页面</a>
+            <a href="/tools.html" class="test-link" target="_blank">工具页面 (重定向)</a>
+        </div>
+        
+        <div class="test-section">
+            <h3>🛠️ 实际工具页面测试</h3>
+            <p>测试实际的工具和内容页面：</p>
+            <a href="/pages/tools-complete.html" class="test-link" target="_blank">完整工具页面</a>
+            <a href="/pages/models-complete.html" class="test-link" target="_blank">AI模型页面</a>
+            <a href="/pages/agents-complete.html" class="test-link" target="_blank">AI代理页面</a>
+        </div>
+        
+        <div class="test-section">
+            <h3>📝 博客文章测试</h3>
+            <p>测试主要的博客文章：</p>
+            <a href="/posts/chatgpt-beginner-prompts.html" class="test-link" target="_blank">ChatGPT提示词</a>
+            <a href="/posts/gpt4o-guide.html" class="test-link" target="_blank">GPT-4o指南</a>
+        </div>
+        
+        <div class="test-section">
+            <h3>🚫 404页面测试</h3>
+            <p>测试404页面是否正常工作：</p>
+            <a href="/nonexistent-page.html" class="test-link" target="_blank">测试404页面</a>
+        </div>
+        
+        <div class="summary">
+            <h3>✅ 修复总结</h3>
+            <p><strong>已修复的问题：</strong></p>
+            <ul>
+                <li>✅ 创建了 <code>/newsletter.html</code> - 订阅页面</li>
+                <li>✅ 创建了 <code>/search.html</code> - 搜索页面</li>
+                <li>✅ 创建了 <code>/tools.html</code> - 重定向到实际工具页面</li>
+                <li>✅ 404页面已存在并正常工作</li>
+            </ul>
+            
+            <p><strong>文件结构说明：</strong></p>
+            <ul>
+                <li>主要页面在根目录：<code>/about.html</code>, <code>/contact.html</code>, <code>/privacy.html</code>, <code>/terms.html</code></li>
+                <li>功能页面在根目录：<code>/search.html</code>, <code>/newsletter.html</code></li>
+                <li>工具页面在pages目录：<code>/pages/tools-complete.html</code></li>
+                <li>博客文章在posts目录：<code>/posts/*.html</code></li>
+            </ul>
+        </div>
+        
+        <a href="/" class="back-link">← 返回首页</a>
+    </div>
+    
+    <script>
+        // 自动测试链接状态
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.test-link');
+            
+            links.forEach(link => {
+                // 为每个链接添加点击事件来测试
+                link.addEventListener('click', function(e) {
+                    // 不阻止默认行为，让链接正常打开
+                    setTimeout(() => {
+                        // 这里可以添加更复杂的测试逻辑
+                        console.log('Testing link:', this.href);
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

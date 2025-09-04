@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search | MyAI - Find AI Tutorials & Tools</title>
+  <meta name="description" content="Search through our collection of AI tutorials, tool reviews, and prompt engineering guides.">
+  <link rel="canonical" href="https://www.aiblogs.tech/search.html">
+  <link rel="stylesheet" href="/partials/site-style.css">
+  
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --primary: #10b981;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .search-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .search-box {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 1.1rem;
+      background: var(--card-bg);
+      transition: border-color 0.2s ease;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+    
+    .search-filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card-bg);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .search-results {
+      margin-top: 2rem;
+    }
+    
+    .result-item {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease;
+    }
+    
+    .result-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    }
+    
+    .result-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .result-title a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    
+    .result-title a:hover {
+      text-decoration: underline;
+    }
+    
+    .result-excerpt {
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    
+    .result-meta {
+      font-size: 0.875rem;
+      color: var(--muted);
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--muted);
+    }
+    
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="search-header">
+      <h1>Search AI Tutorials & Tools</h1>
+      <p>Find exactly what you're looking for in our knowledge base</p>
+    </div>
+    
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" placeholder="Search for AI tutorials, tools, prompts..." id="searchInput">
+    </div>
+    
+    <div class="search-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="tutorials">Tutorials</button>
+      <button class="filter-btn" data-filter="tools">Tools</button>
+      <button class="filter-btn" data-filter="prompts">Prompts</button>
+      <button class="filter-btn" data-filter="guides">Guides</button>
+    </div>
+    
+    <div class="search-results" id="searchResults">
+      <!-- Default results -->
+      <div class="result-item" data-category="tutorials">
+        <div class="result-title">
+          <a href="/posts/chatgpt-beginner-prompts.html">10 ChatGPT Prompts to Instantly Level Up Your AI Game</a>
+        </div>
+        <div class="result-excerpt">Copy-paste prompts for better answers from day one. Perfect for beginners who want immediate results.</div>
+        <div class="result-meta">
+          <span>Tutorials</span>
+          <span>•</span>
+          <span>5 min read</span>
+          <span>•</span>
+          <span>Beginner</span>
+        </div>
+      </div>
+      
+      <div class="result-item" data-category="guides">
+        <div class="result-title">
+          <a href="/posts/gpt4o-guide.html">Complete Beginner's Guide to GPT-4o</a>
+        </div>
+        <div class="result-excerpt">Everything you need to know about OpenAI's flagship model: capabilities, pricing, and best prompts.</div>
+        <div class="result-meta">
+          <span>Guides</span>
+          <span>•</span>
+          <span>8 min read</span>
+          <span>•</span>
+          <span>Intermediate</span>
+        </div>
+      </div>
+      
+      <div class="result-item" data-category="tools">
+        <div class="result-title">
+          <a href="/pages/tools-complete.html">AI Tools Library</a>
+        </div>
+        <div class="result-excerpt">Comprehensive collection of 500+ AI tools across all categories. Find the perfect tool for your needs.</div>
+        <div class="result-meta">
+          <span>Tools</span>
+          <span>•</span>
+          <span>Tool Directory</span>
+          <span>•</span>
+          <span>500+ Tools</span>
+        </div>
+      </div>
+      
+      <div class="result-item" data-category="prompts">
+        <div class="result-title">
+          <a href="/posts/chatgpt-beginner-prompts.html">ChatGPT Prompt Collection</a>
+        </div>
+        <div class="result-excerpt">Copy-paste formulas for consistently better answers from any LLM. Bookmark this guide.</div>
+        <div class="result-meta">
+          <span>Prompts</span>
+          <span>•</span>
+          <span>15 min read</span>
+          <span>•</span>
+          <span>Advanced</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="no-results" id="noResults" style="display: none;">
+      <h3>No results found</h3>
+      <p>Try adjusting your search terms or browse our categories above.</p>
+    </div>
+    
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
+  
+  <script>
+    // Simple search functionality
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const noResults = document.getElementById('noResults');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const resultItems = document.querySelectorAll('.result-item');
+    
+    // Search functionality
+    searchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      let hasResults = false;
+      
+      resultItems.forEach(item => {
+        const title = item.querySelector('.result-title').textContent.toLowerCase();
+        const excerpt = item.querySelector('.result-excerpt').textContent.toLowerCase();
+        
+        if (title.includes(query) || excerpt.includes(query) || query === '') {
+          item.style.display = 'block';
+          hasResults = true;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      noResults.style.display = hasResults ? 'none' : 'block';
+      searchResults.style.display = hasResults ? 'block' : 'none';
+    });
+    
+    // Filter functionality
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const filter = this.dataset.filter;
+        let hasResults = false;
+        
+        resultItems.forEach(item => {
+          const category = item.dataset.category;
+          
+          if (filter === 'all' || category === filter) {
+            item.style.display = 'block';
+            hasResults = true;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        noResults.style.display = hasResults ? 'none' : 'block';
+        searchResults.style.display = hasResults ? 'block' : 'none';
+      });
+    });
+    
+    // Get search query from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('q');
+    if (query) {
+      searchInput.value = query;
+      searchInput.dispatchEvent(new Event('input'));
+    }
+  </script>
+</body>
+</html>

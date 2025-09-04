@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newsletter | MyAI - Weekly AI Updates</title>
+  <meta name="description" content="Subscribe to MyAI newsletter for weekly AI tutorials, tool reviews, and exclusive prompts delivered to your inbox.">
+  <link rel="canonical" href="https://www.aiblogs.tech/newsletter.html">
+  <link rel="stylesheet" href="/partials/site-style.css">
+  
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --primary: #10b981;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, var(--primary), #34d399);
+      color: white;
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    .newsletter-form {
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+      margin: -2rem auto 3rem;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    
+    .checkbox-group {
+      margin: 1.5rem 0;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    
+    .checkbox-item input[type="checkbox"] {
+      width: auto;
+      margin-right: 0.75rem;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    
+    .submit-btn:hover {
+      background: #059669;
+    }
+    
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .benefit-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
+      border: 1px solid var(--border);
+    }
+    
+    .benefit-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .benefit-card h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .testimonials {
+      margin: 3rem 0;
+    }
+    
+    .testimonial {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--primary);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .privacy-note {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .newsletter-form {
+        padding: 2rem;
+        margin: -1rem 1rem 2rem;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="container">
+      <h1>Join 2,000+ AI Enthusiasts</h1>
+      <p>Get weekly AI tutorials, exclusive prompts, and tool reviews delivered straight to your inbox. No spam, unsubscribe anytime.</p>
+    </div>
+  </div>
+  
+  <div class="container">
+    <form class="newsletter-form" action="https://formspree.io/f/yourFormID" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name *</label>
+          <input type="text" id="firstName" name="firstName" required>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="role">What best describes you?</label>
+        <select id="role" name="role">
+          <option value="">Select your role</option>
+          <option value="content-creator">Content Creator</option>
+          <option value="marketer">Marketer</option>
+          <option value="entrepreneur">Entrepreneur</option>
+          <option value="developer">Developer</option>
+          <option value="student">Student</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      
+      <div class="checkbox-group">
+        <label>What are you most interested in? (Select all that apply)</label>
+        <div class="checkbox-item">
+          <input type="checkbox" id="tutorials" name="interests" value="tutorials">
+          <label for="tutorials">AI Tutorials & Guides</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="tools" name="interests" value="tools">
+          <label for="tools">Tool Reviews & Recommendations</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="prompts" name="interests" value="prompts">
+          <label for="prompts">Prompt Engineering Tips</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="news" name="interests" value="news">
+          <label for="news">AI Industry News</label>
+        </div>
+      </div>
+      
+      <button type="submit" class="submit-btn">Subscribe to Newsletter</button>
+      
+      <div class="privacy-note">
+        <strong>Privacy Promise:</strong> We respect your privacy. Your email will never be shared, and you can unsubscribe at any time. Read our <a href="/privacy.html">Privacy Policy</a>.
+      </div>
+    </form>
+    
+    <div class="benefits">
+      <div class="benefit-card">
+        <div class="benefit-icon">📚</div>
+        <h3>Weekly Tutorials</h3>
+        <p>Step-by-step guides to master the latest AI tools and techniques.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🛠️</div>
+        <h3>Tool Reviews</h3>
+        <p>Honest reviews of AI tools to help you choose the right ones for your needs.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💡</div>
+        <h3>Exclusive Prompts</h3>
+        <p>Subscriber-only prompt templates and engineering techniques.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🚀</div>
+        <h3>Early Access</h3>
+        <p>Be the first to know about new content and exclusive resources.</p>
+      </div>
+    </div>
+    
+    <div class="testimonials">
+      <h2 style="text-align: center; margin-bottom: 2rem;">What Subscribers Say</h2>
+      
+      <div class="testimonial">
+        <div class="testimonial-text">
+          "MyAI's newsletter is the highlight of my week. The prompts alone have saved me hours of work!"
+        </div>
+        <div class="testimonial-author">- Sarah Chen, Content Creator</div>
+      </div>
+      
+      <div class="testimonial">
+        <div class="testimonial-text">
+          "Finally, AI content that's actually actionable. No fluff, just practical tips I can use immediately."
+        </div>
+        <div class="testimonial-author">- Mike Rodriguez, Marketing Manager</div>
+      </div>
+      
+      <div class="testimonial">
+        <div class="testimonial-text">
+          "The tool reviews have helped me discover amazing AI tools I never would have found otherwise."
+        </div>
+        <div class="testimonial-author">- Emma Thompson, Entrepreneur</div>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin: 3rem 0;">
+      <a href="/" style="color: var(--primary); text-decoration: none; font-weight: 600;">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
