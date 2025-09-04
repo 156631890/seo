@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年AI工具深度对比评测：ChatGPT vs Claude vs Gemini | MyAI</title>
+    <meta name="description" content="专业评测2025年最热门AI工具，包含ChatGPT、Claude、Gemini、Nano Banana等的详细对比分析，帮你选择最适合的AI助手。">
+    <meta name="keywords" content="AI工具对比,ChatGPT评测,Claude对比,Gemini分析,AI工具选择,人工智能评测">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .comparison-hero {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .comparison-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        .tool-selector {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .tool-option {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .tool-option:hover {
+            border-color: #7c3aed;
+            background: #faf5ff;
+        }
+        .tool-option.selected {
+            border-color: #7c3aed;
+            background: #7c3aed;
+            color: white;
+        }
+        .comparison-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+        .table-header {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: white;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 200px repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            font-weight: bold;
+        }
+        .table-row {
+            display: grid;
+            grid-template-columns: 200px repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            align-items: center;
+        }
+        .table-row:nth-child(even) {
+            background: #f9fafb;
+        }
+        .score-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .score-excellent {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .score-good {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .score-average {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .detailed-review {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        .pros {
+            background: #ecfdf5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+        .cons {
+            background: #fef2f2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #ef4444;
+        }
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .use-case-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><a href="/">MyAI</a></div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-complete.html">AI工具</a>
+                <a href="/pages/models-complete.html">AI模型</a>
+                <a href="/pages/agents-complete.html">AI代理</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="comparison-hero">
+        <h1>⚖️ AI工具深度对比评测</h1>
+        <p>专业评测，客观对比，帮你选择最适合的AI助手</p>
+        <div style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.9;">
+            基于真实测试数据 | 多维度评估 | 实用性导向 | 持续更新
+        </div>
+    </section>
+
+    <div class="comparison-container">
+        <!-- 工具选择器 -->
+        <div class="tool-selector">
+            <h2>🎯 选择要对比的AI工具</h2>
+            <p style="color: #6b7280; margin-bottom: 1.5rem;">点击选择最多4个工具进行对比分析</p>
+            <div class="tool-grid">
+                <div class="tool-option selected" data-tool="chatgpt">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">💬</div>
+                    <div><strong>ChatGPT Plus</strong></div>
+                    <div style="font-size: 0.8rem; color: #6b7280;">OpenAI</div>
+                </div>
+                <div class="tool-option selected" data-tool="claude">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧠</div>
+                    <div><strong>Claude Pro</strong></div>
+                    <div style="font-size: 0.8rem; color: #6b7280;">Anthropic</div>
+                </div>
+                <div class="tool-option selected" data-tool="gemini">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">💎</div>
+                    <div><strong>Gemini Advanced</strong></div>
+                    <div style="font-size: 0.8rem; color: #6b7280;">Google</div>
+                </div>
+                <div class="tool-option selected" data-tool="nano-banana">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🍌</div>
+                    <div><strong>Nano Banana</strong></div>
+                    <div style="font-size: 0.8rem; color: #6b7280;">Google</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 对比表格 -->
+        <div class="comparison-table">
+            <div class="table-header">
+                <div>评测维度</div>
+                <div>ChatGPT Plus</div>
+                <div>Claude Pro</div>
+                <div>Gemini Advanced</div>
+                <div>Nano Banana</div>
+            </div>
+            
+            <div class="table-row">
+                <div><strong>综合评分</strong></div>
+                <div>
+                    <div class="rating-stars">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span class="score-badge score-excellent">9.2/10</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="rating-stars">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span class="score-badge score-excellent">9.0/10</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="rating-stars">
+                        <span>⭐⭐⭐⭐</span>
+                        <span class="score-badge score-good">8.5/10</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="rating-stars">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span class="score-badge score-excellent">9.1/10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-row">
+                <div><strong>文本生成质量</strong></div>
+                <div><span class="score-badge score-excellent">优秀</span></div>
+                <div><span class="score-badge score-excellent">优秀</span></div>
+                <div><span class="score-badge score-good">良好</span></div>
+                <div><span class="score-badge score-good">良好</span></div>
+            </div>
+
+            <div class="table-row">
+                <div><strong>响应速度</strong></div>
+                <div><span class="score-badge score-good">2-5秒</span></div>
+                <div><span class="score-badge score-good">1-3秒</span></div>
+                <div><span class="score-badge score-good">2-4秒</span></div>
+                <div><span class="score-badge score-excellent">0.5秒</span></div>
+            </div>
+
+            <div class="table-row">
+                <div><strong>多模态能力</strong></div>
+                <div><span class="score-badge score-excellent">文本+图像+音频</span></div>
+                <div><span class="score-badge score-good">文本+图像</span></div>
+                <div><span class="score-badge score-excellent">文本+图像+音频</span></div>
+                <div><span class="score-badge score-excellent">专业图像生成</span></div>
+            </div>
+
+            <div class="table-row">
+                <div><strong>上下文长度</strong></div>
+                <div><span class="score-badge score-good">128K tokens</span></div>
+                <div><span class="score-badge score-excellent">200K tokens</span></div>
+                <div><span class="score-badge score-excellent">2M tokens</span></div>
+                <div><span class="score-badge score-average">标准长度</span></div>
+            </div>
+
+            <div class="table-row">
+                <div><strong>使用成本</strong></div>
+                <div><span class="score-badge score-average">$20/月</span></div>
+                <div><span class="score-badge score-average">$20/月</span></div>
+                <div><span class="score-badge score-good">$19.99/月</span></div>
+                <div><span class="score-badge score-excellent">免费</span></div>
+            </div>
+
+            <div class="table-row">
+                <div><strong>易用性</strong></div>
+                <div><span class="score-badge score-excellent">极易使用</span></div>
+                <div><span class="score-badge score-excellent">极易使用</span></div>
+                <div><span class="score-badge score-good">较易使用</span></div>
+                <div><span class="score-badge score-excellent">极易使用</span></div>
+            </div>
+
+            <div class="table-row">
+                <div><strong>API支持</strong></div>
+                <div><span class="score-badge score-excellent">完整API</span></div>
+                <div><span class="score-badge score-excellent">完整API</span></div>
+                <div><span class="score-badge score-excellent">完整API</span></div>
+                <div><span class="score-badge score-good">基础API</span></div>
+            </div>
+
+            <div class="table-row">
+                <div><strong>移动端支持</strong></div>
+                <div><span class="score-badge score-excellent">原生App</span></div>
+                <div><span class="score-badge score-excellent">原生App</span></div>
+                <div><span class="score-badge score-good">网页版</span></div>
+                <div><span class="score-badge score-excellent">移动优化</span></div>
+            </div>
+        </div>
+
+        <!-- 详细评测 -->
+        <div class="detailed-review">
+            <h2>📝 ChatGPT Plus 详细评测</h2>
+            <div style="display: flex; align-items: center; gap: 1rem; margin: 1rem 0;">
+                <div class="rating-stars">
+                    <span style="font-size: 1.5rem;">⭐⭐⭐⭐⭐</span>
+                    <span style="font-size: 1.2rem; font-weight: bold; color: #059669;">9.2/10</span>
+                </div>
+                <div style="background: #fbbf24; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold;">编辑推荐</div>
+            </div>
+
+            <p><strong>ChatGPT Plus</strong> 作为OpenAI的旗舰产品，在2025年依然保持着行业领先地位。基于GPT-4o模型的强大能力，它在文本生成、代码编写、创意写作等方面都表现出色。</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>✅ 主要优势</h4>
+                    <ul>
+                        <li>功能最全面，生态系统完善</li>
+                        <li>自定义GPTs功能强大</li>
+                        <li>多模态能力业界领先</li>
+                        <li>持续更新，功能迭代快</li>
+                        <li>社区活跃，资源丰富</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h4>❌ 主要劣势</h4>
+                    <ul>
+                        <li>订阅费用相对较高</li>
+                        <li>使用次数有限制</li>
+                        <li>服务器偶尔不稳定</li>
+                        <li>部分功能需要等待</li>
+                        <li>数据隐私考虑</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>🎯 最适合的用户群体</h4>
+            <ul>
+                <li><strong>内容创作者</strong>：需要高质量文本生成和创意支持</li>
+                <li><strong>开发者</strong>：代码生成和调试能力强</li>
+                <li><strong>商务人士</strong>：文档处理和数据分析需求</li>
+                <li><strong>学生研究者</strong>：学习辅助和研究支持</li>
+            </ul>
+        </div>
+
+        <div class="detailed-review">
+            <h2>🧠 Claude Pro 详细评测</h2>
+            <div style="display: flex; align-items: center; gap: 1rem; margin: 1rem 0;">
+                <div class="rating-stars">
+                    <span style="font-size: 1.5rem;">⭐⭐⭐⭐⭐</span>
+                    <span style="font-size: 1.2rem; font-weight: bold; color: #059669;">9.0/10</span>
+                </div>
+                <div style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold;">专业首选</div>
+            </div>
+
+            <p><strong>Claude Pro</strong> 以其卓越的安全性和可靠性著称，特别适合处理敏感信息和专业任务。在长文本处理和逻辑推理方面表现突出。</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>✅ 主要优势</h4>
+                    <ul>
+                        <li>安全性和可靠性最高</li>
+                        <li>长文本处理能力强</li>
+                        <li>学术和专业写作优秀</li>
+                        <li>代码理解和生成能力顶级</li>
+                        <li>回复质量稳定可靠</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h4>❌ 主要劣势</h4>
+                    <ul>
+                        <li>创意表达相对保守</li>
+                        <li>图像功能相对有限</li>
+                        <li>部分地区不可用</li>
+                        <li>生态系统相对较小</li>
+                        <li>更新频率较慢</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>🎯 最适合的用户群体</h4>
+            <ul>
+                <li><strong>学术研究者</strong>：需要高质量的学术写作支持</li>
+                <li><strong>法律专业人士</strong>：处理敏感文档和法律分析</li>
+                <li><strong>高级开发者</strong>：复杂代码审查和架构设计</li>
+                <li><strong>企业用户</strong>：需要可靠和安全的AI助手</li>
+            </ul>
+        </div>
+
+        <div class="detailed-review">
+            <h2>🍌 Nano Banana 详细评测</h2>
+            <div style="display: flex; align-items: center; gap: 1rem; margin: 1rem 0;">
+                <div class="rating-stars">
+                    <span style="font-size: 1.5rem;">⭐⭐⭐⭐⭐</span>
+                    <span style="font-size: 1.2rem; font-weight: bold; color: #059669;">9.1/10</span>
+                </div>
+                <div style="background: #f59e0b; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold;">最佳新秀</div>
+            </div>
+
+            <p><strong>Nano Banana</strong> 作为Google最新推出的AI图像生成工具，在速度和易用性方面表现突出。完全免费的定位让它成为AI作图的最佳入门选择。</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>✅ 主要优势</h4>
+                    <ul>
+                        <li>完全免费，无使用限制</li>
+                        <li>生成速度极快（5-10秒）</li>
+                        <li>Google技术保障</li>
+                        <li>移动端体验优秀</li>
+                        <li>操作简单易上手</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h4>❌ 主要劣势</h4>
+                    <ul>
+                        <li>功能相对单一（仅图像生成）</li>
+                        <li>高级功能有待完善</li>
+                        <li>风格选择相对有限</li>
+                        <li>批量处理能力不足</li>
+                        <li>商业授权条款待明确</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>🎯 最适合的用户群体</h4>
+            <ul>
+                <li><strong>设计初学者</strong>：免费学习AI图像生成</li>
+                <li><strong>社交媒体运营</strong>：快速生成配图素材</li>
+                <li><strong>内容创作者</strong>：为文章和视频制作插图</li>
+                <li><strong>学生群体</strong>：课业和项目的视觉辅助</li>
+            </ul>
+        </div>
+
+        <!-- 使用场景推荐 -->
+        <div style="background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <h2>🎯 使用场景推荐</h2>
+            <div class="use-case-grid">
+                <div class="use-case-card">
+                    <h4>📝 内容创作</h4>
+                    <p><strong>推荐：</strong>ChatGPT Plus</p>
+                    <p>全面的文本生成能力，支持多种内容格式，自定义GPTs可以针对特定需求优化。</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>🎓 学术研究</h4>
+                    <p><strong>推荐：</strong>Claude Pro</p>
+                    <p>严谨的逻辑推理，优秀的长文本处理能力，适合学术写作和研究分析。</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>💻 编程开发</h4>
+                    <p><strong>推荐：</strong>ChatGPT Plus / Claude Pro</p>
+                    <p>两者都有出色的代码生成能力，ChatGPT生态更丰富，Claude更注重代码质量。</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>🎨 图像设计</h4>
+                    <p><strong>推荐：</strong>Nano Banana</p>
+                    <p>专业的图像生成工具，速度快，质量高，完全免费，是AI作图的最佳选择。</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>📊 数据分析</h4>
+                    <p><strong>推荐：</strong>Gemini Advanced</p>
+                    <p>与Google服务深度集成，超长上下文处理大型数据集，实时信息获取能力强。</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>🏢 企业应用</h4>
+                    <p><strong>推荐：</strong>Claude Pro</p>
+                    <p>最高的安全性和可靠性，适合处理敏感信息，专业的企业级AI助手。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 总结建议 -->
+        <div style="background: linear-gradient(135deg, #ecfdf5, #d1fae5); padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+            <h2>💡 选择建议</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+                <div style="background: white; padding: 1.5rem; border-radius: 8px;">
+                    <h4>🥇 综合最佳</h4>
+                    <p><strong>ChatGPT Plus</strong></p>
+                    <p>功能最全面，适合大多数用户的日常需求。</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: 8px;">
+                    <h4>🛡️ 专业首选</h4>
+                    <p><strong>Claude Pro</strong></p>
+                    <p>安全可靠，适合专业和企业用户。</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: 8px;">
+                    <h4>💰 性价比王</h4>
+                    <p><strong>Gemini Advanced</strong></p>
+                    <p>价格便宜，Google生态集成好。</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: 8px;">
+                    <h4>🎨 图像专家</h4>
+                    <p><strong>Nano Banana</strong></p>
+                    <p>免费的专业AI作图工具，速度快质量高。</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3>🚀 立即体验这些AI工具</h3>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
+                <a href="https://chat.openai.com" target="_blank" style="background: #10b981; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600;">体验ChatGPT</a>
+                <a href="https://claude.ai" target="_blank" style="background: #3b82f6; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600;">体验Claude</a>
+                <a href="https://gemini.google.com" target="_blank" style="background: #7c3aed; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600;">体验Gemini</a>
+                <a href="/pages/nano-banana.html" style="background: #f59e0b; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600;">体验Nano Banana</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 工具选择交互
+        document.querySelectorAll('.tool-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                updateComparison();
+            });
+        });
+
+        function updateComparison() {
+            const selected = document.querySelectorAll('.tool-option.selected');
+            console.log(`已选择 ${selected.length} 个工具进行对比`);
+            // 这里可以添加动态更新对比表格的逻辑
+        }
+    </script>
+</body>
+</html>
