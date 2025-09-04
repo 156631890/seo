@@ -63,6 +63,33 @@
             margin-bottom: 0.5rem;
             display: inline-block;
         }
+        .featured-card {
+            background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+            border: 3px solid #f59e0b;
+            position: relative;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        .featured-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ef4444;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes glow {
+            from { box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3); }
+            to { box-shadow: 0 8px 30px rgba(251, 191, 36, 0.6); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
     </style>
 </head>
 <body>
@@ -92,6 +119,20 @@
     <script>
         // 直接内嵌模型数据，确保显示
         const aiModels = [
+            {
+                id: 'nano-banana',
+                name: 'Nano Banana',
+                provider: 'Banana Labs',
+                type: '革命性轻量级AI模型',
+                description: '🔥 2025年最具突破性的轻量级AI模型！专为移动设备和边缘计算设计，在保持强大功能的同时实现了前所未有的轻量化。完美解决了AI模型部署的最后一公里问题！',
+                features: ['🚀 超轻量级', '📱 移动优先', '⚡ 边缘计算', '🔋 超低功耗', '💨 毫秒响应', '🌍 离线可用'],
+                rating: 4.8,
+                pricing: '🎉 完全免费',
+                icon: '🍌',
+                url: 'https://banana.dev',
+                isNew: true,
+                featured: true
+            },
             {
                 id: 'gpt-4o',
                 name: 'GPT-4o',
@@ -253,7 +294,8 @@
         function renderModels() {
             const grid = document.getElementById('models-grid');
             grid.innerHTML = aiModels.map(model => `
-                <div class="model-card">
+                <div class="model-card ${model.featured ? 'featured-card' : ''}">
+                    ${model.featured ? '<div class="featured-badge">🔥 重点推荐</div>' : ''}
                     <div class="model-header">
                         <div class="model-icon">${model.icon}</div>
                         <div>
