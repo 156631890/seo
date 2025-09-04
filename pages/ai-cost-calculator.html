@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具成本计算器 - 精准计算你的AI投资回报率 | MyAI</title>
+    <meta name="description" content="专业的AI工具成本效益分析工具，帮你计算不同AI工具的真实成本、ROI和最优组合方案。支持多工具对比和个性化预算规划。">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .calculator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .calculator-hero {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+        }
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .input-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .results-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .tool-selector {
+            margin-bottom: 2rem;
+        }
+        .tool-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+        .tool-item:hover {
+            border-color: #059669;
+        }
+        .tool-item.selected {
+            border-color: #059669;
+            background: #ecfdf5;
+        }
+        .tool-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .tool-icon {
+            font-size: 2rem;
+        }
+        .usage-input {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .cost-breakdown {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .cost-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #059669;
+        }
+        .roi-chart {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .roi-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #059669;
+            margin-bottom: 0.5rem;
+        }
+        .savings-highlight {
+            background: linear-gradient(135deg, #fef3c7, #fbbf24);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .comparison-table th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+        .recommendation-box {
+            background: linear-gradient(135deg, #dbeafe, #3b82f6);
+            color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        .slider-container {
+            margin: 1rem 0;
+        }
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #e5e7eb;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #059669;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><a href="/">MyAI</a></div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-complete.html">AI工具</a>
+                <a href="/pages/models-complete.html">AI模型</a>
+                <a href="/pages/agents-complete.html">AI代理</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="calculator-container">
+        <div class="calculator-hero">
+            <h1>💰 AI工具成本计算器</h1>
+            <p>精准计算AI投资回报率，找到最优成本效益方案</p>
+            <div style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.9;">
+                支持多工具对比 | ROI分析 | 成本优化建议 | 完全免费
+            </div>
+        </div>
+
+        <div class="calculator-grid">
+            <!-- 输入面板 -->
+            <div class="input-panel">
+                <h2>📊 配置你的使用场景</h2>
+                
+                <div class="input-group">
+                    <label>👥 团队规模</label>
+                    <select id="teamSize">
+                        <option value="1">个人用户</option>
+                        <option value="5">小团队 (2-10人)</option>
+                        <option value="25">中型团队 (11-50人)</option>
+                        <option value="100">大型团队 (50+人)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>⏰ 每日使用时长</label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="dailyHours" min="0.5" max="8" step="0.5" value="2">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #6b7280;">
+                            <span>0.5小时</span>
+                            <span id="hoursDisplay">2小时</span>
+                            <span>8小时</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>💵 当前人工成本 (每小时)</label>
+                    <input type="number" id="hourlyRate" value="50" min="10" max="500">
+                </div>
+
+                <div class="input-group">
+                    <label>📈 期望效率提升</label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="efficiencyGain" min="10" max="300" step="10" value="50">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #6b7280;">
+                            <span>10%</span>
+                            <span id="efficiencyDisplay">50%</span>
+                            <span>300%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-selector">
+                    <h3>🛠️ 选择AI工具</h3>
+                    <div id="toolList">
+                        <!-- 工具列表将通过JavaScript生成 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 结果面板 -->
+            <div class="results-panel">
+                <h2>📈 成本效益分析</h2>
+                
+                <div class="roi-chart">
+                    <div class="roi-value" id="roiValue">0%</div>
+                    <div>投资回报率 (ROI)</div>
+                    <div style="font-size: 0.9rem; color: #6b7280; margin-top: 0.5rem;">
+                        回本周期: <span id="paybackPeriod">-</span>
+                    </div>
+                </div>
+
+                <div class="cost-breakdown">
+                    <h3>💰 成本分析</h3>
+                    <div class="cost-item">
+                        <span>AI工具月费用</span>
+                        <span id="monthlyToolCost">$0</span>
+                    </div>
+                    <div class="cost-item">
+                        <span>当前人工成本</span>
+                        <span id="currentLaborCost">$0</span>
+                    </div>
+                    <div class="cost-item">
+                        <span>效率提升节省</span>
+                        <span id="efficiencySavings" style="color: #059669;">$0</span>
+                    </div>
+                    <div class="cost-item">
+                        <span>净节省 (月)</span>
+                        <span id="netSavings">$0</span>
+                    </div>
+                </div>
+
+                <div class="savings-highlight">
+                    <h3 style="margin: 0 0 1rem 0; color: #92400e;">💡 年度节省预估</h3>
+                    <div style="font-size: 2rem; font-weight: bold; color: #92400e;" id="annualSavings">$0</div>
+                </div>
+
+                <div id="recommendationBox" class="recommendation-box" style="display: none;">
+                    <h3>🎯 优化建议</h3>
+                    <div id="recommendations"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 详细对比表 -->
+        <div class="input-panel" style="grid-column: 1 / -1;">
+            <h2>📊 工具对比分析</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>AI工具</th>
+                        <th>月费用</th>
+                        <th>效率提升</th>
+                        <th>月节省</th>
+                        <th>年ROI</th>
+                        <th>推荐指数</th>
+                    </tr>
+                </thead>
+                <tbody id="comparisonTableBody">
+                    <!-- 对比数据将通过JavaScript生成 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // AI工具数据
+        const aiToolsData = {
+            'nano-banana': {
+                name: 'Nano Banana',
+                icon: '🍌',
+                monthlyPrice: 0,
+                efficiencyBoost: 80,
+                category: 'design',
+                description: 'Google免费AI图像生成工具'
+            },
+            'chatgpt-plus': {
+                name: 'ChatGPT Plus',
+                icon: '💬',
+                monthlyPrice: 20,
+                efficiencyBoost: 60,
+                category: 'general',
+                description: 'OpenAI全能AI助手'
+            },
+            'claude-pro': {
+                name: 'Claude Pro',
+                icon: '🧠',
+                monthlyPrice: 20,
+                efficiencyBoost: 65,
+                category: 'professional',
+                description: 'Anthropic专业AI助手'
+            },
+            'gemini-advanced': {
+                name: 'Gemini Advanced',
+                icon: '💎',
+                monthlyPrice: 19.99,
+                efficiencyBoost: 55,
+                category: 'research',
+                description: 'Google高级AI助手'
+            },
+            'github-copilot': {
+                name: 'GitHub Copilot',
+                icon: '💻',
+                monthlyPrice: 10,
+                efficiencyBoost: 40,
+                category: 'coding',
+                description: 'AI编程助手'
+            },
+            'midjourney': {
+                name: 'Midjourney',
+                icon: '🎨',
+                monthlyPrice: 30,
+                efficiencyBoost: 90,
+                category: 'design',
+                description: '专业AI图像生成'
+            }
+        };
+
+        let selectedTools = ['nano-banana', 'chatgpt-plus'];
+        let calculationParams = {
+            teamSize: 1,
+            dailyHours: 2,
+            hourlyRate: 50,
+            efficiencyGain: 50
+        };
+
+        function initializeCalculator() {
+            renderToolList();
+            setupEventListeners();
+            calculateCosts();
+        }
+
+        function renderToolList() {
+            const toolList = document.getElementById('toolList');
+            toolList.innerHTML = Object.keys(aiToolsData).map(toolId => {
+                const tool = aiToolsData[toolId];
+                const isSelected = selectedTools.includes(toolId);
+                return `
+                    <div class="tool-item ${isSelected ? 'selected' : ''}" data-tool="${toolId}">
+                        <div class="tool-info">
+                            <div class="tool-icon">${tool.icon}</div>
+                            <div>
+                                <div style="font-weight: 600;">${tool.name}</div>
+                                <div style="font-size: 0.9rem; color: #6b7280;">${tool.description}</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 600; color: ${tool.monthlyPrice === 0 ? '#059669' : '#374151'};">
+                                ${tool.monthlyPrice === 0 ? '免费' : '$' + tool.monthlyPrice + '/月'}
+                            </div>
+                            <div style="font-size: 0.8rem; color: #6b7280;">
+                                效率提升: ${tool.efficiencyBoost}%
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function setupEventListeners() {
+            // 工具选择
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.tool-item')) {
+                    const toolItem = e.target.closest('.tool-item');
+                    const toolId = toolItem.dataset.tool;
+                    
+                    if (selectedTools.includes(toolId)) {
+                        selectedTools = selectedTools.filter(id => id !== toolId);
+                        toolItem.classList.remove('selected');
+                    } else {
+                        selectedTools.push(toolId);
+                        toolItem.classList.add('selected');
+                    }
+                    calculateCosts();
+                }
+            });
+
+            // 参数变化
+            document.getElementById('teamSize').addEventListener('change', function() {
+                calculationParams.teamSize = parseInt(this.value);
+                calculateCosts();
+            });
+
+            document.getElementById('dailyHours').addEventListener('input', function() {
+                calculationParams.dailyHours = parseFloat(this.value);
+                document.getElementById('hoursDisplay').textContent = this.value + '小时';
+                calculateCosts();
+            });
+
+            document.getElementById('hourlyRate').addEventListener('input', function() {
+                calculationParams.hourlyRate = parseFloat(this.value);
+                calculateCosts();
+            });
+
+            document.getElementById('efficiencyGain').addEventListener('input', function() {
+                calculationParams.efficiencyGain = parseInt(this.value);
+                document.getElementById('efficiencyDisplay').textContent = this.value + '%';
+                calculateCosts();
+            });
+        }
+
+        function calculateCosts() {
+            if (selectedTools.length === 0) {
+                resetResults();
+                return;
+            }
+
+            // 计算总工具成本
+            const totalToolCost = selectedTools.reduce((sum, toolId) => {
+                return sum + aiToolsData[toolId].monthlyPrice;
+            }, 0) * calculationParams.teamSize;
+
+            // 计算当前人工成本
+            const monthlyWorkHours = calculationParams.dailyHours * 22; // 22个工作日
+            const currentLaborCost = monthlyWorkHours * calculationParams.hourlyRate * calculationParams.teamSize;
+
+            // 计算效率提升
+            const avgEfficiencyBoost = selectedTools.reduce((sum, toolId) => {
+                return sum + aiToolsData[toolId].efficiencyBoost;
+            }, 0) / selectedTools.length;
+
+            const actualEfficiencyGain = Math.min(avgEfficiencyBoost, calculationParams.efficiencyGain);
+            const efficiencySavings = currentLaborCost * (actualEfficiencyGain / 100);
+            const netSavings = efficiencySavings - totalToolCost;
+            const annualSavings = netSavings * 12;
+            const roi = totalToolCost > 0 ? (annualSavings / (totalToolCost * 12)) * 100 : 0;
+            const paybackMonths = totalToolCost > 0 ? (totalToolCost / Math.max(netSavings, 0.01)) : 0;
+
+            // 更新显示
+            document.getElementById('monthlyToolCost').textContent = '$' + totalToolCost.toFixed(0);
+            document.getElementById('currentLaborCost').textContent = '$' + currentLaborCost.toFixed(0);
+            document.getElementById('efficiencySavings').textContent = '$' + efficiencySavings.toFixed(0);
+            document.getElementById('netSavings').textContent = '$' + netSavings.toFixed(0);
+            document.getElementById('annualSavings').textContent = '$' + annualSavings.toFixed(0);
+            document.getElementById('roiValue').textContent = roi.toFixed(0) + '%';
+            
+            if (paybackMonths < 12) {
+                document.getElementById('paybackPeriod').textContent = paybackMonths.toFixed(1) + '个月';
+            } else {
+                document.getElementById('paybackPeriod').textContent = (paybackMonths / 12).toFixed(1) + '年';
+            }
+
+            // 生成建议
+            generateRecommendations(roi, netSavings, totalToolCost);
+            
+            // 更新对比表
+            updateComparisonTable();
+        }
+
+        function generateRecommendations(roi, netSavings, totalToolCost) {
+            const recommendationBox = document.getElementById('recommendationBox');
+            const recommendations = document.getElementById('recommendations');
+            
+            let advice = [];
+            
+            if (roi > 200) {
+                advice.push('🎉 优秀的投资选择！ROI超过200%，强烈推荐实施。');
+            } else if (roi > 100) {
+                advice.push('✅ 良好的投资回报，建议采用当前方案。');
+            } else if (roi > 0) {
+                advice.push('⚠️ 投资回报较低，建议优化工具组合或使用场景。');
+            } else {
+                advice.push('❌ 当前方案成本过高，建议重新评估需求。');
+            }
+
+            if (selectedTools.includes('nano-banana')) {
+                advice.push('💡 Nano Banana完全免费，是提升ROI的最佳选择！');
+            }
+
+            if (totalToolCost > netSavings) {
+                advice.push('💰 考虑选择更多免费工具或降低团队规模。');
+            }
+
+            if (advice.length > 0) {
+                recommendations.innerHTML = advice.map(item => `<div style="margin-bottom: 0.5rem;">${item}</div>`).join('');
+                recommendationBox.style.display = 'block';
+            } else {
+                recommendationBox.style.display = 'none';
+            }
+        }
+
+        function updateComparisonTable() {
+            const tbody = document.getElementById('comparisonTableBody');
+            tbody.innerHTML = selectedTools.map(toolId => {
+                const tool = aiToolsData[toolId];
+                const toolCost = tool.monthlyPrice * calculationParams.teamSize;
+                const monthlyWorkHours = calculationParams.dailyHours * 22;
+                const currentLaborCost = monthlyWorkHours * calculationParams.hourlyRate * calculationParams.teamSize;
+                const savings = currentLaborCost * (tool.efficiencyBoost / 100) - toolCost;
+                const annualROI = toolCost > 0 ? (savings * 12 / (toolCost * 12)) * 100 : Infinity;
+                
+                let recommendationScore = '⭐⭐⭐⭐⭐';
+                if (annualROI < 50) recommendationScore = '⭐⭐';
+                else if (annualROI < 100) recommendationScore = '⭐⭐⭐';
+                else if (annualROI < 200) recommendationScore = '⭐⭐⭐⭐';
+
+                return `
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span>${tool.icon}</span>
+                                <span>${tool.name}</span>
+                            </div>
+                        </td>
+                        <td>${toolCost === 0 ? '免费' : '$' + toolCost}</td>
+                        <td>${tool.efficiencyBoost}%</td>
+                        <td style="color: ${savings > 0 ? '#059669' : '#dc2626'};">
+                            $${savings.toFixed(0)}
+                        </td>
+                        <td style="color: ${annualROI > 0 ? '#059669' : '#dc2626'};">
+                            ${annualROI === Infinity ? '∞' : annualROI.toFixed(0) + '%'}
+                        </td>
+                        <td>${recommendationScore}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function resetResults() {
+            document.getElementById('monthlyToolCost').textContent = '$0';
+            document.getElementById('currentLaborCost').textContent = '$0';
+            document.getElementById('efficiencySavings').textContent = '$0';
+            document.getElementById('netSavings').textContent = '$0';
+            document.getElementById('annualSavings').textContent = '$0';
+            document.getElementById('roiValue').textContent = '0%';
+            document.getElementById('paybackPeriod').textContent = '-';
+            document.getElementById('recommendationBox').style.display = 'none';
+            document.getElementById('comparisonTableBody').innerHTML = '';
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', initializeCalculator);
+    </script>
+</body>
+</html>

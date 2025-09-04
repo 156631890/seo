@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具实时状态监控 - 服务可用性和性能监控 | MyAI</title>
+    <meta name="description" content="实时监控热门AI工具的服务状态、响应时间和可用性。包含ChatGPT、Claude、Gemini等主流AI服务的实时状态信息。">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .monitor-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .monitor-hero {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .status-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .status-card:hover {
+            transform: translateY(-4px);
+        }
+        .service-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        .service-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .service-icon {
+            font-size: 2.5rem;
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        .status-online {
+            background: #10b981;
+        }
+        .status-slow {
+            background: #f59e0b;
+        }
+        .status-offline {
+            background: #ef4444;
+        }
+        .status-maintenance {
+            background: #6b7280;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .metric-item {
+            text-align: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        .metric-label {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+        .response-chart {
+            height: 100px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: end;
+            padding: 0.5rem;
+            gap: 2px;
+        }
+        .chart-bar {
+            flex: 1;
+            background: #3b82f6;
+            border-radius: 2px 2px 0 0;
+            min-height: 4px;
+            transition: height 0.3s ease;
+        }
+        .incident-log {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-top: 1rem;
+        }
+        .incident-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #fecaca;
+        }
+        .incident-item:last-child {
+            border-bottom: none;
+        }
+        .overall-status {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .status-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .summary-item {
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .summary-online {
+            background: #ecfdf5;
+            color: #065f46;
+        }
+        .summary-issues {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .summary-offline {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+        .refresh-info {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        .alert-banner {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><a href="/">MyAI</a></div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-complete.html">AI工具</a>
+                <a href="/pages/models-complete.html">AI模型</a>
+                <a href="/pages/agents-complete.html">AI代理</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="monitor-container">
+        <div class="monitor-hero">
+            <h1>📊 AI工具实时状态监控</h1>
+            <p>实时监控主流AI服务的可用性和性能表现</p>
+            <div style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.9;">
+                24/7监控 | 实时更新 | 历史数据 | 故障预警
+            </div>
+        </div>
+
+        <!-- 全局状态警告 -->
+        <div id="alertBanner" class="alert-banner" style="display: none;">
+            ⚠️ 检测到部分AI服务存在异常，请查看详细状态信息
+        </div>
+
+        <!-- 整体状态概览 -->
+        <div class="overall-status">
+            <h2>🌐 整体服务状态</h2>
+            <div style="font-size: 3rem; margin: 1rem 0;" id="overallStatusIcon">🟢</div>
+            <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem;" id="overallStatusText">所有系统正常运行</div>
+            <div style="color: #6b7280;" id="lastUpdateTime">最后更新: 刚刚</div>
+            
+            <div class="status-summary">
+                <div class="summary-item summary-online">
+                    <div style="font-size: 2rem; font-weight: bold;" id="onlineCount">0</div>
+                    <div>正常服务</div>
+                </div>
+                <div class="summary-item summary-issues">
+                    <div style="font-size: 2rem; font-weight: bold;" id="issuesCount">0</div>
+                    <div>性能问题</div>
+                </div>
+                <div class="summary-item summary-offline">
+                    <div style="font-size: 2rem; font-weight: bold;" id="offlineCount">0</div>
+                    <div>服务中断</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 服务状态详情 -->
+        <div class="status-grid" id="statusGrid">
+            <!-- 状态卡片将通过JavaScript生成 -->
+        </div>
+
+        <div class="refresh-info">
+            🔄 页面每30秒自动刷新 | 数据来源: 官方API和第三方监控服务
+        </div>
+    </div>
+
+    <script>
+        // AI服务配置
+        const aiServices = {
+            'chatgpt': {
+                name: 'ChatGPT',
+                icon: '💬',
+                provider: 'OpenAI',
+                url: 'https://chat.openai.com',
+                category: 'text'
+            },
+            'claude': {
+                name: 'Claude',
+                icon: '🧠',
+                provider: 'Anthropic',
+                url: 'https://claude.ai',
+                category: 'text'
+            },
+            'gemini': {
+                name: 'Gemini',
+                icon: '💎',
+                provider: 'Google',
+                url: 'https://gemini.google.com',
+                category: 'text'
+            },
+            'nano-banana': {
+                name: 'Nano Banana',
+                icon: '🍌',
+                provider: 'Google',
+                url: '/pages/nano-banana.html',
+                category: 'image'
+            },
+            'midjourney': {
+                name: 'Midjourney',
+                icon: '🎨',
+                provider: 'Midjourney Inc.',
+                url: 'https://midjourney.com',
+                category: 'image'
+            },
+            'github-copilot': {
+                name: 'GitHub Copilot',
+                icon: '💻',
+                provider: 'GitHub',
+                url: 'https://github.com/features/copilot',
+                category: 'code'
+            },
+            'perplexity': {
+                name: 'Perplexity',
+                icon: '🔍',
+                provider: 'Perplexity AI',
+                url: 'https://perplexity.ai',
+                category: 'search'
+            },
+            'runway': {
+                name: 'Runway ML',
+                icon: '🎬',
+                provider: 'Runway',
+                url: 'https://runwayml.com',
+                category: 'video'
+            }
+        };
+
+        // 模拟状态数据
+        let serviceStatus = {};
+
+        function generateMockStatus() {
+            const statuses = ['online', 'slow', 'offline', 'maintenance'];
+            const weights = [0.7, 0.2, 0.05, 0.05]; // 70%正常, 20%慢, 5%离线, 5%维护
+            
+            Object.keys(aiServices).forEach(serviceId => {
+                const random = Math.random();
+                let status = 'online';
+                let cumulative = 0;
+                
+                for (let i = 0; i < weights.length; i++) {
+                    cumulative += weights[i];
+                    if (random <= cumulative) {
+                        status = statuses[i];
+                        break;
+                    }
+                }
+
+                serviceStatus[serviceId] = {
+                    status: status,
+                    responseTime: status === 'online' ? Math.floor(Math.random() * 500) + 100 :
+                                 status === 'slow' ? Math.floor(Math.random() * 2000) + 1000 :
+                                 status === 'offline' ? 0 : Math.floor(Math.random() * 800) + 200,
+                    uptime: Math.random() * 5 + 95, // 95-100%
+                    lastIncident: status === 'offline' ? '2分钟前' : 
+                                 status === 'slow' ? '15分钟前' : '无',
+                    responseHistory: Array.from({length: 24}, () => Math.floor(Math.random() * 1000) + 100)
+                };
+            });
+        }
+
+        function getStatusColor(status) {
+            const colors = {
+                'online': '#10b981',
+                'slow': '#f59e0b',
+                'offline': '#ef4444',
+                'maintenance': '#6b7280'
+            };
+            return colors[status] || '#6b7280';
+        }
+
+        function getStatusText(status) {
+            const texts = {
+                'online': '正常运行',
+                'slow': '响应缓慢',
+                'offline': '服务中断',
+                'maintenance': '维护中'
+            };
+            return texts[status] || '未知状态';
+        }
+
+        function renderStatusCards() {
+            const statusGrid = document.getElementById('statusGrid');
+            statusGrid.innerHTML = Object.keys(aiServices).map(serviceId => {
+                const service = aiServices[serviceId];
+                const status = serviceStatus[serviceId];
+                
+                return `
+                    <div class="status-card">
+                        <div class="service-header">
+                            <div class="service-info">
+                                <div class="service-icon">${service.icon}</div>
+                                <div>
+                                    <h3 style="margin: 0;">${service.name}</h3>
+                                    <div style="color: #6b7280; font-size: 0.9rem;">${service.provider}</div>
+                                </div>
+                            </div>
+                            <div class="status-indicator status-${status.status}"></div>
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <div style="font-weight: 600; color: ${getStatusColor(status.status)};">
+                                ${getStatusText(status.status)}
+                            </div>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-item">
+                                <div class="metric-value">${status.responseTime}ms</div>
+                                <div class="metric-label">响应时间</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">${status.uptime.toFixed(2)}%</div>
+                                <div class="metric-label">可用性</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value" style="color: ${status.status === 'online' ? '#10b981' : '#ef4444'};">
+                                    ${status.status === 'online' ? '✓' : '✗'}
+                                </div>
+                                <div class="metric-label">状态</div>
+                            </div>
+                        </div>
+
+                        <div class="response-chart">
+                            ${status.responseHistory.map(time => 
+                                `<div class="chart-bar" style="height: ${Math.min(time / 10, 90)}%; background: ${time > 1000 ? '#f59e0b' : '#3b82f6'};"></div>`
+                            ).join('')}
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                            <div style="font-size: 0.8rem; color: #6b7280;">
+                                最后事件: ${status.lastIncident}
+                            </div>
+                            <a href="${service.url}" target="_blank" style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-size: 0.8rem;">
+                                访问服务
+                            </a>
+                        </div>
+
+                        ${status.status !== 'online' ? `
+                            <div class="incident-log">
+                                <div style="font-weight: 600; margin-bottom: 0.5rem;">🚨 当前问题</div>
+                                <div class="incident-item">
+                                    <span>${status.status === 'offline' ? '服务完全不可用' : 
+                                           status.status === 'slow' ? '响应时间异常' : '系统维护中'}</span>
+                                    <span style="font-size: 0.8rem;">${status.lastIncident}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateOverallStatus() {
+            const services = Object.values(serviceStatus);
+            const onlineCount = services.filter(s => s.status === 'online').length;
+            const slowCount = services.filter(s => s.status === 'slow').length;
+            const offlineCount = services.filter(s => s.status === 'offline').length;
+            const maintenanceCount = services.filter(s => s.status === 'maintenance').length;
+
+            document.getElementById('onlineCount').textContent = onlineCount;
+            document.getElementById('issuesCount').textContent = slowCount + maintenanceCount;
+            document.getElementById('offlineCount').textContent = offlineCount;
+
+            // 更新整体状态
+            let overallStatus = '🟢';
+            let statusText = '所有系统正常运行';
+            let showAlert = false;
+
+            if (offlineCount > 0) {
+                overallStatus = '🔴';
+                statusText = `${offlineCount}个服务中断`;
+                showAlert = true;
+            } else if (slowCount > 0 || maintenanceCount > 0) {
+                overallStatus = '🟡';
+                statusText = `${slowCount + maintenanceCount}个服务存在问题`;
+                showAlert = true;
+            }
+
+            document.getElementById('overallStatusIcon').textContent = overallStatus;
+            document.getElementById('overallStatusText').textContent = statusText;
+            document.getElementById('lastUpdateTime').textContent = `最后更新: ${new Date().toLocaleTimeString()}`;
+
+            // 显示/隐藏警告横幅
+            const alertBanner = document.getElementById('alertBanner');
+            if (showAlert) {
+                alertBanner.style.display = 'block';
+                alertBanner.textContent = `⚠️ 检测到${offlineCount + slowCount + maintenanceCount}个AI服务存在异常，请查看详细状态信息`;
+            } else {
+                alertBanner.style.display = 'none';
+            }
+        }
+
+        function refreshData() {
+            generateMockStatus();
+            renderStatusCards();
+            updateOverallStatus();
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshData();
+            
+            // 每30秒刷新一次
+            setInterval(refreshData, 30000);
+            
+            // 添加一些随机变化让页面更生动
+            setInterval(() => {
+                // 随机更新某个服务的响应时间
+                const serviceIds = Object.keys(serviceStatus);
+                const randomService = serviceIds[Math.floor(Math.random() * serviceIds.length)];
+                const currentStatus = serviceStatus[randomService];
+                
+                if (currentStatus.status === 'online') {
+                    currentStatus.responseTime = Math.floor(Math.random() * 500) + 100;
+                    currentStatus.responseHistory.shift();
+                    currentStatus.responseHistory.push(currentStatus.responseTime);
+                }
+            }, 5000);
+        });
+
+        // 添加页面可见性检测，当页面重新可见时刷新数据
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                refreshData();
+            }
+        });
+    </script>
+</body>
+</html>

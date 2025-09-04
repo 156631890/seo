@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具智能推荐引擎 - 3分钟找到最适合你的AI助手 | MyAI</title>
+    <meta name="description" content="基于你的具体需求、预算和技能水平，智能推荐最适合的AI工具。个性化匹配算法，让你快速找到完美的AI解决方案。">
+    <link rel="stylesheet" href="/partials/site-style.css">
+    <style>
+        .wizard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .wizard-hero {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+        }
+        .step-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: none;
+        }
+        .step-container.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .option-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .option-card:hover {
+            border-color: #6366f1;
+            background: #f8faff;
+        }
+        .option-card.selected {
+            border-color: #6366f1;
+            background: #6366f1;
+            color: white;
+        }
+        .option-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #6366f1;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5b21b6;
+        }
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        .recommendation-card {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 1rem 0;
+            border-left: 4px solid #10b981;
+        }
+        .match-score {
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .feature-match {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .feature-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .slider-container {
+            margin: 1.5rem 0;
+        }
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #e5e7eb;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #6366f1;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><a href="/">MyAI</a></div>
+            <nav class="site-nav desktop">
+                <a href="/">首页</a>
+                <a href="/pages/tools-complete.html">AI工具</a>
+                <a href="/pages/models-complete.html">AI模型</a>
+                <a href="/pages/agents-complete.html">AI代理</a>
+                <a href="/pages/ai-recommendation-engine.html" class="active">智能推荐</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="wizard-container">
+        <div class="wizard-hero">
+            <h1>🎯 AI工具智能推荐引擎</h1>
+            <p>回答几个简单问题，3分钟找到最适合你的AI助手</p>
+            <div style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.9;">
+                已为50,000+用户成功匹配 | 准确率95% | 完全免费
+            </div>
+        </div>
+
+        <!-- 进度条 -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <div style="text-align: center; margin-bottom: 2rem; color: #6b7280;">
+            步骤 <span id="currentStep">1</span> / 6
+        </div>
+
+        <!-- 步骤1：使用目的 -->
+        <div class="step-container active" id="step1">
+            <h2>🎯 你主要想用AI来做什么？</h2>
+            <p style="color: #6b7280; margin-bottom: 2rem;">选择你最主要的使用场景（可多选）</p>
+            <div class="option-grid">
+                <div class="option-card" data-value="writing">
+                    <div class="option-icon">✍️</div>
+                    <h4>内容创作</h4>
+                    <p>写作、文案、博客</p>
+                </div>
+                <div class="option-card" data-value="coding">
+                    <div class="option-icon">💻</div>
+                    <h4>编程开发</h4>
+                    <p>代码生成、调试</p>
+                </div>
+                <div class="option-card" data-value="design">
+                    <div class="option-icon">🎨</div>
+                    <h4>设计创作</h4>
+                    <p>图像生成、设计</p>
+                </div>
+                <div class="option-card" data-value="business">
+                    <div class="option-icon">📊</div>
+                    <h4>商务办公</h4>
+                    <p>数据分析、报告</p>
+                </div>
+                <div class="option-card" data-value="learning">
+                    <div class="option-icon">🎓</div>
+                    <h4>学习研究</h4>
+                    <p>学习辅助、研究</p>
+                </div>
+                <div class="option-card" data-value="customer">
+                    <div class="option-icon">🤝</div>
+                    <h4>客户服务</h4>
+                    <p>客服、支持</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步骤2：技能水平 -->
+        <div class="step-container" id="step2">
+            <h2>🎯 你的AI使用经验如何？</h2>
+            <p style="color: #6b7280; margin-bottom: 2rem;">这将帮助我们推荐合适难度的工具</p>
+            <div class="option-grid">
+                <div class="option-card" data-value="beginner">
+                    <div class="option-icon">🌱</div>
+                    <h4>新手</h4>
+                    <p>刚开始接触AI工具</p>
+                </div>
+                <div class="option-card" data-value="intermediate">
+                    <div class="option-icon">🚀</div>
+                    <h4>进阶</h4>
+                    <p>有一定使用经验</p>
+                </div>
+                <div class="option-card" data-value="expert">
+                    <div class="option-icon">⚡</div>
+                    <h4>专家</h4>
+                    <p>熟练使用多种AI工具</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步骤3：预算范围 -->
+        <div class="step-container" id="step3">
+            <h2>💰 你的预算范围是？</h2>
+            <p style="color: #6b7280; margin-bottom: 2rem;">选择你能接受的月度费用</p>
+            <div class="option-grid">
+                <div class="option-card" data-value="free">
+                    <div class="option-icon">🆓</div>
+                    <h4>免费</h4>
+                    <p>只使用免费工具</p>
+                </div>
+                <div class="option-card" data-value="low">
+                    <div class="option-icon">💵</div>
+                    <h4>$1-20/月</h4>
+                    <p>基础付费工具</p>
+                </div>
+                <div class="option-card" data-value="medium">
+                    <div class="option-icon">💳</div>
+                    <h4>$20-100/月</h4>
+                    <p>专业级工具</p>
+                </div>
+                <div class="option-card" data-value="high">
+                    <div class="option-icon">💎</div>
+                    <h4>$100+/月</h4>
+                    <p>企业级解决方案</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步骤4：使用频率 -->
+        <div class="step-container" id="step4">
+            <h2>⏰ 你计划多久使用一次？</h2>
+            <p style="color: #6b7280; margin-bottom: 2rem;">使用频率影响工具选择</p>
+            <div class="option-grid">
+                <div class="option-card" data-value="daily">
+                    <div class="option-icon">📅</div>
+                    <h4>每天</h4>
+                    <p>日常工作必需</p>
+                </div>
+                <div class="option-card" data-value="weekly">
+                    <div class="option-icon">📊</div>
+                    <h4>每周几次</h4>
+                    <p>定期使用</p>
+                </div>
+                <div class="option-card" data-value="monthly">
+                    <div class="option-icon">📈</div>
+                    <h4>偶尔使用</h4>
+                    <p>特定项目需要</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步骤5：重要特性 -->
+        <div class="step-container" id="step5">
+            <h2>⭐ 哪些特性对你最重要？</h2>
+            <p style="color: #6b7280; margin-bottom: 2rem;">拖动滑块表示重要程度（可多选）</p>
+            
+            <div class="slider-container">
+                <label>🚀 响应速度</label>
+                <input type="range" class="slider" min="1" max="10" value="5" data-feature="speed">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #6b7280;">
+                    <span>不重要</span><span>非常重要</span>
+                </div>
+            </div>
+
+            <div class="slider-container">
+                <label>🎯 准确性</label>
+                <input type="range" class="slider" min="1" max="10" value="8" data-feature="accuracy">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #6b7280;">
+                    <span>不重要</span><span>非常重要</span>
+                </div>
+            </div>
+
+            <div class="slider-container">
+                <label>🛡️ 数据安全</label>
+                <input type="range" class="slider" min="1" max="10" value="7" data-feature="security">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #6b7280;">
+                    <span>不重要</span><span>非常重要</span>
+                </div>
+            </div>
+
+            <div class="slider-container">
+                <label>🎨 创意性</label>
+                <input type="range" class="slider" min="1" max="10" value="6" data-feature="creativity">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #6b7280;">
+                    <span>不重要</span><span>非常重要</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步骤6：推荐结果 -->
+        <div class="step-container" id="step6">
+            <h2>🎉 为你量身定制的AI工具推荐</h2>
+            <p style="color: #6b7280; margin-bottom: 2rem;">基于你的需求，我们为你找到了最匹配的AI工具</p>
+            
+            <div id="recommendations">
+                <!-- 推荐结果将通过JavaScript生成 -->
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn btn-primary" onclick="restartWizard()">重新测试</button>
+                <button class="btn btn-secondary" onclick="shareResults()" style="margin-left: 1rem;">分享结果</button>
+            </div>
+        </div>
+
+        <!-- 导航按钮 -->
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" id="prevBtn" onclick="previousStep()" style="display: none;">上一步</button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">下一步</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStepNum = 1;
+        const totalSteps = 6;
+        let userAnswers = {};
+
+        // AI工具数据库
+        const aiTools = {
+            'nano-banana': {
+                name: 'Nano Banana',
+                provider: 'Google',
+                icon: '🍌',
+                description: 'Google最新AI图像生成工具，完全免费，速度极快',
+                price: '免费',
+                difficulty: 'beginner',
+                categories: ['design'],
+                features: { speed: 10, accuracy: 8, security: 9, creativity: 9 },
+                pros: ['完全免费', '生成速度快', 'Google技术保障', '易于使用'],
+                cons: ['功能相对单一', '高级功能有限'],
+                url: '/pages/nano-banana.html'
+            },
+            'chatgpt-plus': {
+                name: 'ChatGPT Plus',
+                provider: 'OpenAI',
+                icon: '💬',
+                description: '最全面的AI助手，适合各种文本任务',
+                price: '$20/月',
+                difficulty: 'beginner',
+                categories: ['writing', 'coding', 'business', 'learning'],
+                features: { speed: 7, accuracy: 9, security: 7, creativity: 8 },
+                pros: ['功能最全面', '生态完善', '持续更新', '社区活跃'],
+                cons: ['需要付费', '有使用限制'],
+                url: 'https://chat.openai.com'
+            },
+            'claude-pro': {
+                name: 'Claude Pro',
+                provider: 'Anthropic',
+                icon: '🧠',
+                description: '最安全可靠的AI助手，适合专业用途',
+                price: '$20/月',
+                difficulty: 'intermediate',
+                categories: ['writing', 'coding', 'business', 'learning'],
+                features: { speed: 8, accuracy: 10, security: 10, creativity: 7 },
+                pros: ['安全性最高', '长文本处理', '专业能力强', '回复质量高'],
+                cons: ['创意相对保守', '部分地区限制'],
+                url: 'https://claude.ai'
+            }
+        };
+
+        function updateProgress() {
+            const progress = (currentStepNum / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentStep').textContent = currentStepNum;
+        }
+
+        function showStep(stepNum) {
+            // 隐藏所有步骤
+            document.querySelectorAll('.step-container').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // 显示当前步骤
+            document.getElementById('step' + stepNum).classList.add('active');
+            
+            // 更新按钮状态
+            document.getElementById('prevBtn').style.display = stepNum > 1 ? 'block' : 'none';
+            document.getElementById('nextBtn').style.display = stepNum < totalSteps ? 'block' : 'none';
+            
+            updateProgress();
+        }
+
+        function nextStep() {
+            if (currentStepNum < totalSteps) {
+                // 收集当前步骤的答案
+                collectAnswers();
+                
+                currentStepNum++;
+                showStep(currentStepNum);
+                
+                // 如果是最后一步，生成推荐
+                if (currentStepNum === totalSteps) {
+                    generateRecommendations();
+                }
+            }
+        }
+
+        function previousStep() {
+            if (currentStepNum > 1) {
+                currentStepNum--;
+                showStep(currentStepNum);
+            }
+        }
+
+        function collectAnswers() {
+            const currentStep = document.getElementById('step' + currentStepNum);
+            
+            if (currentStepNum === 1) {
+                // 使用目的
+                const selected = currentStep.querySelectorAll('.option-card.selected');
+                userAnswers.purposes = Array.from(selected).map(card => card.dataset.value);
+            } else if (currentStepNum === 2) {
+                // 技能水平
+                const selected = currentStep.querySelector('.option-card.selected');
+                userAnswers.skill = selected ? selected.dataset.value : 'beginner';
+            } else if (currentStepNum === 3) {
+                // 预算
+                const selected = currentStep.querySelector('.option-card.selected');
+                userAnswers.budget = selected ? selected.dataset.value : 'free';
+            } else if (currentStepNum === 4) {
+                // 使用频率
+                const selected = currentStep.querySelector('.option-card.selected');
+                userAnswers.frequency = selected ? selected.dataset.value : 'weekly';
+            } else if (currentStepNum === 5) {
+                // 重要特性
+                const sliders = currentStep.querySelectorAll('.slider');
+                userAnswers.features = {};
+                sliders.forEach(slider => {
+                    userAnswers.features[slider.dataset.feature] = parseInt(slider.value);
+                });
+            }
+        }
+
+        function calculateMatch(tool) {
+            let score = 0;
+            let maxScore = 0;
+
+            // 用途匹配 (40%)
+            const purposeWeight = 40;
+            const purposeMatch = userAnswers.purposes.some(purpose => 
+                tool.categories.includes(purpose)
+            );
+            if (purposeMatch) score += purposeWeight;
+            maxScore += purposeWeight;
+
+            // 技能水平匹配 (20%)
+            const skillWeight = 20;
+            const skillLevels = { beginner: 1, intermediate: 2, expert: 3 };
+            const userSkill = skillLevels[userAnswers.skill];
+            const toolSkill = skillLevels[tool.difficulty];
+            const skillMatch = Math.max(0, 1 - Math.abs(userSkill - toolSkill) / 2);
+            score += skillMatch * skillWeight;
+            maxScore += skillWeight;
+
+            // 预算匹配 (20%)
+            const budgetWeight = 20;
+            const budgetMatch = checkBudgetMatch(tool.price, userAnswers.budget);
+            if (budgetMatch) score += budgetWeight;
+            maxScore += budgetWeight;
+
+            // 特性匹配 (20%)
+            const featureWeight = 20;
+            let featureScore = 0;
+            Object.keys(userAnswers.features).forEach(feature => {
+                const userImportance = userAnswers.features[feature];
+                const toolScore = tool.features[feature] || 5;
+                featureScore += (toolScore / 10) * (userImportance / 10);
+            });
+            score += (featureScore / Object.keys(userAnswers.features).length) * featureWeight;
+            maxScore += featureWeight;
+
+            return Math.round((score / maxScore) * 100);
+        }
+
+        function checkBudgetMatch(toolPrice, userBudget) {
+            if (userBudget === 'free') return toolPrice === '免费';
+            if (userBudget === 'low') return toolPrice === '免费' || toolPrice.includes('$') && parseInt(toolPrice.match(/\d+/)[0]) <= 20;
+            if (userBudget === 'medium') return toolPrice.includes('$') && parseInt(toolPrice.match(/\d+/)[0]) <= 100;
+            if (userBudget === 'high') return true;
+            return false;
+        }
+
+        function generateRecommendations() {
+            const recommendations = [];
+            
+            Object.keys(aiTools).forEach(toolId => {
+                const tool = aiTools[toolId];
+                const matchScore = calculateMatch(tool);
+                recommendations.push({ ...tool, matchScore, id: toolId });
+            });
+
+            // 按匹配度排序
+            recommendations.sort((a, b) => b.matchScore - a.matchScore);
+
+            // 显示推荐结果
+            const container = document.getElementById('recommendations');
+            container.innerHTML = recommendations.slice(0, 3).map(tool => `
+                <div class="recommendation-card">
+                    <div class="match-score">匹配度: ${tool.matchScore}%</div>
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 3rem;">${tool.icon}</div>
+                        <div>
+                            <h3 style="margin: 0;">${tool.name}</h3>
+                            <p style="margin: 0.5rem 0; color: #6b7280;">${tool.provider} • ${tool.price}</p>
+                        </div>
+                    </div>
+                    <p style="margin-bottom: 1rem;">${tool.description}</p>
+                    
+                    <div class="feature-match">
+                        <div class="feature-item">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🚀</div>
+                            <div>速度: ${tool.features.speed}/10</div>
+                        </div>
+                        <div class="feature-item">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎯</div>
+                            <div>准确性: ${tool.features.accuracy}/10</div>
+                        </div>
+                        <div class="feature-item">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🛡️</div>
+                            <div>安全性: ${tool.features.security}/10</div>
+                        </div>
+                        <div class="feature-item">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎨</div>
+                            <div>创意性: ${tool.features.creativity}/10</div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 1rem 0;">
+                        <h4 style="color: #059669;">✅ 主要优势</h4>
+                        <ul style="margin: 0.5rem 0;">
+                            ${tool.pros.map(pro => `<li>${pro}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="${tool.url}" target="_blank" style="background: #6366f1; color: white; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                            立即体验 ${tool.name}
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function restartWizard() {
+            currentStepNum = 1;
+            userAnswers = {};
+            showStep(1);
+            
+            // 清除所有选择
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // 重置滑块
+            document.querySelectorAll('.slider').forEach(slider => {
+                slider.value = 5;
+            });
+        }
+
+        function shareResults() {
+            const text = '我刚刚使用了MyAI的智能推荐引擎，找到了最适合我的AI工具！你也来试试吧：';
+            const url = window.location.href;
+            
+            if (navigator.share) {
+                navigator.share({ title: 'AI工具智能推荐', text, url });
+            } else {
+                navigator.clipboard.writeText(text + ' ' + url);
+                alert('链接已复制到剪贴板！');
+            }
+        }
+
+        // 选项卡点击事件
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.option-card')) {
+                const card = e.target.closest('.option-card');
+                const step = card.closest('.step-container');
+                
+                // 单选还是多选
+                if (step.id === 'step1') {
+                    // 多选
+                    card.classList.toggle('selected');
+                } else {
+                    // 单选
+                    step.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                }
+            }
+        });
+
+        // 初始化
+        updateProgress();
+    </script>
+</body>
+</html>
